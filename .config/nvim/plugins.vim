@@ -12,6 +12,9 @@ Plug 'vim-airline/vim-airline'
 " Para insertar pares de paréntesis, comillas, etc.
 Plug 'jiangmiao/auto-pairs'
 
+" Para automatizar tablas
+Plug 'https://github.com/dhruvasagar/vim-table-mode' 
+
 " Comentarios
 Plug 'tpope/vim-commentary'
 
@@ -55,6 +58,11 @@ set conceallevel=2
 " *********************************************************
 " Auto-pairs
 let g:AutoPairsFlyMode = 1
+
+
+" *********************************************************
+" Table-mode
+let g:table_mode_corner='|'
 
 
 " *********************************************************
