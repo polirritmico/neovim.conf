@@ -96,12 +96,17 @@ exec 'nnoremap <Leader>sr :so ' .
 " Runners
 autocmd FileType python noremap <leader>rr :! python __main__.py<CR>
 
+" *********************************************************
 " Unittest Python
 autocmd FileType python
             \ nnoremap <leader>rt :! python -m unittest discover . -b<CR>
 autocmd FileType python
             \ nnoremap <leader>rT :! python -m unittest discover .<CR>
 
+autocmd FileType python
+            \ nnoremap <leader>ts :%s/ #@unittest.skip/ @unittest.skip/<CR>
+autocmd FileType python
+            \ nnoremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/<CR>
 
 
 " *********************************************************

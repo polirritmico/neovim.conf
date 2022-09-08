@@ -8,6 +8,20 @@ snippet header "Python Header" b
 $0
 endsnippet
 
+snippet unittest "Unitest layout" b
+import unittest
+
+class TestBase(unittest.TestCase):
+
+	#@unittest.skip
+	def test_example(self):
+		self.assertEqual("Foo", "Foo")
+
+	#@unittest.skip
+	def test_example2(self):
+		self.assertEqual("Bar", "BAR")
+endsnippet
+
 snippet test "Unittest test definition" b
 #@unittest.skip
 def test_${1:description}(self):
