@@ -10,16 +10,16 @@ endsnippet
 
 snippet unittest "Unitest layout" b
 import unittest
+from REPLACE import *
 
 class TestBase(unittest.TestCase):
 
 	#@unittest.skip
 	def test_example(self):
-		self.assertEqual("Foo", "Foo")
-
-	#@unittest.skip
-	def test_example2(self):
-		self.assertEqual("Bar", "BAR")
+		input = "input"
+		expected = "expected"
+		output = testFunction(input)
+		self.assertEqual(output, expected)
 endsnippet
 
 snippet test "Unittest test definition" b
