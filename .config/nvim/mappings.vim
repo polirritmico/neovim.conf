@@ -95,6 +95,7 @@ exec 'nnoremap <Leader>sr :so ' .
 " *********************************************************
 " Runners
 autocmd FileType python noremap <leader>rr :! python __main__.py<CR>
+autocmd FileType python noremap <leader>rd :! python -m pdb __main__.py<CR>
 
 " *********************************************************
 " Unittest Python
@@ -111,6 +112,19 @@ autocmd FileType python
 
 " *********************************************************
 " Plugins
+
+" Debugger
+nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
+nnoremap <silent> <F3> <Cmd>lua require'dap'.step_over()<CR>
+nnoremap <silent> <F2> <Cmd>lua require'dap'.step_into()<CR>
+nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
+nnoremap <silent> <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <Leader>do <Cmd>lua require'dap'.repl.open()<CR>
+nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.run_last()<CR>
+nnoremap <silent> <Leader>du <Cmd>lua require'dapui'.toggle()<CR>
+
 
 " UltiSnips
 " Trigger

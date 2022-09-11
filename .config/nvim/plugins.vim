@@ -3,40 +3,73 @@
 " *********************************************************
 call plug#begin('~/.local/share/nvim/plugged')
 
+" ------------------------
+"  Visualización
+" ------------------------
 " Tema y colores
-Plug 'patstockwell/vim-monokai-tasty'
+Plug 'https://github.com/patstockwell/vim-monokai-tasty'
 
 " Barra de estado ajustada
-Plug 'vim-airline/vim-airline'
+Plug 'https://github.com/vim-airline/vim-airline'
+
+" Syntax highlight
+Plug 'https://github.com/vim-python/python-syntax'
+Plug 'https://github.com/habamax/vim-godot'
+
+" LaTeX
+Plug 'https://github.com/lervag/vimtex'
+
+" Markdown
+Plug 'https://github.com/preservim/vim-markdown'
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 " Para insertar pares de paréntesis, comillas, etc.
-Plug 'jiangmiao/auto-pairs'
+Plug 'https://github.com/jiangmiao/auto-pairs'
 
+" ------------------------
+" Funciones
+" ------------------------
 " Para automatizar tablas
 Plug 'https://github.com/dhruvasagar/vim-table-mode' 
 
 " Comentarios
-Plug 'tpope/vim-commentary'
+Plug 'https://github.com/tpope/vim-commentary'
 
+
+" ------------------------
+" Ayudas al código
+" ------------------------
 " Autocomplete (Instrucciones para instalar abajo en la sección)
-Plug 'ycm-core/YouCompleteMe'
+Plug 'https://github.com/ycm-core/YouCompleteMe'
 
 " Snippets engine
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'https://github.com/SirVer/ultisnips' | Plug 'https://github.com/honza/vim-snippets'
 
-" Syntax highlight
-Plug 'vim-python/python-syntax'
-Plug 'habamax/vim-godot'
-
-" LaTeX
-Plug 'lervag/vimtex'
-
-" Markdown
-Plug 'preservim/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+" Debugger
+Plug 'https://github.com/mfussenegger/nvim-dap'
+Plug 'https://github.com/rcarriga/nvim-dap-ui'
+Plug 'https://github.com/mfussenegger/nvim-dap-python'
 
 
 call plug#end()
+
+" *********************************************************
+" Debugger
+lua << EOF
+require("dapui").setup()
+require('dap-python').setup('~/.local/share/nvim/debugpy/bin/python')
+--require('dap-python').setup('~/.local/share/nvim/debugpy/bin/python')
+--local dap, dapui = require("dap"), require("dapui")
+--dap.listeners.after.event_initialized["dapui_config"] = function()
+--  dapui.open()
+--end
+--dap.listeners.before.event_terminated["dapui_config"] = function()
+--  dapui.close()
+--end
+--dap.listeners.before.event_exited["dapui_config"] = function()
+--  dapui.close()
+--end
+EOF
 
 
 " *********************************************************
