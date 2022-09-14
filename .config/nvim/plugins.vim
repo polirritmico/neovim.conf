@@ -12,15 +12,18 @@ Plug 'https://github.com/patstockwell/vim-monokai-tasty'
 " Barra de estado ajustada
 Plug 'https://github.com/vim-airline/vim-airline'
 
+" Language syntax
+Plug 'https://github.com/sheerun/vim-polyglot'
+
 " Syntax highlight
-Plug 'https://github.com/vim-python/python-syntax'
+"Plug 'https://github.com/vim-python/python-syntax'
 Plug 'https://github.com/habamax/vim-godot'
 
 " LaTeX
 Plug 'https://github.com/lervag/vimtex'
 
 " Markdown
-Plug 'https://github.com/preservim/vim-markdown'
+"Plug 'https://github.com/preservim/vim-markdown'
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 " Para insertar pares de paréntesis, comillas, etc.
@@ -82,6 +85,7 @@ EOF
 " Sintaxis
 let g:python_highlight_func_calls = 1
 let g:python_highlight_all = 1
+let g:vim_markdown_conceal_code_blocks = 0
 
 " vim-markdown
 set conceallevel=2
@@ -90,7 +94,7 @@ set conceallevel=2
 
 " *********************************************************
 " Auto-pairs
-let g:AutoPairsFlyMode = 1
+"let g:AutoPairsFlyMode = 1
 
 
 " *********************************************************
