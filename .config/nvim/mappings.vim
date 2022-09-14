@@ -36,7 +36,7 @@ cnoremap <expr> <right> getcmdline()[:1] is 'e ' && wildmenumode() ?
 nnoremap <leader>l  :bnext<CR>
 nnoremap <leader>h  :bprevious<CR>
 " Cerrar buffer sin cerrar ventana
-nnoremap <leader>d  :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <leader>db  :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " Regresar al archivo anterior
 nnoremap <leader>gb  <C-^>
@@ -123,7 +123,7 @@ nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('B
 nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <Leader>do <Cmd>lua require'dap'.repl.open()<CR>
 nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.run_last()<CR>
-nnoremap <silent> <Leader>du <Cmd>lua require'dapui'.toggle()<CR>
+nnoremap <silent> <Leader>dg <Cmd>lua require'dapui'.toggle()<CR>
 
 
 " UltiSnips
