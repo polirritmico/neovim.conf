@@ -1,14 +1,15 @@
 -- Vim-airline (status bar)
+--require("vim-airline").setup({
 vim.cmd([[
 let g:airline_theme='monokai_tasty'
 let g:airline#extensions#default#section_truncate_width = {
-  \ 'b': 79,
-  \ 'x': 60,
-  \ 'y': 88,
-  \ 'z': 45,
-  \ 'warning': 80,
-  \ 'error': 80,
-  \ }]])
+    \ 'b': 79,
+    \ 'x': 60,
+    \ 'y': 88,
+    \ 'z': 45,
+    \ 'warning': 80,
+    \ 'error': 80,
+\ }]])
 
 --
 -- +---------------------------------------------------------------+
@@ -29,3 +30,4 @@ let g:airline#extensions#default#section_truncate_width = {
 -- | A | B |                   C                X | Y | Z |  [...] |
 -- +---------------------------------------------------------------+
 --
+--})

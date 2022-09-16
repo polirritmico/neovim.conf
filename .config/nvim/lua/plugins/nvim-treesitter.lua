@@ -1,10 +1,13 @@
 -- nvim-treesitter
 
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter.configs").setup({
     -- Parsers names:
     -- A list of parser names, or "all"
     --ensure_installed = "all",
-    ensure_installed = { "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript", "make", "markdown", "python", "regex", "sql", "vim" },
+    ensure_installed = { 
+        "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript",
+        "make", "markdown", "python", "regex", "sql", "vim"
+    },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -41,4 +44,4 @@ require("nvim-treesitter.configs").setup {
         -- languages
         additional_vim_regex_highlighting = false,
     },
-}
+})
