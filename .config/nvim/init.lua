@@ -1,6 +1,6 @@
------------------
+-------------------
 -- Neovim config --
------------------
+-------------------
 
 -- Using Packer as plugin manager:
 --      https://github.com/wbthomason/packer.nvim

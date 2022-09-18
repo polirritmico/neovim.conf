@@ -72,7 +72,6 @@ return require("packer").startup(function(use)
         end,
     })
 
-
     -- Para automatizar tablas
     use({"https://github.com/dhruvasagar/vim-table-mode",
         config = function()
@@ -82,11 +81,6 @@ return require("packer").startup(function(use)
 
     -- Comentarios
     use({"https://github.com/tpope/vim-commentary"})
-    --use({"https://github.com/tpope/vim-commentary",
-    --    config = function()
-    --        require("plugins.vim-comentary")
-    --    end,
-    --})
 
     -- Escritura sin distracciones
     use({"https://github.com/junegunn/goyo.vim"})
