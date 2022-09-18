@@ -6,7 +6,7 @@ require("nvim-treesitter.configs").setup({
     --ensure_installed = "all",
     ensure_installed = { 
         "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript",
-        "make", "markdown", "python", "regex", "sql", "vim"
+        "make", "python", "regex", "sql", "vim"
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -17,7 +17,7 @@ require("nvim-treesitter.configs").setup({
 
     -- List of parsers to ignore installing (for "all")
     -- Latex: Handled by VimTeX
-    ignore_install = { "latex" },
+    ignore_install = { "latex", "markdown" },
 
     -- If you need to change the installation directory of the parsers (see ->
     -- Advanced Setup) parser_install_dir = "/some/path/to/store/parsers", --
@@ -34,7 +34,7 @@ require("nvim-treesitter.configs").setup({
         -- parser)
         -- list of language that will be disabled
         --disable = { "c", "rust" },
-        disable = { "latex" },
+        disable = { "latex", "markdown" },
 
         -- Setting this to true will run `:h syntax` and tree-sitter at the
         -- same time. Set this to `true` if you depend on 'syntax' being

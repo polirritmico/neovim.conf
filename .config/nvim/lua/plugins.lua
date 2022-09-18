@@ -9,7 +9,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     command = "source <afile> | PackerCompile",
 })
 
--- Carga de plugins
+
+-- Carga de plugins ---------------------------------------
 return require("packer").startup(function(use)
     -- Packer
     use("https://github.com/wbthomason/packer.nvim")
@@ -51,11 +52,18 @@ return require("packer").startup(function(use)
             require("plugins.markdown")
         end,
     })
+ 
+    use({
+        "https://github.com/iamcco/markdown-preview.nvim",
+        run = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+    })
 
 
-    ---------------------
-    ---- Funcionalidad --
-    ---------------------
+    -------------------
+    -- Funcionalidad --
+    -------------------
 
     -- Pares de paréntesis, comillas, llaves, etc.
     use({"https://github.com/jiangmiao/auto-pairs",
@@ -65,7 +73,7 @@ return require("packer").startup(function(use)
     })
 
 
-    ---- Para automatizar tablas
+    -- Para automatizar tablas
     use({"https://github.com/dhruvasagar/vim-table-mode",
         config = function()
             require("plugins.vim-table-mode")
@@ -80,10 +88,13 @@ return require("packer").startup(function(use)
     --    end,
     --})
 
+    -- Escritura sin distracciones
+    use({"https://github.com/junegunn/goyo.vim"})
 
-    ---------------------------
-    ---- Ayudantes de código --
-    ---------------------------
+
+    -------------------------
+    -- Ayudantes de código --
+    -------------------------
 
     -- YouCompleteMe (autocompletado)
     use({"https://github.com/ycm-core/YouCompleteMe",
