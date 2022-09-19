@@ -96,6 +96,7 @@ return require("packer").startup(function(use)
             {"https://github.com/BurntSushi/ripgrep"}
         },
     })
+    -- Requires system package <sys-aps/ripgrep>
     use({'nvim-telescope/telescope-fzf-native.nvim',
         requires = {"nvim-telescope/telescope.nvim"},
         run = "make"
