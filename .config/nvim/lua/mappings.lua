@@ -105,3 +105,31 @@ autocmd("python", [[noremap <leader>ts :%s/ #@unittest.skip/ @unittest.skip/]])
 autocmd("python", [[noremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/]])
 
 
+
+-------------
+-- Plugins --
+-------------
+
+-- Telescope
+map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
+map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
+map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
+map("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
+map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
+
+
+-- DAP Debugger
+map({"n", "v"}, "<F5>", "<Cmd>lua require'dap'.continue()<CR>")
+map({"n", "v"}, "<F3>", "<Cmd>lua require'dap'.step_over()<CR>")
+map({"n", "v"}, "<F2>", "<Cmd>lua require'dap'.step_into()<CR>")
+map({"n", "v"}, "<F12>", "<Cmd>lua require'dap'.step_out()<CR>")
+map({"n", "v"}, "<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>")
+map({"n", "v"}, "<Leader>do", "<Cmd>lua require'dap'.repl.open()<CR>")
+map({"n", "v"}, "<Leader>dr", "<Cmd>lua require'dap'.run_last()<CR>")
+map({"n", "v"}, "<Leader>dg", "<Cmd>lua require'dapui'.toggle()<CR>")
+map({"n", "v"}, "<Leader>B", "<Cmd>lua require'dap'.set_breakpoint(" ..
+                             "vim.fn.input('Breakpoint condition: '))<CR>")
+map({"n", "v"}, "<Leader>dl", "<Cmd>lua require'dap'.set_breakpoint(nil, " ..
+                              "nil, vim.fn.input('Log point message: '))<CR>")
+
+
