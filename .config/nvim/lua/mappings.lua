@@ -74,7 +74,7 @@ map({"n", "v"}, "<leader>ps", '"*p')       -- Pegar desde la Selección (X11)
 -- CONFIGURACIONES --
 
 -- Carga las configuraciones del archivo actual
-map("n", "<leader>CR", ":luafile %<CR>")
+map("n", "<leader>CR", ":source %<CR>")
 
 -- Abrir configuraciones
 map("n", "<leader>CC", ":e $XDG_CONFIG_HOME/nvim/init.lua<CR>")

@@ -46,13 +46,13 @@ return require("packer").startup(function(use)
         end,
     })
 
-    ---- Markdown
+    -- Markdown
     use({"https://github.com/preservim/vim-markdown",
         config = function()
             require("plugins.markdown")
         end,
     })
- 
+
     use({
         "https://github.com/iamcco/markdown-preview.nvim",
         run = function()
@@ -85,6 +85,21 @@ return require("packer").startup(function(use)
     -- Escritura sin distracciones
     use({"https://github.com/junegunn/goyo.vim"})
 
+    -- Telescope (Fuzzy finder)
+    use({"https://github.com/nvim-telescope/telescope.nvim",
+        tag = "0.1.0",
+        config = function()
+            require("plugins.telescope")
+        end,
+        requires = {
+            {"https://github.com/nvim-lua/plenary.nvim"},
+            {"https://github.com/BurntSushi/ripgrep"}
+        },
+    })
+    use({'nvim-telescope/telescope-fzf-native.nvim',
+        requires = {"nvim-telescope/telescope.nvim"},
+        run = "make"
+    })
 
     -------------------------
     -- Ayudantes de código --
