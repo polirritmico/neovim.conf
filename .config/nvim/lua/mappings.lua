@@ -116,6 +116,7 @@ map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
 map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
 map("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
 map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
+map({"n", "v"}, "<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>")
 
 
 -- DAP Debugger
