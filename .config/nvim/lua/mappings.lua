@@ -60,9 +60,16 @@ map("n", "<leader>gb", "<C-^>")
 
 
 
--- CLIPBOARD DEL SISTEMA --
+-- REGISTROS Y CLIPBOARD DEL SISTEMA --
+-- Toda la info en :help registers
+map({"n", "v"}, "p", '"0p')
+map({"n", "v"}, "P", '"0P')
+map({"n", "v"}, "<leader><leader>p", '""p')
+map({"n", "v"}, "<leader><leader>P", '""P')
 
--- '*' → selección, '+' → clipboard
+-- y/Y: Solo yank guarda en el registro <0>
+-- y/Y/d/D/x/X/c/C/s/S: modifican el registro <">
+-- <*>: registro de selección, <+>: registro de clipboard
 map({"n", "v"}, "<leader>y", '"+y')        -- Copia al clipboard del sistema
 map({"n", "v"}, "<leader>pp", 'o<ESC>"+p') -- Pegar del clipboard a nueva línea
 map({"n", "v"}, "<leader>pP", 'O<ESC>"+p') -- Pegar del clipboard a línea ant.
@@ -110,13 +117,17 @@ autocmd("python", [[noremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/]])
 -- Plugins --
 -------------
 
--- Telescope
-map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
-map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
-map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
-map("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>")
-map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
-map({"n", "v"}, "<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>")
+-- Telescope / Exploración de archivos
+map({"n", "v"}, "<leader>fe", "<CMD>Ex<CR>")                    -- file explorer
+map({"n", "v"}, "<leader>ff", "<CMD>Telescope find_files<CR>")  -- find files
+map({"n", "v"}, "<leader>fg", "<CMD>Telescope live_grep<CR>")   -- find grep
+map({"n", "v"}, "<leader>fb", "<CMD>Telescope buffers<CR>")     -- find buffers
+map({"n", "v"}, "<leader>fr", "<CMD>Telescope oldfiles<CR>")    -- find recents
+map({"n", "v"}, "<leader>fh", "<CMD>Telescope help_tags<CR>")   -- find help
+map({"n", "v"}, "<leader>fs",                                   -- find selected
+    "<CMD>lua require'telescope.builtin'.grep_string{}<CR>")
+map({"n", "v"}, "<leader>fF",                                   -- ff from current buffer location
+    "<CMD>lua require'telescope.builtin'.find_files{cwd = vim.fn.expand('%:p:h')}<CR>")
 
 
 -- DAP Debugger

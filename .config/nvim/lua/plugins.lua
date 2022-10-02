@@ -53,12 +53,12 @@ return require("packer").startup(function(use)
         end,
     })
 
-    use({
-        "https://github.com/iamcco/markdown-preview.nvim",
-        run = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-    })
+    -- use({"https://github.com/iamcco/markdown-preview.nvim",
+    --     config = function() require("plugins.markdown") end,
+    --     run = function()
+    --         vim.fn["mkdp#util#install"]()
+    --     end,
+    -- })
 
 
     -------------------
