@@ -28,8 +28,8 @@ g.mapleader = " "
 g.maplocalleader = ","
 
 -- Comandos a ñ (misma posición ANSI)
-set("n", "ñ", ":")
-set("n", "Ñ", ";")
+set({"n", "v"}, "ñ", ":")
+set({"n", "v"}, "Ñ", ";")
 
 -- Goto mark no reconoce la tecla ` en teclado español
 map("n", "<bar>", "`")
@@ -52,8 +52,8 @@ vim.cmd [[
 -- Moverse entre buffers:
 map("n", "<leader>l", ":bnext<CR>")
 map("n", "<leader>h", ":bprevious<CR>")
-map("n", "<leader>db", ":bdelete<CR>")
---map("n", "<leader>d", ":bp<bar>sp<bar>bn<bar>bd<CR>")
+--map("n", "<leader>db", ":bdelete<CR>")
+map("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>")
 
 -- Regresar al archivo anterior 'go back'
 map("n", "<leader>gb", "<C-^>")
@@ -62,10 +62,10 @@ map("n", "<leader>gb", "<C-^>")
 
 -- REGISTROS Y CLIPBOARD DEL SISTEMA --
 -- Toda la info en :help registers
-map({"n", "v"}, "p", '"0p')
-map({"n", "v"}, "P", '"0P')
-map({"n", "v"}, "<leader><leader>p", '""p')
-map({"n", "v"}, "<leader><leader>P", '""P')
+--map({"n", "v"}, "p", '"0p')
+--map({"n", "v"}, "P", '"0P')
+map({"n", "v"}, "<leader><leader>p", '"0p')
+map({"n", "v"}, "<leader><leader>P", '"0P')
 
 -- y/Y: Solo yank guarda en el registro <0>
 -- y/Y/d/D/x/X/c/C/s/S: modifican el registro <">

@@ -107,6 +107,10 @@ return require("packer").startup(function(use)
     -------------------------
 
     -- YouCompleteMe (autocompletado)
+    -- Si da problemas recompilar:
+    --   $ cd $XDG_DATA_HOME/nvim/site/pack/packer/start/YouCompleteMe/
+    --   $ python3 install.py
+    -- Info en https://github.com/ycm-core/YouCompleteMe#linux-64-bit
     use({"https://github.com/ycm-core/YouCompleteMe",
         config = function()
             require("plugins.YouCompleteMe")
