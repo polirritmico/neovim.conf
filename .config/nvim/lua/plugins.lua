@@ -60,6 +60,9 @@ return require("packer").startup(function(use)
         end,
     })
 
+    -- QML
+    use({"https://github.com/peterhoeg/vim-qml"})
+
 
     -------------------
     -- Funcionalidad --
