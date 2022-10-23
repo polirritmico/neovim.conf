@@ -2,18 +2,41 @@
 -- PACKER CONFIG --
 -------------------
 
+-- Instalar Packer si no está instalado
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
+    vim.api.nvim_command("packadd packer.nvim")
+end
+
 -- Autocommand para correr :PackerCompile después de actualizar este archivo
 vim.api.nvim_create_autocmd("BufWritePost", {
     group = vim.api.nvim_create_augroup("Packer", { clear=true }),
-    pattern = "packer.lua",
+    pattern = "*/plugins/init.lua",
     command = "source <afile> | PackerCompile",
 })
 
+-- Usar una llamada protegida para evitar errores en la primera ejecución
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+    return
+end
+
+-- Que Packer utilice una ventana emergente
+packer.init {
+	compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'), 'site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua'),
+	display = {
+		open_fn = function()
+			return require('packer.util').float { border = 'rounded' }
+		end,
+	},
+}
 
 -- Carga de plugins ---------------------------------------
 return require("packer").startup(function(use)
     -- Packer
-    use("https://github.com/wbthomason/packer.nvim")
+    use({"https://github.com/wbthomason/packer.nvim"})
 
     -------------------
     -- Visualización --
@@ -26,16 +49,6 @@ return require("packer").startup(function(use)
     use({"https://github.com/vim-airline/vim-airline",
         config = function()
             require("plugins.vim-airline")
-        end,
-    })
-
-    -- Resaltado de sintaxis
-    use({
-        "https://github.com/nvim-treesitter/nvim-treesitter",
-        --event = "CursorHold",
-        run = ":TSUpdate",
-        config = function ()
-            require("plugins.nvim-treesitter")
         end,
     })
 
@@ -109,6 +122,23 @@ return require("packer").startup(function(use)
     -- Ayudantes de código --
     -------------------------
 
+    -- Resaltado de sintaxis
+    use({
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        --event = "CursorHold",
+        run = ":TSUpdate",
+        config = function ()
+            require("plugins.nvim-treesitter")
+        end,
+    })
+
+    -- LSP (Language Service Provider)
+    -- use({"https://github.com/neovim/nvim-lspconfig",
+    --     config = function()
+    --         require("plugins.lsp")
+    --     end,
+    -- })
+
     -- YouCompleteMe (autocompletado)
     -- Si da problemas recompilar:
     --   $ cd $XDG_DATA_HOME/nvim/site/pack/packer/start/YouCompleteMe/
@@ -132,9 +162,10 @@ return require("packer").startup(function(use)
     use({{"https://github.com/mfussenegger/nvim-dap",
         config = function()
             require("plugins.nvim-dap")
-        end,},
-        {"https://github.com/rcarriga/nvim-dap-ui", requires = "nvim-dap"},
-        {"https://github.com/mfussenegger/nvim-dap-python", requires = "nvim-dap"},
+        end,
+        },
+        {"https://github.com/rcarriga/nvim-dap-ui"},
+        {"https://github.com/mfussenegger/nvim-dap-python"},
     })
 
 end)

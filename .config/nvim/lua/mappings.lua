@@ -86,7 +86,7 @@ map("n", "<leader>CR", ":source %<CR>")
 -- Abrir configuraciones
 map("n", "<leader>CC", ":e $XDG_CONFIG_HOME/nvim/init.lua<CR>")
 map("n", "<leader>CM", ":e $XDG_CONFIG_HOME/nvim/lua/mappings.lua<CR>")
-map("n", "<leader>CP", ":e $XDG_CONFIG_HOME/nvim/lua/plugins.lua<CR>")
+map("n", "<leader>CP", ":e $XDG_CONFIG_HOME/nvim/lua/plugins/init.lua<CR>")
 map("n", "<leader>CS", ":e $XDG_CONFIG_HOME/nvim/lua/settings.lua<CR>")
 
 
@@ -116,6 +116,8 @@ autocmd("python", [[noremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/]])
 -------------
 -- Plugins --
 -------------
+
+-- LSP
 
 -- Telescope / Exploración de archivos
 map({"n", "v"}, "<leader>fe", "<CMD>Ex<CR>")                    -- file explorer

@@ -4,14 +4,15 @@
 
 -- UltiSnips stuff 
 --let g:UltiSnipsSnippetDirectories = ['/$HOME/.config/nvim/UltiSnips', 'UltiSnips']
+vim.g.UltiSnipsSnippetDirectories = {"snips", "UltiSnips"}
 --let g:UltiSnipsExpandTrigger = "<nop>"
 --inoremap <expr> <CR> pumvisible() ? \
 --<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>" : "\<CR>"
 
 -- Trigger
-vim.g.UltiSnipsExpandTrigger="<C-j>"
-vim.g.UltiSnipsJumpForwardTrigger="<C-j>"
-vim.g.UltiSnipsJumpBackwardTrigger="<C-k>"
+vim.g.UltiSnipsExpandTrigger = "<C-j>"
+vim.g.UltiSnipsJumpForwardTrigger = "<C-j>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 -- YCM compatibilidad con UltiSnips
 --let g:ycm_use_ultisnips_completer = 1

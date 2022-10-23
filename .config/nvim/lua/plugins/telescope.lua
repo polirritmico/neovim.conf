@@ -1,8 +1,7 @@
 -- Telescope
-
 require("telescope").setup({
     extensions = {
-        fzf = {
+        ["fzf"] = {
             fuzzy = true,
             override_generic_sorter = true
         }
