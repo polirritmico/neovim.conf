@@ -50,13 +50,10 @@ return require("packer").startup(function(use)
     -- Se necesita cambiar el color de danger porque con treesitter no cambia
     -- el color del fg a blanco:
     -- $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors
-    -- l50: let s:danger = { 'cterm': 197, 'gui': '#ff005f' }
-    -- let s:danger = { 'cterm': 197, 'gui': '#a0000f' }
-    -- sed -i "s/let s:danger = { 'cterm': 197, 'gui': '#ff005f' }/let s:danger = { 'cterm': 197, 'gui': '#a0000f' }/" vim-monokai-tasty.vim
+    --      let s:danger = { 'cterm': 197, 'gui': '#ff005f' }
+    --      let s:danger = { 'cterm': 197, 'gui': '#a0000f' }
     use({"https://github.com/patstockwell/vim-monokai-tasty",
-        config = function()
-            require("plugins.vim-monokai-tasty")
-        end,
+        run = "sed -i \"s/let s:danger = { 'cterm': 197, 'gui': '#ff005f' }/let s:danger = { 'cterm': 197, 'gui': '#a0000f' }/\" $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors/vim-monokai-tasty.vim"
     })
 
     -- Ajuste a la barra de estado
