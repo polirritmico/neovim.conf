@@ -6,7 +6,10 @@
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
+    packer_bootstrap = fn.system({
+        "git", "clone", "--depth", "1",
+        "https://github.com/wbthomason/packer.nvim", install_path
+    })
     vim.api.nvim_command("packadd packer.nvim")
 end
 
@@ -25,7 +28,8 @@ end
 
 -- Que Packer utilice una ventana emergente
 packer.init {
-	compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'), 'site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua'),
+	compile_path = require('packer.util').join_paths(vim.fn.stdpath('data'),
+        'site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua'),
 	display = {
 		open_fn = function()
 			return require('packer.util').float { border = 'rounded' }
@@ -43,7 +47,17 @@ return require("packer").startup(function(use)
     -------------------
  
     -- Tema
-    use({"https://github.com/patstockwell/vim-monokai-tasty"})
+    -- Se necesita cambiar el color de danger porque con treesitter no cambia
+    -- el color del fg a blanco:
+    -- $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors
+    -- l50: let s:danger = { 'cterm': 197, 'gui': '#ff005f' }
+    -- let s:danger = { 'cterm': 197, 'gui': '#a0000f' }
+    -- sed -i "s/let s:danger = { 'cterm': 197, 'gui': '#ff005f' }/let s:danger = { 'cterm': 197, 'gui': '#a0000f' }/" vim-monokai-tasty.vim
+    use({"https://github.com/patstockwell/vim-monokai-tasty",
+        config = function()
+            require("plugins.vim-monokai-tasty")
+        end,
+    })
 
     -- Ajuste a la barra de estado
     use({"https://github.com/vim-airline/vim-airline",
@@ -133,11 +147,11 @@ return require("packer").startup(function(use)
     })
 
     -- LSP (Language Service Provider)
-    -- use({"https://github.com/neovim/nvim-lspconfig",
-    --     config = function()
-    --         require("plugins.lsp")
-    --     end,
-    -- })
+    use({"https://github.com/neovim/nvim-lspconfig",
+        config = function()
+            require("plugins.lsp")
+        end,
+    })
 
     -- YouCompleteMe (autocompletado)
     -- Si da problemas recompilar:

@@ -117,8 +117,6 @@ autocmd("python", [[noremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/]])
 -- Plugins --
 -------------
 
--- LSP
-
 -- Telescope / Exploración de archivos
 map({"n", "v"}, "<leader>fe", "<CMD>Ex<CR>")                    -- file explorer
 map({"n", "v"}, "<leader>ff", "<CMD>Telescope find_files<CR>")  -- find files
