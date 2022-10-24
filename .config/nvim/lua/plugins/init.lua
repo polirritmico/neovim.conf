@@ -37,7 +37,8 @@ packer.init {
 	},
 }
 
--- Carga de plugins ---------------------------------------
+
+--- Carga de plugins ----------------------------------------------------------
 return require("packer").startup(function(use)
     -- Packer
     use({"https://github.com/wbthomason/packer.nvim"})
