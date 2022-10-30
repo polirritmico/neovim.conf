@@ -94,11 +94,7 @@ return require("packer").startup(function(use)
     -------------------
 
     -- Pares de paréntesis, comillas, llaves, etc.
-    use({"https://github.com/jiangmiao/auto-pairs",
-        config = function()
-            require("plugins.auto-pairs")
-        end,
-    })
+    use({"https://github.com/tpope/vim-surround"})
 
     -- Para automatizar tablas
     use({"https://github.com/dhruvasagar/vim-table-mode",
@@ -179,6 +175,16 @@ return require("packer").startup(function(use)
         {"https://github.com/rcarriga/nvim-dap-ui"},
         {"https://github.com/mfussenegger/nvim-dap-python"},
     })
+
+
+    ------------------
+    -- Mis Pluggins --
+    ------------------
+     
+    -- Transcribe.nvim
+    --use({"/home/eduardo/Informática/Programación/transcribe.nvim"})
+
+
 
 end)
 

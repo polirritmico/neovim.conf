@@ -10,6 +10,7 @@ require("lspconfig")["pylsp"].setup{
     vim.keymap.set({"n"}, "<leader>st", vim.lsp.buf.type_definition, {buffer = 0})
     vim.keymap.set({"n"}, "<leader>si", vim.lsp.buf.implementation, {buffer = 0})
     vim.keymap.set({"n"}, "<leader>se", vim.diagnostic.goto_next, {buffer = 0})
+    vim.keymap.set({"n"}, "<leader>sr", vim.lsp.buf.rename, {buffer = 0})
     end,
     flags = lsp_flags,
 }
@@ -23,3 +24,4 @@ require("lspconfig")["clangd"].setup{
     end,
     flags = lsp_flags,
 }
+--require("lspconfig"){"bashls"}.setup{}
