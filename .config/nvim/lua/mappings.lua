@@ -111,6 +111,9 @@ autocmd("python", [[noremap <leader>rT :! python -m unittest discover .<CR>]])
 autocmd("python", [[noremap <leader>ts :%s/ #@unittest.skip/ @unittest.skip/]])
 autocmd("python", [[noremap <leader>tS :%s/ @unittest.skip/ #@unittest.skip/]])
 
+-- Lua nvim
+autocmd("lua", [[noremap <leader>rr :source %<CR>]])
+
 
 
 -------------

@@ -94,7 +94,7 @@ return require("packer").startup(function(use)
     -------------------
 
     -- Pares de paréntesis, comillas, llaves, etc.
-    use({"https://github.com/tpope/vim-surround"})
+    --use({"https://github.com/tpope/vim-surround"})
 
     -- Para automatizar tablas
     use({"https://github.com/dhruvasagar/vim-table-mode",
