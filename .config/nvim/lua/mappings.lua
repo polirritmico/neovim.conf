@@ -88,6 +88,7 @@ map("n", "<leader>CC", ":e $XDG_CONFIG_HOME/nvim/init.lua<CR>")
 map("n", "<leader>CM", ":e $XDG_CONFIG_HOME/nvim/lua/mappings.lua<CR>")
 map("n", "<leader>CP", ":e $XDG_CONFIG_HOME/nvim/lua/plugins/init.lua<CR>")
 map("n", "<leader>CS", ":e $XDG_CONFIG_HOME/nvim/lua/settings.lua<CR>")
+map("n", "<leader>CU", ":e $XDG_CONFIG_HOME/nvim/snips/<CR>")
 
 
 

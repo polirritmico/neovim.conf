@@ -16,3 +16,6 @@ require("mappings")
 -- Config file: ~/.config/nvim/lua/globals.lua
 require("globals")
 
+-- Macros file: ~/.config/nvim/lua/macros.lua
+require("macros")
+
