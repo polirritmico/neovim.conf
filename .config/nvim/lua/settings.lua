@@ -23,6 +23,9 @@ opt.shiftround = true       -- Aproxima la indent. en múltiplos de shiftwidth
 opt.expandtab = true        -- Reemplaza tab por espacios en el modo Insertar
 opt.smartindent = true      -- Autoindenta al agregar una nueva línea
 
+opt.cindent = true          -- Indenta comentarios al inicio de las líneas
+opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
+
 
 -- PLEGADO DE CÓDIGO --
 opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
