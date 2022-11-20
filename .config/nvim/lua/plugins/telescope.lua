@@ -3,7 +3,8 @@ require("telescope").setup({
     defaults = {
         file_ignore_patterns = {
             "venv",
-            "__pycache__"
+            "__pycache__",
+            ".xlsx",
         }
     },
     extensions = {

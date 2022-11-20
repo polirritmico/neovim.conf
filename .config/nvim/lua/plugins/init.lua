@@ -104,7 +104,11 @@ return require("packer").startup(function(use)
     })
 
     -- Comentarios
-    use({"https://github.com/tpope/vim-commentary"})
+    use({"https://github.com/tpope/vim-commentary",
+        config = function()
+            require("plugins.vim-commentary")
+        end,
+    })
 
     -- Escritura sin distracciones
     use({"https://github.com/junegunn/goyo.vim"})

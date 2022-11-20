@@ -13,6 +13,11 @@ opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
 opt.timeoutlen = 2000       -- 1000ms por defecto
 opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
 opt.incsearch = true        -- Muestra los resultados mientras se busca
+api.nvim_create_autocmd({ "BufWritePre" }, { -- Elimina espacios sobrantes al
+  pattern = { "*" },                         -- guardar un archivo
+  command = [[%s/\s\+$//e]],
+})
+
 
 
 -- INDENTACIÓN --
@@ -28,9 +33,10 @@ opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
 
 
 -- PLEGADO DE CÓDIGO --
-opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
+--opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
+opt.foldmethod = "manual"   -- El tipo de plegado que usa la ventana actual
 opt.foldnestmax = 2         -- El máximo de pliegues anidados
-opt.foldenable = false      -- Evita plegado al abrir un archivo
+--opt.foldenable = false      -- Evita plegado al abrir un archivo
 
 
 -- IDIOMA --
