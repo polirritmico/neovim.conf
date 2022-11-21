@@ -1,6 +1,7 @@
 local opt = vim.opt
 local api = vim.api
 
+
 ------------
 -- EDITOR --
 ------------
@@ -19,7 +20,6 @@ api.nvim_create_autocmd({ "BufWritePre" }, { -- Elimina espacios sobrantes al
 })
 
 
-
 -- INDENTACIÓN --
 opt.tabstop = 4             -- Cantidad de espacios de la tecla tab
 opt.shiftwidth = 0          -- Cantidad de espacios del autoindentado
@@ -36,11 +36,11 @@ opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
 --opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
 opt.foldmethod = "manual"   -- El tipo de plegado que usa la ventana actual
 opt.foldnestmax = 2         -- El máximo de pliegues anidados
---opt.foldenable = false      -- Evita plegado al abrir un archivo
+opt.foldenable = false      -- Evita plegado al abrir un archivo
 
 
 -- IDIOMA --
-api.nvim_exec("language en_US.utf8", true) 
+api.nvim_exec("language en_US.utf8", true)
 
 
 -- RESPALDOS --
@@ -76,8 +76,8 @@ opt.colorcolumn = "80"      -- Límite de columna guía
 vim.g.vim_monokai_tasty_italic = 1  -- Allow italics. ¡Set before coloscheme!
 api.nvim_command("colorscheme vim-monokai-tasty")
 api.nvim_set_hl(0, "Normal", { ctermbg=NONE, ctermbg=NONE, fg="#ffffff" })
-api.nvim_create_autocmd({"ColorScheme"}, {
-    pattern = "*",
+api.nvim_create_autocmd({"ColorScheme"}, { -- FIX: Arregla el formato de los
+    pattern = "*",                         -- colores de código con errores.
     callback = function()
         api.nvim_set_hl( 0, "Normal", {
             ctermbg=NONE, guibg=NONE, fg="#ffffff"})
