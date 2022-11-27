@@ -76,12 +76,12 @@ opt.colorcolumn = "80"      -- Límite de columna guía
 vim.g.vim_monokai_tasty_italic = 1  -- Allow italics. ¡Set before coloscheme!
 api.nvim_command("colorscheme vim-monokai-tasty")
 api.nvim_set_hl(0, "Normal", { ctermbg=NONE, ctermbg=NONE, fg="#ffffff" })
-api.nvim_create_autocmd({"ColorScheme"}, { -- FIX: Arregla el formato de los
-    pattern = "*",                         -- colores de código con errores.
-    callback = function()
-        api.nvim_set_hl( 0, "Normal", {
-            ctermbg=NONE, guibg=NONE, fg="#ffffff"})
-        end})
+--api.nvim_create_autocmd({"ColorScheme"}, { -- FIX: Arregla el formato de los
+--    pattern = "*",                         -- colores de código con errores.
+--    callback = function()
+--        api.nvim_set_hl( 0, "Normal", {
+--            ctermbg=NONE, guibg=NONE, fg="#ffffff"})
+--        end})
 
 
 -- COLORES --
@@ -89,8 +89,8 @@ opt.syntax = "ON"           -- Coloreo de sintaxis básico
 opt.termguicolors = true    -- Activa colores
 opt.background=dark         -- Dark o light
 opt.cursorline = true       -- Resaltado línea actual
-api.nvim_set_hl(0,          -- Solo el número resaltado
+api.nvim_set_hl(0,          -- Solo el número resaltado, no la línea
     "Cursorline",
-    { guibg=NONE })
+    {guibg=NONE})
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 

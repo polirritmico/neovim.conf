@@ -46,15 +46,16 @@ return require("packer").startup(function(use)
     -------------------
     -- Visualización --
     -------------------
- 
+
     -- Tema
     -- Se necesita cambiar el color de danger porque con treesitter no cambia
     -- el color del fg a blanco:
-    -- $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors
+    -- $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors ln50
     --      let s:danger = { 'cterm': 197, 'gui': '#ff005f' }
     --      let s:danger = { 'cterm': 197, 'gui': '#a0000f' }
     use({"https://github.com/patstockwell/vim-monokai-tasty",
-        run = "sed -i \"s/let s:danger = { 'cterm': 197, 'gui': '#ff005f' }/let s:danger = { 'cterm': 197, 'gui': '#a0000f' }/\" $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors/vim-monokai-tasty.vim"
+    --    commit = "56b6d710cecdbeb57dda592d02d68be389ffcc36",
+    --    run = "sed -i \"s/let s:danger = { 'cterm': 197, 'gui': '#ff005f' }/let s:danger = { 'cterm': 197, 'gui': '#a0000f' }/\" $XDG_DATA_HOME/nvim/site/pack/packer/start/vim-monokai-tasty/colors/vim-monokai-tasty.vim"
     })
 
     -- Ajuste a la barra de estado
@@ -130,6 +131,10 @@ return require("packer").startup(function(use)
         run = "make"
     })
 
+    -- GIT commit browser
+    use({"https://github.com/tpope/vim-fugitive"})
+    use({"https://github.com/junegunn/gv.vim"})
+
     -------------------------
     -- Ayudantes de código --
     -------------------------
@@ -184,7 +189,7 @@ return require("packer").startup(function(use)
     ------------------
     -- Mis Pluggins --
     ------------------
-     
+
     -- Transcribe.nvim
     --use({"/home/eduardo/Informática/Programación/transcribe.nvim"})
 
