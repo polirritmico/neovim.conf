@@ -14,10 +14,10 @@ opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
 opt.timeoutlen = 2000       -- 1000ms por defecto
 opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
 opt.incsearch = true        -- Muestra los resultados mientras se busca
-api.nvim_create_autocmd({ "BufWritePre" }, { -- Elimina espacios sobrantes al
-  pattern = { "*" },                         -- guardar un archivo
-  command = [[%s/\s\+$//e]],
-})
+--api.nvim_create_autocmd({ "BufWritePre" }, { -- Elimina espacios sobrantes al
+--  pattern = { "*" },                         -- guardar un archivo
+--  command = [[%s/\s\+$//e]],
+--})
 
 
 -- INDENTACIÓN --

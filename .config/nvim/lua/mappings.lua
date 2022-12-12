@@ -58,6 +58,9 @@ map("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>")
 -- Regresar al archivo anterior 'go back'
 map("n", "<leader>gb", "<C-^>")
 
+-- Centrar vista al hacer scroll
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
 
 
 -- REGISTROS Y CLIPBOARD DEL SISTEMA --

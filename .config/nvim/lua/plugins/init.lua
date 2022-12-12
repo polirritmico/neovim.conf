@@ -64,6 +64,12 @@ return require("packer").startup(function(use)
             require("plugins.vim-airline")
         end,
     })
+    --use({"nvim-lualine/lualine.nvim",
+    --    requires = {
+    --        "kyazdani42/nvim-web-devicons",
+    --        opt = true
+    --    },
+    --})
 
     -- LaTeX
     use({"https://github.com/lervag/vimtex",

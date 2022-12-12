@@ -1,4 +1,8 @@
 -- Vim-airline (status bar)
+if packer_plugins["vim-airline"] == nil then
+    return
+end
+
 --require("vim-airline").setup({
 vim.cmd([[
 let g:airline_theme='monokai_tasty'
