@@ -30,4 +30,3 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         --signs = true,
         --update_in_insert = false
     })
-
