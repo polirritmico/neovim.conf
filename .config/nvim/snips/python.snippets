@@ -1,0 +1,38 @@
+snippet header "Python Header" b
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+$0
+endsnippet
+
+snippet headereb "Python Header" b
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (C) 2022 ${1:Estudios 6/8 (bakumapu@gmail.com)}
+# 
+# This program is part of ${2:Bakumapu and is released under}
+# the GPLv2 License: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+$0
+endsnippet
+
+snippet unittest "Unitest layout" b
+import unittest
+from REPLACE import *
+
+class TestBase(unittest.TestCase):
+
+	#@unittest.skip
+	def test_example(self):
+		case = "input"
+		expected = "expected"
+		output = solution(case)
+		self.assertEqual(output, expected)
+endsnippet
+
+snippet test "Unittest test definition" b
+#@unittest.skip
+def test_${1:description}(self):
+	${2:pass}
+endsnippet
+
