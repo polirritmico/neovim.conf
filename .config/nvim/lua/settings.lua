@@ -89,6 +89,7 @@ opt.syntax = "ON"           -- Coloreo de sintaxis básico
 opt.termguicolors = true    -- Activa colores
 opt.background=dark         -- Dark o light
 opt.cursorline = true       -- Resaltado línea actual
+api.nvim_set_hl(0, "Normal", { gruibg=NONE, fg="#ffffff" })
 api.nvim_set_hl(0,          -- Solo el número resaltado, no la línea
     "Cursorline",
     {guibg=NONE})
