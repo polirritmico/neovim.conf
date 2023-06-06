@@ -30,3 +30,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         --signs = true,
         --update_in_insert = false
     })
+
+require'lspconfig'.pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'W391'},
+        }
+      }
+    }
+  }
+}
