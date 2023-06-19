@@ -106,6 +106,9 @@ return require('packer').startup(function(use)
   -- Navegar undo tree ../../after/plugin/undotree.lua
   use({"mbbill/undotree"})
 
+  -- GIT
+  -- Pantalla de commits
+  use({"rhysd/committia.vim"})
   -- Fugitive ../../after/plugin/fugitive.lua
   --use({"tpope/vim-fugitive"})
 
