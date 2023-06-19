@@ -1,4 +1,7 @@
--- nvim-treesitter
+-- Treesitter
+if type(packer_plugins) ~= "table" or packer_plugins["nvim-treesitter"] == nil then
+	return
+end
 
 require("nvim-treesitter.configs").setup({
     -- Parsers names:
@@ -6,7 +9,8 @@ require("nvim-treesitter.configs").setup({
     --ensure_installed = "all",
     ensure_installed = {
         "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript",
-        "make", "python", "regex", "sql", "vim", "lua"
+        "make", "python", "regex", "sql", "vim", "lua", "vimdoc", "query",
+        "rust", "typescript", "cpp"
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
