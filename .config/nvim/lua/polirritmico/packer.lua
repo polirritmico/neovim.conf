@@ -3,16 +3,24 @@
 -------------------
 
 -- Instalar packer si no está instalado
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	packer_bootstrap = fn.system({
-		"git", "clone", "--depth", "1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path
-	})
-	vim.api.nvim_command("packadd packer.nvim")
+
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({
+            "git", "clone", "--depth", "1",
+		    "https://github.com/wbthomason/packer.nvim",
+            install_path
+        })
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
+
+local packer_bootstrap = ensure_packer()
+
 
 -- Autocommand para correr :PackerCompile después de actualizar este archivo
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -21,27 +29,18 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	command = "source <afile> | PackerCompile"
 })
 
--- Usar una llamada protegida para evitar errores en la primer ejecución
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-	return
-end
-
 -- Packer en ventana emergente
-packer.init {
-	compile_path = require("packer.util").join_paths(vim.fn.stdpath("data"),
-	"site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua"),
-	display = {
-		open_fn = function()
-			return require("packer.util").float { border = "rounded" }
-		end,
-	},
-}
-
+--packer.init {
+--	compile_path = require("packer.util").join_paths(vim.fn.stdpath("data"),
+--	"site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua"),
+--	display = {
+--		open_fn = function()
+--			return require("packer.util").float { border = "rounded" }
+--		end,
+--	},
+--}
 
 --- Carga de plugins ---------------------------------------------------------
-
-vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
   -- Packer se maneja a sí mismo
@@ -114,5 +113,13 @@ return require('packer').startup(function(use)
 
   -- Comentarios ../../after/plugin/vim-commentary.lua
   use({"tpope/vim-commentary"})
+
+  -- Info de treesitter
+  use({"nvim-treesitter/playground"})
+
+  -- Aplicar automáticamente la configuración después de clonar packer.nvim
+  if packer_bootstrap then
+      require("packer").sync()
+  end
 
 end)
