@@ -85,3 +85,14 @@ exec("exec 'nnoremap <Leader>ss :mks! ' . "..
 exec("exec 'nnoremap <Leader>so :so ' . "..
      "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
 
+-- Runners
+local function autocmd(filetype, cmd)
+    vim.api.nvim_create_autocmd(
+        {"FileType"}, {pattern = filetype, command = cmd}
+    )
+end
+
+-- Python run __main__.py
+autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])
+autocmd("python", [[noremap <leader>rT :! python -m unittest discover .<CR>]])
+

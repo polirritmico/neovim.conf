@@ -43,11 +43,17 @@ require("lspconfig").lua_ls.setup{
     },
 }
 
--- Ajuste de teclas:
 local cmp = require("cmp")
+--local cmp_action = require("lsp-zero").cmp_action()
+--require("luasnip.loaders.from_snipmate").lazy_load()
 cmp.setup({
+    --sources = {
+    --    {name = "nvim_lsp"},
+    --    {name = "luasnip"},
+    --},
+    -- Ajuste de teclas:
     mapping = {
         -- Aceptar sugerencia
         ["<C-j>"] = cmp.mapping.confirm({select = true}),
-    }
+    },
 })
