@@ -13,6 +13,7 @@ opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
 opt.timeoutlen = 2000       -- 1000ms por defecto
 opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
 opt.incsearch = true        -- Muestra los resultados mientras se busca
+opt.scrolloff = 8           -- Para hacer scroll con un margen en los bordes
 
 
 -- INDENTACIÓN --

@@ -3,7 +3,7 @@ if type(packer_plugins) ~= "table" or packer_plugins["lsp-zero.nvim"] == nil the
 	return
 end
 
-local lsp = require('lsp-zero').preset({})
+local lsp = require('lsp-zero').preset({"recommended"})
 
 -- Evita cargar el LSP en archivos markdown
 --lsp.skip_server_setup({"markdown"})
