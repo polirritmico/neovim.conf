@@ -3,8 +3,7 @@ if type(packer_plugins) ~= "table" or packer_plugins["vim-monokai-tasty"] == nil
 	return
 end
 
--- Permite cursivas.
--- IMPORTANTE: Debe ir antes de colorscheme
+-- Permite cursivas. (Debe ir antes de colorscheme)
 vim.g.vim_monokai_tasty_italic = 1
 
 -- Cargar el tema

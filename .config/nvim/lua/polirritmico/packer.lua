@@ -42,84 +42,105 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 --- Carga de plugins ---------------------------------------------------------
 
-return require('packer').startup(function(use)
-  -- Packer se maneja a sí mismo
-  use({"wbthomason/packer.nvim"})
+return require('packer').startup({function(use)
+    -- Packer se maneja a sí mismo
+    use({"wbthomason/packer.nvim"})
 
-  -- Telescope ../../after/plugin/telescope.lua
-  use({
-	  'nvim-telescope/telescope.nvim', tag = '0.1.1',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  })
+    -- Telescope ../../after/plugin/telescope.lua
+    use({
+        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    })
 
-  -- LSP ../../after/plugin/lsp.lua
-  use({
-	  "VonHeikemen/lsp-zero.nvim",
-	  branch = 'v2.x',
-	  requires = {
-		  -- LSP Support
-		  {"neovim/nvim-lspconfig"},
-		  {
-			  "williamboman/mason.nvim",
-			  run = function() pcall(vim.cmd, "MasonUpdate") end,
-	  	  },
-		  {"williamboman/mason-lspconfig.nvim"}, -- Optional
-		  -- Autocompletion
-		  {"hrsh7th/nvim-cmp"},
-		  {"hrsh7th/cmp-nvim-lsp"},
-		  {"L3MON4D3/LuaSnip"},
-	  }
-  })
+    -- LSP ../../after/plugin/lsp.lua
+    use({
+        "VonHeikemen/lsp-zero.nvim",
+        branch = 'v2.x',
+        requires = {
+            -- LSP Support
+            {"neovim/nvim-lspconfig"},
+            {
+                "williamboman/mason.nvim",
+                run = function() pcall(vim.cmd, "MasonUpdate") end,
+            },
+            {"williamboman/mason-lspconfig.nvim"}, -- Optional
+            -- Autocompletion
+            {"hrsh7th/nvim-cmp"},
+            {"hrsh7th/cmp-nvim-lsp"},
+            {"L3MON4D3/LuaSnip"},
+        }
+    })
 
-  -- Markdown ../../after/plugin/markdown.lua
-  use({"preservim/vim-markdown"})
+    -- Markdown ../../after/plugin/markdown.lua
+    use({"preservim/vim-markdown"})
 
-  -- Snippets ../../after/plugin/ultisnips.lua
-  -- try https://github.com/quangnguyen30192/cmp-nvim-ultisnips
-  --use({"SirVer/ultisnips"}, {"honza/vim-snippets", after = "ultisnips"})
+    -- Snippets ../../after/plugin/ultisnips.lua
+    --use({"SirVer/ultisnips"}, {"honza/vim-snippets", after = "ultisnips"})
+    --use({
+    --    "thomasfaingnaert/vim-lsp-ultisnips",
+    --    requires = {
+    --        "SirVer/ultisnips",
+    --        "prabirshrestha/async.vim",
+    --        "prabirshrestha/vim-lsp",
+    --        "thomasfaingnaert/vim-lsp-snippets",
+    --    }
+    --})
 
-  -- Automatizar tablas ../../after/plugin/vim-table-mode.lua
-  use({"dhruvasagar/vim-table-mode"})
+    -- Automatizar tablas ../../after/plugin/vim-table-mode.lua
+    use({"dhruvasagar/vim-table-mode"})
 
-  -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
-  use({"jiangmiao/auto-pairs"})
+    -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
+    use({"jiangmiao/auto-pairs"})
 
-  -- Colores código ../../after/plugin/treesitter.lua
-   use({"nvim-treesitter/nvim-treesitter"}, {run = ":TSUpdate"})
+    -- Colores código ../../after/plugin/treesitter.lua
+    use({"nvim-treesitter/nvim-treesitter"}, {run = ":TSUpdate"})
 
-  -- Tema GUI ../../after/plugin/vim-monokai-tasty.lua
-  use({"patstockwell/vim-monokai-tasty"})
+    -- Tema GUI ../../after/plugin/vim-monokai-tasty.lua
+    use({"patstockwell/vim-monokai-tasty"})
 
-  -- Barra de estado ../../after/plugin/vim-airline.lua
-  use({"vim-airline/vim-airline"})
+    -- Barra de estado ../../after/plugin/vim-airline.lua
+    use({"vim-airline/vim-airline"})
 
-  -- Líneas o márgenes verticales de indentación
-  use({"https://github.com/lukas-reineke/indent-blankline.nvim"})
+    -- Líneas o márgenes verticales de indentación
+    use({"https://github.com/lukas-reineke/indent-blankline.nvim"})
 
-  -- Modo sin distracciones ../../after/plugin/zen-mode.lua
-  use({"folke/zen-mode.nvim"})
+    -- Modo sin distracciones ../../after/plugin/zen-mode.lua
+    use({"folke/zen-mode.nvim"})
 
-  -- Navegar entre archivos abiertos ../../after/plugin/harpoon.lua
-  use({"theprimeagen/harpoon"})
+    -- Navegar entre archivos abiertos ../../after/plugin/harpoon.lua
+    use({"theprimeagen/harpoon"})
 
-  -- Navegar undo tree ../../after/plugin/undotree.lua
-  use({"mbbill/undotree"})
+    -- Navegar undo tree ../../after/plugin/undotree.lua
+    use({"mbbill/undotree"})
 
-  -- GIT
-  -- Pantalla de commits
-  use({"rhysd/committia.vim"})
-  -- Fugitive ../../after/plugin/fugitive.lua
-  --use({"tpope/vim-fugitive"})
+    -- GIT
+    -- Pantalla de commits
+    use({"rhysd/committia.vim"})
+    -- Fugitive ../../after/plugin/fugitive.lua
+    --use({"tpope/vim-fugitive"})
 
-  -- Comentarios ../../after/plugin/vim-commentary.lua
-  use({"tpope/vim-commentary"})
+    -- Comentarios ../../after/plugin/vim-commentary.lua
+    use({"tpope/vim-commentary"})
 
-  -- Info de treesitter
-  use({"nvim-treesitter/playground"})
+    -- Info de treesitter
+    use({"nvim-treesitter/playground"})
 
-  -- Aplicar automáticamente la configuración después de clonar packer.nvim
-  if packer_bootstrap then
-      require("packer").sync()
-  end
 
-end)
+    ---------------------------------------------------------------------------
+
+
+    -- Aplicar automáticamente la configuración después de clonar packer.nvim
+    if packer_bootstrap then
+        require("packer").sync()
+    end
+  end,
+
+  -- Ventanta flotante para packer
+  config = {
+      display = {
+          open_fn = function()
+              return require("packer.util").float({border = "rounded"})
+          end
+      }
+  }
+})

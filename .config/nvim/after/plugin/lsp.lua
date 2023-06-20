@@ -5,6 +5,9 @@ end
 
 local lsp = require('lsp-zero').preset({})
 
+-- Evita cargar el LSP en archivos markdown
+--lsp.skip_server_setup({"markdown"})
+
 -- Agregar opciones
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({buffer = bufnr})
@@ -29,6 +32,7 @@ lsp.ensure_installed({
 
 lsp.setup()
 
+-- Ajustamos la variable global vim para evitar warnings en la configuración
 require("lspconfig").lua_ls.setup{
     settings = {
         Lua = {
@@ -43,7 +47,7 @@ require("lspconfig").lua_ls.setup{
 local cmp = require("cmp")
 cmp.setup({
     mapping = {
-        -- Aceptar sugerencia seleccionada
-        ["<C-j>"] = cmp.mapping.confirm({select = false}),
+        -- Aceptar sugerencia
+        ["<C-j>"] = cmp.mapping.confirm({select = true}),
     }
 })
