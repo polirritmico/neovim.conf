@@ -1,6 +1,7 @@
 -- Vim-airline (status bar)
-if type(packer_plugins) ~= "table" or packer_plugins["vim-airline"] == nil then
-	return
+ local plugin_name = "vim-airline"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 vim.cmd([[

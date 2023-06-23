@@ -1,6 +1,8 @@
 -- Undo Tree
-if type(packer_plugins) ~= "table" or packer_plugins["telescope.nvim"] == nil then
-	return
+local plugin_name = "telescope.nvim"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
+
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

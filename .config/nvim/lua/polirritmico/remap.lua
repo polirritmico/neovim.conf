@@ -30,7 +30,7 @@ map("x", "J", ":m '>+1<CR>gv=gv")
 map("x", "K", ":m '<-2<CR>gv=gv")
 
 -- Mantener posición del cursor con J
-map("n", "J", "mzJ`z")
+--map("n", "J", "mzJ`z")
 
 -- Moverse entre buffers:
 map("n", "<leader>l", ":bnext<CR>")
@@ -62,7 +62,7 @@ map("n", "Q", "")
 
 -- Atajos a configuraciones
 map("n", "<leader>CM", ":e" .. MyConfigPath .. "remap.lua<CR>")
-map("n", "<leader>CP", ":e" .. MyConfigPath .. "packer.lua<CR>")
+map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins-lazy.lua<CR>")
 map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
 map("n", "<leader>CU", ":e" .. MyConfigPath .. "snips/<CR>")
 
@@ -92,7 +92,9 @@ local function autocmd(filetype, cmd)
     )
 end
 
--- Python run __main__.py
+
+-- Python run y tests
+autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
 autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])
 autocmd("python", [[noremap <leader>rT :! python -m unittest discover .<CR>]])
 

@@ -1,6 +1,7 @@
 -- Harpoon
-if type(packer_plugins) ~= "table" or packer_plugins["harpoon"] == nil then
-	return
+local plugin_name = "harpoon"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 local mark = require("harpoon.mark")

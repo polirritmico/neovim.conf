@@ -1,6 +1,7 @@
 -- Vim Commentary
-if type(packer_plugins) ~= "table" or packer_plugins["vim-commentary"] == nil then
-	return
+ local plugin_name = "vim-commentary"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 -- vim-commentary:

@@ -1,6 +1,7 @@
 -- LSP
-if type(packer_plugins) ~= "table" or packer_plugins["lsp-zero.nvim"] == nil then
-	return
+local plugin_name = "lsp-zero.nvim"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 local lsp = require('lsp-zero').preset({"recommended"})
@@ -13,21 +14,37 @@ lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({buffer = bufnr})
     local opts = {buffer = bufnr}
 
+    -- Teclas default de lsp-zero
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+    vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+    vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+    vim.keymap.set('n', '<F1>', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set(
+        {'n', 'x'}, '<F3>',
+        '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts
+    )
     vim.keymap.set(
         {"n", "x"}, "gq",
-        function()
-            vim.lsp.buf.format({async = false, timeout_ms = 5000})
-        end,
-        opts
+        '<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 5000})', opts
     )
 end)
 
 -- Instalar lenguajes automáticamente
 lsp.ensure_installed({
-    "bashls",   -- Bash
-    "cmake",    -- Make
-    "lua_ls",   -- Lua
-    "pylsp",    -- Python
+    "bashls",
+    "cmake",
+    "jsonls",
+    "lua_ls",
+    "pylsp",
 })
 
 lsp.setup()

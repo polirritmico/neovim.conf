@@ -1,6 +1,7 @@
 -- vim-table-mode 
-if type(packer_plugins) ~= "table" or packer_plugins["vim-table-mode"] == nil then
-	return
+ local plugin_name = "vim-table-mode"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 vim.g.table_mode_corner = "|"

@@ -1,6 +1,7 @@
 -- Vim Monokai Tasty
-if type(packer_plugins) ~= "table" or packer_plugins["vim-monokai-tasty"] == nil then
-	return
+local plugin_name = "vim-monokai-tasty"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 -- Permite cursivas. (Debe ir antes de colorscheme)
@@ -11,7 +12,6 @@ vim.api.nvim_command("colorscheme vim-monokai-tasty")
 
 -- Colores
 vim.opt.termguicolors = true
-vim.opt.background = "dark"
 vim.opt.cursorline = true
 
 -- Fondo transparente ventanas flotantes

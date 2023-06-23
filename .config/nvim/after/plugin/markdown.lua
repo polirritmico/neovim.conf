@@ -1,6 +1,7 @@
 -- vim-markdown
-if type(packer_plugins) ~= "table" or packer_plugins["vim-markdown"] == nil then
-	return
+local plugin_name = "vim-markdown"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 -- Desactiva plegado de código

@@ -1,6 +1,7 @@
 -- Treesitter
-if type(packer_plugins) ~= "table" or packer_plugins["nvim-treesitter"] == nil then
-	return
+local plugin_name = "nvim-treesitter"
+if not Check_loaded_plugin(plugin_name) then
+    return
 end
 
 require("nvim-treesitter.configs").setup({
