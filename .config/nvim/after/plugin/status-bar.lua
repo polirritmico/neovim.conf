@@ -1,6 +1,5 @@
 -- Vim-airline (status bar)
- local plugin_name = "vim-airline"
-if not Check_loaded_plugin(plugin_name) then
+if not Check_loaded_plugin("vim-airline") or not Check_loaded_plugin("vim-monokai-tasty") then
     return
 end
 
@@ -33,4 +32,3 @@ let g:airline#extensions#default#section_truncate_width = {
 -- +---------------------------------------------------------------+
 -- | A | B |                   C                X | Y | Z |  [...] |
 -- +---------------------------------------------------------------+
-

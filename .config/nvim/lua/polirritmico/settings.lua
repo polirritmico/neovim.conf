@@ -59,7 +59,7 @@ vim.g.sessions_dir = "~/.local/share/nvim/sessions"
 opt.relativenumber = true   -- Muestra númeras de línea relativos
 opt.number = true           -- Muestra el número de línea actual en lugar de 0
 opt.cursorline = false      -- Subrraya la línea del cursor
-opt.colorcolumn = "80"      -- Límite de columna guía
+opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 
 -- Autocommand from the vim documentation that is default for some distros

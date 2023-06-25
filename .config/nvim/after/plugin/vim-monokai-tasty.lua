@@ -1,3 +1,5 @@
+-- Configuraciones generales
+
 -- Vim Monokai Tasty
 local plugin_name = "vim-monokai-tasty"
 if not Check_loaded_plugin(plugin_name) then
