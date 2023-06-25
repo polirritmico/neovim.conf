@@ -62,9 +62,10 @@ opt.cursorline = false      -- Subrraya la línea del cursor
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 
--- Autocommand from the vim documentation that is default for some distros
--- It needs to be wraped inside the `vim.cmd` to work. "Easy". 
+-- Autocommand from the vim documentation. Default for some distros.
+-- It needs to be wraped inside the `vim.cmd` to work. "Easy".
 vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
+
