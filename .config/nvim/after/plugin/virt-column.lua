@@ -9,4 +9,3 @@ require("virt-column").setup({ char = "┊" })
 
 -- Change line color
 vim.cmd("highlight! VirtColumn guifg='#2b2b2b'")
-

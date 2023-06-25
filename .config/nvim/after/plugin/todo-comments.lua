@@ -14,39 +14,39 @@ end
 -- TEST: Some text
 
 require("todo-comments").setup({
-    signs = true, -- show icons in the signs column
+    signs = true,      -- show icons in the signs column
     sign_priority = 8, -- sign priority
     keywords = {
-        --     ﰹ ﯽ 﫚齃理獵龍裂凜                 ﭔ 
-        FIX = { icon = " ", color = "magenta", alt = {"FIXME", "BUG", "ISSUE"} },
+        --     ﰹ ﯽ 﫚齃理獵龍裂凜                 ﭔ
+        FIX = { icon = " ", color = "magenta", alt = { "FIXME", "BUG", "ISSUE" } },
         TODO = { icon = "凜", color = "purple" },
         HACK = { icon = " ", color = "yellow" },
         WARN = { icon = " ", color = "orange", alt = { "WARNING" } },
-        PERF = { icon = " ", color = "blue", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "white", alt = { "INFO" } },
+        PERF = { icon = " ", color = "white", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "blue", alt = { "INFO" } },
         TEST = { icon = "", color = "green", alt = { "TESTING", "PASSED", "FAILED" } },
     },
     colors = {
-        blue = { "#62D8F1" },
-        green = { "#A4E400" },
+        blue    = { "#62D8F1" },
+        green   = { "#A4E400" },
         magenta = { "#FC1A70" },
-        orange = { "#FF9700" },
-        purple = { "#AF87FF" },
-        yellow = { "#F6F557" },
-        white  = { "#FFFFFF" },
+        orange  = { "#FF9700" },
+        purple  = { "#AF87FF" },
+        yellow  = { "#F6F557" },
+        white   = { "#FFFFFF" },
     },
     merge_keywords = true,
     highlight = {
         multiline = true, -- enable multine todo comments
         multiline_pattern = "^.",
         multiline_context = 10,
-        before = "", -- "fg" or "bg" or empty
-        keyword = "bg", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty.
-        after = "fg", -- "fg" or "bg" or empty
+        before = "",                     -- "fg" or "bg" or empty
+        keyword = "wide",                -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty.
+        after = "fg",                    -- "fg" or "bg" or empty
         pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
-        comments_only = true, -- uses treesitter to match keywords in comments only
-        max_line_len = 400, -- ignore lines longer than this
-        exclude = {}, -- list of file types to exclude highlighting
+        comments_only = true,            -- uses treesitter to match keywords in comments only
+        max_line_len = 400,              -- ignore lines longer than this
+        exclude = {},                    -- list of file types to exclude highlighting
     },
     search = {
         command = "rg",

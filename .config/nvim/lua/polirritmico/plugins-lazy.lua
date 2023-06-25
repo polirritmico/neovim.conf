@@ -41,6 +41,12 @@ local plugins = {
         {"L3MON4D3/LuaSnip"},
     }},
 
+    -- Inject non-LSP tools ../../after/plugin/null-ls.lua
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        dependencies = {{"nvim-lua/plenary.nvim"}}
+    },
+
     -- DAP (debugin) ../../after/plugin/nvim-dap.lua
     "mfussenegger/nvim-dap",
     "rcarriga/nvim-dap-ui",

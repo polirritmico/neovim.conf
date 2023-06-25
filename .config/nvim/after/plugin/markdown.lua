@@ -26,4 +26,3 @@ vim.g.vim_markdown_toc_autofit = 1
 -- Markdown previewer
 --vim.g.mkdp_browser = "firefox-bin"
 --vim.g.mkdp_filetypes = ["markdown"]
-

@@ -1,5 +1,5 @@
--- vim-table-mode 
- local plugin_name = "vim-table-mode"
+-- vim-table-mode
+local plugin_name = "vim-table-mode"
 if not Check_loaded_plugin(plugin_name) then
     return
 end

@@ -5,4 +5,3 @@ if not Check_loaded_plugin(plugin_name) then
 end
 
 vim.g.AutoPairsFlyMode = 0 -- Enables/disables Fly mode
-

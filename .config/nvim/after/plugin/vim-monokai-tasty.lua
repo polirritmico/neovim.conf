@@ -23,7 +23,7 @@ vim.opt.cursorline = true
 vim.cmd("highlight! Normal guibg=NONE ctermbg=NONE")
 
 -- Color de mensajes warning de LSP
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", {fg="#ff9700"})
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ff9700" })
 
 -- Línea actual
 -- Solo el número resaltado, no la línea
@@ -32,4 +32,3 @@ vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", {fg="#ff9700"})
 --vim.cmd("highlight! Cursorline guibg='#2b2b2b'")
 -- Línea actual subrayada
 --vim.cmd("highlight Cursorline gui=underline cterm=underline ctermfg=None guifg=None")
-
