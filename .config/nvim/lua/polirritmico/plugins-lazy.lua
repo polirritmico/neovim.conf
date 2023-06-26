@@ -41,6 +41,9 @@ local plugins = {
         {"L3MON4D3/LuaSnip"},
     }},
 
+    -- LSP, ayuda en argumentos de funciones ../../after/plugin/lsp-signature.lua
+    "ray-x/lsp_signature.nvim",
+
     -- Inject non-LSP tools ../../after/plugin/null-ls.lua
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -69,6 +72,12 @@ local plugins = {
 
     -- Tema GUI ../../after/plugin/vim-monokai-tasty.lua
     {dev = true, dir = "$HOME/Informática/Programación/vim-monokai-tasty"},
+
+    -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
+    {
+        'goolord/alpha-nvim', event = "VimEnter",
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
 
     -- Barra de estado ../../after/plugin/status-bar.lua
     "vim-airline/vim-airline",
