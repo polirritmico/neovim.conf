@@ -65,6 +65,7 @@ map("n", "<leader>CM", ":e" .. MyConfigPath .. "remap.lua<CR>")
 map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins-lazy.lua<CR>")
 map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
 map("n", "<leader>CU", ":e" .. MyConfigPath .. "snips/<CR>")
+map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
 
 -- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
 vim.cmd [[

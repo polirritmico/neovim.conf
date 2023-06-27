@@ -1,5 +1,10 @@
--- Helper functions
+-- Globals
 
+-- Paths
+MyConfigPath = " $XDG_CONFIG_HOME/nvim/lua/polirritmico/"
+MyPluginConfigPath = " $XDG_CONFIG_HOME/nvim/after/plugin/"
+
+-- Helper functions
 -- To print the content of a table instead of the table memory address
 P = function(v)
     print(vim.inspect(v))

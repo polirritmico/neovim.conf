@@ -4,14 +4,15 @@ if not Check_loaded_plugin(plugin_name) then
     return
 end
 
+local ignore_filetypes_list = {
+    "venv", "__pycache__", ".xlsx", ".jpg", ".png", ".JPG", ".PNG", ".webp",
+    ".WEBP", ".mp3", ".MP3", ".pdf", ".PDF", ".odt", ".ODT"
+}
+
 require("telescope").setup({
-    defaults = {
-        file_ignore_patterns = { "venv", "__pycache__", ".xlsx", }
-    },
+    defaults = { file_ignore_patterns = ignore_filetypes_list },
     extensions = { ["fzf"] = { fuzzy = true, override_generic_sorter = true, } },
 })
-
-require("telescope").load_extension "file_browser"
 
 -- Mappings
 local function map(m, k, v)
@@ -27,4 +28,4 @@ map({ "n", "v" }, "<leader>fh", "<CMD>Telescope help_tags<CR>")    -- find help
 -- find selected:
 map({ "n", "v" }, "<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>")
 -- browse files from current buffer location
-map({ "n", "v" }, "<leader>fF", "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>")
+map({ "n", "v" }, "<leader>fF", "<CMD>lua require'telescope.builtin'.find_files{cwd = vim.fn.expand('%:p:h')}<CR>")

@@ -22,7 +22,6 @@ local plugins = {
         "nvim-telescope/telescope.nvim", tag = '0.1.2',
         dependencies = {{"nvim-lua/plenary.nvim"}}
     },
-    "nvim-telescope/telescope-file-browser.nvim",
 
     -- LSP ../../after/plugin/lsp.lua
     {"VonHeikemen/lsp-zero.nvim",
@@ -51,9 +50,15 @@ local plugins = {
     },
 
     -- DAP (debugin) ../../after/plugin/nvim-dap.lua
-    "mfussenegger/nvim-dap",
-    "rcarriga/nvim-dap-ui",
-    "mfussenegger/nvim-dap-python",
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            {"rcarriga/nvim-dap-ui"}, {"mfussenegger/nvim-dap-python"}
+        }
+    },
+
+    -- Generar docstrings ../../after/plugin/vim-doge.lua
+    {"kkoomen/vim-doge", build = ":call doge#install()"},
 
     -- Markdown ../../after/plugin/markdown.lua
     "preservim/vim-markdown",

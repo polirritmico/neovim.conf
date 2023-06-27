@@ -48,7 +48,7 @@ require("lspconfig").pylsp.setup {
                 --isort = { enabled = true, profile = "black" },
                 pycodestyle = {
                     maxLineLength = 88,
-                    ignore = { "E265", "E501", "W391" }
+                    ignore = { "E265", "E501", "W391", "W503" }
                 }
             }
         }

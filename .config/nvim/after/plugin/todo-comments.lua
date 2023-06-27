@@ -23,8 +23,8 @@ require("todo-comments").setup({
         HACK = { icon = " ", color = "yellow" },
         WARN = { icon = " ", color = "orange", alt = { "WARNING" } },
         PERF = { icon = " ", color = "white", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "blue", alt = { "INFO" } },
-        TEST = { icon = "", color = "green", alt = { "TESTING", "PASSED", "FAILED" } },
+        NOTE = { icon = " ", color = "green", alt = { "INFO" } },
+        TEST = { icon = "", color = "blue", alt = { "TESTING", "PASSED", "FAILED" } },
     },
     colors = {
         blue    = { "#62D8F1" },
