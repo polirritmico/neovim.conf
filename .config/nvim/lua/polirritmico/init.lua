@@ -3,4 +3,4 @@ require("polirritmico.globals")
 
 require("polirritmico.settings")
 require("polirritmico.remap")
-require("polirritmico.plugins-lazy")
+require("polirritmico.plugins")
