@@ -17,11 +17,12 @@ vim.cmd [[
 -- TOC
 vim.g.vim_markdown_toc_autofit = 1
 
+-- Muestra comillas de bloques de código
+vim.g.vim_markdown_conceal_code_blocks = 0
+
+-- ?
 --vim.g.python_highlight_func_calls = 1
 --vim.g.python_highlight_all = 1
-
---vim.g.vim_markdown_conceal = 2
---vim.g.vim_markdown_conceal_code_blocks = 0
 
 -- Markdown previewer
 --vim.g.mkdp_browser = "firefox-bin"

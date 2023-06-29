@@ -6,7 +6,7 @@ local api = vim.api
 ------------
 
 -- FUNCIONAMIENTO --
-opt.wrap = true             -- Divide líneas largas
+opt.wrap = false            -- Divide líneas largas
 opt.errorbells = false      -- Deshabilita anuncios de errores
 opt.mouse = "a"             -- Habilita el soporte del ratón
 opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
@@ -14,6 +14,7 @@ opt.timeoutlen = 2000       -- 1000ms por defecto
 opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
 opt.incsearch = true        -- Muestra los resultados mientras se busca
 opt.scrolloff = 6           -- Para hacer scroll con un margen en los bordes
+opt.showmode = false        -- Muestra el estado en el área de comandos
 
 
 -- INDENTACIÓN --
@@ -68,4 +69,3 @@ vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
-

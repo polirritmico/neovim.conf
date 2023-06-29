@@ -51,11 +51,12 @@ map("n", "N", "Nzzzv")
 -- Registros y clipboard del sistema
 map({"n", "v"}, "<leader>y", "\"+y")        -- Copia al clipboard del sistema
 map("x", "<leader>p", "\"_dP")              -- Pegar sin borrar el registro
-map({"n", "v"}, "<leader>p", "o<ESC>\"+p")  -- Pegar de " en nueva línea
-map({"n", "v"}, "<leader>P", "O<ESC>\"+p")  -- Pegar de " en nueva línea anterior
+--map({"n", "v"}, "<leader>p", "o<ESC>\"+p")  -- Pegar de " en nueva línea
+map({"n", "v"}, "<leader>P", "o<ESC>\"+p")  -- Pegar de " en nueva línea
+map("x", "<leader>p", "\"_dP") -- Pegar sin rescribir el registro
 
--- Navegador de archivos
-set("n", "<leader>fe", vim.cmd.Ex)
+-- Navegador de archivos 
+set("n", "<leader>fe", vim.cmd.Ex) -- Reemplazado por nvim-tree
 
 -- Evitar entrar Ex mode
 map("n", "Q", "")
@@ -64,7 +65,8 @@ map("n", "Q", "")
 map("n", "<leader>CM", ":e" .. MyConfigPath .. "remap.lua<CR>")
 map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>")
 map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>CU", ":e" .. MyConfigPath .. "snips/<CR>")
+map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets.lua<CR>")
+map("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>")
 map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
 
 -- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
