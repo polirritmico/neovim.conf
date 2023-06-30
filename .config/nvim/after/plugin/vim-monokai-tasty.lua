@@ -23,7 +23,8 @@ vim.opt.cursorline = true
 vim.cmd("highlight! Normal guibg=NONE ctermbg=NONE")
 
 -- Color de mensajes warning de LSP
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ff9700" })
+--vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ff9700" })
+
 
 -- Línea actual
 -- Solo el número resaltado, no la línea

@@ -10,6 +10,17 @@ ls.add_snippets("python", {
         t({ "#!/usr/bin/env python", "# -*- coding: utf-8 -*-", "", "" })
     ),
 
+    s(
+        {trig = "deffunction", name = "Function", dscr = "Layout for a function"}, fmt([[
+        def {}({}){}:
+            {}
+        ]], {
+        i(1, "name"),
+        i(2, "self"),
+        c(3, {i(1), t{" -> None"}, fmt(" -> {}", i(1), {dedent = false}), i(1)}),
+        i(4, "pass")
+    })),
+
     s({trig = "deftest", name = "Define pytest", dscr = "Layout for pytest test"}, fmt([[
         #@pytest.mark.skip(reason="{}")
         def test_{}({}) -> None:

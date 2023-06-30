@@ -31,25 +31,27 @@ ls.add_snippets("lua", {
     --})),
 
     s({trig = "snippet", dscr = "Meta-snippet to make snippets."},
-    c(1, {
-        fmt([=[
-            s("{}", fmt({}, {{{}}})),]=], {
-            i(1, "trigger"),
-            i(2, "\"snippet\""),
-            i(3)
-        }),
-        fmt([=[
-            s(
-                {{trig = "{}", name = "{}", dscr = "{}"}}, fmt([[
-                {}
-                ]], {{
-                {}
-            }})),]=], {
-            i(1, "trigger"),
-            i(2, "Name"),
-            i(3, "Description"),
-            i(4),
-            i(5)
-        }),
+        fmt("{}", {
+        c(1, {
+            fmt([=[
+                s("{}", fmt({}, {{{}}})),]=], {
+                i(1),
+                i(2, "\"snippet\""),
+                i(3)
+            }),
+            fmt([=[
+                s(
+                    {{trig = "{}", name = "{}", dscr = "{}"}}, fmt([[
+                    {}
+                    ]], {{
+                    {}
+                }})),]=], {
+                i(1),
+                i(2, "Name"),
+                i(3, "Description"),
+                i(4),
+                i(5)
+            }),
+        })
     })),
 })

@@ -63,9 +63,29 @@ opt.cursorline = false      -- Subrraya la línea del cursor
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 
--- Autocommand from the vim documentation. Default for some distros.
--- It needs to be wraped inside the `vim.cmd` to work. "Easy".
+-- Guarda la posición del cursor en el archivo.
+-- (Autocommand copiado de la documentación. Por defecto en algunas distros.)
 vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
+
+-- Abre la ayuda en la ventana actual (código de help-curwin).
+--vim.cmd([[
+--    let s:did_open_help = v:false
+--    function s:HelpCurwin(subject) abort
+--        let mods = 'silent noautocmd keepalt'
+--        if !s:did_open_help
+--            execute mods .. ' help'
+--            execute mods .. ' helpclose'
+--            let s:did_open_help = v:true
+--        endif
+--        if !empty(getcompletion(a:subject, 'help'))
+--            execute mods .. ' edit ' .. &helpfile
+--            set buftype=help
+--        endif
+--        return 'help ' .. a:subject
+--    endfunction
+
+--    command -bar -nargs=? -complete=help HelpCurwin execute s:HelpCurwin(<q-args>)
+--]])
