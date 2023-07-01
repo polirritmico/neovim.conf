@@ -37,8 +37,6 @@ lsp.setup()
 
 local cmp = require("cmp")
 
---require("luasnip.loaders.from_vscode").lazy_load()
-
 cmp.setup({
     -- Ajuste tecla de selección de sugerencias
     mapping = { ["<C-j>"] = cmp.mapping.confirm({ select = true }) },
@@ -50,9 +48,6 @@ cmp.setup({
         { name = "buffer",  keyword_length = 3 },
     }
 })
-
--- Carga de snippets
---require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/polirritmico/snippets/" })
 
 -- Ajuste de errores y advertencias
 require("lspconfig").pylsp.setup {
