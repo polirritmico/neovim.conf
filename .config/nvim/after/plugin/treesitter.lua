@@ -9,8 +9,10 @@ require("nvim-treesitter.configs").setup({
     ensure_installed = {
         "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript",
         "make", "python", "regex", "sql", "vim", "lua", "vimdoc", "query",
-        "rust", "typescript", "cpp"
+        "rust", "typescript",
     },
+    -- disable treesitter indentation (not tested)
+    --indent = { disable = { "python" } },
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
     -- Automatically install missing parsers when entering buffer
