@@ -23,8 +23,9 @@ opt.shiftwidth = 0          -- Cantidad de espacios del autoindentado
 opt.softtabstop = 4         -- Cantidad de espacios del "indentado visual"
 opt.shiftround = true       -- Aproxima la indent. en múltiplos de shiftwidth
 opt.expandtab = true        -- Reemplaza tab por espacios en el modo Insertar
+-- Elegir uno:
 opt.smartindent = true      -- Autoindenta al agregar una nueva línea
-
+opt.autoindent = true       -- Indenta en base a la línea anterior
 opt.cindent = true          -- Indenta comentarios al inicio de las líneas
 opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
 
@@ -89,3 +90,4 @@ vim.cmd([[
 
 --    command -bar -nargs=? -complete=help HelpCurwin execute s:HelpCurwin(<q-args>)
 --]])
+

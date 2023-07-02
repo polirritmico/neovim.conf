@@ -65,7 +65,7 @@ map("n", "Q", "")
 map("n", "<leader>CM", ":e" .. MyConfigPath .. "remap.lua<CR>")
 map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>")
 map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets.lua<CR>")
+map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>")
 map("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>")
 map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
 

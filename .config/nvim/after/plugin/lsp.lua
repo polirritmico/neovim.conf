@@ -4,7 +4,7 @@ if not Check_loaded_plugin(plugin_name) then
     return
 end
 
-local lsp = require('lsp-zero').preset({})
+local lsp = require('lsp-zero').preset({"recommended"})
 
 -- Instalar lenguajes automáticamente
 lsp.ensure_installed({ "bashls", "jsonls", "lua_ls", "pylsp" })
@@ -54,7 +54,7 @@ require("lspconfig").pylsp.setup {
     settings = {
         pylsp = {
             plugins = {
-                black = { enabled = false },
+                black = { enabled = true },
                 --isort = { enabled = true, profile = "black" },
                 pycodestyle = {
                     maxLineLength = 88,

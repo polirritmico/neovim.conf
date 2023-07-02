@@ -38,11 +38,15 @@ local plugins = {
             {"hrsh7th/nvim-cmp"},
             {"hrsh7th/cmp-nvim-lsp"},
             -- Snippets ../../after/plugin/luasnip.lua
-            {"L3MON4D3/LuaSnip"},
+            {
+                "L3MON4D3/LuaSnip",
+                -- Community snippet collection:
+                dependencies = {"rafamadriz/friendly-snippets"},
+            },
             {"saadparwaiz1/cmp_luasnip"},
             -- Ventana emergente con argumentos de funciones
             {"ray-x/lsp_signature.nvim"},
-            { -- Conecta herramientas no-LSP con el servidor LSP
+            { -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
                 "jose-elias-alvarez/null-ls.nvim",
                 dependencies = {{"nvim-lua/plenary.nvim"}}
             },
@@ -76,6 +80,9 @@ local plugins = {
     -- Ayudas de código --
     ----------------------
 
+    -- Fix indentación del cierre de {}
+    "Vimjas/vim-python-pep8-indent",
+
     -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
     "jiangmiao/auto-pairs",
 
@@ -97,6 +104,7 @@ local plugins = {
         dependencies = {"nvim-lua/plenary.nvim"}
     },
 
+
     ----------------------
     -- Modos especiales --
     ----------------------
@@ -105,7 +113,7 @@ local plugins = {
     "rhysd/committia.vim",
 
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
-    "folke/zen-mode.nvim",
+    --"folke/zen-mode.nvim",
 
     -- Para obtener info de grupos highlight del análisis sintáctico
     --"nvim-treesitter/playground",
@@ -118,6 +126,7 @@ local plugins = {
     --    "nvim-tree/nvim-tree.lua", version = "*",
     --    dependencies = { "nvim-tree/nvim-web-devicons" },
     --},
+
 
     ------------------
     -- Interfaz GUI --

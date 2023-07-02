@@ -11,7 +11,7 @@ ls.add_snippets("python", {
     ),
 
     s(
-        {trig = "deffunction", name = "Function", dscr = "Layout for a function"}, fmt([[
+        {trig = "def", name = "New function", dscr = "Snippet for a function definition."}, fmt([[
         def {}({}){}:
             {}
         ]], {
