@@ -2,6 +2,7 @@
 local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
 local remove_
@@ -69,6 +70,23 @@ ls.add_snippets("sh", {
     s("if", fmt("if [[ {} ]]; then\n    {}\nfi\n\n",
         {i(1), i(0)})
     ),
+
+    s(
+        {trig = "colors", name = "Add Colors Definitions",
+        dscr = "Set colors and formats variables to uso in echo"}, fmta([=[
+        #----------------------------------------
+        # Terminal output font styles and colors
+        GREEN="\033[0;32m"
+        ORANGE="\033[0;33m"
+        CYAN="\033[1;36m"
+        RED="\e[0;31m"
+        NS="\033[0m" # No color
+        BLD="\e[1m"  # Bold text style
+        ITL="\e[3m"  # Italic text style
+
+        <>]=], {
+        c(1, {t("F_OK=\"${GREEN}${BLD}OK${NS}\""), t("F_OK=\"${GREEN}${BLD}Done${NS}\""), t("")})
+    })),
 })
 
 
