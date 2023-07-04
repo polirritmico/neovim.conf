@@ -38,26 +38,26 @@ local my_config = {
     layouts = { {
         elements = { {
             id = "scopes",
-            size = 0.75
+            size = 0.61
           }, {
             id = "breakpoints",
-            size = 0.10
+            size = 0.13
           }, {
             id = "stacks",
-            size = 0.10
+            size = 0.13
           }, {
-            id = "watches",
-            size = 0.05
+            id = "repl",
+            size = 0.13
           } },
         position = "left",
-        size = 27
+        size = 30
       }, {
         elements = { {
-            id = "repl",
-            size = 0.3
+            id = "watches",
+            size = 0.5
           }, {
             id = "console",
-            size = 0.7
+            size = 0.5
           } },
         position = "bottom",
         size = 10
