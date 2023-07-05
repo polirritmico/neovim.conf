@@ -86,8 +86,8 @@ local config = {
     floating_window_above_cur_line = true,   -- try to place the floating above the current line when possible
     close_timeout = 2000,                    -- close floating window after ms when laster parameter is entered
     hint_enable = true,                      -- virtual hint enable
-    --     ↕  ⇕         
-    hint_prefix = " ",                    -- Panda for parameter,  NOTE: For the terminal not support emoji, might crash
+    -- ↕ ⇕      
+    hint_prefix = " ",                    -- Panda for parameter,  NOTE: For the terminal not support emoji, might crash
     hint_scheme = "String",
     handler_opts = { border = "rounded" },   -- double, rounded, single, shadow, none, or a table of borders
     always_trigger = false,                  -- sometime show signature on new line or in middle of parameter can be confusing, set it false for #58
