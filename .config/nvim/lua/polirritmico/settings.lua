@@ -30,6 +30,10 @@ opt.cindent = true          -- Indenta comentarios al inicio de las líneas
 opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
 
 
+-- VENTANAS --
+opt.equalalways = true      -- Ajusta ventanas al mismo tamaño al cerrar una.
+
+
 -- PLEGADO DE CÓDIGO --
 --opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
 --opt.foldmethod = "manual"   -- El tipo de plegado que usa la ventana actual
