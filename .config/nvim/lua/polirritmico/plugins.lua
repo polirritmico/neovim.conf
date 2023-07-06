@@ -96,7 +96,9 @@ local plugins = {
     "dhruvasagar/vim-table-mode",
 
     -- Comentarios ../../after/plugin/vim-commentary.lua
-    "tpope/vim-commentary",
+    --"tpope/vim-commentary",
+    -- Comentarios ../../after/plugin/comments.lua
+    "numToStr/Comment.nvim",
 
     -- Comentarios TODO ../../after/plugin/todo-comments.lua
     {
@@ -113,7 +115,7 @@ local plugins = {
     "rhysd/committia.vim",
 
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
-    --"folke/zen-mode.nvim",
+    "folke/zen-mode.nvim",
 
     -- Para obtener info de grupos highlight del análisis sintáctico
     --"nvim-treesitter/playground",
@@ -133,7 +135,10 @@ local plugins = {
     ------------------
 
     -- Tema de colores ../../after/plugin/vim-monokai-tasty.lua
-    {dev = true, dir = "$HOME/Informática/Programación/vim-monokai-tasty"},
+    {
+        dev = true, priority = 1000,
+        dir = "$HOME/Informática/Programación/vim-monokai-tasty"
+    },
 
     -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
     {
