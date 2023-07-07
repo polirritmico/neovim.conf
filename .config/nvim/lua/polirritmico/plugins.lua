@@ -72,7 +72,10 @@ local plugins = {
     -- Telescope: Búsquedas con fzf ../../after/plugin/telescope.lua
     {
         "nvim-telescope/telescope.nvim", tag = '0.1.2',
-        dependencies = {{"nvim-lua/plenary.nvim"}}
+        dependencies = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-telescope/telescope-file-browser.nvim"}
+        },
     },
 
 
@@ -114,6 +117,9 @@ local plugins = {
     -- GIT Pantalla de commits
     "rhysd/committia.vim",
 
+    -- Muestra combinaciones de teclas ../../after/which-key.lua
+    --"folke/which-key.nvim",
+
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
     "folke/zen-mode.nvim",
 
@@ -123,11 +129,11 @@ local plugins = {
     -- Navegar undo tree ../../after/plugin/undotree.lua
     --"mbbill/undotree",
 
-    -- Nvim-tree: Explorador de archivos ../..after/plugin/nvim-tree.lua
-    --{
+    -- Nvim-tree: Explorador de archivos ../../after/plugin/nvim-tree.lua
+    -- {
     --    "nvim-tree/nvim-tree.lua", version = "*",
     --    dependencies = { "nvim-tree/nvim-web-devicons" },
-    --},
+    -- },
 
 
     ------------------

@@ -16,7 +16,7 @@ vim.api.nvim_command("colorscheme vim-monokai-tasty")
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
 
--- Fondo transparente ventanas flotantes
+-- Fondo transparente ventanas flotantes (revisar bordered en LSP cmp)
 --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Fondo transparente global y texto blanco
@@ -25,11 +25,5 @@ vim.cmd("highlight! Normal guibg=NONE ctermbg=NONE")
 -- Color de mensajes warning de LSP
 --vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ff9700" })
 
-
--- Línea actual
--- Solo el número resaltado, no la línea
+-- Resaltar solo el número de la línea actual, no la línea
 --vim.api.nvim_set_hl(0, "Cursorline", {guibg=NONE})
--- Cambiar color al resaltado de línea
---vim.cmd("highlight! Cursorline guibg='#2b2b2b'")
--- Línea actual subrayada
---vim.cmd("highlight Cursorline gui=underline cterm=underline ctermfg=None guifg=None")

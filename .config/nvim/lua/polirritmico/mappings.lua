@@ -55,10 +55,11 @@ map("x", "<leader>p", "\"_dP")              -- Pegar sin borrar el registro
 map({"n", "v"}, "<leader>P", "o<ESC>\"+p")  -- Pegar de " en nueva línea
 map("x", "<leader>p", "\"_dP") -- Pegar sin rescribir el registro
 
--- Navegador de archivos 
-map("n", "<leader>fe", ":Lexplore<CR>")
+-- Navegador de archivos. (Revisar nvim-tree)
+-- map("n", "<leader>fe", ":Lexplore<CR>")
+-- map("n", "<leader>fe", vim.cmd.Ex)
 
--- Evitar entrar Ex mode
+-- Evitar entrar Ex mode (no confundir con Ex de explorer)
 map("n", "Q", "")
 
 -- Atajos a configuraciones

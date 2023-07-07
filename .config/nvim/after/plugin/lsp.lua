@@ -46,6 +46,11 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "cmp_luasnip" },
         { name = "buffer",  keyword_length = 3 },
+    },
+    -- Agregar borde a ventana emerge
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     }
 })
 
