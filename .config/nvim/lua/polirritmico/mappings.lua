@@ -29,6 +29,10 @@ map("n", "<bar>", "`")
 map("x", "J", ":m '>+1<CR>gv=gv")
 map("x", "K", ":m '<-2<CR>gv=gv")
 
+-- Preservar selección al indentar
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
 -- Mantener posición del cursor con J
 --map("n", "J", "mzJ`z")
 
