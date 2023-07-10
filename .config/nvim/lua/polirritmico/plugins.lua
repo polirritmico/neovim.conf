@@ -41,7 +41,7 @@ local plugins = {
             {
                 "L3MON4D3/LuaSnip",
                 -- Community snippet collection:
-                dependencies = {"rafamadriz/friendly-snippets"},
+                --dependencies = {"rafamadriz/friendly-snippets"},
             },
             {"saadparwaiz1/cmp_luasnip"},
             -- Ventana emergente con argumentos de funciones

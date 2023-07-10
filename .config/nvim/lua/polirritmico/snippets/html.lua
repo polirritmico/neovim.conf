@@ -5,43 +5,104 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
+local reload_key = { key = "my_html_snippets" }
+
 ls.add_snippets("html", {
     -- Headers
     s(
         {trig = "h1", name = "Header 1", dscr = "Level 1 header"}, fmt([[
-        <h{}>{}</h1>{}
+        {}{}</h1>{}
         ]], {
-        c(1, {t("1"), fmt([[1 class="{}"]], i(1, "class"), {dedent=false}), t("1")}),
+        c(1, {t("<h1>"), fmt([[<h1 class="{}">]], i(1, "class"))}),
         i(2, "Title"),
         i(0)
     })),
 
     s(
         {trig = "h2", name = "Header 2", dscr = "Level 2 header"}, fmt([[
-        <h{}>{}</h2>{}
+        {}{}</h2>{}
         ]], {
-        c(1, {t("2"), fmt([[2 class="{}"]], i(1, "class"), {dedent=false}), t("2")}),
+        c(1, {t("<h2>"), fmt([[<h2 class="{}">]], i(1, "class"))}),
         i(2, "Title"),
         i(0)
     })),
 
     s(
         {trig = "h3", name = "Header 3", dscr = "Level 3 header"}, fmt([[
-        <h{}>{}</h1>{}
+        {}{}</h3>{}
         ]], {
-        c(1, {t("3"), fmt([[3 class="{}"]], i(1, "class"), {dedent=false}), t("3")}),
+        c(1, {t("<h3>"), fmt([[<h3 class="{}">]], i(1, "class"))}),
         i(2, "Title"),
         i(0)
     })),
 
     s(
         {trig = "h4", name = "Header 4", dscr = "Level 4 header"}, fmt([[
-        <h{}>{}</h4>{}
+        {}{}</h4>{}
         ]], {
-        c(1, {t("4"), fmt([[4 class="{}"]], i(1, "class"), {dedent=false}), t("4")}),
+        c(1, {t("<h4>"), fmt([[<h4 class="{}">]], i(1, "class"))}),
         i(2, "Title"),
         i(0)
     })),
+
+    s(
+        {trig = "h5", name = "Header 5", dscr = "Level 5 header"}, fmt([[
+        {}{}</h5>{}
+        ]], {
+        c(1, {t("<h5>"), fmt([[<h5 class="{}">]], i(1, "class"))}),
+        i(2, "Title"),
+        i(0)
+    })),
+
+    s(
+        {trig = "h6", name = "Header 6", dscr = "Level 6 header"}, fmt([[
+        {}{}</h6>{}
+        ]], {
+        c(1, {t("<h6>"), fmt([[<h6 class="{}">]], i(1, "class"))}),
+        i(2, "Title"),
+        i(0)
+    })),
+
+    s(
+        {trig = "p", name = "Paragraph", dscr = "Adds a paragraph section."}, fmt([[
+        {}{}</p>
+        ]], {
+        c(1, {t("<p>"), fmt([[<p class="{}">]], i(1, "name"))}),
+        i(2)
+    })),
+
+    s(
+        {trig = "div", name = "Div label", dscr = "Adds a div section."}, fmt([[
+        {}
+            {}
+        </div>
+        ]], {
+        c(1, {t("<div>"), fmt([[<div class="{}">]], i(1, "name"))}),
+        i(2)
+    })),
+
+    -- Text formatting
+
+    s("b", fmt("<b>{}</b>", i(1))),
+
+    s("strong", fmt("<strong>{}</strong>", i(1))),
+
+    s("i", fmt("<i>{}</i>", i(1))),
+
+    s("em", fmt("<em>{}</em>", i(1))),
+
+    s("mark", fmt("<mark>{}</mark>", i(1))),
+
+    s("small", fmt("<small>{}</small>", i(1))),
+
+    s("del", fmt("<del>{}</del>", i(1))),
+
+    s("ins", fmt("<ins>{}</ins>", i(1))),
+
+    s("sub", fmt("<sub>{}</sub>", i(1))),
+
+    s("sup", fmt("<sup>{}</sup>", i(1))),
+
 
     -- Django
     s(
@@ -58,7 +119,7 @@ ls.add_snippets("html", {
         ]], {
         i(1)
     })),
-})
+}, reload_key)
 
 -- extend for htmldjango
 require("luasnip").filetype_extend("htmldjango", {"html"})
