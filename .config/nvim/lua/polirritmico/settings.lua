@@ -72,3 +72,5 @@ opt.cursorline = false      -- Subrraya la línea del cursor
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 
+-- Deshabilitar entrada del menu "How-to disable mouse"
+vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
