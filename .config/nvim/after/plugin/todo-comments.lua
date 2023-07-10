@@ -17,13 +17,13 @@ require("todo-comments").setup({
     signs = true,      -- show icons in the signs column
     sign_priority = 8, -- sign priority
     keywords = {
-        --     ﰹ ﯽ 﫚齃理獵龍裂凜                 ﭔ
+        --       󰈸  󱗗 
         FIX = { icon = " ", color = "magenta", alt = { "FIXME", "BUG", "ISSUE" } },
-        TODO = { icon = "凜", color = "purple" },
+        TODO = { icon = "󰑕 ", color = "purple" },
         HACK = { icon = " ", color = "yellow" },
         WARN = { icon = " ", color = "orange", alt = { "WARNING" } },
-        PERF = { icon = " ", color = "white", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = " ", color = "green", alt = { "INFO" } },
+        PERF = { icon = "󰅒 ", color = "white", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = "󰍨 ", color = "green", alt = { "INFO" } },
         TEST = { icon = "", color = "blue", alt = { "TESTING", "PASSED", "FAILED" } },
     },
     colors = {
