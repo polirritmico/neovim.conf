@@ -24,6 +24,11 @@ vim.keymap.set({"i", "s"}, "<c-j>", function()
         ls.expand_or_jump()
     end
 end, my_opts)
+vim.keymap.set({ "i", "s" }, "<c-f>", function()
+    if ls.jumpable(1) then
+        ls.jump(1)
+    end
+end, my_opts)
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
     if ls.jumpable(-1) then
         ls.jump(-1)

@@ -74,4 +74,15 @@ ls.add_snippets("python", {
         i(3, "lambda _: None"),
         i(0)
     })),
+
+    s(
+        {trig = "class", name = "def class", dscr = "Class definition template."}, fmt([[
+        def {}({}):
+            {}
+
+        ]], {
+        i(1, "ClassName"),
+        c(2, {t(""), i(1, "Parent")}),
+        i(3, "pass")
+    })),
 })

@@ -10,6 +10,11 @@ local reload_key = { key = "my_html_snippets" }
 ls.add_snippets("html", {
     -- Headers
     s(
+        {trig = "doctype", name = "Docktype", dscr = "Defines the document type"},
+        t({"<!DOCTYPE>"})
+    ),
+
+    s(
         {trig = "h1", name = "Header 1", dscr = "Level 1 header"}, fmt([[
         {}{}</h1>{}
         ]], {
@@ -103,6 +108,20 @@ ls.add_snippets("html", {
 
     s("sup", fmt("<sup>{}</sup>", i(1))),
 
+    -- Lists
+
+    s(
+        {trig = "ul", name = "Unordered List", dscr = "Add unordered list tag"}, fmt([[
+        {}
+            {}
+        </ul>
+        ]], {
+        c(1, {t("<ul>"), fmt([[<ul class="{}">]], i(1, "classname"))}),
+        i(2, "li")
+    })),
+
+    s("li", fmt([[<li>{}</li>]], {i(1)})),
+
 
     -- Django
     s(
@@ -119,6 +138,18 @@ ls.add_snippets("html", {
         ]], {
         i(1)
     })),
+
+    s(
+        {trig = "djfor", name = "For tag", dscr = "Django for black content"}, fmta([[
+        {% for <> in <> %}
+            <>
+        {% endfor %}
+        ]], {
+        i(1, "element"),
+        i(2, "model"),
+        i(3)
+    })),
+
 }, reload_key)
 
 -- extend for htmldjango
