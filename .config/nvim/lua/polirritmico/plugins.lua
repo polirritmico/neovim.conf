@@ -124,7 +124,7 @@ local plugins = {
     "folke/zen-mode.nvim",
 
     -- Para obtener info de grupos highlight del análisis sintáctico
-    --"nvim-treesitter/playground",
+    "nvim-treesitter/playground",
 
     -- Navegar undo tree ../../after/plugin/undotree.lua
     --"mbbill/undotree",
@@ -141,10 +141,9 @@ local plugins = {
     ------------------
 
     -- Tema de colores ../../after/plugin/vim-monokai-tasty.lua
-    {
-        dev = true, priority = 1000,
-        dir = "$HOME/Informática/Programación/vim-monokai-tasty"
-    },
+    -- { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/vim-monokai-tasty" },
+    -- Tema de colores ../../after/plugin/monokai-tasty.lua
+    { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/monokai-tasty.nvim" },
 
     -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
     {

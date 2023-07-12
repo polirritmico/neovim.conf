@@ -10,7 +10,10 @@ local ignore_filetypes_list = {
 }
 
 require("telescope").setup({
-    defaults = { file_ignore_patterns = ignore_filetypes_list },
+    defaults = {
+        file_ignore_patterns = ignore_filetypes_list,
+        -- layout_config = { prompt_position = "top" },
+    },
     extensions = {
         ["fzf"] = { fuzzy = true, override_generic_sorter = true, },
         file_browser = { hijack_netrw = true, },
