@@ -2,6 +2,7 @@
 local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 
 -- Avoid multiple versions of the same snippet on reload
 local reload_key = { key = "my_lua_snippets" }
@@ -42,4 +43,22 @@ ls.add_snippets("lua", {
             }),
         })
     })),
+
+    s(
+        {trig = "mapping", name = "Add keymap",
+        dscr = "Layout for adding custom keymaps to Neovim."}, fmta([[
+	    vim.keymap.set(<mode>, "<key>", <command>, {<options>})
+        ]], {
+            mode = c(1, {
+                t('{"n"}'),
+                t('{"n", "v"}'),
+                t('{"v"}'),
+                t('{"i"}'),
+                fmt('"{}"', i(1)),
+            }),
+        key = c(2, {fmt("<leader>{}", i(1)), i(1)}),
+        command = c(3, {fmt([[":{}<CR>"]], i(1, "command")), i(1, "vim.command")}),
+        options = t("silent = true"),
+    })),
+
 }, reload_key)
