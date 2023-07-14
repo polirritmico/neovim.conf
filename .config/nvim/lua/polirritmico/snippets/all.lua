@@ -3,15 +3,10 @@ local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local p = require("luasnip.extras").partial
+local rep = require("luasnip.extras").rep
 
---local runbash = function(_, _, _, command)
---    local file = io.popen(command, "r")
---    local res = {}
---    for line in file:lines() do
---        table.insert(res, line)
---    end
---    return res
---end
+-- Avoid multiple versions of the same snippet on reload
+local reload_key = { key = "my_all_snippets" }
 
 ls.add_snippets("all", {
     s({ trig = "currentdate", name = "Current date",
@@ -52,7 +47,17 @@ ls.add_snippets("all", {
         })
     })),
 
-    --s("bash", f(runbash, {}, {}, "ls")),
-})
+    s(
+        {trig = "header", name = "Framed header",
+        dscr = "A framed header that wraps around the content."}, fmt([[
+        ---{}---
+        -- {} --
+        ---{}---
 
-
+        {}]], {
+        f(function(args) return string.rep("-", string.len(args[1][1])) end, {1}),
+        i(1),
+        f(function(args) return string.rep("-", string.len(args[1][1])) end, {1}),
+        i(0)
+    })),
+}, reload_key)

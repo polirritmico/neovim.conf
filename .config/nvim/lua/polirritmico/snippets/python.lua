@@ -2,7 +2,9 @@
 local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
---local rep = require("luasnip.extras").rep
+
+-- Avoid multiple versions of the same snippet on reload
+local reload_key = { key = "my_python_snippets" }
 
 ls.add_snippets("python", {
     s(
@@ -85,4 +87,4 @@ ls.add_snippets("python", {
         c(2, {t(""), i(1, "Parent")}),
         i(3, "pass")
     })),
-})
+}, reload_key)

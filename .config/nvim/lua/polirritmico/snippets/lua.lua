@@ -2,7 +2,9 @@
 local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
-local rep = require("luasnip.extras").rep
+
+-- Avoid multiple versions of the same snippet on reload
+local reload_key = { key = "my_lua_snippets" }
 
 ls.add_snippets("lua", {
     s(
@@ -15,20 +17,6 @@ ls.add_snippets("lua", {
         end, { 1 }),
         i(1), i(0)
     })),
-
-    --s({trig = "snippet", dscr = "Meta-snippet to make snippets."}, fmt([=[
-    --    s(
-    --        {{trig = "{}", name = "{}", dscr = "{}"}}, fmt([[
-    --        {}
-    --        ]], {{
-    --        {}
-    --    }})),]=], {
-    --    i(1, "trigger"),
-    --    i(2, "Name"),
-    --    i(3, "Description"),
-    --    i(4),
-    --    i(5),
-    --})),
 
     s({trig = "snippet", dscr = "Meta-snippet to make snippets."},
         fmt("{}", {
@@ -54,4 +42,4 @@ ls.add_snippets("lua", {
             }),
         })
     })),
-})
+}, reload_key)

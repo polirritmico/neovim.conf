@@ -3,9 +3,9 @@ local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local rep = require("luasnip.extras").rep
 
-local remove_
+-- Avoid multiple versions of the same snippet on reload
+local reload_key = { key = "my_bash_snippets" }
 
 ls.add_snippets("sh", {
     s("header", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
@@ -87,7 +87,7 @@ ls.add_snippets("sh", {
         <>]=], {
         c(1, {t("F_OK=\"${GREEN}${BLD}OK${NS}\""), t("F_OK=\"${GREEN}${BLD}Done${NS}\""), t("")})
     })),
-})
+}, reload_key)
 
 
 --snippet checkdeps
