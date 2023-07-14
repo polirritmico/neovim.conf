@@ -17,7 +17,7 @@ require("todo-comments").setup({
     signs = true,      -- show icons in the signs column
     sign_priority = 8, -- sign priority
     keywords = {
-        --       󰈸  󱗗 
+        -- Alternative icons:       󰈸  󱗗 
         FIX = { icon = " ", color = "magenta", alt = { "FIXME", "BUG", "ISSUE" } },
         TODO = { icon = "󰑕 ", color = "purple" },
         HACK = { icon = " ", color = "yellow" },
@@ -62,3 +62,7 @@ require("todo-comments").setup({
         pattern = [[\b(KEYWORDS):]], -- ripgrep regex
     },
 })
+
+-- Mappings
+vim.keymap.set({"n", "v"}, "<leader>ft", ":TodoTelescope<CR>", {silent = true})
+vim.keymap.set({"n", "v"}, "<leader>fT", ":TodoLocList<CR>", {silent = true})
