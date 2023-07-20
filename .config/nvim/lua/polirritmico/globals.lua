@@ -30,4 +30,3 @@ Check_loaded_plugin = function(check_plugin_name)
     end
     return false
 end
-

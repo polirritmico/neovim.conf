@@ -1,34 +1,12 @@
--- Vim-airline (status bar)
-if not Check_loaded_plugin("vim-airline") or not Check_loaded_plugin("vim-monokai-tasty") then
+-- Lualine
+if not Check_loaded_plugin("lualine.nvim") then
     return
 end
 
-vim.cmd([[
-let g:airline_theme='monokai_tasty'
-let g:airline#extensions#default#section_truncate_width = {
-    \ 'b': 79,
-    \ 'x': 60,
-    \ 'y': 88,
-    \ 'z': 45,
-    \ 'warning': 80,
-    \ 'error': 80,
-\ }]])
+local cfg_theme = Check_loaded_plugin("monokai.nvim") and "monokai" or "material"
+require("lualine").setup({
+    options = {
+        theme = cfg_theme,
+    }
+})
 
---
--- +---------------------------------------------------------------+
--- |~                                                              |
--- |~                                                              |
--- |~                 VIM - Vi IMproved                            |
--- |~                                                              |
--- |~                   version 8.0                                |
--- |~                by Bram Moolenaar et al.                      |
--- |~       Vim is open source and freely distributable            |
--- |~                                                              |
--- |~       type :h :q<Enter>          to exit                     |
--- |~       type :help<Enter> or <F1>  for on-line help            |
--- |~       type :help version8<Enter> for version info            |
--- |~                                                              |
--- |~                                                              |
--- +---------------------------------------------------------------+
--- | A | B |                   C                X | Y | Z |  [...] |
--- +---------------------------------------------------------------+

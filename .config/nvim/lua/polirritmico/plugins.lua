@@ -37,10 +37,9 @@ local plugins = {
             -- Autocompletado
             {"hrsh7th/nvim-cmp"},
             {"hrsh7th/cmp-nvim-lsp"},
-            -- Snippets ../../after/plugin/luasnip.lua
             {
+                -- Snippets ../../after/plugin/luasnip.lua
                 "L3MON4D3/LuaSnip",
-                -- Community snippet collection:
                 --dependencies = {"rafamadriz/friendly-snippets"},
             },
             {"saadparwaiz1/cmp_luasnip"},
@@ -83,7 +82,7 @@ local plugins = {
     -- Ayudas de código --
     ----------------------
 
-    -- Fix indentación del cierre de {}
+    -- Fix indentación del cierre de {} en Python
     "Vimjas/vim-python-pep8-indent",
 
     -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
@@ -98,23 +97,18 @@ local plugins = {
     -- Automatizar tablas ../../after/plugin/vim-table-mode.lua
     "dhruvasagar/vim-table-mode",
 
-    -- Comentarios ../../after/plugin/vim-commentary.lua
-    --"tpope/vim-commentary",
-    -- Comentarios ../../after/plugin/comments.lua
+    -- Conmutar comentarios ../../after/plugin/comments.lua
     "numToStr/Comment.nvim",
 
     -- Comentarios TODO ../../after/plugin/todo-comments.lua
-    {
-        "folke/todo-comments.nvim",
-        dependencies = {"nvim-lua/plenary.nvim"}
-    },
+    {"folke/todo-comments.nvim", dependencies = {"nvim-lua/plenary.nvim"}},
 
 
     ----------------------
     -- Modos especiales --
     ----------------------
 
-    -- GIT Pantalla de commits
+    -- GIT: Pantalla de commits mejorada
     "rhysd/committia.vim",
 
     -- Muestra combinaciones de teclas ../../after/which-key.lua
@@ -123,27 +117,16 @@ local plugins = {
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
     "folke/zen-mode.nvim",
 
-    -- Para obtener info de grupos highlight del análisis sintáctico
-    "nvim-treesitter/playground",
-
     -- Navegar undo tree ../../after/plugin/undotree.lua
-    --"mbbill/undotree",
-
-    -- Nvim-tree: Explorador de archivos ../../after/plugin/nvim-tree.lua
-    -- {
-    --    "nvim-tree/nvim-tree.lua", version = "*",
-    --    dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- },
+    "mbbill/undotree",
 
 
     ------------------
     -- Interfaz GUI --
     ------------------
 
-    -- Tema de colores ../../after/plugin/vim-monokai-tasty.lua
-    -- { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/vim-monokai-tasty" },
-    -- Tema de colores ../../after/plugin/monokai-tasty.lua
-    { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/monokai-tasty.nvim" },
+    -- Tema de colores ../../after/plugin/monokai.lua
+    { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/monokai.nvim" },
 
     -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
     {
@@ -152,13 +135,22 @@ local plugins = {
     },
 
     -- Barra de estado ../../after/plugin/status-bar.lua
-    "vim-airline/vim-airline",
+    "nvim-lualine/lualine.nvim",
 
     -- Líneas o márgenes verticales de indentación
     "lukas-reineke/indent-blankline.nvim",
 
     -- Personalizar regla o columna vertical ../../after/plugin/virt-column.lua
     "lukas-reineke/virt-column.nvim",
+
+
+    ---------------------------
+    -- Desarrollo de plugins --
+    ---------------------------
+
+    -- Para obtener info de grupos highlight del análisis sintáctico
+    "nvim-treesitter/playground",
+
 }
 
 local opts = {}

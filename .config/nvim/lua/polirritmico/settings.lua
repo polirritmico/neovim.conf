@@ -15,6 +15,8 @@ opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
 opt.incsearch = true        -- Muestra los resultados mientras se busca
 opt.scrolloff = 6           -- Para hacer scroll con un margen en los bordes
 opt.showmode = false        -- Muestra el estado en el área de comandos
+opt.ignorecase = true       -- Al buscar ignora la capitalización
+opt.smartcase = true        -- Se activa solo si hay mayúsculas en la búsqueda
 
 -- Guarda la posición del cursor en el archivo.
 -- (Autocommand copiado de la documentación. Por defecto en algunas distros.)

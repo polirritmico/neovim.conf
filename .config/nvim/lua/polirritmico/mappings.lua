@@ -100,7 +100,6 @@ local function autocmd(filetype, cmd)
     )
 end
 
-
 -- Python run y tests
 autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
 autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])
