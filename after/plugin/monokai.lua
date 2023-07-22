@@ -1,7 +1,6 @@
 -- Monokai Nvim Theme
 local plugin_name = "monokai.nvim"
 if not Check_loaded_plugin(plugin_name) then
-    print("not loaded lua monokai tasty theme")
     return
 end
 
@@ -17,7 +16,7 @@ require("monokai").setup({
     lualine_bold = true,
     styles = {
         keywords = { italic = false },
-    }
+    },
 })
 
 -- Cargar el tema

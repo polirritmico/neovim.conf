@@ -31,7 +31,7 @@ local plugins = {
             {"neovim/nvim-lspconfig"},
             {
                 "williamboman/mason.nvim",
-                build = function() pcall(vim.cmd, "MasonUpdate") end,
+                build = function() pcall(vim.api.nvim_command, "MasonUpdate") end,
             },
             {"williamboman/mason-lspconfig.nvim"}, -- Optional
             -- Autocompletado
@@ -42,7 +42,7 @@ local plugins = {
                 "L3MON4D3/LuaSnip",
                 --dependencies = {"rafamadriz/friendly-snippets"},
             },
-            {"saadparwaiz1/cmp_luasnip"},
+            {"saadparwaiz1/cmp_luasnip"}, -- Para snippets en archivos lua
             -- Ventana emergente con argumentos de funciones
             {"ray-x/lsp_signature.nvim"},
             { -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
@@ -73,7 +73,8 @@ local plugins = {
         "nvim-telescope/telescope.nvim", tag = '0.1.2',
         dependencies = {
             {"nvim-lua/plenary.nvim"},
-            {"nvim-telescope/telescope-file-browser.nvim"}
+            {"nvim-telescope/telescope-file-browser.nvim"},
+            -- {"debugloop/telescope-undo.nvim"},
         },
     },
 

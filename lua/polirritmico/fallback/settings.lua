@@ -1,9 +1,6 @@
-local opt = vim.opt
-local api = vim.api
+-- Fallback settings
 
-------------
--- EDITOR --
-------------
+local opt = vim.opt
 
 -- FUNCIONAMIENTO --
 opt.wrap = false            -- Divide líneas largas
@@ -18,14 +15,6 @@ opt.showmode = false        -- Muestra el estado en el área de comandos
 opt.ignorecase = true       -- Al buscar ignora la capitalización
 opt.smartcase = true        -- Se activa solo si hay mayúsculas en la búsqueda
 
--- Guarda la posición del cursor en el archivo.
--- (Autocommand copiado de la documentación. Por defecto en algunas distros.)
-vim.cmd([[
-    autocmd BufRead * autocmd FileType <buffer> ++once
-        \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-]])
-
-
 -- INDENTACIÓN --
 opt.tabstop = 4             -- Cantidad de espacios de la tecla tab
 opt.shiftwidth = 0          -- Cantidad de espacios del autoindentado
@@ -37,32 +26,12 @@ opt.autoindent = true       -- Indenta en base a la línea anterior
 opt.cindent = true          -- Indenta comentarios al inicio de las líneas
 opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
 
-
 -- VENTANAS --
 opt.equalalways = true      -- Ajusta ventanas al mismo tamaño al cerrar una.
-
-
--- PLEGADO DE CÓDIGO --
---opt.foldmethod = "indent"   -- El tipo de plegado que usa la ventana actual
---opt.foldmethod = "manual"   -- El tipo de plegado que usa la ventana actual
---opt.foldnestmax = 2         -- El máximo de pliegues anidados
---opt.foldenable = false      -- Evita plegado al abrir un archivo
-
-
--- IDIOMA --
-api.nvim_exec("language en_US.utf8", true)
-
 
 -- RESPALDOS --
 opt.undofile = false        -- Deshabilitado: Da error si no se guarda al salir
 opt.backup = false          -- Ídem.
-
-
--- SESIONES --
-opt.wildmenu = true         -- Completado de comandos avanzado
-opt.wildmode = "full"       -- :help wildmode
-vim.g.sessions_dir = MyLocalSharePath .. "sessions"
-
 
 ----------------
 -- CONFIG GUI --
@@ -75,5 +44,3 @@ opt.cursorline = false      -- Subrraya la línea del cursor
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
 
--- Deshabilitar entrada del menu "How-to disable mouse"
-vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])

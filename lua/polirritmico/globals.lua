@@ -2,6 +2,7 @@
 
 -- Paths
 MyConfigPath = " ~/.config/nvim/lua/polirritmico/"
+MyLocalSharePath = " ~/.local/share/nvim/"
 MyPluginConfigPath = " ~/.config/nvim/after/plugin/"
 
 -- Helper functions

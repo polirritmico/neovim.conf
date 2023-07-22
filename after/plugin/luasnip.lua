@@ -45,6 +45,3 @@ vim.keymap.set({"i", "s"}, "<c-h>", function()
         return "<Plug>luasnip-prev-choice"
     end
 end, exp_silent)
-
--- Reimportar los snippets
-vim.keymap.set("n", "<leader><leader>s", "<cmd>source "..MyPluginConfigPath.."luasnip.lua<CR>")

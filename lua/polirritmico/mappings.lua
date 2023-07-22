@@ -55,13 +55,7 @@ map("n", "N", "Nzzzv")
 -- Registros y clipboard del sistema
 map({"n", "v"}, "<leader>y", "\"+y")        -- Copia al clipboard del sistema
 map("x", "<leader>p", "\"_dP")              -- Pegar sin borrar el registro
---map({"n", "v"}, "<leader>p", "o<ESC>\"+p")  -- Pegar de " en nueva línea
-map({"n", "v"}, "<leader>P", "o<ESC>\"+p")  -- Pegar de " en nueva línea
-map("x", "<leader>p", "\"_dP") -- Pegar sin rescribir el registro
-
--- Navegador de archivos. (Revisar nvim-tree)
--- map("n", "<leader>fe", ":Lexplore<CR>")
--- map("n", "<leader>fe", vim.cmd.Ex)
+map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p")  -- Pegar de " en nueva línea
 
 -- Evitar entrar Ex mode (no confundir con Ex de explorer)
 map("n", "Q", "")
@@ -75,23 +69,20 @@ map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>")
 map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
 
 -- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
-vim.cmd [[
-    set wildcharm=<C-Z>
-    cnoremap <expr> <up> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<left>" : "\<up>"
-    cnoremap <expr> <down> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<right>" : "\<down>"
-    cnoremap <expr> <left> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<up>" : "\<left>"
-    cnoremap <expr> <right> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ " \<bs>\<C-Z>" : "\<right>"
-]]
+vim.cmd([[
+    cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
+    cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
+    cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
+    cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
+]])
 
 -- Guardar y cargar sesión
-exec("exec 'nnoremap <Leader>ss :mks! ' . "..
-     "g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
-exec("exec 'nnoremap <Leader>so :so ' . "..
-     "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
+if vim.g.sessions_dir ~= nil then
+    exec("exec 'nnoremap <Leader>ss :mks! ' . "..
+        "g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
+    exec("exec 'nnoremap <Leader>so :so ' . "..
+        "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
+end
 
 -- Runners
 local function autocmd(filetype, cmd)
@@ -104,4 +95,3 @@ end
 autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
 autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])
 autocmd("python", [[noremap <leader>rT :! python -m unittest discover .<CR>]])
-
