@@ -37,12 +37,12 @@ local plugins = {
             -- Autocompletado
             {"hrsh7th/nvim-cmp"},
             {"hrsh7th/cmp-nvim-lsp"},
+            {"saadparwaiz1/cmp_luasnip"}, -- Para snippets en archivos lua
             {
                 -- Snippets ../../after/plugin/luasnip.lua
                 "L3MON4D3/LuaSnip",
                 --dependencies = {"rafamadriz/friendly-snippets"},
             },
-            {"saadparwaiz1/cmp_luasnip"}, -- Para snippets en archivos lua
             -- Ventana emergente con argumentos de funciones
             {"ray-x/lsp_signature.nvim"},
             { -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
