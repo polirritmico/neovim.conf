@@ -1,19 +1,13 @@
 -- Monokai Nvim Theme
-local plugin_name = "monokai.nvim"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
-
--- Color de mensajes warning de LSP
---vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ff9700" })
+if not Check_loaded_plugin("monokai.nvim") then return end
 
 -- Resaltado de la línea actual
 vim.opt.cursorline = true
 
 require("monokai").setup({
-    -- Fondo transparente global y texto blanco
     transparent = true,
     lualine_bold = true,
+    day_brightness = 0.3,
     styles = {
         keywords = { italic = false },
     },
@@ -21,3 +15,15 @@ require("monokai").setup({
 
 -- Cargar el tema
 vim.cmd("colorscheme monokai")
+
+-- Añadir atajo para conmutar tema oscuro/claro
+local toggle_theme = function()
+    local background = (vim.o.background == "dark") and "light" or "dark"
+    if background == "dark" then
+        require("monokai").setup({transparent = true})
+    else
+        require("monokai").setup({transparent = false})
+    end
+    vim.o.background = background
+end
+Keymap({"n"}, "<leader>tc", toggle_theme, "Monokai: Toggle dark/light theme")

@@ -6,14 +6,25 @@ MyLocalSharePath = " ~/.local/share/nvim/"
 MyPluginConfigPath = " ~/.config/nvim/after/plugin/"
 
 -- Helper functions
--- To print the content of a table instead of the table memory address
-P = function(v)
-    print(vim.inspect(v))
-    return v
+
+-- This will set the key mapping. Accepts an optional description string.
+Keymap = function(mode, key, command, description)
+    if description == nil or description == "" then
+        vim.keymap.set(mode, key, command, {silent = true})
+    else
+        vim.keymap.set(mode, key, command, {silent = true, desc = description})
+    end
 end
 
--- This will check if the plugin is loaded. Used in the config files in after
--- to load the config only if the plugin is installed and loaded.
+-- To print the content of a table instead of the table memory address
+P = function(variable)
+    print(vim.inspect(variable))
+    return variable
+end
+
+-- This will check if the plugin is loaded. Used in the config files in
+-- the after directory to load the config only if the plugin is installed
+-- and loaded.
 Check_loaded_plugin = function(check_plugin_name)
     local lazy_success, lazy_module = pcall(require, "lazy")
     if not lazy_success then
@@ -31,3 +42,4 @@ Check_loaded_plugin = function(check_plugin_name)
     end
     return false
 end
+

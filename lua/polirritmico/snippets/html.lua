@@ -125,13 +125,21 @@ ls.add_snippets("html", {
 
     -- Django
     s(
-        {trig = "ext", name = "Template tag", dscr = "Django extend template mark"}, fmta([[
+        {trig = "djm", name = "Base tag", dscr = "Django base template mark"}, fmta([[
+        {% <> %}
+        ]], {
+        i(1, "command")
+    })),
+
+    s(
+        {trig = "djext", name = "Template tag", dscr = "Django extend template mark"}, fmta([[
         {% extends "<>.html" %}
         ]], {
         i(1, "template")
     })),
+
     s(
-        {trig = "djbl", name = "Block content", dscr = "Django block content"}, fmta([[
+        {trig = "djblk", name = "Block content tag", dscr = "Django block content"}, fmta([[
         {% block content %}
         <>
         {% endblock content %}

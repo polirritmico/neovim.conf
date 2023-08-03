@@ -63,15 +63,9 @@ map("x", "<leader>p", "\"_dP") -- Pegar sin rescribir el registro
 map("n", "Q", "")
 
 -- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
-vim.cmd [[
-    set wildcharm=<C-Z>
-    cnoremap <expr> <up> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<left>" : "\<up>"
-    cnoremap <expr> <down> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<right>" : "\<down>"
-    cnoremap <expr> <left> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ "\<up>" : "\<left>"
-    cnoremap <expr> <right> getcmdline()[:1] is 'e ' && wildmenumode() ?
-                \ " \<bs>\<C-Z>" : "\<right>"
-]]
-
+vim.cmd([[
+    cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
+    cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
+    cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
+    cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
+]])

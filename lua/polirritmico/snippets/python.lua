@@ -79,7 +79,7 @@ ls.add_snippets("python", {
 
     s(
         {trig = "class", name = "def class", dscr = "Class definition template."}, fmt([[
-        def {}({}):
+        class {}({}):
             {}
 
         ]], {

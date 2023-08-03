@@ -6,10 +6,6 @@ local exec = vim.api.nvim_exec
 local g = vim.g
 local set = vim.keymap.set
 
-local function map(mode, key, command)
-	vim.keymap.set(mode, key, command, {silent = true})
-end
-
 --------------
 -- Mappings --
 --------------
@@ -23,50 +19,67 @@ set({"n", "v"}, "ñ", ":")
 set({"n", "v"}, "Ñ", ";")
 
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
-map("n", "<bar>", "`")
+set({"n", "v"}, "<bar>", "`")
 
 -- Mover líneas seleccionadas
-map("x", "J", ":m '>+1<CR>gv=gv")
-map("x", "K", ":m '<-2<CR>gv=gv")
+Keymap("x", "J", ":m '>+1<CR>gv=gv", "Mover líneas seleccionadas hacia abajo")
+Keymap("x", "K", ":m '<-2<CR>gv=gv", "Mover líneas seleccionadas hacia arriba")
 
 -- Preservar selección al indentar
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+Keymap("v", "<", "<gv")
+Keymap("v", ">", ">gv")
 
 -- Mantener posición del cursor con J
---map("n", "J", "mzJ`z")
+--Keymap("n", "J", "mzJ`z")
 
 -- Moverse entre buffers:
-map("n", "<leader>l", ":bnext<CR>")
-map("n", "<leader>h", ":bprevious<CR>")
-map("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>")
+Keymap("n", "<leader>l", ":bnext<CR>", "Ir al siguiente buffer")
+Keymap("n", "<leader>h", ":bprevious<CR>", "Ir al buffer anterior")
+Keymap("n", "<leader>db", "<CMD>bd<CR>", "Borrar el buffer actual")
+Keymap("n", "<leader>dB", ":bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual y cerrar la ventana")
 
 -- Regresar al archivo anterior "go back"
-map("n", "<leader>gb", "<C-^>")
+Keymap("n", "<leader>gb", "<C-^>", "Regresa al buffer anterior")
+
+-- Regresar a la posición del último insert
+Keymap("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
 
 -- Centrar vista al hacer scroll
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
+Keymap("n", "<C-d>", "<C-d>zz")
+Keymap("n", "<C-u>", "<C-u>zz")
 
 -- Centrar vista al hacer búsquedas
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+Keymap("n", "n", "nzzzv")
+Keymap("n", "N", "Nzzzv")
 
 -- Registros y clipboard del sistema
-map({"n", "v"}, "<leader>y", "\"+y")        -- Copia al clipboard del sistema
-map("x", "<leader>p", "\"_dP")              -- Pegar sin borrar el registro
-map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p")  -- Pegar de " en nueva línea
+Keymap({"n", "v"}, "<leader>y", "\"+y", "Copia al clipboard del sistema")
+Keymap("x", "<leader>p", "\"_dP", "Pegar sin borrar el registro")
+Keymap({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Pegar desde \" en nueva línea")
 
 -- Evitar entrar Ex mode (no confundir con Ex de explorer)
-map("n", "Q", "")
+Keymap("n", "Q", "")
+
+-- Dar permisos de ejecución al buffer actual si está en la lista
+local valid_filetypes = { "bash", "sh", "python" }
+local chmod_exe = function()
+    for _, ft in pairs(valid_filetypes) do
+        if ft == vim.bo.filetype then
+            vim.cmd([[!chmod +x %]])
+            return
+        end
+    end
+    print("The current buffer does not have a valid filetype: " .. vim.inspect(valid_filetypes))
+end
+Keymap("n", "<leader>gx", chmod_exe, "Dar permisos de ejecución al buffer actual")
 
 -- Atajos a configuraciones
-map("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>")
-map("n", "<leader>CM", ":e" .. MyConfigPath .. "mappings.lua<CR>")
-map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>")
-map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>")
-map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
+Keymap("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>", "Configuraciones de func y var globales")
+Keymap("n", "<leader>CM", ":e" .. MyConfigPath .. "mappings.lua<CR>", "Configuraciones de mappings/teclas")
+Keymap("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>", "Configuraciones de plugins")
+Keymap("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>", "Configuraciones globales de nvim")
+Keymap("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>", "Configuraciones de snippets")
+Keymap("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>", "Configuraciones de servidores lsp")
 
 -- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
 vim.cmd([[
@@ -90,7 +103,6 @@ local function autocmd(filetype, cmd)
         {"FileType"}, {pattern = filetype, command = cmd}
     )
 end
-
 -- Python run y tests
 autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
 autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])

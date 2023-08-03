@@ -13,6 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
+local mason_update = function() pcall(vim.api.nvim_command, "MasonUpdate") end
 
 --- Carga de plugins ---------------------------------------------------------
 
@@ -27,37 +28,27 @@ local plugins = {
         "VonHeikemen/lsp-zero.nvim",
         branch = 'v2.x',
         dependencies = {
-        -- LSP Support
             {"neovim/nvim-lspconfig"},
-            {
-                "williamboman/mason.nvim",
-                build = function() pcall(vim.api.nvim_command, "MasonUpdate") end,
-            },
-            {"williamboman/mason-lspconfig.nvim"}, -- Optional
+            {"williamboman/mason.nvim", build = mason_update},
+            {"williamboman/mason-lspconfig.nvim"},
+            {"WhoIsSethDaniel/mason-tool-installer.nvim"},
             -- Autocompletado
             {"hrsh7th/nvim-cmp"},
             {"hrsh7th/cmp-nvim-lsp"},
-            {"saadparwaiz1/cmp_luasnip"}, -- Para snippets en archivos lua
-            {
-                -- Snippets ../../after/plugin/luasnip.lua
-                "L3MON4D3/LuaSnip",
-                --dependencies = {"rafamadriz/friendly-snippets"},
-            },
+            -- Snippets ../../after/plugin/luasnip.lua
+            {"saadparwaiz1/cmp_luasnip"},
+            {"L3MON4D3/LuaSnip"}, --dependencies = {"rafamadriz/friendly-snippets"},
             -- Ventana emergente con argumentos de funciones
             {"ray-x/lsp_signature.nvim"},
-            { -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
-                "jose-elias-alvarez/null-ls.nvim",
-                dependencies = {{"nvim-lua/plenary.nvim"}}
-            },
-    }},
-
-    -- Treesitter: Análisis sintáctico ../../after/plugin/treesitter.lua
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
+            -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
+            {"jose-elias-alvarez/null-ls.nvim", dependencies = {"nvim-lua/plenary.nvim"}},
+        }
     },
 
-    -- DAP: Debugin ../../after/plugin/nvim-dap.lua
+    -- Treesitter: Análisis sintáctico ../../after/plugin/treesitter.lua
+    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+
+    -- DAP: Debugging ../../after/plugin/nvim-dap.lua
     {
         "mfussenegger/nvim-dap",
         dependencies = {
@@ -87,7 +78,10 @@ local plugins = {
     "Vimjas/vim-python-pep8-indent",
 
     -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
-    "jiangmiao/auto-pairs",
+    -- "jiangmiao/auto-pairs",
+    -- Pares de paréntesis y llaves ../../after/plugin/nvim-autopairs.lua
+    {"windwp/nvim-autopairs", event = "InsertEnter", opts = {}},
+    -- "windwp/nvim-ts-autotag",
 
     -- Generar docstrings ../../after/plugin/vim-doge.lua
     {"kkoomen/vim-doge", build = ":call doge#install()"},
@@ -112,14 +106,14 @@ local plugins = {
     -- GIT: Pantalla de commits mejorada
     "rhysd/committia.vim",
 
-    -- Muestra combinaciones de teclas ../../after/which-key.lua
-    --"folke/which-key.nvim",
+    -- Muestra combinaciones de teclas ../../after/plugin/which-key.lua
+    {"folke/which-key.nvim", event = "VeryLazy"},
 
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
     "folke/zen-mode.nvim",
 
     -- Navegar undo tree ../../after/plugin/undotree.lua
-    "mbbill/undotree",
+    -- "mbbill/undotree",
 
 
     ------------------
@@ -128,6 +122,7 @@ local plugins = {
 
     -- Tema de colores ../../after/plugin/monokai.lua
     { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/monokai.nvim" },
+    -- "folke/tokyonight.nvim",
 
     -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
     {
@@ -135,7 +130,7 @@ local plugins = {
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
 
-    -- Barra de estado ../../after/plugin/status-bar.lua
+    -- Barra de estado ../../after/plugin/lualine.lua
     "nvim-lualine/lualine.nvim",
 
     -- Líneas o márgenes verticales de indentación

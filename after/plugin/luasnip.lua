@@ -1,8 +1,5 @@
 -- Snippets
-local plugin_name = "LuaSnip"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
+if not Check_loaded_plugin("LuaSnip") then return end
 
 local ls = require("luasnip")
 -- local types = require("luasnip.util.types")
@@ -18,30 +15,32 @@ ls.config.set_config {
 }
 
 -- Teclas
-local silent = {silent = true}
-local exp_silent = {expr = true, silent = true}
 vim.keymap.set({"i", "s"}, "<c-j>", function()
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
     end
-end, silent)
+end, {silent = true, desc = "LuaSnip: Expand snippet or jump to the next input index"})
+
 vim.keymap.set({ "i", "s" }, "<c-f>", function()
     if ls.jumpable(1) then
         ls.jump(1)
     end
-end, silent)
+end, {silent = true, desc = "LuaSnip: Jump to the next input index"})
+
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
     if ls.jumpable(-1) then
         ls.jump(-1)
     end
-end, silent)
+end, {silent = true, desc = "LuaSnip: Jump to the previous input index"})
+
 vim.keymap.set({"i", "s"}, "<c-l>", function()
     if ls.choice_active() then
         return "<Plug>luasnip-next-choice"
     end
-end, exp_silent)
+end, {expr = true, silent = true, desc = "LuaSnip: Cycle to the next choice in the snippet"})
+
 vim.keymap.set({"i", "s"}, "<c-h>", function()
     if ls.choice_active() then
         return "<Plug>luasnip-prev-choice"
     end
-end, exp_silent)
+end, {expr = true, silent = true, desc = "LuaSnip: Cycle to the previous choice in the snippet"})

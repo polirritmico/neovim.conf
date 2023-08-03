@@ -4,12 +4,6 @@ if not Check_loaded_plugin(plugin_name) then
     return
 end
 
--- Python
---vim.api.nvim_create_autocmd(
---    { "FileType" },
---    { pattern = "python", command = "let b:commentary_format = '#%s'" }
---)
-
 -- Lua
 vim.api.nvim_create_autocmd(
     { "FileType" },

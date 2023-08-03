@@ -8,4 +8,4 @@ end
 vim.g.undotree_SetFocusWhenToggle = 1
 
 -- Abrir/cerrar el panel
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, {silent = true})
+Keymap("n", "<leader>u", vim.cmd.UndotreeToggle, "UndoTree: Abrir/cerrar el panel")

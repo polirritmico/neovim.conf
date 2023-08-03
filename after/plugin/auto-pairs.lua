@@ -1,7 +1,4 @@
 -- Auto-pairs
-local plugin_name = "auto-pairs"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
+if not Check_loaded_plugin("auto-pairs") then return end
 
-vim.g.AutoPairsFlyMode = 0 -- Enables/disables Fly mode
+vim.g.AutoPairsFlyMode = 0

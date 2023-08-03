@@ -25,6 +25,8 @@ vim.cmd([[
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
+-- Entrar en modo insert al abrir :terminal
+vim.cmd([[autocmd TermOpen * startinsert]])
 
 -- INDENTACIÓN --
 opt.tabstop = 4             -- Cantidad de espacios de la tecla tab

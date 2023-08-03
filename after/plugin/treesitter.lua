@@ -1,29 +1,18 @@
 -- Treesitter
-local plugin_name = "nvim-treesitter"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
+if not Check_loaded_plugin("nvim-treesitter") then return end
 
 require("nvim-treesitter.configs").setup({
-    -- A list of parser names. Or "all".
     ensure_installed = {
-        "bash", "c", "c_sharp", "cpp", "css", "gdscript", "html", "javascript",
-        "make", "python", "regex", "sql", "vim", "lua", "vimdoc", "query",
-        "rust", "typescript",
+        "bash", "html", "make", "python", "regex", "sql", "query",
+        "vim", "lua", "vimdoc",
     },
-    -- disable treesitter indentation (not tested)
-    --indent = { disable = { "python" } },
-    -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
-    -- Automatically install missing parsers when entering buffer
     auto_install = true,
-    -- List of parsers to ignore installing (for "all")
-    -- Latex: Handled by VimTeX
-    ignore_install = { "latex", "markdown" },
+    ignore_install = { "markdown", },
     highlight = {
         enable = true,
         -- Disabled languages. Names of the parsers, not the filetype.
-        disable = { "latex", "markdown" },
+        disable = { "markdown" },
         additional_vim_regex_highlighting = false,
     },
 })
