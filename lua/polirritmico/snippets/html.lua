@@ -135,7 +135,7 @@ ls.add_snippets("html", {
         {trig = "djext", name = "Template tag", dscr = "Django extend template mark"}, fmta([[
         {% extends "<>.html" %}
         ]], {
-        i(1, "template")
+        i(1, "base")
     })),
 
     s(

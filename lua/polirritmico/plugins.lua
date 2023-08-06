@@ -107,7 +107,7 @@ local plugins = {
     "rhysd/committia.vim",
 
     -- Muestra combinaciones de teclas ../../after/plugin/which-key.lua
-    {"folke/which-key.nvim", event = "VeryLazy"},
+    -- {"folke/which-key.nvim", event = "VeryLazy"},
 
     -- Modo sin distracciones ../../after/plugin/zen-mode.lua
     "folke/zen-mode.nvim",

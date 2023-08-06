@@ -7,6 +7,7 @@ vim.opt.cursorline = true
 require("monokai").setup({
     transparent = true,
     lualine_bold = true,
+    day_brightness = 0.3,
     styles = {
         keywords = { italic = false },
     },
@@ -16,4 +17,13 @@ require("monokai").setup({
 vim.cmd("colorscheme monokai")
 
 -- Añadir atajo para conmutar tema oscuro/claro
-Keymap({"n"}, "<leader>tc", function() print("Toggle theme") end, "Monokai: Toggle dark/light theme")
+local toggle_theme = function()
+    local background = (vim.o.background == "dark") and "light" or "dark"
+    if background == "dark" then
+        require("monokai").setup({transparent = true})
+    else
+        require("monokai").setup({transparent = false})
+    end
+    vim.o.background = background
+end
+Keymap({"n"}, "<leader>tc", toggle_theme, "Monokai: Toggle dark/light theme")

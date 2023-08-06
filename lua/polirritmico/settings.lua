@@ -76,6 +76,10 @@ opt.number = true           -- Muestra el número de línea actual en lugar de 0
 opt.cursorline = false      -- Subrraya la línea del cursor
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
+opt.cmdheight = 0           -- Elimina la linea de comandos bajo la barra
+
+-- Resalta el texto copiado
+vim.cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
 
 -- Deshabilitar entrada del menu "How-to disable mouse"
 vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
