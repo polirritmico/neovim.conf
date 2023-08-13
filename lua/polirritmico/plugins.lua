@@ -32,14 +32,18 @@ local plugins = {
             {"williamboman/mason.nvim", build = mason_update},
             {"williamboman/mason-lspconfig.nvim"},
             {"WhoIsSethDaniel/mason-tool-installer.nvim"},
+
             -- Autocompletado
             {"hrsh7th/nvim-cmp"},
             {"hrsh7th/cmp-nvim-lsp"},
+
             -- Snippets ../../after/plugin/luasnip.lua
             {"saadparwaiz1/cmp_luasnip"},
             {"L3MON4D3/LuaSnip"}, --dependencies = {"rafamadriz/friendly-snippets"},
+
             -- Ventana emergente con argumentos de funciones
             {"ray-x/lsp_signature.nvim"},
+
             -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
             {"jose-elias-alvarez/null-ls.nvim", dependencies = {"nvim-lua/plenary.nvim"}},
         }
@@ -47,6 +51,7 @@ local plugins = {
 
     -- Treesitter: Análisis sintáctico ../../after/plugin/treesitter.lua
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {"nvim-treesitter/nvim-treesitter-context"},
 
     -- DAP: Debugging ../../after/plugin/nvim-dap.lua
     {
@@ -68,6 +73,9 @@ local plugins = {
             -- {"debugloop/telescope-undo.nvim"},
         },
     },
+
+    -- Guardar sesiones
+    {"tpope/vim-obsession"},
 
 
     ----------------------
@@ -106,11 +114,8 @@ local plugins = {
     -- GIT: Pantalla de commits mejorada
     "rhysd/committia.vim",
 
-    -- Muestra combinaciones de teclas ../../after/plugin/which-key.lua
-    -- {"folke/which-key.nvim", event = "VeryLazy"},
-
-    -- Modo sin distracciones ../../after/plugin/zen-mode.lua
-    "folke/zen-mode.nvim",
+    -- Centrado del buffer y notas
+    {"shortcuts/no-neck-pain.nvim", version = "*"},
 
     -- Navegar undo tree ../../after/plugin/undotree.lua
     -- "mbbill/undotree",

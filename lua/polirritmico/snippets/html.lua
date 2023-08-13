@@ -87,7 +87,6 @@ ls.add_snippets("html", {
     })),
 
     -- Text formatting
-
     s("b", fmt("<b>{}</b>", i(1))),
 
     s("strong", fmt("<strong>{}</strong>", i(1))),
@@ -109,7 +108,6 @@ ls.add_snippets("html", {
     s("sup", fmt("<sup>{}</sup>", i(1))),
 
     -- Lists
-
     s(
         {trig = "ul", name = "Unordered List", dscr = "Add unordered list tag"}, fmt([[
         {}
@@ -121,6 +119,15 @@ ls.add_snippets("html", {
     })),
 
     s("li", fmt([[<li>{}</li>]], {i(1)})),
+
+    -- urls
+    s(
+        {trig = "a", name = "urls", dscr = "Add url links"}, fmt([[
+        <a href="{}">{}</a>
+        ]], {
+        i(1, "http://"),
+        i(2, "text"),
+    })),
 
 
     -- Django

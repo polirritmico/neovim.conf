@@ -10,7 +10,7 @@ lsp.ensure_installed({"bashls", "clangd", "lua_ls", "pylsp"})
 lsp.on_attach(function(_, bufnr)
     -- :h lsp-zero-keybindings
     local opts = {buffer = bufnr, remap = false}
-    lsp.default_keymaps(opts)
+    lsp.default_keymaps(opts) -- :h lsp-zero-keybindings
     -- opts.desc = "LSP: Open diagnostic float panel"
     vim.keymap.set("n", "<F1>", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
 end)

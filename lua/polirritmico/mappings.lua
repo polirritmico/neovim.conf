@@ -12,11 +12,11 @@ local set = vim.keymap.set
 
 -- Teclas líder
 g.mapleader = " "
-g.maplocalleader = ","
+-- g.maplocalleader = ","
 
 -- Comandos a ñ (misma posición ANSI)
-set({"n", "v"}, "ñ", ":")
 set({"n", "v"}, "Ñ", ";")
+set({"n", "v"}, "ñ", ":")
 
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
 set({"n", "v"}, "<bar>", "`")
@@ -25,12 +25,13 @@ set({"n", "v"}, "<bar>", "`")
 Keymap("x", "J", ":m '>+1<CR>gv=gv", "Mover líneas seleccionadas hacia abajo")
 Keymap("x", "K", ":m '<-2<CR>gv=gv", "Mover líneas seleccionadas hacia arriba")
 
+-- Scroll horizontal
+Keymap({"n", "v"}, "zh", "z8h")
+Keymap({"n", "v"}, "zl", "z8l")
+
 -- Preservar selección al indentar
 Keymap("v", "<", "<gv")
 Keymap("v", ">", ">gv")
-
--- Mantener posición del cursor con J
---Keymap("n", "J", "mzJ`z")
 
 -- Moverse entre buffers:
 Keymap("n", "<leader>l", ":bnext<CR>", "Ir al siguiente buffer")
@@ -51,6 +52,12 @@ Keymap("n", "<C-u>", "<C-u>zz")
 -- Centrar vista al hacer búsquedas
 Keymap("n", "n", "nzzzv")
 Keymap("n", "N", "Nzzzv")
+
+-- quick-list y location-list
+Keymap("n", "<C-n>", "<cmd>cnext<CR>zz", "Next quick-list element")
+Keymap("n", "<C-p>", "<cmd>cprev<CR>zz", "Prev quick-list element")
+-- Keymap("n", "<leader>k", "<cmd>lnext<CR>zz", "Next location-list element")
+-- Keymap("n", "<leader>j", "<cmd>lprev<CR>zz", "Prev location-list element")
 
 -- Registros y clipboard del sistema
 Keymap({"n", "v"}, "<leader>y", "\"+y", "Copia al clipboard del sistema")

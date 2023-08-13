@@ -16,3 +16,9 @@ require("nvim-treesitter.configs").setup({
         additional_vim_regex_highlighting = false,
     },
 })
+
+if not Check_loaded_plugin("nvim-treesitter-context") then return end
+
+require("treesitter-context").setup({
+    min_window_height = 10, -- in lines
+})
