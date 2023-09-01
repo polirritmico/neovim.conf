@@ -1,8 +1,5 @@
 -- Vim Commentary
-local plugin_name = "vim-commentary"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
+if not Check_loaded_plugin("vim-commentary") then return end
 
 -- Lua
 vim.api.nvim_create_autocmd(

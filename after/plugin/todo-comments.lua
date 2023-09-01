@@ -11,38 +11,26 @@ if not Check_loaded_plugin("todo-comments.nvim") then return end
 -- WARNING: Some text
 
 require("todo-comments").setup({
-    colors = {
-        blue    = { "#62D8F1" },
-        green   = { "#A4E400" },
-        magenta = { "#FC1A70" },
-        orange  = { "#FF9700" },
-        purple  = { "#AF87FF" },
-        yellow  = { "#F6F557" },
-        white   = { "#FFFFFF" },
-        grey    = { "#BCBCBC" },
-    },
     keywords = {
         -- Alternative icons:       󰈸  󱗗 
-        FIX  = { icon = "", color = "magenta", alt = { "FIXME", "BUG", "ISSUE" } },
-        HACK = { icon = "", color = "orange" },
-        NOTE = { icon = "󰍨", color = "yellow", alt = { "INFO" } },
-        PERF = { icon = "󰅒", color = "blue", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        TEST = { icon = "", color = "green", alt = { "TESTING", "PASSED", "FAILED" } },
-        TODO = { icon = "󰑕", color = "purple" },
-        WARN = { icon = "", color = "orange", alt = { "WARNING" } },
+        FIX  = { icon = "", alt = { "FIXME", "BUG", "ISSUE", "ERROR" } },
+        HACK = { icon = "" },
+        NOTE = { icon = "󰍨", alt = { "INFO", "NOTA" } },
+        PERF = { icon = "󰅒", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        TEST = { icon = "", alt = { "TESTING" } },
+        TODO = { icon = "󰑕" },
+        WARN = { icon = "", alt = { "WARNING" } },
     },
-    merge_keywords = true,
     highlight = {
-        pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
-        exclude = {}, -- list of file types to exclude highlighting
+        pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns
+        exclude = {}, -- filetypes to exclude highlighting
     },
     search = {
-        -- regex that will be used to match keywords.
-        -- don't replace the (KEYWORDS) placeholder
-        pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+        pattern = [[\b(KEYWORDS):]], -- Don't change "KEYWORDS" in the regex
     },
 })
 
 -- Mappings
 Keymap({"n", "v"}, "<leader>ft", ":TodoTelescope<CR>", "todo-comments: Open todo list in telescope")
 Keymap({"n", "v"}, "<leader>fT", ":TodoLocList<CR>", "todo-comments: Open todo list in a panel")
+Keymap({"n", "v"}, "<leader>tl", ":TodoQuickFix<CR>", "todo-comments: Open quickfix list")

@@ -13,7 +13,7 @@ ls.add_snippets("markdown", {
         {}
         ```
         {}]], {
-        c(1, {t("command"), i(1), t("python"), t("sql"), t("bash"), t("html"), t("lua"), t("cpp"), t("json")}),
+        c(1, {t("command"), i(1), t("bash"), t("lua"), t("python"), t("html"), t("sql"), t("cpp"), t("json")}),
         i(2),
         i(0)
     })),
@@ -43,4 +43,9 @@ ls.add_snippets("markdown", {
     s("ftnote", fmt("[^{}] {}", {i(1), i(0)})),
 
     s("ic", fmt("`{}` {}", {i(1), i(0)})),
+
+    s(
+        {trig = "dlg", name = "Dialogue", dscr = "Insert a dialogue section"},
+        fmt("{}", c(1, {fmt("—{}", i(1)), fmt("—{}—", i(1, "texto"))}))
+    ),
 }, reload_key)

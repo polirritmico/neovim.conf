@@ -3,6 +3,9 @@ if not Check_loaded_plugin("lsp-zero.nvim") then return end
 
 local lsp = require('lsp-zero').preset()
 
+-- Agrega bordes a LspInfo
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 -- Servidores por defecto
 lsp.ensure_installed({"bashls", "clangd", "lua_ls", "pylsp"})
 
@@ -57,11 +60,11 @@ cmp.setup({
         { name = "cmp_luasnip" },
         { name = "buffer",  keyword_length = 3 },
     },
-    -- Agregar borde a ventana emerge
+    -- Agregar borde a ventana emergente
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
-    }
+    },
 })
 
 -------------------------------------------------------------------------------

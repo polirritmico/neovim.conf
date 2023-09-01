@@ -43,3 +43,15 @@ Check_loaded_plugin = function(check_plugin_name)
     return false
 end
 
+-- Function used to set a custom text when called by a fold action like zc
+-- Should be setted with opt.foldtext = "v:lua.CustomFoldText()"
+_G.CustomFoldText = function()
+    local first_line = vim.fn.getline(vim.v.foldstart)
+    local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
+    local lines_count = tostring(vim.v.foldend - vim.v.foldstart)
+    local space_width = vim.api.nvim_get_option("textwidth") - #first_line - #last_line - #lines_count - 10
+    return string.format(
+        "%s  %s %s (%d L)", first_line, last_line, string.rep(".", space_width), lines_count
+    )
+end
+

@@ -51,6 +51,8 @@ local plugins = {
 
     -- Treesitter: Análisis sintáctico ../../after/plugin/treesitter.lua
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+
+    -- Mostrar el contexto del código en la línea superior (func, clases, etc.)
     {"nvim-treesitter/nvim-treesitter-context"},
 
     -- DAP: Debugging ../../after/plugin/nvim-dap.lua
@@ -70,11 +72,13 @@ local plugins = {
         dependencies = {
             {"nvim-lua/plenary.nvim"},
             {"nvim-telescope/telescope-file-browser.nvim"},
+            {dev = true, dir = "$HOME/temp/telescope-heading.nvim" },
+            -- {"crispgm/telescope-heading.nvim"},
             -- {"debugloop/telescope-undo.nvim"},
         },
     },
 
-    -- Guardar sesiones
+    -- Guardar sesiones ../../after/plugin/vim-obsession.lua
     {"tpope/vim-obsession"},
 
 
@@ -82,20 +86,18 @@ local plugins = {
     -- Ayudas de código --
     ----------------------
 
+    -- Integración git
+    "tpope/vim-fugitive",
+
     -- Fix indentación del cierre de {} en Python
     "Vimjas/vim-python-pep8-indent",
 
-    -- Pares de paréntesis y llaves ../../after/plugin/auto-pairs.lua
-    -- "jiangmiao/auto-pairs",
     -- Pares de paréntesis y llaves ../../after/plugin/nvim-autopairs.lua
     {"windwp/nvim-autopairs", event = "InsertEnter", opts = {}},
     -- "windwp/nvim-ts-autotag",
 
     -- Generar docstrings ../../after/plugin/vim-doge.lua
     {"kkoomen/vim-doge", build = ":call doge#install()"},
-
-    -- Markdown ../../after/plugin/markdown.lua
-    "preservim/vim-markdown",
 
     -- Automatizar tablas ../../after/plugin/vim-table-mode.lua
     "dhruvasagar/vim-table-mode",
@@ -114,7 +116,7 @@ local plugins = {
     -- GIT: Pantalla de commits mejorada
     "rhysd/committia.vim",
 
-    -- Centrado del buffer y notas
+    -- Centrado del buffer y notas ../../after/plugin/no-neck-pain.lua
     {"shortcuts/no-neck-pain.nvim", version = "*"},
 
     -- Navegar undo tree ../../after/plugin/undotree.lua
@@ -125,9 +127,12 @@ local plugins = {
     -- Interfaz GUI --
     ------------------
 
-    -- Tema de colores ../../after/plugin/monokai.lua
-    { dev = true, priority = 1000, dir = "$HOME/Informática/Programación/monokai.nvim" },
-    -- "folke/tokyonight.nvim",
+    -- Tema de colores ../../after/plugin/monokai-nightasty.lua
+    {
+        name="monokai-nightasty.nvim", dev = true, priority = 1000,
+        dir = "$HOME/Informática/Programación/monokai.nvim"
+    },
+    -- { "polirritmico/monokai-nightasty.nvim", priority = 1000, lazy = false },
 
     -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
     {
@@ -154,7 +159,6 @@ local plugins = {
 
 }
 
-local opts = {}
+local opts = { readme = { enabled = false } }
 
 require("lazy").setup(plugins, opts)
-

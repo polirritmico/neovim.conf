@@ -50,7 +50,7 @@ opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.cursorline = false      -- Subrraya la línea del cursor
 opt.equalalways = true      -- Ajusta ventanas al mismo tamaño al cerrar una.
 opt.hlsearch = false        -- Deshabilita el highligh después de las búsquedas
-opt.laststatus =3           -- Status bar global
+opt.laststatus = 3          -- Status bar global
 opt.number = true           -- Muestra el número de línea actual en lugar de 0
 opt.relativenumber = true   -- Muestra númeras de línea relativos
 opt.scrolloff = 6           -- Para hacer scroll con un margen en los bordes
@@ -84,11 +84,16 @@ opt.softtabstop = 4         -- Editar como si los tabs fueran de 4 espacios
 opt.tabstop = 4             -- Cantidad de espacios del indentado en pantall
 
 -- Plegado de código
-opt.foldenable = false      -- Evita plegado al abrir el archivo
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- ?
-opt.foldlevel = 1           -- ?
 opt.foldmethod = "expr"     -- Tipo de plegado (expr, indent, manual)
-opt.foldnestmax = 2         -- Máximo nivel de plegado anidado
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definición de la expr
+opt.foldenable = false      -- Deshabilita el plegado al abrir el archivo
+opt.foldlevelstart = 99     -- No plegar todo el código al usar el plegado
+opt.foldlevel = 1           -- Plegar solo 1 nivel?
+opt.foldminlines = 1        -- Mínimo nivel de plegado
+opt.foldnestmax = 3         -- Máximo nivel de plegado anidado
+opt.foldcolumn = "0"        -- Habilita la columna de plegado "0-9", "auto:1-9"
+opt.foldtext = "v:lua.CustomFoldText()" -- Ajusta texto del plegado (en globals.lua)
+opt.fillchars:append({fold = " "})      -- Quitar puntos después de foldtext
 
 
 ------------

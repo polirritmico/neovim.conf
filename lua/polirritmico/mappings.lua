@@ -33,11 +33,17 @@ Keymap({"n", "v"}, "zl", "z8l")
 Keymap("v", "<", "<gv")
 Keymap("v", ">", ">gv")
 
+-- Conmuta la columna de plegado (foldcolumn)
+_G.ToggleFoldColumn = function()
+    vim.opt.foldcolumn = vim.api.nvim_win_get_option(0, "foldcolumn") == "0" and "auto:3" or "0"
+end
+Keymap("n", "<leader>tf", ToggleFoldColumn, "Show/hide fold column")
+
 -- Moverse entre buffers:
 Keymap("n", "<leader>l", ":bnext<CR>", "Ir al siguiente buffer")
 Keymap("n", "<leader>h", ":bprevious<CR>", "Ir al buffer anterior")
-Keymap("n", "<leader>db", "<CMD>bd<CR>", "Borrar el buffer actual")
-Keymap("n", "<leader>dB", ":bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual y cerrar la ventana")
+Keymap("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual")
+Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Borrar el buffer actual y cerrar ventana")
 
 -- Regresar al archivo anterior "go back"
 Keymap("n", "<leader>gb", "<C-^>", "Regresa al buffer anterior")

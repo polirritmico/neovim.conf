@@ -1,8 +1,5 @@
 -- Undo Tree
-local plugin_name = "undotree"
-if not Check_loaded_plugin(plugin_name) then
-    return
-end
+if not Check_loaded_plugin("undotree") then return end
 
 -- Cambia el foco al abrir el panel
 vim.g.undotree_SetFocusWhenToggle = 1
