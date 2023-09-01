@@ -11,10 +11,9 @@ lsp.ensure_installed({"bashls", "clangd", "lua_ls", "pylsp"})
 
 -- Cuando se adjunta el servidor LSP a algun buffer se ejecuta esta función
 lsp.on_attach(function(_, bufnr)
-    -- :h lsp-zero-keybindings
     local opts = {buffer = bufnr, remap = false}
     lsp.default_keymaps(opts) -- :h lsp-zero-keybindings
-    -- opts.desc = "LSP: Open diagnostic float panel"
+    opts.desc = "LSP: Open diagnostic float panel"
     vim.keymap.set("n", "<F1>", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
 end)
 
