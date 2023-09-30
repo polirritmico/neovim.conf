@@ -73,6 +73,9 @@ Keymap({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Pegar desde \" en nueva lín
 -- Evitar entrar Ex mode (no confundir con Ex de explorer)
 Keymap("n", "Q", "")
 
+-- Cambiar al modo normal desde el modo terminal
+Keymap("t", "<c-n>", [[<c-\><c-n>]])
+
 -- Dar permisos de ejecución al buffer actual si está en la lista
 local valid_filetypes = { "bash", "sh", "python" }
 local chmod_exe = function()
@@ -110,13 +113,11 @@ if vim.g.sessions_dir ~= nil then
         "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
 end
 
--- Runners
-local function autocmd(filetype, cmd)
+-- Python runner
+local autocmd = function(filetype, cmd)
     vim.api.nvim_create_autocmd(
         {"FileType"}, {pattern = filetype, command = cmd}
     )
 end
--- Python run y tests
+
 autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
-autocmd("python", [[noremap <leader>rt :! python -m unittest discover . -b<CR>]])
-autocmd("python", [[noremap <leader>rT :! python -m unittest discover .<CR>]])

@@ -35,7 +35,7 @@ local my_config = {
                 {id = "repl", size = 0.13}
             },
             position = "left",
-            size = 30
+            size = 50
         }, {
             elements = {
                 {id = "watches", size = 0.5},
@@ -56,30 +56,34 @@ local my_config = {
     render = {
         indent = 1,
         max_value_lines = 100
-    }
+    },
+    open = { reset = true },
 }
 
+local dap = require("dap")
+local dapui = require("dapui")
 
 -- Python: Se necesita instalar debugpy con ':Mason debugpy'
 if require("mason-registry").is_installed("debugpy") then
-    require("dapui").setup(my_config)
+    dapui.setup(my_config)
     local dap_python = "$XDG_DATA_HOME/nvim/mason/packages/debugpy/venv/bin/python"
     require("dap-python").setup(dap_python)
+    require("dap-python").test_runner = "pytest"
 end
 
 -- Mappings
-Keymap({ "n", "v" }, "<F5>", "<Cmd>lua require'dap'.continue()<CR>", "DAP: Continue execution")
-Keymap({ "n", "v" }, "<F6>", "<Cmd>lua require'dap'.pause()<CR>", "DAP: Pause execution")
-Keymap({ "n", "v" }, "<F7>", "<Cmd>lua require'dap'.step_out()<CR>", "DAP: Step out")
-Keymap({ "n", "v" }, "<F8>", "<Cmd>lua require'dap'.step_into()<CR>", "DAP: Step into")
-Keymap({ "n", "v" }, "<F9>", "<Cmd>lua require'dap'.step_over()<CR>", "DAP: Step over")
-Keymap({ "n", "v" }, "<F12>", "<Cmd>lua require'dap'.close()<CR>", "DAP: Close execution")
-Keymap({ "n", "v" }, "<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", "DAP: Add/remove breakpoint into the current line")
-Keymap({ "n", "v" }, "<Leader>dc", "<Cmd>lua require'dap'.repl.open()<CR>", "DAP: Open debug console")
-Keymap({ "n", "v" }, "<Leader>dr", "<Cmd>lua require'dap'.run_last()<CR>", "DAP: Rerun last debug adapter/config")
-Keymap({ "n", "v" }, "<Leader>dg", "<Cmd>lua require'dapui'.toggle()<CR>", "DAP: Toggle DAP GUI")
-Keymap({ "n", "v" }, "<Leader>B", "<Cmd>lua require'dap'.set_breakpoint(" ..
-    "vim.fn.input('Breakpoint condition: '))<CR>", "DAP: Add a conditional breakpoint")
-Keymap({ "n", "v" }, "<Leader>dl", "<Cmd>lua require'dap'.set_breakpoint(nil, " ..
-    "nil, vim.fn.input('Log point message: '))<CR>", "DAP: Add a logpoint into the current line")
-Keymap({ "n", "v" }, "<Leader>di", "<Cmd>lua require('dapui').eval()<CR>", "DAP: Show debug info of the element under the cursor")
+Keymap({ "n", "v" }, "<F5>", dap.continue, "DAP: Continue execution")
+Keymap({ "n", "v" }, "<F6>", dap.pause, "DAP: Pause execution")
+Keymap({ "n", "v" }, "<F7>", dap.step_out, "DAP: Step out")
+Keymap({ "n", "v" }, "<F8>", dap.step_into, "DAP: Step into")
+Keymap({ "n", "v" }, "<F9>", dap.step_over, "DAP: Step over")
+Keymap({ "n", "v" }, "<F12>", dap.close, "DAP: Close execution")
+Keymap({ "n", "v" }, "<Leader>b", dap.toggle_breakpoint, "DAP: Add/remove breakpoint into the current line")
+Keymap({ "n", "v" }, "<Leader>dc", dap.repl.open, "DAP: Open debug console")
+Keymap({ "n", "v" }, "<Leader>dr", dap.run_last, "DAP: Rerun last debug adapter/config")
+Keymap({ "n", "v" }, "<Leader>B", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, "DAP: Add a conditional breakpoint")
+Keymap({ "n", "v" }, "<Leader>dl", function() dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, "DAP: Add a logpoint into the current line")
+
+Keymap({ "n", "v" }, "<Leader>di", dapui.eval, "DAP: Show debug info of the element under the cursor")
+Keymap({ "n", "v" }, "<Leader>dg", dapui.toggle, "DAP: Toggle DAP GUI")
+Keymap({ "n", "v" }, "<Leader>dt", function() require("dap-python").test_method() end, "DAP: Run test method")

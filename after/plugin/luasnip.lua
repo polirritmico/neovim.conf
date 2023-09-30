@@ -2,17 +2,34 @@
 if not Check_loaded_plugin("LuaSnip") then return end
 
 local ls = require("luasnip")
--- local types = require("luasnip.util.types")
+local types = require("luasnip.util.types")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 local my_snippets_path = "~/.config/nvim/lua/polirritmico/snippets/"
 require("luasnip.loaders.from_lua").load({ paths = my_snippets_path })
 
-ls.config.set_config {
+ls.setup({
     history = false,
-    updateevents = "TextChanged,TextChangedI",
+    update_events = "TextChanged,TextChangedI",
     enable_autosnippets = false,
-}
+    -- Cancel snippet session when leaving insert mode :h luasnip-config-options
+    region_check_events = "CursorMoved",
+    delete_check_events = "TextChanged,InsertLeave",
+    -- Add virtual marks on inputs
+    ext_opts = {
+        [types.choiceNode] = {
+            active = { virt_text = { { "ch", "Conceal" } }, },
+            unvisited = { virt_text = { { "ch", "Comment" } }, },
+        },
+        [types.insertNode] = {
+            active = { virt_text = { { "i", "Conceal" } }, },
+            unvisited = { virt_text = { { "i", "Comment" } }, },
+        },
+        [types.exitNode] = {
+            unvisited = { virt_text = { { "|", "Comment" } }, },
+        },
+    },
+})
 
 -- Teclas
 vim.keymap.set({"i", "s"}, "<c-j>", function()

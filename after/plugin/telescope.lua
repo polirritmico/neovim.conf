@@ -2,8 +2,8 @@
 if not Check_loaded_plugin("telescope.nvim") then return end
 
 local ignore_filetypes_list = {
-    "venv", "__pycache__", ".xlsx", ".jpg", ".png", ".JPG", ".PNG", ".webp",
-    ".WEBP", ".mp3", ".MP3", ".pdf", ".PDF", ".odt", ".ODT"
+    "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.JPG", "%.PNG", "%.webp",
+    "%.WEBP", "%.mp3", "%.MP3", "%.pdf", "%.PDF", "%.odt", "%.ODT", "%.ico", "%.ICO",
 }
 
 local telescope = require("telescope")
@@ -18,14 +18,14 @@ telescope.setup({
         path_display = { "truncate" },
         prompt_prefix = "   ",
         selection_caret = " 󰄾  ",
-        -- FIX: https://github.com/nvim-telescope/telescope.nvim/issues/559
+        -- FIX https://github.com/nvim-telescope/telescope.nvim/issues/559
         -- But have troubles when creating files/dirs with file browser.
-        mappings = {
-            i = {["<CR>"] = function()
-                vim.cmd [[:stopinsert]]
-                vim.cmd [[call feedkeys("\<CR>")]]
-            end},
-        },
+        -- mappings = {
+        --     i = {["<CR>"] = function()
+        --         vim.cmd [[:stopinsert]]
+        --         vim.cmd [[call feedkeys("\<CR>")]]
+        --     end},
+        -- },
     },
     extensions = {
         ["fzf"] = { fuzzy = true, override_generic_sorter = true, },

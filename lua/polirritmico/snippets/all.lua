@@ -9,7 +9,7 @@ local rep = require("luasnip.extras").rep
 local reload_key = { key = "my_all_snippets" }
 
 ls.add_snippets("all", {
-    s({ trig = "currentdate", name = "Current date",
+    s({ trig = "datecurrent", name = "Current date",
         dscr = "Insert the current date in various formats"
         },
         c(1, {

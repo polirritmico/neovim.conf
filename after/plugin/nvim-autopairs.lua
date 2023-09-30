@@ -11,11 +11,10 @@ npairs.setup({
         map = "<M-e>",
         chars = { '{', '[', '(', '"', "'" },
         pattern = [=[[%'%"%>%]%)%}%,]]=],
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
+        end_key = "L",
+        keys = "asdfghjklqwertyuiopzxcvbnm",
         check_comma = true,
         manual_position = true,
-        -- TODO: Mejorar el contraste de este highlight
         highlight = "Search",
         highlight_grey="Comment"
     },

@@ -13,6 +13,27 @@ ls.add_snippets("python", {
     ),
 
     s(
+        {trig = "layoutmain", name = "Python main.py layout", dscr = "Python layout for the main file."},
+        fmt([[
+        def main():
+            {}
+            return 0
+        
+        
+        if __name__ == "__main__":
+            main()
+        ]], {
+        i(1, "# Code goes here...")
+    })),
+
+    s(
+        {trig = "skiptest", name = "Pytest skip", dscr = "Pytest skip test decorator"}, fmt([[
+        #@pytest.mark.skip(reason="{}")
+        ]], {
+        i(1, "Not implemented")
+    })),
+
+    s(
         {trig = "def", name = "New function", dscr = "Snippet for a function definition."}, fmt([[
         def {}({}){}:
             {}
@@ -36,7 +57,7 @@ ls.add_snippets("python", {
     })),
 
     s(
-        {trig = "pytestlayout", name = "Pytest imports and function layout",
+        {trig = "layoutpytest", name = "Pytest imports and function layout",
         dscr = "Template for a pytest file with imports and a base test."},
         fmt([[
             import pytest

@@ -1,43 +1,93 @@
 -- LSP
-if not Check_loaded_plugin("lsp-zero.nvim") then return end
+if not Check_loaded_plugin("nvim-lspconfig") then return end
 
-local lsp = require('lsp-zero').preset()
-
--- Agrega bordes a LspInfo
-require("lspconfig.ui.windows").default_options.border = "rounded"
-
--- Servidores por defecto
-lsp.ensure_installed({"bashls", "clangd", "lua_ls", "pylsp"})
+local lspconfig = require("lspconfig")
+local lsp_defaults = lspconfig.util.default_config
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+    "force",
+    lsp_defaults.capabilities,
+    require("cmp_nvim_lsp").default_capabilities()
+)
 
 -- Cuando se adjunta el servidor LSP a algun buffer se ejecuta esta función
-lsp.on_attach(function(_, bufnr)
-    local opts = {buffer = bufnr, remap = false}
-    lsp.default_keymaps(opts) -- :h lsp-zero-keybindings
-    opts.desc = "LSP: Open diagnostic float panel"
-    vim.keymap.set("n", "<F1>", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
-end)
+vim.api.nvim_create_autocmd("LspAttach", {
+    desc = "LSP actions",
+    callback = function(event)
+        local opts = {buffer = event.buf}
 
--- Configuraciones globales de servidores
-lsp.configure("pylsp",{
-    settings = {
-        pylsp = {
-            plugins = {
-                black = { enabled = true },
-                pycodestyle = {
-                    maxLineLength = 88,
-                    ignore = { "E265", "E501", "W391", "W503" }
-                }
-            }
-        }
-    }
+        vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+        vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+        vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+        vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+        vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+        vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+        vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+        vim.keymap.set("n", "<F1>", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
+        vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+        vim.keymap.set({"n", "x"}, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
+        vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+        vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
+        vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+    end
 })
 
--- Configuraciones lua para nvim
-require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+-------------------------------------------------------------------------------
+-- Mason maneja los paquetes de los servidores LSP
+if not Check_loaded_plugin("mason-lspconfig.nvim") then return end
 
-lsp.setup()
+
+--- Configuraciones de servidores LSP
+-- Default
+local default_setup = function(server)
+    lspconfig[server].setup({})
+end
+
+-- Lua
+local config_lua_ls = function()
+    lspconfig.lua_ls.setup({ settings = { Lua = {
+        runtime = {
+            version = "LuaJIT",
+            path = vim.split(package.path, ";"), -- runtime path
+        },
+        diagnostics = { globals = {"vim"} },
+        workspace = {
+            checkThirdParty = false,
+            library = {
+                vim.fn.expand("$VIMRUNTIME/lua"),
+                vim.fn.stdpath("config") .. "/lua"
+            }
+        }
+    }}})
+end
+
+-- Python
+local config_pylsp = function()
+    lspconfig.pylsp.setup({ settings = { pylsp = {
+        plugins = {
+            black = { enabled = true },
+            pycodestyle = {
+                maxLineLength = 88,
+                ignore = { "E203", "E265", "E501", "W391", "W503" }
+            }
+        }
+    }}})
+end
+
+-- Aplicamos las configuraciones
+require("mason").setup({})
+require("mason-lspconfig").setup({
+    -- Servidores a instalar por defecto
+    ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp", },
+    handlers = {
+        default_setup,
+        lua_ls = config_lua_ls,
+        pylsp = config_pylsp
+    },
+})
+
 
 -------------------------------------------------------------------------------
+-- Python debug
 if Check_loaded_plugin("mason-tool-installer.nvim") then
     require("mason-tool-installer").setup({
         ensure_installed = { "debugpy", },
@@ -45,26 +95,6 @@ if Check_loaded_plugin("mason-tool-installer.nvim") then
     })
 end
 
--------------------------------------------------------------------------------
--- Autocompletado
-local cmp = require("cmp")
-
-cmp.setup({
-    -- Ajuste tecla de selección de sugerencias
-    mapping = { ["<C-j>"] = cmp.mapping.confirm({ select = true }) },
-    sources = {
-        { name = "path" },
-        { name = "luasnip", option = {use_show_condition = false} },
-        { name = "nvim_lsp" },
-        { name = "cmp_luasnip" },
-        { name = "buffer",  keyword_length = 3 },
-    },
-    -- Agregar borde a ventana emergente
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-})
 
 -------------------------------------------------------------------------------
 -- LSP_signature.
@@ -81,19 +111,9 @@ if Check_loaded_plugin("lsp_signature.nvim") then
 end
 
 -------------------------------------------------------------------------------
--- null-ls
-if Check_loaded_plugin("null-ls.nvim") then
-    local null_ls = require("null-ls")
-    null_ls.setup({
-        debug = false,
-        on_attach = function(client, bufnr)
-            if vim.bo.filetype == "python" then
-                require("lsp-zero").async_autoformat(client, bufnr)
-            end
-        end,
-        sources = {
-            null_ls.builtins.formatting.isort,
-            null_ls.builtins.formatting.black,
-        }
-    })
-end
+-- Agrega bordes a LspInfo
+require("lspconfig.ui.windows").default_options.border = "rounded"
+-- Agrega bordes a Hover
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
