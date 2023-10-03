@@ -83,7 +83,7 @@ local plugins = {
     ----------------------
 
     -- Integración git
-    "tpope/vim-fugitive",
+    -- "tpope/vim-fugitive",
 
     -- Navegar entre archivos abiertos ../../after/plugin/harpoon.lua
     "theprimeagen/harpoon",
@@ -154,7 +154,10 @@ local plugins = {
     ---------------------------
 
     -- Para obtener info de grupos highlight del análisis sintáctico
-    -- "nvim-treesitter/playground",
+    "nvim-treesitter/playground",
+
+    -- ../../after/plugin/gitsigns.lua
+    -- {"lewis6991/gitsigns.nvim"},
 }
 
 local opts = { readme = { enabled = false } }
