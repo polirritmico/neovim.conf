@@ -51,3 +51,16 @@ require("gitsigns").setup({
         enable = false
     },
 })
+
+local gitsigns = require("gitsigns")
+Keymap({"n", "v"}, "<leader>gsb", gitsigns.stage_buffer) -- git stage buffer
+Keymap({"n", "v"}, "<leader>gsh", gitsigns.stage_hunk) -- git stage hunk
+Keymap({"n", "v"}, "<leader>gu", gitsigns.undo_stage_hunk) -- git undo
+Keymap({"n", "v"}, "<leader>grb", gitsigns.reset_buffer) -- git Reset buffer
+Keymap({"n", "v"}, "<leader>grh", gitsigns.reset_hunk) -- git Reset buffer
+Keymap({"n", "v"}, "<leader>gp", gitsigns.preview_hunk) -- git preview
+Keymap({"n", "v"}, "<leader>ga", function() gitsigns.blame_line({full=true}) end) -- git author?
+Keymap({"n", "v"}, "<leader>gc", gitsigns.toggle_current_line_blame) -- git creator
+Keymap({"n", "v"}, "<leader>gd", gitsigns.diffthis) -- git diff
+Keymap({"n", "v"}, "<leader>gD", function() gitsigns.diffthis("~") end) -- git Diff
+Keymap({"n", "v"}, "<leader>gt", gitsigns.toggle_deleted) -- git toggle

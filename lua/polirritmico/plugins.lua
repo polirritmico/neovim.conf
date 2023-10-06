@@ -160,6 +160,6 @@ local plugins = {
     -- {"lewis6991/gitsigns.nvim"},
 }
 
-local opts = { readme = { enabled = false } }
+local opts = { readme = { enabled = false }, ui = { border = "rounded" } }
 
 require("lazy").setup(plugins, opts)
