@@ -48,7 +48,7 @@ local plugins = {
 
     -- Telescope: Búsquedas con fzf ../../after/plugin/telescope.lua
     {
-        "nvim-telescope/telescope.nvim", tag = '0.1.2',
+        "nvim-telescope/telescope.nvim", tag = '0.1.4',
         dependencies = {
             {"nvim-lua/plenary.nvim"},
             {"nvim-telescope/telescope-file-browser.nvim"},
@@ -82,9 +82,6 @@ local plugins = {
     -- Ayudas de código --
     ----------------------
 
-    -- Integración git
-    -- "tpope/vim-fugitive",
-
     -- Navegar entre archivos abiertos ../../after/plugin/harpoon.lua
     "theprimeagen/harpoon",
 
@@ -112,14 +109,20 @@ local plugins = {
     -- Modos especiales --
     ----------------------
 
-    -- GIT: Pantalla de commits mejorada
+    -- Git: Pantalla de commits mejorada
     "rhysd/committia.vim",
+
+    -- Git: Manejar git desde nvim
+    -- "tpope/vim-fugitive",
+
+    -- Git: Mostrar cambios en el código ../../after/plugin/gitsigns.lua
+    {"lewis6991/gitsigns.nvim"},
 
     -- Centrado del buffer y notas ../../after/plugin/no-neck-pain.lua
     {"shortcuts/no-neck-pain.nvim", version = "*"},
 
     -- Navegar undo tree ../../after/plugin/undotree.lua
-    -- "mbbill/undotree",
+    "mbbill/undotree",
 
 
     ------------------
@@ -128,7 +131,7 @@ local plugins = {
 
     -- Tema de colores ../../after/plugin/monokai-nightasty.lua
     {
-        name="monokai-nightasty.nvim", dev = true, priority = 1000,
+        name = "monokai-nightasty.nvim", priority = 1000,
         dir = "$HOME/Informática/Programación/monokai.nvim"
     },
     -- { "polirritmico/monokai-nightasty.nvim", priority = 1000, lazy = false },
@@ -155,9 +158,6 @@ local plugins = {
 
     -- Para obtener info de grupos highlight del análisis sintáctico
     "nvim-treesitter/playground",
-
-    -- ../../after/plugin/gitsigns.lua
-    -- {"lewis6991/gitsigns.nvim"},
 }
 
 local opts = { readme = { enabled = false }, ui = { border = "rounded" } }

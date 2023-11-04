@@ -40,9 +40,9 @@ end
 Keymap("n", "<leader>tf", ToggleFoldColumn, "Show/hide fold column")
 
 -- Moverse entre buffers:
-Keymap("n", "<leader>l", ":bnext<CR>", "Ir al siguiente buffer")
-Keymap("n", "<leader>h", ":bprevious<CR>", "Ir al buffer anterior")
-Keymap("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual")
+Keymap("n", "<leader>l", "<CMD>bnext<CR>", "Ir al siguiente buffer")
+Keymap("n", "<leader>h", "<CMD>bprevious<CR>", "Ir al buffer anterior")
+Keymap("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual")
 Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Borrar el buffer actual y cerrar ventana")
 
 -- Regresar al archivo anterior "go back"

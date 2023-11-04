@@ -87,3 +87,5 @@ Keymap({ "n", "v" }, "<Leader>dl", function() dap.set_breakpoint(nil, nil, vim.f
 Keymap({ "n", "v" }, "<Leader>di", dapui.eval, "DAP: Show debug info of the element under the cursor")
 Keymap({ "n", "v" }, "<Leader>dg", dapui.toggle, "DAP: Toggle DAP GUI")
 Keymap({ "n", "v" }, "<Leader>dt", function() require("dap-python").test_method() end, "DAP: Run test method")
+-- FIX: Reset UI size after running vim-test call
+Keymap({ "n", "v" }, "<Leader>dG", function() dapui.open({reset=true}) end, "DAP: Reset DAP GUI layout size")

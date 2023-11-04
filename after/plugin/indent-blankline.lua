@@ -1,3 +1,4 @@
+-- indent-blankline
 if not Check_loaded_plugin("indent-blankline.nvim") then return end
 
 require("ibl").setup({

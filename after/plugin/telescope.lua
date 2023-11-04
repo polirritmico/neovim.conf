@@ -40,7 +40,7 @@ telescope.setup({
                     preview_width = 0.7,
                 },
             },
-        }
+        },
     },
 })
 
@@ -53,7 +53,8 @@ Keymap({ "n", "v" }, "<leader>ff", "<CMD>Telescope find_files<CR>", "Telescope: 
 Keymap({ "n", "v" }, "<leader>fe", "<CMD>Telescope file_browser<CR>", "Telescope: Find files in file_browser")
 Keymap({ "n", "v" }, "<leader>fg", "<CMD>Telescope live_grep<CR>", "Telescope: Find grep")
 Keymap({ "n", "v" }, "<leader>fb", "<CMD>Telescope buffers<CR>", "Telescope: Find buffers")
-Keymap({ "n", "v" }, "<leader>fr", "<CMD>Telescope oldfiles<CR>", "Telescope: Find recents")
+Keymap({ "n", "v" }, "<leader>fr", "<CMD>Telescope registers<CR>", "Telescope: Copy a register")
+Keymap({ "n", "v" }, "<leader>fR", "<CMD>Telescope oldfiles<CR>", "Telescope: Find recents")
 Keymap({ "n", "v" }, "<leader>fh", "<CMD>Telescope help_tags<CR>", "Telescope: Find help")
 Keymap({ "x" }, "<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>", "Telescope: Find selected string")
 Keymap({ "n", "v" }, "<leader>fF", "<CMD>lua require'telescope.builtin'.find_files{cwd = vim.fn.expand('%:p:h'), hidden = true}<CR>", "Telescope: Browse mode in nvim path")

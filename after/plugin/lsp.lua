@@ -9,6 +9,15 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
     require("cmp_nvim_lsp").default_capabilities()
 )
 
+-- Ocultar/Mostrar diagnósticos
+local toggleLspDiagnostic = function()
+    if vim.diagnostic.is_disabled() then
+        vim.diagnostic.enable()
+    else
+        vim.diagnostic.disable()
+    end
+end
+
 -- Cuando se adjunta el servidor LSP a algun buffer se ejecuta esta función
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
@@ -28,6 +37,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
         vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
         vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+        vim.keymap.set({"n", "v"}, "<leader>gH", toggleLspDiagnostic, opts)
     end
 })
 

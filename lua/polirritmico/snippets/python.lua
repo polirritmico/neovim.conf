@@ -38,7 +38,7 @@ ls.add_snippets("python", {
         def {}({}){}:
             {}
         ]], {
-        i(1, "name"),
+        c(1, {i(1, "name"), t("__init__")}),
         i(2, "self"),
         c(3, {i(1), t{" -> None"}, fmt(" -> {}", i(1), {dedent = false}), i(1)}),
         i(4, "pass")
