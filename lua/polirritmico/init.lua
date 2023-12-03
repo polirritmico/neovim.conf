@@ -3,7 +3,7 @@ local user = "polirritmico"
 
 -- Helper function to load the passed module. If the module returns an error,
 -- then print it and load the fallback config module (user.fallback.file).
--- (This expect a fallback config named <module.lua> in the fallback folder)
+-- (This expect a fallback config named <module-name.lua> in the fallback folder)
 local catched_errors = {}
 local load_config = function(module)
     local ok, error = pcall(require, user .. "." .. module)
@@ -38,5 +38,6 @@ load_config("disable-builtin")
 load_config("settings")
 load_config("mappings")
 if not detected_errors(catched_errors) then
+    require(user .. ".patches")
     require(user .. ".plugins")
 end

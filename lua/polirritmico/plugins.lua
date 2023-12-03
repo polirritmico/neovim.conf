@@ -2,7 +2,7 @@
 -- LAZY PLUGINS CONFIG --
 -------------------------
 
--- Instalar Lazy si no está instalado
+-- Lazy bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -15,13 +15,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 local mason_update = function() pcall(vim.api.nvim_command, "MasonUpdate") end
 
---- Carga de plugins ---------------------------------------------------------
-
 local plugins = {
 
-    ---------------------------
-    -- Funcionalidad central --
-    ---------------------------
+    ------------------------
+    -- Core Functionality --
+    ------------------------
 
     -- LSP: Language Server Protocol ../../after/plugin/lsp.lua
     {
@@ -29,35 +27,36 @@ local plugins = {
         {"williamboman/mason.nvim", build = mason_update},
         {"williamboman/mason-lspconfig.nvim"},
         {"WhoIsSethDaniel/mason-tool-installer.nvim"}, -- debugpy
-        -- Autocompletado
+        -- Autocompletion
         {"hrsh7th/nvim-cmp"},
         {"hrsh7th/cmp-nvim-lsp"},
         -- Snippets ../../after/plugin/luasnip.lua
         {"saadparwaiz1/cmp_luasnip"},
         {"L3MON4D3/LuaSnip"},
-        -- Ventana emergente con argumentos de funciones
+        -- Floating window with function documentation and args
         {"ray-x/lsp_signature.nvim"},
-        -- Conecta herramientas no-LSP con el servidor LSP (black, isort)
-        {"jose-elias-alvarez/null-ls.nvim", dependencies = {"nvim-lua/plenary.nvim"}},
+        -- Connects no-LSP tools with the LSP server (black, isort, etc.)
+        {"jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim"},
     },
 
-    -- Treesitter: Análisis sintáctico ../../after/plugin/treesitter.lua
+    -- Treesitter: Syntactic analysis ../../after/plugin/treesitter.lua
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
-    -- Mostrar el contexto del código en la línea superior (func, clases, etc.)
+
+    -- Shows code context on the top (func, classes, etc.)
     {"nvim-treesitter/nvim-treesitter-context"},
 
-    -- Telescope: Búsquedas con fzf ../../after/plugin/telescope.lua
+    -- Telescope: Searches with fzf ../../after/plugin/telescope.lua
     {
-        "nvim-telescope/telescope.nvim", tag = '0.1.4',
+        "nvim-telescope/telescope.nvim", tag = '0.1.5',
         dependencies = {
-            {"nvim-lua/plenary.nvim"},
-            {"nvim-telescope/telescope-file-browser.nvim"},
-            {"crispgm/telescope-heading.nvim"},
-            -- {"debugloop/telescope-undo.nvim"},
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
+            "crispgm/telescope-heading.nvim",
+            -- "debugloop/telescope-undo.nvim",
         },
     },
 
-    -- Guardar sesiones ../../after/plugin/vim-obsession.lua
+    -- Save sessions ../../after/plugin/vim-obsession.lua
     {"tpope/vim-obsession"},
 
 
@@ -74,90 +73,97 @@ local plugins = {
         }
     },
 
-    -- Ejecuciones de tests ../../after/plugin/vim-test.lua
-    "vim-test/vim-test",
+    -- Test manager ../../after/plugin/vim-test.lua
+    "polirritmico/nvim-test", -- "klen/nvim-test",
+    -- {
+    --     "nvim-neotest/neotest",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --         "antoinemadec/FixCursorHold.nvim",
+    --         "nvim-neotest/neotest-python",
+    --     }
+    -- },
 
 
-    ----------------------
-    -- Ayudas de código --
-    ----------------------
+    ------------------
+    -- Code helpers --
+    ------------------
 
-    -- Navegar entre archivos abiertos ../../after/plugin/harpoon.lua
-    "theprimeagen/harpoon",
+    -- Navigation through pinned files ../../after/plugin/harpoon.lua
+    {"theprimeagen/harpoon"},
 
-    -- Fix indentación del cierre de {} en Python
-    "Vimjas/vim-python-pep8-indent",
+    -- Fix close {} indentation for Python
+    {"Vimjas/vim-python-pep8-indent"},
 
-    -- Pares de paréntesis y llaves ../../after/plugin/nvim-autopairs.lua
+    -- Pairs of (), [], {} ../../after/plugin/nvim-autopairs.lua
     {"windwp/nvim-autopairs", event = "InsertEnter", opts = {}},
-    -- "windwp/nvim-ts-autotag",
 
-    -- Generar docstrings ../../after/plugin/vim-doge.lua
-    {"kkoomen/vim-doge", build = ":call doge#install()"},
+    -- Docstrings generation ../../after/plugin/vim-doge.lua
+    -- {"kkoomen/vim-doge", build = ":call doge#install()"},
 
-    -- Automatizar tablas ../../after/plugin/vim-table-mode.lua
-    "dhruvasagar/vim-table-mode",
+    -- Tables automatization ../../after/plugin/vim-table-mode.lua
+    {"dhruvasagar/vim-table-mode"},
 
-    -- Conmutar comentarios ../../after/plugin/comments.lua
-    "numToStr/Comment.nvim",
+    -- Toggle comments ../../after/plugin/comments.lua
+    {"numToStr/Comment.nvim"},
 
-    -- Comentarios TODO ../../after/plugin/todo-comments.lua
-    {"folke/todo-comments.nvim", dependencies = {"nvim-lua/plenary.nvim"}},
+    -- TODO, FIX, etc. comments highlights ../../after/plugin/todo-comments.lua
+    {"folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim"},
 
 
-    ----------------------
-    -- Modos especiales --
-    ----------------------
+    -------------------
+    -- Special Modes --
+    -------------------
 
-    -- Git: Pantalla de commits mejorada
-    "rhysd/committia.vim",
+    -- Git: Improved commits screen
+    {"rhysd/committia.vim"},
 
-    -- Git: Manejar git desde nvim
-    -- "tpope/vim-fugitive",
+    -- Git: Handle git whitin nvim
+    -- {"tpope/vim-fugitive"},
 
-    -- Git: Mostrar cambios en el código ../../after/plugin/gitsigns.lua
+    -- Git: Highlight code changes from last commit ../../after/plugin/gitsigns.lua
     {"lewis6991/gitsigns.nvim"},
 
-    -- Centrado del buffer y notas ../../after/plugin/no-neck-pain.lua
+    -- Center buffer on screen and add notes ../../after/plugin/no-neck-pain.lua
     {"shortcuts/no-neck-pain.nvim", version = "*"},
 
-    -- Navegar undo tree ../../after/plugin/undotree.lua
-    "mbbill/undotree",
+    -- Undo tree navegation ../../after/plugin/undotree.lua
+    -- {"mbbill/undotree"},
 
 
-    ------------------
-    -- Interfaz GUI --
-    ------------------
+    -------------------
+    -- GUI Interface --
+    -------------------
 
-    -- Tema de colores ../../after/plugin/monokai-nightasty.lua
+    -- The best colorscheme ../../after/plugin/monokai-nightasty.lua
     {
         name = "monokai-nightasty.nvim", priority = 1000,
         dir = "$HOME/Informática/Programación/monokai.nvim"
     },
     -- { "polirritmico/monokai-nightasty.nvim", priority = 1000, lazy = false },
 
-    -- Pantalla de bienvenida ../../after/plugin/alpha-nvim.lua
+    -- Greeter screen ../../after/plugin/alpha-nvim.lua
     {
-        'goolord/alpha-nvim', event = "VimEnter",
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
+        "goolord/alpha-nvim", event = "VimEnter",
+        dependencies = {"nvim-tree/nvim-web-devicons"}
     },
 
-    -- Barra de estado ../../after/plugin/lualine.lua
-    "nvim-lualine/lualine.nvim",
+    -- Status bar ../../after/plugin/lualine.lua
+    {"nvim-lualine/lualine.nvim"},
 
-    -- Líneas guía de indentación ../../after/plugin/indent-blankline.lua
-    "lukas-reineke/indent-blankline.nvim",
+    -- Indentation guide lines ../../after/plugin/indent-blankline.lua
+    {"lukas-reineke/indent-blankline.nvim"},
 
-    -- Personalizar regla o columna vertical ../../after/plugin/virt-column.lua
-    "lukas-reineke/virt-column.nvim",
+    -- Custom vertical width column/ruler ../../after/plugin/virt-column.lua
+    {"lukas-reineke/virt-column.nvim"},
 
 
-    ---------------------------
-    -- Desarrollo de plugins --
-    ---------------------------
+    ------------------------
+    -- Plugin development --
+    ------------------------
 
-    -- Para obtener info de grupos highlight del análisis sintáctico
-    "nvim-treesitter/playground",
+    -- Get info about syntax highlight
+    {"nvim-treesitter/playground"},
 }
 
 local opts = { readme = { enabled = false }, ui = { border = "rounded" } }

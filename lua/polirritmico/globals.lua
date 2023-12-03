@@ -1,6 +1,7 @@
 -- Globals
 
 -- Paths
+-- TODO: Change to vim.fn.stdpath
 MyConfigPath = " ~/.config/nvim/lua/polirritmico/"
 MyLocalSharePath = " ~/.local/share/nvim/"
 MyPluginConfigPath = " ~/.config/nvim/after/plugin/"

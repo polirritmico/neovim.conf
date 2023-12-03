@@ -9,7 +9,7 @@ require("lualine").setup({
     },
     sections = {
         lualine_c = {
-            function() return vim.fn.ObsessionStatus("S", "") end,
+            function() return vim.fn.ObsessionStatus("", "") end,
             { "filename", path = 4, shorting_target = 45 }
         }
     },

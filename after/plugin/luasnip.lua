@@ -18,15 +18,12 @@ ls.setup({
     -- Add virtual marks on inputs
     ext_opts = {
         [types.choiceNode] = {
-            active = { virt_text = { { "ch", "Conceal" } }, },
-            unvisited = { virt_text = { { "ch", "Comment" } }, },
+            active = { virt_text = { { "← Choice", "Conceal" } }, },
+            pasive = { virt_text = { { "← Choice", "Comment" } }, },
         },
         [types.insertNode] = {
-            active = { virt_text = { { "i", "Conceal" } }, },
-            unvisited = { virt_text = { { "i", "Comment" } }, },
-        },
-        [types.exitNode] = {
-            unvisited = { virt_text = { { "|", "Comment" } }, },
+            active = { virt_text = { { "← Insert", "Conceal" } }, },
+            pasive = { virt_text = { { "← Insert", "Comment" } }, },
         },
     },
 })

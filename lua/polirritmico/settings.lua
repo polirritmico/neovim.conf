@@ -1,106 +1,111 @@
-local api = vim.api
 local opt = vim.opt
 
---------------------
--- FUNCIONAMIENTO --
---------------------
+-------------------
+-- FUNCTIONALITY --
+-------------------
 
--- Idioma
-api.nvim_exec("language en_US.utf8", true)
+-- Language
+vim.cmd("language en_US.utf8")
 
--- Generales
-opt.errorbells = false      -- Deshabilita anuncios de errores
-opt.mouse = "a"             -- Habilita el soporte del ratón
-opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
-opt.timeoutlen = 2000       -- 1000ms por defecto
+-- Generals
+opt.errorbells = false      -- Disable error notifications
+opt.mouse = "a"             -- Enables mouse support
+opt.timeout = true          -- Enables wait time for key combinations
+opt.timeoutlen = 2000       -- 1000ms default
 
--- Búsquedas
-opt.ignorecase = true       -- Al buscar ignora la capitalización
-opt.incsearch = true        -- Muestra los resultados mientras se busca
-opt.magic = true            -- Patrones regex estándar
-opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
-opt.smartcase = true        -- Se activa solo si hay mayúsculas en la búsqueda
+-- Searches
+opt.ignorecase = true       -- Ignore capitalization when searching
+opt.smartcase = true        -- Match capitalization only if there are capital letters
+opt.incsearch = true        -- Show results while searching
+opt.magic = true            -- Standard regex patterns
+opt.path:append("**")       -- Subfolders searching with tab-completion
 
--- Entrar en modo insert al abrir :terminal
-vim.cmd([[autocmd TermOpen * startinsert]])
+-- Enter into insert mode when opening :terminal
+vim.cmd([[autocmd TermOpen term://* startinsert]])
 
--- Guarda la posición del cursor en el archivo.
+-- Saves the current cursor position in the file.
 vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
--- Respaldos
-opt.backup = false          -- No usar archivos de respaldo. Molesta mucho.
-opt.undofile = false        -- Deshabilitado: Da error si no se guarda al salir
--- opt.swapfile = false        -- No crear archivo swap por buffer
--- opt.updatecount = 0         -- No escribir en el archivo swap cada N chars
+-- Backups
+opt.backup = false          -- Do not use backup files. It bothers more than it helps
+opt.undofile = false        -- Disabled: Give errors if file is not saved on exit
+-- opt.swapfile = false        -- Do not create swap file per buffer
+-- opt.updatecount = 0         -- Do not write to the swap file every N chars
 
 -- Wildmenu
-opt.wildmenu = true         -- Completado de comandos avanzado
+opt.wildmenu = true         -- Advanced command completion
 opt.wildmode = "full"       -- :help wildmode
 
 
 ----------------
--- APARIENCIA --
+-- APPEARANCE --
 ----------------
 
-opt.cmdheight = 0           -- Elimina la linea de comandos bajo la barra
+opt.cmdheight = 0           -- Remove the command line below the status bar
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
-opt.cursorline = false      -- Subrraya la línea del cursor
-opt.equalalways = true      -- Ajusta ventanas al mismo tamaño al cerrar una.
-opt.hlsearch = false        -- Deshabilita el highligh después de las búsquedas
-opt.laststatus = 3          -- Status bar global
-opt.number = true           -- Muestra el número de línea actual en lugar de 0
-opt.relativenumber = true   -- Muestra números de línea relativos
-opt.scrolloff = 6           -- Para hacer scroll con un margen en los bordes
-opt.showmode = false        -- Muestra el estado en el área de comandos
-opt.title = true            -- Ajusta el nombre de la ventana
+opt.cursorline = false      -- Underline the cursor line
+opt.equalalways = true      -- Resize windows to the same size when closing one
+opt.hlsearch = false        -- Disable highlight after searches
+opt.laststatus = 3          -- Global status bar (not one for each window)
+opt.number = true           -- Shows the current line number instead of 0
+opt.relativenumber = true   -- Show relative line numbers
+opt.scrolloff = 6           -- To leave N lines before/after on scrolling
+opt.showmode = false        -- Show status in command area
+opt.title = true            -- Set the window name
 
--- Resalta el texto copiado
+-- Highlight yanked text
 vim.cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
 
--- Deshabilitar entrada del menu "How-to disable mouse"
+
+-- Mouse related
+
+-- Disable "How-to disable mouse" entry on mouse right click menu
 vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
 
+-- vnoremenu PopUp.Copy "+y
+vim.cmd([[vnoremenu PopUp.Copy "+y]])
 
-------------
--- CÓDIGO --
-------------
 
-opt.wrap = false            -- Divide líneas largas
-opt.textwidth = 80          -- Ajusta las líneas hasta este límite horizontal
+----------
+-- CODE --
+----------
 
--- Indentación
-opt.autoindent = true       -- Indenta en base a la línea anterior
-opt.cindent = true          -- Indenta comentarios al inicio de las líneas
-opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
-opt.expandtab = true        -- Reemplaza tab por espacios en el modo Insertar
-opt.shiftround = true       -- Aproxima el indentado en múltiplos de shiftwidth
-opt.shiftwidth = 4          -- Cantidad de espacios usados por indent y unindent
-opt.smartindent = true      -- Autoindenta al agregar una nueva línea
-opt.smarttab = true         -- Tab sigue tabstop, shiftwidth y softtabstop
-opt.softtabstop = 4         -- Editar como si los tabs fueran de 4 espacios
-opt.tabstop = 4             -- Cantidad de espacios del indentado en pantall
+opt.wrap = false            -- Split long lines
+opt.textwidth = 80          -- Adjust the lines to match this width limit
 
--- Plegado de código
-opt.foldmethod = "expr"     -- Tipo de plegado (expr, indent, manual)
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definición de la expr
-opt.foldenable = false      -- Deshabilita el plegado al abrir el archivo
-opt.foldlevelstart = 99     -- No plegar todo el código al usar el plegado
-opt.foldlevel = 1           -- Plegar solo 1 nivel?
-opt.foldminlines = 1        -- Mínimo nivel de plegado
-opt.foldnestmax = 3         -- Máximo nivel de plegado anidado
-opt.foldcolumn = "0"        -- Habilita la columna de plegado "0-9", "auto:1-9"
-opt.foldtext = "v:lua.CustomFoldText()" -- Ajusta texto del plegado (en globals.lua)
-opt.fillchars:append({fold = " "})      -- Quitar puntos después de foldtext
+-- Indentation
+opt.autoindent = true       -- Indent based on the previous line
+opt.cindent = true          -- Indent comments at the beginning of the lines
+opt.cinkeys = opt.cinkeys - "0#" -- Idem.
+opt.expandtab = true        -- Replace tab with spaces in Insert mode
+opt.shiftround = true       -- Approx. the indentation in multiples of shiftwidth
+opt.shiftwidth = 4          -- Number of spaces used by indent and unindent
+opt.smartindent = true      -- Autoindent when adding a new line
+opt.smarttab = true         -- Tab follows tabstop, shiftwidth and softtabstop
+opt.softtabstop = 4         -- Edit as if the tabs were 4 spaces
+opt.tabstop = 4             -- Number of indentation spaces on the screen
+
+-- Code folding
+opt.foldmethod = "expr"     -- Folding type (expr, indent, manual)
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression
+opt.foldenable = false      -- Disable folding when opening file
+opt.foldlevelstart = 99     -- Don't fold all code when using folding
+opt.foldlevel = 1           -- Fold only 1 level?
+opt.foldminlines = 1        -- Minimum folding level
+opt.foldnestmax = 3         -- Max nested folding level
+opt.foldcolumn = "0"        -- Enable folding column "0-9", "auto: 1-9"
+opt.foldtext = "v:lua.CustomFoldText()" -- Wrap fold text function (in globals.lua)
+opt.fillchars:append({fold = " "})      -- Remove dots after foldtext
 
 
 ------------
 -- CUSTOM --
 ------------
 
--- Trabajar con un buffer en 2 ventanas tipo columnas.
+-- Work with the same buffer in 2 column-type windows.
 vim.cmd([[
     command! TwoColumns exe "normal zR" | set noscrollbind | vsplit
         \ | set scrollbind | wincmd w | exe "normal \<c-f>" | set scrollbind | wincmd p

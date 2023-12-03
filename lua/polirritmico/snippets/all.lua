@@ -1,9 +1,9 @@
--- Snippets para todos los tipos de archivo
+-- Snippets for all typefiles
 local ls = require("luasnip")
 local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local p = require("luasnip.extras").partial
-local rep = require("luasnip.extras").rep
+-- local rep = require("luasnip.extras").rep
 
 -- Avoid multiple versions of the same snippet on reload
 local reload_key = { key = "my_all_snippets" }

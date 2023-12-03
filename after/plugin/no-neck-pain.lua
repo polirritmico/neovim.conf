@@ -14,24 +14,28 @@ require("no-neck-pain").setup({
 })
 
 NoNeckPain_default_border_hl = {}
+NoNeckPainToggleState = false
 
-local custom_toggle = function()
+local custom_toggle_border_hl = function()
     local border_name = "WinSeparator"
     local custom_hl = { fg = 4079166 }
-    local current_hl = vim.api.nvim_get_hl(0, { name = border_name })
+    -- local current_hl = vim.api.nvim_get_hl(0, { name = border_name })
 
     if NoNeckPain_default_border_hl.fg == nil then
-        NoNeckPain_default_border_hl = vim.api.nvim_get_hl(0, { name = "WinSeparator", link = true })
+        NoNeckPain_default_border_hl = vim.api.nvim_get_hl(
+            0, { name = border_name, link = true }
+        )
     end
 
-    if current_hl.fg == NoNeckPain_default_border_hl.fg then
-        vim.api.nvim_set_hl(0, border_name, custom_hl)
-    else
+    if NoNeckPainToggleState then
         vim.api.nvim_set_hl(0, border_name, NoNeckPain_default_border_hl)
+    else
+        vim.api.nvim_set_hl(0, border_name, custom_hl)
     end
+    NoNeckPainToggleState = not NoNeckPainToggleState
 
     vim.cmd([[NoNeckPain]])
 end
 
-Keymap({"n", "s"}, "<leader>tc", custom_toggle, "NoNeckPain: Toggle center mode")
+Keymap({"n", "s"}, "<leader>tc", custom_toggle_border_hl, "NoNeckPain: Toggle center mode")
 -- Keymap({"n", "s"}, "<leader>tc", "<CMD>NoNeckPain<CR>", "NoNeckPain: Toggle center mode")

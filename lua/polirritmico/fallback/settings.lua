@@ -2,45 +2,47 @@
 
 local opt = vim.opt
 
--- FUNCIONAMIENTO --
-opt.wrap = false            -- Divide líneas largas
-opt.errorbells = false      -- Deshabilita anuncios de errores
-opt.mouse = "a"             -- Habilita el soporte del ratón
-opt.timeout = true          -- Tiempo de espera de las combinaciones de teclas
-opt.timeoutlen = 2000       -- 1000ms por defecto
-opt.path:append("**")       -- Búsquedas en subdirectorios con tab completion
-opt.incsearch = true        -- Muestra los resultados mientras se busca
-opt.scrolloff = 6           -- Para hacer scroll con un margen en los bordes
-opt.showmode = false        -- Muestra el estado en el área de comandos
-opt.ignorecase = true       -- Al buscar ignora la capitalización
-opt.smartcase = true        -- Se activa solo si hay mayúsculas en la búsqueda
+-- FUNCTIONALITY --
+opt.wrap = false            -- Split long lines
+opt.errorbells = false      -- Disable error notifications
+opt.mouse = "a"             -- Enables mouse support
+opt.timeout = true          -- Enables wait time for key combinations
+opt.timeoutlen = 2000       -- 1000ms default
+opt.ignorecase = true       -- Ignore capitalization when searching
+opt.smartcase = true        -- Match capitalization only if there are capital letters
+opt.incsearch = true        -- Show results while searching
+opt.magic = true            -- Standard regex patterns
+opt.path:append("**")       -- Subfolders searching with tab-completion
 
--- INDENTACIÓN --
-opt.tabstop = 4             -- Cantidad de espacios de la tecla tab
-opt.shiftwidth = 0          -- Cantidad de espacios del autoindentado
-opt.softtabstop = 4         -- Cantidad de espacios del "indentado visual"
-opt.shiftround = true       -- Aproxima la indent. en múltiplos de shiftwidth
-opt.expandtab = true        -- Reemplaza tab por espacios en el modo Insertar
-opt.smartindent = true      -- Autoindenta al agregar una nueva línea
-opt.autoindent = true       -- Indenta en base a la línea anterior
-opt.cindent = true          -- Indenta comentarios al inicio de las líneas
-opt.cinkeys = opt.cinkeys - "0#" -- Ídem.
+-- INDENTATION --
+opt.autoindent = true       -- indent based on the previous line
+opt.cindent = true          -- indent comments at the beginning of the lines
+opt.cinkeys = opt.cinkeys - "0#" -- idem.
+opt.expandtab = true        -- replace tab with spaces in insert mode
+opt.shiftround = true       -- approx. the indentation in multiples of shiftwidth
+opt.shiftwidth = 4          -- number of spaces used by indent and unindent
+opt.smartindent = true      -- autoindent when adding a new line
+opt.smarttab = true         -- tab follows tabstop, shiftwidth and softtabstop
+opt.softtabstop = 4         -- edit as if the tabs were 4 spaces
+opt.tabstop = 4             -- number of indentation spaces on the screen
 
--- VENTANAS --
-opt.equalalways = true      -- Ajusta ventanas al mismo tamaño al cerrar una.
+-- WINDOWS --
+opt.equalalways = true      -- Resize windows to the same size when closing one
 
--- RESPALDOS --
-opt.undofile = false        -- Deshabilitado: Da error si no se guarda al salir
-opt.backup = false          -- Ídem.
+-- BACKUPS --
+opt.backup = false          -- Do not use backup files. It bothers more than it helps
+opt.undofile = false        -- Disabled: Give errors if file is not saved on exit
 
 ----------------
 -- CONFIG GUI --
 ----------------
 
--- OPCIONES --
-opt.relativenumber = true   -- Muestra númeras de línea relativos
-opt.number = true           -- Muestra el número de línea actual en lugar de 0
-opt.cursorline = false      -- Subrraya la línea del cursor
-opt.colorcolumn = {80,100}  -- Límite de columnas guía
-opt.hlsearch = false        -- Deshabilita el highligh en las búsquedas
-
+-- OPTIONS --
+opt.colorcolumn = {80,100}  -- Guide margins for column width
+opt.cursorline = false      -- Underline the cursor line
+opt.equalalways = true      -- Resize windows to the same size when closing one
+opt.hlsearch = false        -- Disable highlight after searches
+opt.number = true           -- Shows the current line number instead of 0
+opt.relativenumber = true   -- Show relative line numbers
+opt.scrolloff = 6           -- To leave N lines before/after on scrolling
+opt.showmode = false        -- Show status in command area

@@ -2,7 +2,6 @@
 -- Wrappers --
 --------------
 
-local exec = vim.api.nvim_exec
 local g = vim.g
 local set = vim.keymap.set
 
@@ -10,7 +9,7 @@ local set = vim.keymap.set
 -- Mappings --
 --------------
 
--- Teclas líder
+-- Leader keys
 g.mapleader = " "
 -- g.maplocalleader = ","
 
@@ -21,62 +20,62 @@ set({"n", "v"}, "ñ", ":")
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
 set({"n", "v"}, "<bar>", "`")
 
--- Mover líneas seleccionadas
-Keymap("x", "J", ":m '>+1<CR>gv=gv", "Mover líneas seleccionadas hacia abajo")
-Keymap("x", "K", ":m '<-2<CR>gv=gv", "Mover líneas seleccionadas hacia arriba")
-
--- Scroll horizontal
+-- Horizontal scroll
 Keymap({"n", "v"}, "zh", "z8h")
 Keymap({"n", "v"}, "zl", "z8l")
 
--- Preservar selección al indentar
+-- Preserve selection after indent
 Keymap("v", "<", "<gv")
 Keymap("v", ">", ">gv")
 
--- Conmuta la columna de plegado (foldcolumn)
+-- Toggle foldcolumn
 _G.ToggleFoldColumn = function()
     vim.opt.foldcolumn = vim.api.nvim_win_get_option(0, "foldcolumn") == "0" and "auto:3" or "0"
 end
 Keymap("n", "<leader>tf", ToggleFoldColumn, "Show/hide fold column")
 
--- Moverse entre buffers:
-Keymap("n", "<leader>l", "<CMD>bnext<CR>", "Ir al siguiente buffer")
-Keymap("n", "<leader>h", "<CMD>bprevious<CR>", "Ir al buffer anterior")
-Keymap("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Borrar el buffer actual")
-Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Borrar el buffer actual y cerrar ventana")
+-- Line number toggle
+Keymap({"n", "v"}, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
 
--- Regresar al archivo anterior "go back"
-Keymap("n", "<leader>gb", "<C-^>", "Regresa al buffer anterior")
+-- Buffers navigation:
+Keymap("n", "<leader>l", "<CMD>bnext<CR>", "Go to next buffer")
+Keymap("n", "<leader>h", "<CMD>bprevious<CR>", "Go to previous buffer")
+Keymap("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Delete (close) current buffer")
+Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Delete current buffer and close its window")
 
--- Regresar a la posición del último insert
+-- Go back to previous file
+Keymap("n", "<leader>gb", "<C-^>", "Return to the previous buffer")
+
+-- Return to the position of the last insert
 Keymap("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
 
--- Centrar vista al hacer scroll
+-- Center content after scrolling
 Keymap("n", "<C-d>", "<C-d>zz")
 Keymap("n", "<C-u>", "<C-u>zz")
 
--- Centrar vista al hacer búsquedas
+-- Center view when searching
 Keymap("n", "n", "nzzzv")
 Keymap("n", "N", "Nzzzv")
 
--- quick-list y location-list
+-- Quick-list and location-list
 Keymap("n", "<C-n>", "<cmd>cnext<CR>zz", "Next quick-list element")
 Keymap("n", "<C-p>", "<cmd>cprev<CR>zz", "Prev quick-list element")
 -- Keymap("n", "<leader>k", "<cmd>lnext<CR>zz", "Next location-list element")
 -- Keymap("n", "<leader>j", "<cmd>lprev<CR>zz", "Prev location-list element")
 
--- Registros y clipboard del sistema
-Keymap({"n", "v"}, "<leader>y", "\"+y", "Copia al clipboard del sistema")
-Keymap("x", "<leader>p", "\"_dP", "Pegar sin borrar el registro")
-Keymap({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Pegar desde \" en nueva línea")
+-- Registers and system clipboard
+Keymap({"n", "v"}, "<leader>y", "\"+y", "Copy to system clipboard")
+Keymap("x", "<leader>p", "\"_dP", "Paste without changing the register copy register")
+Keymap({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Paste from \" register to new line")
 
 -- Evitar entrar Ex mode (no confundir con Ex de explorer)
+-- Avoid Ex entering Ex mode (not to be confused with Explorer)
 Keymap("n", "Q", "")
 
--- Cambiar al modo normal desde el modo terminal
+-- Change to normal mode from terminal mode
 Keymap("t", "<c-n>", [[<c-\><c-n>]])
 
--- Dar permisos de ejecución al buffer actual si está en la lista
+-- Give execution permissions to the current buffer if its filetype is in the list
 local valid_filetypes = { "bash", "sh", "python" }
 local chmod_exe = function()
     for _, ft in pairs(valid_filetypes) do
@@ -87,17 +86,17 @@ local chmod_exe = function()
     end
     print("The current buffer does not have a valid filetype: " .. vim.inspect(valid_filetypes))
 end
-Keymap("n", "<leader>gx", chmod_exe, "Dar permisos de ejecución al buffer actual")
+Keymap("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
 
--- Atajos a configuraciones
-Keymap("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>", "Configuraciones de func y var globales")
-Keymap("n", "<leader>CM", ":e" .. MyConfigPath .. "mappings.lua<CR>", "Configuraciones de mappings/teclas")
-Keymap("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>", "Configuraciones de plugins")
-Keymap("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>", "Configuraciones globales de nvim")
-Keymap("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>", "Configuraciones de snippets")
-Keymap("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>", "Configuraciones de servidores lsp")
+-- Config shortcuts
+Keymap("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>", "Global variables and functions settings")
+Keymap("n", "<leader>CM", ":e" .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
+Keymap("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>", "Plugins settings")
+Keymap("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
+Keymap("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>", "Snippets settings")
+Keymap("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>", "LSP server configs")
 
--- Cambiar dirección de las flechas en los wildmenu (prompt de nvim)
+-- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
     cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
     cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
@@ -105,13 +104,13 @@ vim.cmd([[
     cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
 
--- Guardar y cargar sesión
-if vim.g.sessions_dir ~= nil then
-    exec("exec 'nnoremap <Leader>ss :mks! ' . "..
-        "g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
-    exec("exec 'nnoremap <Leader>so :so ' . "..
-        "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
-end
+-- Save and load sessions
+-- if vim.g.sessions_dir ~= nil then
+--     exec("exec 'nnoremap <Leader>ss :mks! ' . "..
+--         "g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
+--     exec("exec 'nnoremap <Leader>so :so ' . "..
+--         "g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'", true)
+-- end
 
 -- Python runner
 local autocmd = function(filetype, cmd)
@@ -121,3 +120,4 @@ local autocmd = function(filetype, cmd)
 end
 
 autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
+
