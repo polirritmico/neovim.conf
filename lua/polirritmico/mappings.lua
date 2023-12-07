@@ -68,7 +68,9 @@ Keymap({"n", "v"}, "<leader>y", "\"+y", "Copy to system clipboard")
 Keymap("x", "<leader>p", "\"_dP", "Paste without changing the register copy register")
 Keymap({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Paste from \" register to new line")
 
--- Evitar entrar Ex mode (no confundir con Ex de explorer)
+-- Select pasted text
+Keymap({"n", "v"}, "gp", "`[v`]")
+
 -- Avoid Ex entering Ex mode (not to be confused with Explorer)
 Keymap("n", "Q", "")
 

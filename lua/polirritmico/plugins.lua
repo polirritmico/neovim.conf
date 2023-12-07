@@ -90,7 +90,11 @@ local plugins = {
     ------------------
 
     -- Navigation through pinned files ../../after/plugin/harpoon.lua
-    {"theprimeagen/harpoon"},
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = {"nvim-lua/plenary.nvim"},
+    },
 
     -- Fix close {} indentation for Python
     {"Vimjas/vim-python-pep8-indent"},
@@ -162,8 +166,12 @@ local plugins = {
     -- Plugin development --
     ------------------------
 
+    -- Lazy patcher
+    -- {dir = "$HOME/Informática/Programación/lazy-local-patcher.nvim"},
+    {"polirritmico/lazy-local-patcher.nvim"},
+
     -- Get info about syntax highlight
-    {"nvim-treesitter/playground"},
+    -- {"nvim-treesitter/playground"},
 }
 
 local opts = { readme = { enabled = false }, ui = { border = "rounded" } }

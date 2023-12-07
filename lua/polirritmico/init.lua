@@ -5,7 +5,7 @@ local user = "polirritmico"
 -- then print it and load the fallback config module (user.fallback.file).
 -- (This expect a fallback config named <module-name.lua> in the fallback folder)
 local catched_errors = {}
-local load_config = function(module)
+local function load_config(module)
     local ok, error = pcall(require, user .. "." .. module)
     if not ok then
         table.insert(catched_errors, module)
@@ -17,7 +17,7 @@ local load_config = function(module)
 end
 
 -- Helper function to open config files when errors are detected.
-local detected_errors = function(errors)
+local function detected_errors(errors)
     if #errors == 0 then
         return false
     end
@@ -30,6 +30,7 @@ local detected_errors = function(errors)
     end
     return true
 end
+
 -------------------------------------------------------------------------------
 
 -- Load the config modules (globals expected first)
@@ -37,7 +38,8 @@ load_config("globals")
 load_config("disable-builtin")
 load_config("settings")
 load_config("mappings")
+
 if not detected_errors(catched_errors) then
-    require(user .. ".patches")
     require(user .. ".plugins")
 end
+
