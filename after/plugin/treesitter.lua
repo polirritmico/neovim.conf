@@ -17,5 +17,6 @@ require("nvim-treesitter.configs").setup({
 if Check_loaded_plugin("nvim-treesitter-context") then
     require("treesitter-context").setup({
         min_window_height = 10, -- in lines
+        max_lines = 10, -- max number of lines to show for a single context
     })
 end

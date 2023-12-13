@@ -40,8 +40,8 @@ Keymap({"n", "v"}, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relativ
 -- Buffers navigation:
 Keymap("n", "<leader>l", "<CMD>bnext<CR>", "Go to next buffer")
 Keymap("n", "<leader>h", "<CMD>bprevious<CR>", "Go to previous buffer")
-Keymap("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Delete (close) current buffer")
-Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Delete current buffer and close its window")
+-- Keymap("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Delete (close) current buffer")
+-- Keymap("n", "<leader>dB", "<CMD>bd<CR>", "Delete current buffer and close its window")
 
 -- Go back to previous file
 Keymap("n", "<leader>gb", "<C-^>", "Return to the previous buffer")
@@ -121,5 +121,5 @@ local autocmd = function(filetype, cmd)
     )
 end
 
-autocmd("python", [[noremap <leader>rr :! python __main__.py<CR>]])
+autocmd("python", [[noremap <leader>rr :! python %<CR>]])
 

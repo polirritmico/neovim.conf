@@ -27,5 +27,5 @@ require("monokai-nightasty").setup({
 vim.cmd("colorscheme monokai-nightasty")
 
 -- mapping to toggle dark/light theme
-Keymap({"n"}, "<leader>tt", "<CMD>:MonokaiToggleLight<CR>", "Monokai-NighTasty: Toggle dark/light theme")
+Keymap({"n"}, "<leader>tt", "<CMD>MonokaiToggleLight<CR>", "Monokai-NighTasty: Toggle dark/light theme")
 

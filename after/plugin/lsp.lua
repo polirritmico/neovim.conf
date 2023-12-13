@@ -75,6 +75,7 @@ local config_pylsp = function()
     lspconfig.pylsp.setup({ settings = { pylsp = {
         plugins = {
             black = { enabled = true },
+            pylsp_mypy = { enabled = true, },
             pycodestyle = {
                 maxLineLength = 88,
                 ignore = { "E203", "E265", "E501", "W391", "W503" }

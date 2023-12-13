@@ -74,7 +74,7 @@ local plugins = {
     },
 
     -- Test manager ../../after/plugin/vim-test.lua
-    "polirritmico/nvim-test", -- "klen/nvim-test",
+    {"polirritmico/nvim-test", dev = false},
     -- {
     --     "nvim-neotest/neotest",
     --     dependencies = {
@@ -140,11 +140,7 @@ local plugins = {
     -------------------
 
     -- The best colorscheme ../../after/plugin/monokai-nightasty.lua
-    {
-        name = "monokai-nightasty.nvim", priority = 1000,
-        dir = "$HOME/Informática/Programación/monokai.nvim"
-    },
-    -- { "polirritmico/monokai-nightasty.nvim", priority = 1000, lazy = false },
+    {"polirritmico/monokai-nightasty.nvim", priority = 1000, dev = true},
 
     -- Greeter screen ../../after/plugin/alpha-nvim.lua
     {
@@ -161,19 +157,24 @@ local plugins = {
     -- Custom vertical width column/ruler ../../after/plugin/virt-column.lua
     {"lukas-reineke/virt-column.nvim"},
 
+    -- Delete buffers without messing up the current layout
+    {"famiu/bufdelete.nvim"},
 
     ------------------------
     -- Plugin development --
     ------------------------
 
     -- Lazy patcher
-    -- {dir = "$HOME/Informática/Programación/lazy-local-patcher.nvim"},
-    {"polirritmico/lazy-local-patcher.nvim"},
+    {"polirritmico/lazy-local-patcher.nvim", dev = false},
 
     -- Get info about syntax highlight
     -- {"nvim-treesitter/playground"},
 }
 
-local opts = { readme = { enabled = false }, ui = { border = "rounded" } }
+local opts = {
+    dev = {path = "~/Informática/Programación/"},
+    readme = {enabled = false},
+    ui = {border = "rounded"},
+}
 
 require("lazy").setup(plugins, opts)

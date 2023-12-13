@@ -44,7 +44,7 @@ opt.wildmode = "full"       -- :help wildmode
 -- APPEARANCE --
 ----------------
 
-opt.cmdheight = 0           -- Remove the command line below the status bar
+opt.cmdheight = 0           -- 0 to remove the command line below the statusbar
 opt.colorcolumn = {80,100}  -- Límite de columnas guía
 opt.cursorline = false      -- Underline the cursor line
 opt.equalalways = true      -- Resize windows to the same size when closing one
