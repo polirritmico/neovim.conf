@@ -5,21 +5,17 @@ require("no-neck-pain").setup({
     width = 100,
     buffers = {
         bo = { filetype = "md" },
+        right = { enabled = false },
         wo = { fillchars = "eob: " }, -- Hide ~ from spacebuffers
-        scratchPad = {
-            enabled = true,
-            location = "~/.local/share/nvim/",
-        }
     },
 })
 
 NoNeckPain_default_border_hl = {}
 NoNeckPainToggleState = false
 
-local custom_toggle_border_hl = function()
+local NNP_toggle_with_custom_border_hl = function()
     local border_name = "WinSeparator"
-    local custom_hl = { fg = 4079166 }
-    -- local current_hl = vim.api.nvim_get_hl(0, { name = border_name })
+    local custom_hl = { fg = 4079166 } -- "#3e3e3e" in dec
 
     if NoNeckPain_default_border_hl.fg == nil then
         NoNeckPain_default_border_hl = vim.api.nvim_get_hl(
@@ -37,5 +33,4 @@ local custom_toggle_border_hl = function()
     vim.cmd([[NoNeckPain]])
 end
 
-Keymap({"n", "s"}, "<leader>tc", custom_toggle_border_hl, "NoNeckPain: Toggle center mode")
--- Keymap({"n", "s"}, "<leader>tc", "<CMD>NoNeckPain<CR>", "NoNeckPain: Toggle center mode")
+Keymap({"n", "s"}, "<leader>tc", NNP_toggle_with_custom_border_hl, "NoNeckPain: Toggle center mode")

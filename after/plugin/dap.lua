@@ -64,7 +64,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 dapui.setup(my_config)
 
--- Python: Se necesita instalar debugpy con ':Mason debugpy'
+-- NOTE: For python, debugpy needs to be installed with ':Mason debugpy'
 if require("mason-registry").is_installed("debugpy") then
     local dap_python = "$XDG_DATA_HOME/nvim/mason/packages/debugpy/venv/bin/python"
     require("dap-python").setup(dap_python)

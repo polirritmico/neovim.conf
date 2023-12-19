@@ -1,8 +1,8 @@
 -- Undo Tree
 if not Check_loaded_plugin("undotree") then return end
 
--- Cambia el foco al abrir el panel
+-- Change focus when opening pannel
 vim.g.undotree_SetFocusWhenToggle = 1
 
--- Abrir/cerrar el panel
-Keymap("n", "<leader>tu", vim.cmd.UndotreeToggle, "UndoTree: Abrir/cerrar el panel")
+-- Panel toggle
+Keymap("n", "<leader>tu", vim.cmd.UndotreeToggle, "UndoTree: Open/Close panel.")

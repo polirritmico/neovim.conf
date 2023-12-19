@@ -20,7 +20,7 @@ npairs.setup({
     },
 })
 
--- Agrega espacios simétricos:
+-- Add symmetrical spaces:
 local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }
 npairs.add_rules({
     Rule(" ", " ")

@@ -28,7 +28,7 @@ ls.setup({
     },
 })
 
--- Teclas
+--- Keys
 vim.keymap.set({"i", "s"}, "<c-j>", function()
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()

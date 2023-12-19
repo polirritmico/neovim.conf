@@ -18,6 +18,7 @@ telescope.setup({
         path_display = { "truncate" },
         prompt_prefix = "   ",
         selection_caret = " 󰄾  ",
+        mappings = {i = {["<C-h>"] = "which_key"}}, -- toggle keymaps help
     },
     extensions = {
         ["fzf"] = { fuzzy = true, override_generic_sorter = true, },
@@ -36,7 +37,7 @@ telescope.setup({
     },
 })
 
--- Cargar extension file_browser
+-- Extensions
 telescope.load_extension("file_browser")
 telescope.load_extension("heading")
 
@@ -51,4 +52,4 @@ Keymap({ "n", "v" }, "<leader>fh", "<CMD>Telescope help_tags<CR>", "Telescope: F
 Keymap({ "x" }, "<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>", "Telescope: Find selected string")
 Keymap({ "n", "v" }, "<leader>fF", "<CMD>lua require'telescope.builtin'.find_files{cwd = vim.fn.expand('%:p:h'), hidden = true}<CR>", "Telescope: Browse mode in nvim path")
 Keymap({ "n", "v" }, "<leader>fE", ":Telescope file_browser path=%:p:h select_buffer=true hidden=true<CR>", "Telescope: Browse mode in buffer path")
-Keymap({ "n", "v" }, "<leader>th", "<CMD>Telescope heading<CR>", "Telescope: Get headers")
+Keymap({ "n", "v" }, "<leader>fH", "<CMD>Telescope heading<CR>", "Telescope: Get headers")

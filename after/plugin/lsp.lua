@@ -9,7 +9,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
     require("cmp_nvim_lsp").default_capabilities()
 )
 
--- Ocultar/Mostrar diagnósticos
+-- Show/Hide diagnostics
 local toggleLspDiagnostic = function()
     if vim.diagnostic.is_disabled() then
         vim.diagnostic.enable()
@@ -18,7 +18,7 @@ local toggleLspDiagnostic = function()
     end
 end
 
--- Cuando se adjunta el servidor LSP a algun buffer se ejecuta esta función
+-- When the LSP is attached to a buffer this function is called
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
@@ -42,11 +42,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -------------------------------------------------------------------------------
--- Mason maneja los paquetes de los servidores LSP
+-- Mason handle the packages of the LSP servers
 if not Check_loaded_plugin("mason-lspconfig.nvim") then return end
 
 
---- Configuraciones de servidores LSP
+--- LSP servers configurations
 -- Default
 local default_setup = function(server)
     lspconfig[server].setup({})
@@ -84,10 +84,10 @@ local config_pylsp = function()
     }}})
 end
 
--- Aplicamos las configuraciones
+-- Apply the configurations
 require("mason").setup({})
 require("mason-lspconfig").setup({
-    -- Servidores a instalar por defecto
+    -- Servers to install by default
     ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp", },
     handlers = {
         default_setup,
@@ -109,7 +109,7 @@ end
 
 -------------------------------------------------------------------------------
 -- LSP_signature.
--- Ayuda flotante de los argumentos de una función al usarla
+-- Floating help of the args of a function when using it
 if Check_loaded_plugin("lsp_signature.nvim") then
     local config = {
         floating_window_above_cur_line = true,
@@ -122,10 +122,10 @@ if Check_loaded_plugin("lsp_signature.nvim") then
 end
 
 -------------------------------------------------------------------------------
--- Agrega bordes a LspInfo
+-- Add borders to LspInfo
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
--- Agrega bordes a Hover
+-- Add borders to Hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })

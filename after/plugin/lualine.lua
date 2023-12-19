@@ -1,7 +1,6 @@
 -- Lualine
 if not Check_loaded_plugin("lualine.nvim") then return end
 
--- Si está disponible usa Monokai y en caso contrario usa material.
 local cfg_theme = Check_loaded_plugin("monokai-nightasty.nvim") and "monokai-nightasty" or "material"
 require("lualine").setup({
     options = {

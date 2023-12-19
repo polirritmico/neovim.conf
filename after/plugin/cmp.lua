@@ -4,9 +4,9 @@ if not Check_loaded_plugin("nvim-cmp") then return end
 local cmp = require("cmp")
 cmp.setup({
     formatting = {
-        -- Orden de las sugerencias :h formatting.fields
+        -- Suggestions order :h formatting.fields
         fields = { "abbr", "menu", "kind" },
-        -- Agregar origen de la sugerencia (copiado de lsp-zero)
+        -- Add suggestion source
         format = function(entry, item)
             local short_name = {
                 nvim_lsp = "LSP",
@@ -17,7 +17,7 @@ cmp.setup({
             return item
         end,
     },
-    -- Ajuste teclas del cmp menu
+    -- cmp menu key adjustment
     mapping = {
         ["<C-j>"] = cmp.mapping.confirm({ select = true }),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -52,7 +52,7 @@ cmp.setup({
         { name = "cmp_luasnip" },
         { name = "buffer",  keyword_length = 3 },
     },
-    -- Agregar borde a ventana emergente
+    -- Add border to popup window
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
