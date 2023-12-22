@@ -61,4 +61,10 @@ ls.add_snippets("lua", {
         options = t("silent = true"),
     })),
 
+    s(
+        {trig = "---", name = "Horizontal line",
+        dscr = "A horizontal separation line (79 characters)."},
+        t("-------------------------------------------------------------------------------")
+    ),
+
 }, reload_key)
