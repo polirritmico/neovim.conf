@@ -48,9 +48,10 @@ function M.setup()
             end,
         },
         sources = {
-            { name = "nvim_lsp" },
-            { name = "path" },
+            -- The order will be respected in the cmp menu
             { name = "luasnip", option = { use_show_condition = false } },
+            { name = "path" },
+            { name = "nvim_lsp" },
             { name = "cmp_luasnip" },
             { name = "buffer", keyword_lentgth = 3 },
         },
