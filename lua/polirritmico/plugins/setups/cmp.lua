@@ -65,22 +65,13 @@ function M.setup()
     -- Insert "(" after select function or method item
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-    -- Use buffer source for "/" and "?"
-    cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = "buffer" }
-        }
-    })
-
     -- Use cmdline & path source for ":"
     cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-            { name = "path" }
-        }, {
-            { name = "cmdline" }
-        })
+        sources = cmp.config.sources(
+            {{ name = "path" }},
+            {{ name = "cmdline" }}
+        )
     })
 end
 

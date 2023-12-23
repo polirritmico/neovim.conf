@@ -1,7 +1,5 @@
 --- Best colorscheme for nvim
 
--- local map = require(MyUser .. ".utils").set_keymap
-
 return {
     "polirritmico/monokai-nightasty.nvim",
     lazy = false,
