@@ -41,15 +41,6 @@ function M.setup()
                 end
             end, { "i", "s" }),
             ["<C-p>"] = cmp.mapping.select_prev_item(),
-            -- ["<C-p>"] = cmp.mapping(function(fallback)
-            --     if cmp.visible() then
-            --         cmp.select_prev_item({ select = true })
-            --     elseif luasnip.choice_active() then
-            --         luasnip.change_choice(-1)
-            --     else
-            --         fallback()
-            --     end
-            -- end, { "i", "s" }),
         },
         snippet = {
             expand = function(args)
@@ -57,9 +48,9 @@ function M.setup()
             end,
         },
         sources = {
+            { name = "nvim_lsp" },
             { name = "path" },
             { name = "luasnip", option = { use_show_condition = false } },
-            { name = "nvim_lsp" },
             { name = "cmp_luasnip" },
             { name = "buffer", keyword_lentgth = 3 },
         },
@@ -72,6 +63,24 @@ function M.setup()
 
     -- Insert "(" after select function or method item
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+    -- Use buffer source for "/" and "?"
+    cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = "buffer" }
+        }
+    })
+
+    -- Use cmdline & path source for ":"
+    cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = "path" }
+        }, {
+            { name = "cmdline" }
+        })
+    })
 end
 
 return M

@@ -9,7 +9,7 @@ MyConfigPath = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/"
 MyPluginConfigPath = MyConfigPath .. "plugins/"
 MyPluginsPath = vim.fn.expand("$HOME/Informática/Programación/")
 
-assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!.")
+assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!")
 assert(vim.fn.finddir(MyPluginConfigPath) ~= "", "Error: Missing plugins path.")
 assert(vim.fn.finddir(MyPluginsPath) ~= "", "Error: Missing own plugins path.")
 

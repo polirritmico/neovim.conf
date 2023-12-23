@@ -29,8 +29,8 @@ vim.cmd([[
 ]])
 
 --- Wildmenu
-opt.wildmenu = true         -- Advanced command completion
-opt.wildmode = "full"       -- :help wildmode
+-- opt.wildmenu = true         -- Advanced command completion
+-- opt.wildmode = "full"       -- :help wildmode
 
 
 ----------------

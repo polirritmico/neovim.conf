@@ -6,7 +6,7 @@ return {
     "polirritmico/monokai-nightasty.nvim",
     lazy = false,
     priority = 1000,
-    dev = true,
+    dev = false,
     keys = {
         { "<leader>tt", "<CMD>MonokaiToggleLight<CR>", mode = "n",
             desc = "Monokai-Nightasty: Toggle dark/light theme." },

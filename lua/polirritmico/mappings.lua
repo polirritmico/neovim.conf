@@ -34,8 +34,6 @@ map({"n", "v"}, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relative/a
 -- Buffers navigation:
 map("n", "<leader>l", "<CMD>bnext<CR>", "Go to next buffer")
 map("n", "<leader>h", "<CMD>bprevious<CR>", "Go to previous buffer")
--- map("n", "<leader>db", "<CMD>bp<bar>sp<bar>bn<bar>bd<CR>", "Delete (close) current buffer")
--- map("n", "<leader>dB", "<CMD>bd<CR>", "Delete current buffer and close its window")
 
 -- Go back to previous file
 map("n", "<leader>gb", "<C-^>", "Return to the previous buffer")
