@@ -7,10 +7,9 @@ return {
     lazy = false,
     priority = 1000,
     dev = false,
-    keys = {
-        { "<leader>tt", "<CMD>MonokaiToggleLight<CR>", mode = "n",
-            desc = "Monokai-Nightasty: Toggle dark/light theme." },
-    },
+    keys = {{
+        "<leader>tt", "<CMD>MonokaiToggleLight<CR>", desc = "Monokai-Nightasty: Toggle dark/light theme."
+    }},
     config = function()
         -- To reload `:Lazy reload monokai-nightasty.nvim`
         local opts = {
