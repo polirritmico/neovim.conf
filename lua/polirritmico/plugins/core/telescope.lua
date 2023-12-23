@@ -8,6 +8,7 @@ return {
         "crispgm/telescope-heading.nvim",
         -- "debugloop/telescope-undo.nvim",
     },
+    lazy = false,
     config = function()
         local ignore_filetypes_list = {
             "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.JPG", "%.PNG", "%.webp",
@@ -72,5 +73,5 @@ return {
             { "n", "v" }, desc = "Telescope: Browse mode in buffer path", silent = true},
         {"<leader>fH", "<CMD>Telescope heading<CR>", { "n", "v" },
             desc = "Telescope: Get headers", silent = true},
-    }
+    },
 }

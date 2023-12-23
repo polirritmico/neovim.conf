@@ -81,7 +81,7 @@ function M.setup()
         },
     })
 
-    ---------------------------------------------------------------------------
+
     -- Add borders to LspInfo
     require("lspconfig.ui.windows").default_options.border = "rounded"
 

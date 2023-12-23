@@ -85,12 +85,12 @@ end
 map("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
-map("n", "<leader>CG", "<CMD>e" .. MyConfigPath .. "globals.lua<CR>", "Global variables and functions settings")
-map("n", "<leader>CM", "<CMD>e" .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
-map("n", "<leader>CP", "<CMD>e" .. MyConfigPath .. "plugins.lua<CR>", "Plugins settings")
-map("n", "<leader>CS", "<CMD>e" .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
-map("n", "<leader>Cs", "<CMD>e" .. MyConfigPath .. "snippets<CR>", "Snippets settings")
-map("n", "<leader>CL", "<CMD>e" .. MyPluginConfigPath .. "lsp.lua<CR>", "LSP server configs")
+map("n", "<leader>CC", "<CMD>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
+map("n", "<leader>CM", "<CMD>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
+map("n", "<leader>CP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
+map("n", "<leader>CS", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
+map("n", "<leader>Cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
+map("n", "<leader>CL", "<CMD>e " .. MyPluginConfigPath .. "setups/lsp.lua<CR>", "LSP server configs")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[

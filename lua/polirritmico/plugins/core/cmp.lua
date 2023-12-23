@@ -9,7 +9,6 @@ return {
         "saadparwaiz1/cmp_luasnip",  -- custom snippets
         "windwp/nvim-autopairs",
     },
-    event = "VeryLazy",
     main = MyUser .. ".plugins.setups.cmp",
     config = true,
 }

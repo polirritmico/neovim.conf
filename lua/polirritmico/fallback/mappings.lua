@@ -56,12 +56,9 @@ vim.cmd([[
 ]])
 
 -- Config shortcuts
-local MyPluginConfigPath = " ~/.config/nvim/after/plugin/"
-local MyConfigPath = " ~/.config/nvim/lua/polirritmico/"
-map("n", "<leader>CG", ":e" .. MyConfigPath .. "globals.lua<CR>")
-map("n", "<leader>CM", ":e" .. MyConfigPath .. "mappings.lua<CR>")
-map("n", "<leader>CP", ":e" .. MyConfigPath .. "plugins.lua<CR>")
-map("n", "<leader>CS", ":e" .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>Cs", ":e" .. MyConfigPath .. "snippets<CR>")
-map("n", "<leader>CL", ":e" .. MyPluginConfigPath .. "lsp.lua<CR>")
-
+map("n", "<leader>CC", ":e " .. MyConfigPath .. "init.lua<CR>")
+map("n", "<leader>CM", ":e " .. MyConfigPath .. "mappings.lua<CR>")
+map("n", "<leader>CP", ":e " .. MyPluginConfigPath .. "<CR>")
+map("n", "<leader>CS", ":e " .. MyConfigPath .. "settings.lua<CR>")
+map("n", "<leader>Cs", ":e " .. MyConfigPath .. "snippets<CR>")
+map("n", "<leader>CL", ":e " .. MyPluginConfigPath .. "setups/lsp.lua<CR>")
