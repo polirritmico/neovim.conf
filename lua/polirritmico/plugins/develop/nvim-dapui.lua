@@ -5,6 +5,7 @@ return {
     dependencies = {
         "mfussenegger/nvim-dap"
     },
+    lazy = true,
     keys = function()
         local dapui = require("dapui")
         return {

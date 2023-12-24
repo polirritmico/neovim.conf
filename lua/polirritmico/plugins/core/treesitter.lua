@@ -4,6 +4,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
     opts = {
         ensure_installed = {
             "bash", "html", "make", "markdown", "markdown_inline", "python",

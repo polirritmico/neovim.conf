@@ -5,13 +5,13 @@
 return {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = false,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     keys = {
-        {"<leader>ft", ":TodoTelescope<CR>", {"n", "v"},
+        {"<leader>ft", "<CMD>TodoTelescope<CR>", {"n", "v"},
             desc = "todo-comments: Open todo list in telescope", silent = true},
-        {"<leader>fT", ":TodoLocList<CR>", {"n", "v"},
+        {"<leader>fT", "<CMD>TodoLocList<CR>", {"n", "v"},
             desc = "todo-comments: Open todo list in a panel", silent = true},
-        {"<leader>tl", ":TodoQuickFix<CR>", {"n", "v"},
+        {"<leader>tl", "<CMD>TodoQuickFix<CR>", {"n", "v"},
             desc = "todo-comments: Open quickfix list", silent = true},
     },
     opts = {

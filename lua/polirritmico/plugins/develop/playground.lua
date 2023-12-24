@@ -1,4 +1,4 @@
 return {
     "nvim-treesitter/playground",
-    enabled = true,
+    enabled = false,
 }

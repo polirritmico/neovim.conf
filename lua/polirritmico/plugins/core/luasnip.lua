@@ -3,7 +3,15 @@
 return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
-    config = function()
+    opts = {
+        enable_autosnippets = false,
+        -- Don't jump into snippets that have been left
+        history = true,
+        delete_check_events = "TextChanged,InsertLeave",
+        region_check_events = "CursorMoved",
+    },
+    -- event = "VeryLazy",
+    config = function(_, opts)
         local ls = require("luasnip")
         local types = require("luasnip.util.types")
 
@@ -11,25 +19,18 @@ return {
         local custom_snips = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/snippets/"
         require("luasnip.loaders.from_lua").load({ paths = custom_snips })
 
-        ls.setup({
-            history = false,
-            update_events = "TextChanged,TextChangedI",
-            enable_autosnippets = false,
-            -- Cancel snippet session when leaving insert mode :h luasnip-config-options
-            region_check_events = "CursorMoved",
-            delete_check_events = "TextChanged,InsertLeave",
-            -- Add virtual marks on inputs
-            ext_opts = {
-                [types.choiceNode] = {
-                    active = { virt_text = { { "← Choice", "Conceal" } }, },
-                    pasive = { virt_text = { { "← Choice", "Comment" } }, },
-                },
-                [types.insertNode] = {
-                    active = { virt_text = { { "← Insert", "Conceal" } }, },
-                    pasive = { virt_text = { { "← Insert", "Comment" } }, },
-                },
+        -- Add virtual marks on inputs
+        opts.ext_opts = {
+            [types.choiceNode] = {
+                active = { virt_text = { { "← Choice", "Conceal" } }, },
+                pasive = { virt_text = { { "← Choice", "Comment" } }, },
             },
-        })
+            [types.insertNode] = {
+                active = { virt_text = { { "← Insert", "Conceal" } }, },
+                pasive = { virt_text = { { "← Insert", "Comment" } }, },
+            },
+        }
+        ls.setup(opts)
     end,
     keys = function()
         local ls = require("luasnip")

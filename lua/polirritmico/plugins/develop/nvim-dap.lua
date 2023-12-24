@@ -7,8 +7,10 @@ return {
         {"rcarriga/nvim-dap-ui"},
         {"mfussenegger/nvim-dap-python"},
         {"williamboman/mason.nvim"},
-        {"WhoIsSethDaniel/mason-tool-installer.nvim"},
+        -- {"WhoIsSethDaniel/mason-tool-installer.nvim"},
     },
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    ft = { "python" },
     config = function()
         local debugpy = require("mason-registry").get_package("debugpy")
         local python_path = debugpy:get_install_path() .. "/venv/bin/"

@@ -12,6 +12,7 @@ return {
         "saadparwaiz1/cmp_luasnip",  -- custom snippets
         "windwp/nvim-autopairs",
     },
-    main = MyUser .. ".plugins.setups.cmp",
     config = true,
+    event = "InsertEnter",
+    main = MyUser .. ".plugins.setups.cmp",
 }

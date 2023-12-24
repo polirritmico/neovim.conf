@@ -3,6 +3,7 @@
 return {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    ft = { "python" },
     config = function()
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         local null_ls = require("null-ls")

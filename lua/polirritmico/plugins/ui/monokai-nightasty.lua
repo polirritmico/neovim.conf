@@ -5,19 +5,19 @@ return {
     lazy = false,
     priority = 1000,
     dev = false,
-    keys = {{
-        "<leader>tt", "<CMD>MonokaiToggleLight<CR>", desc = "Monokai-Nightasty: Toggle dark/light theme."
-    }},
-    config = function()
+    keys = {
+        {"<leader>tt", "<CMD>MonokaiToggleLight<CR>", desc = "Monokai-Nightasty: Toggle dark/light theme."}
+    },
+    opts = {
+        dark_style_background = "default",
+        light_style_background = "default",
+        color_headers = false,
+        lualine_bold = true,
+        lualine_style = "default",
+        -- hl_styles = { comments = { italic = false } },
+    },
+    config = function(_, opts)
         -- To reload `:Lazy reload monokai-nightasty.nvim`
-        local opts = {
-            dark_style_background = "default",
-            light_style_background = "default",
-            color_headers = false,
-            lualine_bold = true,
-            lualine_style = "default",
-            -- hl_styles = { comments = { italic = false } },
-        }
 
         vim.opt.cursorline = true  -- Highlight line at the cursor position
         vim.o.background = "dark"  -- Default to dark theme

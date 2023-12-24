@@ -5,6 +5,7 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
+    event = "VeryLazy",
     opts = function()
         local cfg_theme = #vim.fn.getcompletion("monokai-nightasty", "color") == 0
             and "material"

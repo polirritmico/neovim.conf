@@ -2,6 +2,7 @@
 return {
     "polirritmico/nvim-test",
     dev = false,
+    lazy = true,
     opts = {
         termOpts = {
             direction = "float", -- vertical, horizontal, float

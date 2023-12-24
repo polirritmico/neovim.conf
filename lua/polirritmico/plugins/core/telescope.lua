@@ -6,72 +6,69 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-file-browser.nvim",
         "crispgm/telescope-heading.nvim",
-        -- "debugloop/telescope-undo.nvim",
     },
     lazy = false,
-    config = function()
-        local ignore_filetypes_list = {
-            "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.JPG", "%.PNG", "%.webp",
-            "%.WEBP", "%.mp3", "%.MP3", "%.pdf", "%.PDF", "%.odt", "%.ODT", "%.ico", "%.ICO",
-        }
-
-        local telescope = require("telescope")
-        telescope.setup({
-            defaults = {
-                file_ignore_patterns = ignore_filetypes_list,
-                layout_strategy = "flex",
-                layout_config = {
-                    flex = { flip_columns = 120 },
-                    horizontal = { preview_width = { 0.6, max = 100, min = 30 } }
-                },
-                path_display = { "truncate" },
-                prompt_prefix = "   ",
-                selection_caret = " 󰄾  ",
-                mappings = {i = {["<C-h>"] = "which_key"}}, -- toggle keymaps help
+    opts = {
+        defaults = {
+            file_ignore_patterns = {
+                "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.JPG",
+                "%.PNG", "%.webp", "%.WEBP", "%.mp3", "%.MP3", "%.pdf",
+                "%.PDF", "%.odt", "%.ODT", "%.ico", "%.ICO",
             },
-            extensions = {
-                ["fzf"] = { fuzzy = true, override_generic_sorter = true, },
-                file_browser = { hijack_netrw = true, },
-                heading = {
-                    treesitter = true,
-                    picker_opts = {
-                        layout_strategy = "horizontal",
-                        sorting_strategy = "ascending",
-                        layout_config = {
-                            preview_cutoff = 20,
-                            preview_width = 0.7,
-                        },
+            layout_strategy = "flex",
+            layout_config = {
+                flex = { flip_columns = 120 },
+                horizontal = { preview_width = { 0.6, max = 100, min = 30 } }
+            },
+            path_display = { "truncate" },
+            prompt_prefix = "   ",
+            selection_caret = " 󰄾  ",
+            mappings = {i = {["<C-h>"] = "which_key"}}, -- toggle keymaps help
+        },
+        extensions = {
+            ["fzf"] = { fuzzy = true, override_generic_sorter = true, },
+            file_browser = { hijack_netrw = true, },
+            heading = {
+                treesitter = false,
+                picker_opts = {
+                    layout_strategy = "horizontal",
+                    sorting_strategy = "ascending",
+                    layout_config = {
+                        preview_cutoff = 106,
+                        preview_width = 0.7,
                     },
                 },
             },
-        })
-
-        -- Extensions
+        },
+    },
+    config = function(_, opts)
+        local telescope = require("telescope")
+        telescope.setup(opts) -- Order matters
         telescope.load_extension("file_browser")
         telescope.load_extension("heading")
     end,
-    keys = {
-        {"<leader>ff", "<CMD>Telescope find_files<CR>", { "n", "v" },
-            desc = "Telescope: Find files", silent = true},
-        {"<leader>fe", "<CMD>Telescope file_browser<CR>", { "n", "v" },
-            desc = "Telescope: Find files in file_browser", silent = true},
-        {"<leader>fg", "<CMD>Telescope live_grep<CR>", { "n", "v" },
-            desc = "Telescope: Find grep", silent = true},
-        {"<leader>fb", "<CMD>Telescope buffers<CR>", { "n", "v" },
-            desc = "Telescope: Find buffers", silent = true},
-        {"<leader>fr", "<CMD>Telescope registers<CR>", { "n", "v" },
-            desc = "Telescope: Copy a register", silent = true},
-        {"<leader>fR", "<CMD>Telescope oldfiles<CR>", { "n", "v" },
-            desc = "Telescope: Find recents", silent = true},
-        {"<leader>fh", "<CMD>Telescope help_tags<CR>", { "n", "v" },
-            desc = "Telescope: Find help", silent = true},
-        {"<leader>fs", "<CMD>lua require'telescope.builtin'.grep_string{}<CR>", { "x" },
-            desc = "Telescope: Find selected string", silent = true},
-        {"<leader>fF", "<CMD>lua require'telescope.builtin'.find_files{cwd = vim.fn.expand('%:p:h'), hidden = true}<CR>",
-            { "n", "v" }, desc = "Telescope: Browse mode in nvim path", silent = true},
-        {"<leader>fE", ":Telescope file_browser path=%:p:h select_buffer=true hidden=true<CR>",
-            { "n", "v" }, desc = "Telescope: Browse mode in buffer path", silent = true},
-        {"<leader>fH", "<CMD>Telescope heading<CR>", { "n", "v" },
-            desc = "Telescope: Get headers", silent = true},
-    },
+    keys = function()
+        local m = { "n", "v" }
+        local telescope = require("telescope.builtin")
+        local telescope_ext = require("telescope").extensions
+        local file_browser = telescope_ext.file_browser.file_browser
+        local find_files_from_filepath = function()
+            telescope.find_files({cwd = vim.fn.expand('%:p:h'), hidden = true})
+        end
+
+        return {
+            { "<leader>ff", telescope.find_files, mode = m, desc = "Telescope: Find files (nvim runtime path)." },
+            { "<leader>fF", find_files_from_filepath, mode = m, desc = "Telescope: Find files in the file directory."},
+            { "<leader>fg", telescope.live_grep, mode = m, desc = "Telescope: Find grep." },
+            { "<leader>fb", telescope.buffers, mode = m, desc = "Telescope: Find buffers." },
+            { "<leader>fr", telescope.registers, mode = m, desc = "Telescope: Copy a register." },
+            { "<leader>fR", telescope.oldfiles, mode = m, desc = "Telescope: Find recents." },
+            { "<leader>fh", telescope.help_tags, mode = m, desc = "Telescope: Find help." },
+            { "<leader>fs", telescope.grep_string, mode = "x", desc = "Telescope: Find selected string."},
+            { "<leader>fe", file_browser, mode = m, desc = "Telescope: File explorer mode from nvim path." },
+            { "<leader>fE", function() file_browser({path="%:p:h", select_buffer=true, hidden=true}) end,
+                mode = m, desc = "Telescope: File explorer mode from buffer path."},
+            { "<leader>fH", telescope_ext.heading.heading, mode = m, desc = "Telescope: Get document headers (markdown)."},
+        }
+    end,
 }

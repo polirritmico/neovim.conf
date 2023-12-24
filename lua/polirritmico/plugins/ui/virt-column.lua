@@ -2,6 +2,7 @@
 
 return {
     "lukas-reineke/virt-column.nvim",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
         char = "┊"
     }
