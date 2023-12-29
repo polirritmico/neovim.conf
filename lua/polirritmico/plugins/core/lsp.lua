@@ -89,10 +89,12 @@ return {
         -- Add borders to LspInfo
         require("lspconfig.ui.windows").default_options.border = "rounded"
 
-        -- Add borders to Hover
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-            vim.lsp.handlers.hover, { border = "rounded" }
-        )
+        -- Add borders to Hover when Noice is not in the Lazy plugins spec.
+        if not require("lazy.core.config").spec.plugins["noice.nvim"] then
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, { border = "rounded" }
+            )
+        end
     end,
 }
 

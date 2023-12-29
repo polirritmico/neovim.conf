@@ -48,6 +48,7 @@ local specs_folders = {
     {import = MyUser .. ".plugins.helpers"},
     {import = MyUser .. ".plugins.misc"},
     {import = MyUser .. ".plugins.ui"},
+    {import = MyUser .. ".plugins.extras"},
 }
 
 require("lazy").setup(specs_folders, opts)

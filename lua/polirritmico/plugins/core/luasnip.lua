@@ -14,7 +14,6 @@ return {
         delete_check_events = "TextChanged,InsertLeave",
         region_check_events = "CursorMoved",
     },
-    -- event = "VeryLazy",
     config = function(_, opts)
         local ls = require("luasnip")
         local types = require("luasnip.util.types")

@@ -10,8 +10,6 @@ return {
         "saadparwaiz1/cmp_luasnip",
     },
     opts = function()
-        -- dunder/private "_" methods to the btm
-
         local cmp = require("cmp")
         local defaults = require("cmp.config.default")()
         local luasnip = require("luasnip")
