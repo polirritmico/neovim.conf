@@ -14,7 +14,10 @@ return {
                 ["vim.lsp.util.stylize_markdown"] = true,
                 ["cmp.entry.get_documentation"] = true,
             },
-            -- hover = { enabled = false },
+            hover = {
+                enabled = true,
+                opts = { border = "rounded" },
+            },
         },
         cmdline = { enabled = false },
         messages = { enabled = false },

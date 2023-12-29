@@ -17,6 +17,12 @@ function Utils.set_keymap(mode, key, command, description, verbose)
     end
 end
 
+---
+---@param path string
+function Utils.check_paths(path)
+    return vim.fn.finddir(path) ~= ""
+end
+
 ---Wrapper function to pretty print variables instead of getting memory addresses.
 ---@vararg any
 ---@return any
