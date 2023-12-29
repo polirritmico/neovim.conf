@@ -8,10 +8,11 @@ MyUser = "polirritmico"
 MyConfigPath = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/"
 MyPluginConfigPath = MyConfigPath .. "plugins/"
 MyPluginsPath = vim.fn.expand("$HOME/Informática/Programación/")
+--MyPluginsPath = vim.fn.expand("$HOME/Proyectos/")
 
 assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!")
 assert(vim.fn.finddir(MyPluginConfigPath) ~= "", "Error: Missing plugins path.")
-assert(vim.fn.finddir(MyPluginsPath) ~= "", "Error: Missing own plugins path.")
+assert(vim.fn.finddir(MyPluginsPath) ~= "", "Error: Missing personal plugins path.")
 
 --- Helper functions
 local utils = require(MyUser .. ".utils")

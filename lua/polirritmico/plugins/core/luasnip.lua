@@ -3,6 +3,10 @@
 return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
+    -- dependencies = {
+    --     "rafamadriz/friendly-snippets",
+    --     config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
+    -- },
     opts = {
         enable_autosnippets = false,
         -- Don't jump into snippets that have been left
@@ -32,26 +36,61 @@ return {
         }
         ls.setup(opts)
     end,
-    keys = function()
-        local ls = require("luasnip")
-        local ls_mode = {"i", "s"}
-        local function expand_or_jump_next() if ls.expand_or_jumpable() then ls.expand_or_jump() end end
-        local function jump_next() if ls.jumpable(1) then ls.jump(1) end end
-        local function jump_prev() if ls.jumpable(-1) then ls.jump(-1) end end
-        local function cycle_next_choice() if ls.choice_active() then return "<Plug>luasnip-next-choice" end end
-        local function cycle_prev_choice() if ls.choice_active() then return "<Plug>luasnip-prev-choice" end end
-
-        return {
-            { "<c-j>", expand_or_jump_next, mode = ls_mode,
-                desc = "LuaSnip: Expand snippet or jump to the next input index.", silent = true },
-            { "<c-f>", jump_next, mode = ls_mode,
-                desc = "LuaSnip: Jump to the next input index.", silent = true },
-            { "<c-k>", jump_prev, mode = ls_mode,
-                desc = "LuaSnip: Jump to the previous input index.", silent = true },
-            { "<c-l>", cycle_next_choice, mode = ls_mode,
-                desc = "LuaSnip: Cycle to the next choice in the snippet.", silent = true, expr = true },
-            { "<c-h>", cycle_prev_choice, mode = ls_mode,
-                desc = "LuaSnip: Cycle to the previous choice in the snippet.", silent = true, expr = true },
-        }
-    end,
+    keys = {
+        {
+            "<c-j>",
+            function()
+                if require("luasnip").expand_or_jumpable() then
+                    require("luasnip").expand_or_jump()
+                end
+            end,
+            mode = { "i", "s" },
+            desc = "LuaSnip: Expand snippet or jump to the next input index.",
+            silent = true,
+        },
+        {
+            "<c-f>",
+            function()
+                if require("luasnip").jumpable(1) then
+                    require("luasnip").jump(1)
+                end
+            end,
+            mode = { "i", "s" },
+            desc = "LuaSnip: Jump to the next input index.",
+            silent = true,
+        },
+        {
+            "<c-k>",
+            function()
+                if require("luasnip").jumpable(-1) then
+                    require("luasnip").jump(-1)
+                end
+            end,
+            mode = { "i", "s" },
+            desc = "LuaSnip: Jump to the previous input index.",
+            silent = true,
+        },
+        {
+            "<c-l>",
+            function()
+                if require("luasnip").choice_active() then
+                    return "<Plug>luasnip-next-choice"
+                end
+            end,
+            mode = { "i", "s" },
+            desc = "LuaSnip: Cycle to the next choice in the snippet.",
+            silent = true, expr = true,
+        },
+        {
+            "<c-h>",
+            function()
+                if require("luasnip").choice_active() then
+                    return "<Plug>luasnip-prev-choice"
+                end
+            end,
+            mode = { "i", "s" },
+            desc = "LuaSnip: Cycle to the previous choice in the snippet.",
+            silent = true, expr = true,
+        },
+    },
 }

@@ -1,7 +1,7 @@
 -- Delete buffers without messing up the current layout
-
 return {
     "famiu/bufdelete.nvim",
+    event = "VeryLazy",
     keys = function()
         return {
             { "<leader>db", function() require("bufdelete").bufdelete(0, true) end, {"n", "v"},

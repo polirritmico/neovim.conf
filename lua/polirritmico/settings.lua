@@ -48,8 +48,11 @@ opt.showmode = false        -- Show status in command area
 opt.title = true            -- Set the window name
 
 -- Highlight yanked text
-vim.cmd([[au TextYankPost * silent! lua vim.highlight.on_yank()]])
-
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+            vim.highlight.on_yank()
+    end,
+})
 
 --- Mouse related
 -- Disable "How-to disable mouse" entry on mouse right click menu

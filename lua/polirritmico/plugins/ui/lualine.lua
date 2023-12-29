@@ -1,25 +1,22 @@
 --- Lualine: Status bar
-
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = {
-        "nvim-tree/nvim-web-devicons",
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
     opts = function()
-        local cfg_theme = #vim.fn.getcompletion("monokai-nightasty", "color") == 0
-            and "material"
-            or "monokai-nightasty"
+        -- PERF: Replace lualine_require (wtf?!) with nvim require
+        local lualine_require = require("lualine_require")
+        lualine_require.require = require
+
         return {
-            options = {
-                theme = cfg_theme
-            },
-            sections = {
-                lualine_c = {
-                    function() return vim.fn.ObsessionStatus("", "") end,
-                    { "filename", path = 4, shorting_target = 45 }
-                },
-            },
+            options = { theme = "monokai-nightasty" },
+            --sections = {
+            --    lualine_c = {
+            --        function() return vim.fn.ObsessionStatus("", "") end,
+            --        { "filename", path = 4, shorting_target = 45 }
+            --    },
+            --},
+            extensions = { "lazy" },
         }
     end,
 }

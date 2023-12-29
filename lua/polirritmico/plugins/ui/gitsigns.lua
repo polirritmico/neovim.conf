@@ -1,43 +1,9 @@
 --- Git: Highlight code changes from last commit
+local map = require(MyUser..".utils").set_keymap
 
 return {
     "lewis6991/gitsigns.nvim",
-    keys = function()
-        local gitsigns = require("gitsigns")
-        local function toggle_gitsigns()
-            gitsigns.toggle_deleted()
-            gitsigns.toggle_current_line_blame()
-            gitsigns.toggle_word_diff()
-        end
-        return{
-            { "<leader>gt", toggle_gitsigns, mode = {"n", "v"},
-                desc = "GitSigns: Toggle show deleted lines", silent = true },
-            { "<leader>gn", gitsigns.next_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Next file change", silent = true },
-            { "<leader>gp", gitsigns.prev_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Previous file change", silent = true },
-            { "<leader>gsb", gitsigns.stage_buffer, mode = {"n", "v"},
-                desc = "GitSigns: Stage buffer", silent = true },
-            { "<leader>gsh", gitsigns.stage_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Stage hunk", silent = true },
-            { "<leader>gu", gitsigns.undo_stage_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Undo stage hunk", silent = true },
-            { "<leader>grb", gitsigns.reset_buffer, mode = {"n", "v"},
-                desc = "GitSigns: Reset buffer", silent = true },
-            { "<leader>grh", gitsigns.reset_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Reset hunk", silent = true },
-            { "<leader>gP", gitsigns.preview_hunk, mode = {"n", "v"},
-                desc = "GitSigns: Preview hunk", silent = true },
-            { "<leader>ga", function() gitsigns.blame_line({full=true}) end, mode = {"n", "v"},
-                desc = "GitSigns: Show hunk full info of the line", silent = true },
-            { "<leader>gc", gitsigns.toggle_current_line_blame, mode = {"n", "v"},
-                desc = "GitSigns: Toggle show line author change", silent = true },
-            { "<leader>gd", gitsigns.diffthis, mode = {"n", "v"},
-                desc = "GitSigns: Diff this", silent = true },
-            { "<leader>gD", function() gitsigns.diffthis("~") end, mode = {"n", "v"},
-                desc = "GitSigns: Diff this", silent = true },
-        }
-    end,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
         signs = {
             add          = { text = '+' }, -- │
@@ -47,17 +13,39 @@ return {
             changedelete = { text = '~' }, -- ~
             untracked    = { text = '┆' }, -- ┆
         },
-        word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-        attach_to_untracked = false,
-        show_deleted = false,
         current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
         current_line_blame_opts = {
             delay = 500,
             ignore_whitespace = true,
         },
-        preview_config = {
-            -- Options passed to nvim_open_win
-            border = "rounded",
-        },
-    }
+        preview_config = { border = "rounded" },
+        show_deleted = false,
+        word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+        attach_to_untracked = false,
+        on_attach = function(buffer)
+            local gs = require("gitsigns")
+            local function map(mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desk })
+            end
+            local function toggle_gitsigns()
+                gs.toggle_deleted()
+                gs.toggle_current_line_blame()
+                gs.toggle_word_diff()
+            end
+
+            map("n", "<leader>gt", toggle_gitsigns, "GitSigns: Toggle show deleted lines")
+            map("n", "<leader>gn", gs.next_hunk, "GitSigns: Next file change")
+            map("n", "<leader>gp", gs.prev_hunk, "GitSigns: Previous file change")
+            map("n", "<leader>gsb", gs.stage_buffer, "GitSigns: Stage buffer")
+            map({"n", "v"}, "<leader>gsh", ":Gitsigns stage_hunk<CR>", "GitSigns: Stage hunk")
+            map({"n", "v"}, "<leader>grh", ":Gitsigns reset_hunk<CR>", "GitSigns: Reset hunk")
+            map("n", "<leader>gu", gs.undo_stage_hunk, "GitSigns: Undo stage hunk")
+            map("n", "<leader>grb", gs.reset_buffer, "GitSigns: Reset buffer")
+            map("n", "<leader>gP", gs.preview_hunk, "GitSigns: Preview hunk")
+            map("n", "<leader>ga", function() gs.blame_line({ full=true }) end, "GitSigns: Blame line")
+            map("n", "<leader>gc", gs.toggle_current_line_blame, "GitSigns: Toggle current line blame")
+            map("n", "<leader>gd", gs.diffthis, "GitSigns: Diff this")
+            map("n", "<leader>gD", function() gs.diffthis("~") end, "GitSigns: Diff this")
+        end,
+    },
 }

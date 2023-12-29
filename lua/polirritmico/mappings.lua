@@ -49,6 +49,12 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
+-- Resize window using <ctrl> arrow keys
+map("n", "<C-Up>", "<cmd>resize +2<cr>", "Increase window height")
+map("n", "<C-Down>", "<cmd>resize -2<cr>", "Decrease window height")
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", "Decrease window width")
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", "Increase window width")
+
 -- Quick-list and location-list
 map("n", "<C-n>", "<cmd>cnext<CR>zz", "Next quick-list element")
 map("n", "<C-p>", "<cmd>cprev<CR>zz", "Prev quick-list element")
@@ -87,8 +93,12 @@ map("n", "<leader>CC", "<CMD>e " .. MyConfigPath .. "init.lua<CR>", "Entry point
 map("n", "<leader>CM", "<CMD>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
 map("n", "<leader>CP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
 map("n", "<leader>CS", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
+
 map("n", "<leader>Cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
 map("n", "<leader>CL", "<CMD>e " .. MyPluginConfigPath .. "setups/lsp.lua<CR>", "LSP server configs")
+
+map("n", "<leader>Cl", "<cmd>Lazy<cr>", "Open Lazy")
+map("n", "<leader>Cm", "<cmd>Mason<cr>", "Open Mason")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[

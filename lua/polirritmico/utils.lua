@@ -11,9 +11,9 @@ local Utils = {}
 function Utils.set_keymap(mode, key, command, description, verbose)
     local silent = verbose == nil or not verbose
     if description == nil or description == "" then
-	vim.keymap.set(mode, key, command, {silent = silent})
+        vim.keymap.set(mode, key, command, {silent = silent})
     else
-	vim.keymap.set(mode, key, command, {silent = silent, desc = description})
+        vim.keymap.set(mode, key, command, {silent = silent, desc = description})
     end
 end
 
@@ -29,6 +29,27 @@ function Utils.custom_print(...)
     print(unpack(mapped))
 
     return unpack(args)
+end
+
+---Create autocmds at "LazyLoad" events.
+--- TODO: Move to lazy.lua?
+---@param plugin_repo_name string
+---@param fn fun(plugin_name:string)
+function Utils.on_load(plugin_repo_name, fn)
+    local Config = require("lazy.core.config")
+    if Config.plugins[plugin_repo_name] and Config.plugins[plugin_repo_name]._.loaded then
+        fn(plugin_repo_name)
+    else
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "LazyLoad",
+            callback = function(event)
+                if event.data == plugin_repo_name then
+                    fn(plugin_repo_name)
+                    return true
+                end
+            end,
+        })
+    end
 end
 
 ---Function used to set a custom text when called by a fold action like zc.

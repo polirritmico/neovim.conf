@@ -1,18 +1,14 @@
 --- TODO, FIX, etc. comments highlights
-
--- local map = require(MyUser .. ".utils").set_keymap
-
 return {
     "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = { "TodoTelescope" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     keys = {
-        {"<leader>ft", "<CMD>TodoTelescope<CR>", {"n", "v"},
-            desc = "todo-comments: Open todo list in telescope", silent = true},
-        {"<leader>fT", "<CMD>TodoLocList<CR>", {"n", "v"},
-            desc = "todo-comments: Open todo list in a panel", silent = true},
-        {"<leader>tl", "<CMD>TodoQuickFix<CR>", {"n", "v"},
-            desc = "todo-comments: Open quickfix list", silent = true},
+        { "]t", function() require("todo-comments").jump_next() end, desc = "todo-comments: Next todo comment" },
+        { "[t", function() require("todo-comments").jump_prev() end, desc = "todo-comments: Previous todo comment" },
+        { "<leader>ft", "<CMD>TodoTelescope<CR>", desc = "todo-comments: Open todo list in telescope" },
+        { "<leader>fT", "<CMD>TodoLocList<CR>", desc = "todo-comments: Open todo list in a panel" },
+        { "<leader>tl", "<CMD>TodoQuickFix<CR>", desc = "todo-comments: Open quickfix list" },
     },
     opts = {
         -- Style test:
@@ -33,12 +29,6 @@ return {
             TODO = { icon = "󰑕" },
             WARN = { icon = "", alt = { "WARNING" } },
         },
-        highlight = {
-            pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns
-            exclude = {}, -- filetypes to exclude highlighting
-        },
-        search = {
-            pattern = [[\b(KEYWORDS):]], -- Don't change "KEYWORDS" in the regex
-        },
+        -- highlight = { exclude = {}, }, -- filetypes to exclude highlighting
     },
 }

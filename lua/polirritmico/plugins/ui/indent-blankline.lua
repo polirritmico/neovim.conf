@@ -7,7 +7,7 @@ return {
     opts = {
         indent = {
             char = {"│"},
-            smart_indent_cap = false,
+            smart_indent_cap = false, -- Get indent level by surrounding code
         },
         scope = { enabled = false },
     }

@@ -3,6 +3,8 @@
 return {
     "shortcuts/no-neck-pain.nvim",
     version = "*",
+    enabled = true,
+    cmd = "NoNeckPain",
     opts = {
         autocmds = {
             reloadOnColorSchemeChange = true,

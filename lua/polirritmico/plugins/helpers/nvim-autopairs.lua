@@ -1,8 +1,22 @@
 -- Pairs of (), [], {}, etc.
-
 return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
+    dependencies = { "nvim-cmp" },
+    opts = {
+        enable_check_bracket_line = true,
+        fast_wrap = {
+            map = "<M-e>",
+            chars = { '{', '[', '(', '"', "'" },
+            pattern = [=[[%'%"%>%]%)%}%,]]=],
+            end_key = "L",
+            keys = "asdfghjklqwertyuiopzxcvbnm",
+            check_comma = true,
+            manual_position = true,
+            highlight = "Search",
+            highlight_grey="Comment",
+        },
+    },
     config = function(_, opts)
         local npairs = require("nvim-autopairs")
         local Rule = require("nvim-autopairs.rule")
@@ -42,19 +56,10 @@ return {
             :with_del(cond.none())
             :use_key(bracket[2])
         end
+
+        -- Integrate with cmp: Insert "(" after select function or method item
+        require("cmp").event:on(
+            "confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done()
+        )
     end,
-    opts = {
-        enable_check_bracket_line = true,
-        fast_wrap = {
-            map = "<M-e>",
-            chars = { '{', '[', '(', '"', "'" },
-            pattern = [=[[%'%"%>%]%)%}%,]]=],
-            end_key = "L",
-            keys = "asdfghjklqwertyuiopzxcvbnm",
-            check_comma = true,
-            manual_position = true,
-            highlight = "Search",
-            highlight_grey="Comment",
-        },
-    },
 }

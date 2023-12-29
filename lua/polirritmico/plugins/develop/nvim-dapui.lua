@@ -3,9 +3,11 @@
 return {
     "rcarriga/nvim-dap-ui",
     dependencies = {
-        "mfussenegger/nvim-dap"
+        -- "mfussenegger/nvim-dap"
+        "nvim-dap"
     },
     lazy = true,
+    ft = "python",
     keys = function()
         local dapui = require("dapui")
         return {
