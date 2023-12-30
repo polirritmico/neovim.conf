@@ -6,7 +6,6 @@ return {
         "MunifTanjim/nui.nvim",
     },
     opts = {
-        -- TODO:Move to treesitter, cmp?
         -- override markdown rendering so that cmp and ohter plugins use Treesitter
         lsp = {
             override = {
@@ -36,11 +35,11 @@ return {
         messages = { enabled = false },
         popupmenu = { enabled = false },
         -- redirect = { view = nil, filter = { event = nil }, },
-        notify = { enabled = false, },
+        notify = { enabled = false },
         -- signature = { enabled = false },
         -- documentation = { view = nil },
         views = {
             mini = { position = { row = -2 } },
-        }
+        },
     },
 }
