@@ -12,6 +12,7 @@ return {
         local lspconfig = require("lspconfig")
         local mason_lsp = require("mason-lspconfig")
 
+        --- Keys
         local function toggle_lsp_diagnostic()
             if vim.diagnostic.is_disabled() then
                 vim.diagnostic.enable()
@@ -49,37 +50,36 @@ return {
         end
 
         local function config_lua_ls()
-            lspconfig.lua_ls.setup({ settings = { Lua = {
-                workspace = { checkThirdParty = false },
-                format = {
-                    enable = true,
-                    defaultConfig = {
-                        indent_style = "Spaces",
-                        indent_size = "4",
+            lspconfig.lua_ls.setup({
+                settings = {
+                    Lua = {
+                        workspace = { checkThirdParty = false },
+                        completion = { callSnippet = "Replace" },
                     },
                 },
-            }}})
+            })
         end
 
         local function config_pylsp()
-            lspconfig.pylsp.setup({ settings = { pylsp = {
-                plugins = {
-                    black = { enabled = true },
-                    pylsp_mypy = { enabled = true },
-                    pycodestyle = {
-                        maxLineLength = 88,
-                        ignore = { "E203", "E265", "E501", "W391", "W503" },
+            lspconfig.pylsp.setup({
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            black = { enabled = true },
+                            pylsp_mypy = { enabled = true },
+                            pycodestyle = {
+                                maxLineLength = 88,
+                                ignore = { "E203", "E265", "E501", "W391", "W503" },
+                            },
+                        },
                     },
-                }
-            }}})
+                },
+            })
         end
 
         local lsp_defaults = lspconfig.util.default_config
-        lsp_defaults.capabilities = vim.tbl_deep_extend(
-            "force",
-            lsp_defaults.capabilities,
-            require("cmp_nvim_lsp").default_capabilities()
-        )
+        lsp_defaults.capabilities =
+            vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         -- Apply servers configurations
         mason_lsp.setup({
@@ -96,8 +96,7 @@ return {
 
         -- Add borders to Hover when Noice is not in the Lazy plugins spec.
         if not require("lazy.core.config").spec.plugins["noice.nvim"] then
-            vim.lsp.handlers["textDocument/hover"] =
-                vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
         end
     end,
 }

@@ -27,7 +27,8 @@ return {
         formatters = {
             stylua = { prepend_args = { "--indent-type", "Spaces" } },
             -- shfmt = { prepend_args = { "-i", "2" } },
-            -- prettier = { prepend_args = { "--tab-width", "4" } },
+            prettier = { prepend_args = { "--tab-width", "2" } },
+            black = { prepend_args = { "--line-length", "88" } },
         },
     },
     init = function()
