@@ -9,10 +9,13 @@ return {
     opts = {
         ensure_installed = {
             "bash-language-server", -- Bash language server
-            "clangd",               -- LSP for C/C++
-            "lua-language-server",  -- Lua language server
-            "python-lsp-server",    -- fork of python-language-server
-            "stylua",               -- opinionated Lua code formatter
+            "clangd", -- LSP for C/C++
+            "lua-language-server", -- Lua language server
+            "stylua", -- Lua code formatter
+            "python-lsp-server", -- fork of python-language-server
+            -- "black", -- Python formatter
+            -- "isort", -- Python imports formatter
+            "prettier", -- Formater for css, html, json, javascript, yaml and more.
         },
     },
     config = function(_, opts)

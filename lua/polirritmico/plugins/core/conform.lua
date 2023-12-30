@@ -16,14 +16,18 @@ return {
     },
     opts = {
         formatters_by_ft = {
+            css = { "prettier" },
+            json = { "prettier" },
+            yaml = { "prettier" },
             lua = { "stylua" },
             python = { "isort", "black" },
             sh = { "shfmt" },
         },
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
         formatters = {
-            -- shfmt = { prepend_args = { "-i", "2" } },
             stylua = { prepend_args = { "--indent-type", "Spaces" } },
+            -- shfmt = { prepend_args = { "-i", "2" } },
+            -- prettier = { prepend_args = { "--tab-width", "4" } },
         },
     },
     init = function()

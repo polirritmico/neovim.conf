@@ -5,6 +5,7 @@ return {
     enabled = true,
     event = "VimEnter",
     opts = function()
+        local tl_config = [[lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })]]
         local opts = {
             theme = "doom",
             hide = {
@@ -12,20 +13,30 @@ return {
             },
             config = {
                 header = {
-                    "", "", "", "", "", "", "", "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
                     [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
                     [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
                     [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
                     [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
                     [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-                    "", "", "",
+                    "",
+                    "",
+                    "",
                 },
                 center = {
                     { action = "Telescope find_files", desc = " Find file", icon = " ", key = "f" },
-                    { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
+                    { action = "ene | startinsert", desc = " New file", icon = " ", key = "e" },
                     { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
                     { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-                    { action = [[lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })]], desc = " Config", icon = " ", key = "c" },
+                    { action = "Telescope help", desc = " Help docs", icon = "󰋖 ", key = "h" },
+                    { action = tl_config, desc = " Config", icon = " ", key = "c" },
                     -- { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
                     { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "l" },
                     { action = "qa", desc = " Quit", icon = " ", key = "q" },
