@@ -9,11 +9,11 @@ return {
     opts = {
         ensure_installed = {
             "bash-language-server", -- Bash language server
-            "clangd", -- LSP for C/C++
-            "lua-language-server", -- Lua language server 
-            "python-lsp-server", -- fork of python-language-server
-            "stylua", -- opinionated Lua code formatter
-        } ,
+            "clangd",               -- LSP for C/C++
+            "lua-language-server",  -- Lua language server
+            "python-lsp-server",    -- fork of python-language-server
+            "stylua",               -- opinionated Lua code formatter
+        },
     },
     config = function(_, opts)
         require("mason").setup(opts)

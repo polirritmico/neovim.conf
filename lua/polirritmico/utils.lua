@@ -1,3 +1,11 @@
+---@class Utils Collection of utility functions
+---@field set_keymap function
+---@field check_paths function
+---@field custom_print function
+---@field on_load function
+---@field fold_text function
+---@field load_config function
+---@field detected_errors function
 local Utils = {}
 
 -- Helper functions
@@ -11,9 +19,9 @@ local Utils = {}
 function Utils.set_keymap(mode, key, command, description, verbose)
     local silent = verbose == nil or not verbose
     if description == nil or description == "" then
-        vim.keymap.set(mode, key, command, {silent = silent})
+        vim.keymap.set(mode, key, command, { silent = silent })
     else
-        vim.keymap.set(mode, key, command, {silent = silent, desc = description})
+        vim.keymap.set(mode, key, command, { silent = silent, desc = description })
     end
 end
 
@@ -27,7 +35,7 @@ end
 ---@vararg any
 ---@return any
 function Utils.custom_print(...)
-    local args = {...}
+    local args = { ... }
     local mapped = {}
     for _, variable in pairs(args) do
         table.insert(mapped, vim.inspect(variable))
@@ -102,6 +110,11 @@ function Utils.detected_errors()
             vim.cmd("edit " .. config_path .. "/" .. module .. ".lua")
         end
     end
+    return true
+end
+
+---Telescope enhanced buffer picker
+function Utils.telescope_buffers(opts)
     return true
 end
 

@@ -1,8 +1,7 @@
 --- Greeter screen
-
 return {
     "goolord/alpha-nvim",
-    enabled = true,
+    enabled = false,
     dependencies = {"nvim-tree/nvim-web-devicons"},
     event = "VimEnter",
     opts = function()
