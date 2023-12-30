@@ -104,7 +104,8 @@ function Utils.detected_errors()
         return false
     end
     if vim.fn.input("Open offending files for editing? (y/n): ") == "y" then
-        print(" "); print("Opening files...")
+        print(" ")
+        print("Opening files...")
         local config_path = vim.fn.stdpath("config") .. "/lua/" .. MyUser
         for _, module in pairs(Utils.catched_errors) do
             vim.cmd("edit " .. config_path .. "/" .. module .. ".lua")
@@ -113,9 +114,13 @@ function Utils.detected_errors()
     return true
 end
 
----Telescope enhanced buffer picker
-function Utils.telescope_buffers(opts)
-    return true
+---Enable spanish dictionary and spell checkers
+-- NOTE: To create the compiled dict from dic and aff files use:
+-- :mkspell output input -> :mkspell es es_CL (in config/spell dir)
+function Utils.es_dict()
+    vim.opt.spelllang = { "es" }
+    vim.cmd([[set spellfile="~/.config/nvim/spell/es.utf-8"]])
+    vim.opt.spell = true
 end
 
 return Utils

@@ -23,7 +23,7 @@ return {
         vim.api.nvim_create_autocmd("LspAttach", {
             desc = "LSP actions",
             callback = function(event)
-                local buf_opts = {buffer = event.buf}
+                local buf_opts = { buffer = event.buf }
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, buf_opts)
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
@@ -38,9 +38,9 @@ return {
                 vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, buf_opts)
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, buf_opts)
-                vim.keymap.set({"n", "v"}, "<leader>gH", toggle_lsp_diagnostic, buf_opts)
-                vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, buf_opts)
-            end
+                vim.keymap.set({ "n", "v" }, "<leader>gH", toggle_lsp_diagnostic, buf_opts)
+                vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, buf_opts)
+            end,
         })
 
         --- Servers configurations
@@ -50,8 +50,13 @@ return {
 
         local function config_lua_ls()
             lspconfig.lua_ls.setup({ settings = { Lua = {
-                workspace = {
-                    checkThirdParty = false,
+                workspace = { checkThirdParty = false },
+                format = {
+                    enable = true,
+                    defaultConfig = {
+                        indent_style = "Spaces",
+                        indent_size = "4",
+                    },
                 },
             }}})
         end
@@ -60,12 +65,12 @@ return {
             lspconfig.pylsp.setup({ settings = { pylsp = {
                 plugins = {
                     black = { enabled = true },
-                    pylsp_mypy = { enabled = true, },
+                    pylsp_mypy = { enabled = true },
                     pycodestyle = {
                         maxLineLength = 88,
                         ignore = { "E203", "E265", "E501", "W391", "W503" },
                     },
-                },
+                }
             }}})
         end
 
@@ -78,7 +83,7 @@ return {
 
         -- Apply servers configurations
         mason_lsp.setup({
-            ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp", },
+            ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp" },
             handlers = {
                 default_setup,
                 lua_ls = config_lua_ls,
@@ -91,10 +96,8 @@ return {
 
         -- Add borders to Hover when Noice is not in the Lazy plugins spec.
         if not require("lazy.core.config").spec.plugins["noice.nvim"] then
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover, { border = "rounded" }
-            )
+            vim.lsp.handlers["textDocument/hover"] =
+                vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
         end
     end,
 }
-

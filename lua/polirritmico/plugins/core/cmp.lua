@@ -47,7 +47,6 @@ return {
                 { name = "luasnip", option = { use_show_condition = false } },
                 { name = "path" },
                 { name = "nvim_lsp" },
-                { name = "cmp_luasnip" }
             }, {
                 { name = "buffer", keyword_lentgth = 3 },
             }),
@@ -88,12 +87,12 @@ return {
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,
                     cmp.config.compare.order,
-                }
+                },
             }),
             -- Add border to popup window
             window = {
                 completion = cmp.config.window.bordered(),
-                documentation = cmp.config.window.bordered()
+                documentation = cmp.config.window.bordered(),
             },
         }
     end,
@@ -105,8 +104,9 @@ return {
         cmp.setup.cmdline(":", {
             -- mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources(
-                {{ name = "path" }}, {{ name = "cmdline" }}
-            )
+                { { name = "path" } },
+                { { name = "cmdline" } }
+            ),
         })
     end,
 }
