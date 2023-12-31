@@ -5,7 +5,6 @@ return {
     enabled = true,
     event = "VimEnter",
     opts = function()
-        local tl_config = [[lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })]]
         local opts = {
             theme = "doom",
             hide = {
@@ -31,20 +30,64 @@ return {
                     "",
                 },
                 center = {
-                    { action = "Telescope find_files", desc = " Find file", icon = " ", key = "f" },
-                    { action = "ene | startinsert", desc = " New file", icon = " ", key = "e" },
-                    { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
-                    { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-                    { action = "Telescope help", desc = " Help docs", icon = "󰋖 ", key = "h" },
-                    { action = tl_config, desc = " Config", icon = " ", key = "c" },
+                    {
+                        action = "ene | startinsert",
+                        desc = " New file",
+                        icon = " ",
+                        key = "e",
+                    },
+                    {
+                        action = "Telescope find_files",
+                        desc = " Find file",
+                        icon = " ",
+                        key = "<leader>ff",
+                    },
+                    {
+                        action = "Telescope oldfiles",
+                        desc = " Recent files",
+                        icon = " ",
+                        key = "<leader>fr",
+                    },
+                    {
+                        action = "Telescope live_grep",
+                        desc = " Find text",
+                        icon = " ",
+                        key = "<leader>fg",
+                    },
+                    {
+                        action = "Telescope help_tags",
+                        desc = " Help docs",
+                        -- icon = "󰋖 ",
+                        icon = "󰘥 ",
+                        key = "<leader>fh",
+                    },
+                    {
+                        action = [[lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })]],
+                        desc = " Config",
+                        icon = " ",
+                        key = "<leader>cc",
+                    },
                     -- { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
-                    { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "l" },
+                    {
+                        action = "Lazy",
+                        desc = " Plugins",
+                        icon = "󰒲 ",
+                        key = "<leader>cp",
+                    },
                     { action = "qa", desc = " Quit", icon = " ", key = "q" },
                 },
                 footer = function()
                     local stats = require("lazy").stats()
                     local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                    return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+                    return {
+                        "⚡ Neovim loaded "
+                            .. stats.loaded
+                            .. "/"
+                            .. stats.count
+                            .. " plugins in "
+                            .. ms
+                            .. "ms",
+                    }
                 end,
             },
         }

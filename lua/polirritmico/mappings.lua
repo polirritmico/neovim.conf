@@ -69,8 +69,9 @@ map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Paste from \" register to new l
 -- Select pasted text
 map({"n", "v"}, "gp", "`[v`]")
 
--- Avoid Ex entering Ex mode (not to be confused with Explorer)
-map("n", "Q", "")
+-- Avoid record macros by accident
+map("n", "Q", "q")
+map("n", "q", "<nop>")
 
 -- Change to normal mode from terminal mode
 map("t", "<c-n>", [[<c-\><c-n>]])
@@ -89,16 +90,16 @@ end
 map("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
-map("n", "<leader>CC", "<CMD>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
-map("n", "<leader>CM", "<CMD>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
-map("n", "<leader>CP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
-map("n", "<leader>CS", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
+map("n", "<leader>ci", "<CMD>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
+map("n", "<leader>cm", "<CMD>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
+map("n", "<leader>cP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
+map("n", "<leader>cg", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
 
-map("n", "<leader>Cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
-map("n", "<leader>CL", "<CMD>e " .. MyPluginConfigPath .. "setups/lsp.lua<CR>", "LSP server configs")
+map("n", "<leader>cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
+map("n", "<leader>cl", "<CMD>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
 
-map("n", "<leader>Cl", "<cmd>Lazy<cr>", "Open Lazy")
-map("n", "<leader>Cm", "<cmd>Mason<cr>", "Open Mason")
+map("n", "<leader>cp", "<cmd>Lazy<cr>", "Open Lazy")
+map("n", "<leader>cM", "<cmd>Mason<cr>", "Open Mason")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[

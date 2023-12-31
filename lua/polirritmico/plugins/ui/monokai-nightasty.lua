@@ -5,7 +5,11 @@ return {
     priority = 1000,
     dev = false,
     keys = {
-        {"<leader>tt", "<CMD>MonokaiToggleLight<CR>", desc = "Monokai-Nightasty: Toggle dark/light theme."}
+        {
+            "<leader>tt",
+            "<CMD>MonokaiToggleLight<CR>",
+            desc = "Monokai-Nightasty: Toggle dark/light theme.",
+        },
     },
     opts = {
         dark_style_background = "default",
@@ -18,15 +22,15 @@ return {
     config = function(_, opts)
         -- To reload `:Lazy reload monokai-nightasty.nvim`
 
-        vim.opt.cursorline = true  -- Highlight line at the cursor position
-        vim.o.background = "dark"  -- Default to dark theme
+        vim.opt.cursorline = true -- Highlight line at the cursor position
+        vim.o.background = "dark" -- Default to dark theme
 
         -- Change to light between 16 and 19:30
-        -- local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", {output = true})
-        -- local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
-        -- if system_time >= 1600 and system_time < 1930 then
-        --     vim.o.background = "light"
-        -- end
+        local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
+        local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
+        if system_time >= 1600 and system_time < 1930 then
+            vim.o.background = "light"
+        end
 
         require("monokai-nightasty").load(opts)
     end,
