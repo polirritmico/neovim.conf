@@ -24,12 +24,12 @@ return {
         {
             "<leader>ff",
             "<cmd>Telescope find_files<cr>",
-            desc = "Telescope: Find files (nvim runtime path)"
+            desc = "Telescope: Find files (nvim runtime path)",
         },
         {
             "<leader>fF",
             "<cmd>Telescope find_files cwd=%:p:h hidden=true<cr>",
-            desc = "Telescope: Find files (from file path)"
+            desc = "Telescope: Find files (from file path)",
         },
         {
             "<leader>fb",
@@ -97,42 +97,47 @@ return {
             desc = "Telescope: Get document headers (markdown).",
         },
     },
-    opts = {
-        defaults = {
+    opts = function()
+        local layout_strategy, layout_config
+        if Workstation then
+            layout_strategy = "flex"
+            layout_config = {
+                flex = { flip_columns = 120 },
+                horizontal = { preview_width = { 0.6, max = 100, min = 30 } },
+            }
+        else
+            layout_strategy = "vertical"
+            layout_config = { vertical = { preview_cutoff = 20, preview_height = 9 } }
+        end
+
+        return {
+            defaults = {
+            -- stylua: ignore
             file_ignore_patterns = {
                 "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.JPG",
                 "%.PNG", "%.webp", "%.WEBP", "%.mp3", "%.MP3", "%.pdf",
                 "%.PDF", "%.odt", "%.ODT", "%.ico", "%.ICO",
             },
-            layout_strategy = "flex",
-            layout_config = {
-                flex = { flip_columns = 120 },
-                horizontal = { preview_width = { 0.6, max = 100, min = 30 } },
+                layout_strategy = layout_strategy,
+                layout_config = layout_config,
+                path_display = { "truncate" },
+                prompt_prefix = "   ",
+                selection_caret = " 󰄾  ",
+                mappings = { i = { ["<C-h>"] = "which_key" } }, -- toggle keymaps help
             },
-            -- layout_strategy = "vertical",
-            -- layout_config = {
-            --     vertical = {
-            --         preview_cutoff = 20,
-            --         preview_height = 9,
-            --     },
-            -- },
-            path_display = { "truncate" },
-            prompt_prefix = "   ",
-            selection_caret = " 󰄾  ",
-            mappings = {i = {["<C-h>"] = "which_key"}}, -- toggle keymaps help
-        },
-        extensions = {
-            heading = {
-                treesitter = false,
-                picker_opts = {
-                    layout_strategy = "horizontal",
-                    sorting_strategy = "ascending",
-                    layout_config = {
-                        preview_cutoff = 20,
-                        preview_width = 0.7,
+            extensions = {
+                heading = {
+                    treesitter = false,
+                    picker_opts = {
+                        layout_strategy = "horizontal",
+                        sorting_strategy = "ascending",
+                        layout_config = {
+                            preview_cutoff = 20,
+                            preview_width = 0.7,
+                        },
                     },
                 },
             },
-        },
-    },
+        }
+    end,
 }

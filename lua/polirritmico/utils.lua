@@ -1,6 +1,5 @@
 ---@class Utils Collection of utility functions
 ---@field set_keymap function
----@field check_paths function
 ---@field custom_print function
 ---@field on_load function
 ---@field fold_text function
@@ -25,12 +24,6 @@ function Utils.set_keymap(mode, key, command, description, verbose)
     end
 end
 
----
----@param path string
-function Utils.check_paths(path)
-    return vim.fn.finddir(path) ~= ""
-end
-
 ---Wrapper function to pretty print variables instead of getting memory addresses.
 ---@vararg any
 ---@return any
@@ -46,19 +39,18 @@ function Utils.custom_print(...)
 end
 
 ---Create autocmds at "LazyLoad" events.
---- TODO: Move to lazy.lua?
----@param plugin_repo_name string
+---@param plugin_name string
 ---@param fn fun(plugin_name:string)
-function Utils.on_load(plugin_repo_name, fn)
+function Utils.on_load(plugin_name, fn)
     local Config = require("lazy.core.config")
-    if Config.plugins[plugin_repo_name] and Config.plugins[plugin_repo_name]._.loaded then
-        fn(plugin_repo_name)
+    if Config.plugins[plugin_name] and Config.plugins[plugin_name]._.loaded then
+        fn(plugin_name)
     else
         vim.api.nvim_create_autocmd("User", {
             pattern = "LazyLoad",
             callback = function(event)
-                if event.data == plugin_repo_name then
-                    fn(plugin_repo_name)
+                if event.data == plugin_name then
+                    fn(plugin_name)
                     return true
                 end
             end,
@@ -72,9 +64,17 @@ function Utils.fold_text()
     local first_line = vim.fn.getline(vim.v.foldstart)
     local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
     local lines_count = tostring(vim.v.foldend - vim.v.foldstart)
-    local space_width = vim.api.nvim_get_option("textwidth") - #first_line - #last_line - #lines_count - 10
+    local space_width = vim.api.nvim_get_option("textwidth")
+        - #first_line
+        - #last_line
+        - #lines_count
+        - 10
     return string.format(
-        "%s  %s %s (%d L)", first_line, last_line, string.rep(".", space_width), lines_count
+        "%s  %s %s (%d L)",
+        first_line,
+        last_line,
+        string.rep(".", space_width),
+        lines_count
     )
 end
 

@@ -1,28 +1,16 @@
 -- Lazy bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+    -- stylua: ignore
+    vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath, })
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Config
+-- Lazy config
 local opts = {
-    change_detection = {
-        enabled = true,
-        notify = true,
-    },
-    dev = {
-        path = MyPluginsPath,
-        fallback = false,
-    },
-    install = {
-        colorscheme = { "monokai-nightasty" },
-    },
+    change_detection = { enabled = true, notify = true },
+    dev = { path = MyPluginsPath, fallback = false },
+    install = { colorscheme = { "monokai-nightasty" } },
     performance = {
         rtp = {
             disabled_plugins = {
@@ -37,18 +25,19 @@ local opts = {
             },
         },
     },
-    ui = {
-        border = "rounded"
-    },
+    ui = { border = "rounded" },
 }
 
+-- Plugins folders
 local specs_folders = {
-    {import = MyUser .. ".plugins.core"},
-    {import = MyUser .. ".plugins.develop"},
-    {import = MyUser .. ".plugins.helpers"},
-    {import = MyUser .. ".plugins.misc"},
-    {import = MyUser .. ".plugins.ui"},
-    {import = MyUser .. ".plugins.extras"},
+    { import = MyUser .. ".plugins.core" },
+    { import = MyUser .. ".plugins.develop" },
+    { import = MyUser .. ".plugins.helpers" },
+    { import = MyUser .. ".plugins.misc" },
+    { import = MyUser .. ".plugins.ui" },
 }
+if Workstation then
+    table.insert(specs_folders, { import = MyUser .. ".plugins.extras" })
+end
 
 require("lazy").setup(specs_folders, opts)

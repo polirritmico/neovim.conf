@@ -13,7 +13,7 @@ return {
         local mason_lsp = require("mason-lspconfig")
 
         --- Keys
-        local function toggle_lsp_diagnostic()
+        local function toggle_lsp_diag()
             if vim.diagnostic.is_disabled() then
                 vim.diagnostic.enable()
             else
@@ -39,7 +39,7 @@ return {
                 vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, buf_opts)
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, buf_opts)
-                vim.keymap.set({ "n", "v" }, "<leader>gH", toggle_lsp_diagnostic, buf_opts)
+                vim.keymap.set({ "n", "v" }, "<leader>gH", toggle_lsp_diag, buf_opts)
                 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, buf_opts)
             end,
         })
@@ -78,8 +78,11 @@ return {
         end
 
         local lsp_defaults = lspconfig.util.default_config
-        lsp_defaults.capabilities =
-            vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+        lsp_defaults.capabilities = vim.tbl_deep_extend(
+            "force",
+            lsp_defaults.capabilities,
+            require("cmp_nvim_lsp").default_capabilities()
+        )
 
         -- Apply servers configurations
         mason_lsp.setup({
@@ -96,7 +99,8 @@ return {
 
         -- Add borders to Hover when Noice is not in the Lazy plugins spec.
         if not require("lazy.core.config").spec.plugins["noice.nvim"] then
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            vim.lsp.handlers["textDocument/hover"] =
+                vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
         end
     end,
 }

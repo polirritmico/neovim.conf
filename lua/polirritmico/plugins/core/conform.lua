@@ -25,7 +25,9 @@ return {
         },
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
         formatters = {
-            stylua = { prepend_args = { "--indent-type", "Spaces" } },
+            stylua = {
+                prepend_args = { "--indent-type", "Spaces", "--column-width", "88" },
+            },
             -- shfmt = { prepend_args = { "-i", "2" } },
             prettier = { prepend_args = { "--tab-width", "2" } },
             black = { prepend_args = { "--line-length", "88" } },

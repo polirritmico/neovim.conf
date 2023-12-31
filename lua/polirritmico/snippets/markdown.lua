@@ -19,7 +19,7 @@ ls.add_snippets("markdown", {
     })),
 
     s(
-        {trig = "---", name = "Horizontal line",
+        {trig = "----", name = "Horizontal line",
         dscr = "A horizontal separation line (79 characters)."},
         t("-------------------------------------------------------------------------------")
     ),

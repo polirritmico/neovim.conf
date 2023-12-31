@@ -3,14 +3,14 @@
 -------------
 
 MyUser = "polirritmico"
+Workstation = true
 
 --- Set paths
 local utils = require(MyUser .. ".utils")
 
 MyConfigPath = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/"
 MyPluginConfigPath = MyConfigPath .. "plugins/"
-local custom_plugins_path = vim.fn.expand("$HOME/Informática/Programación/")
-MyPluginsPath = utils.check_paths(custom_plugins_path) and custom_plugins_path
+MyPluginsPath = vim.fn.finddir(vim.fn.expand("$HOME/Informática/Programación/"))
     or vim.fn.expand("$HOME/Proyectos/")
 
 assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!")
