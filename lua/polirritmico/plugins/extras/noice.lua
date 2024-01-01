@@ -41,5 +41,6 @@ return {
         views = {
             mini = { position = { row = -2 } },
         },
+        presets = { lsp_doc_border = true },
     },
 }
