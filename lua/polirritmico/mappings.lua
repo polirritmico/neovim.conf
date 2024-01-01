@@ -96,9 +96,9 @@ map("n", "<leader>cP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins setti
 map("n", "<leader>cg", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
 
 map("n", "<leader>cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
-map("n", "<leader>cl", "<CMD>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
+map("n", "<leader>cL", "<CMD>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
 
-map("n", "<leader>cp", "<cmd>Lazy<cr>", "Open Lazy")
+map("n", "<leader>cl", "<cmd>Lazy<cr>", "Open Lazy")
 map("n", "<leader>cM", "<cmd>Mason<cr>", "Open Mason")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense

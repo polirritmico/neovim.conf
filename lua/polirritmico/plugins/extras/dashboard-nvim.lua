@@ -72,7 +72,7 @@ return {
                         action = "Lazy",
                         desc = " Plugins",
                         icon = "󰒲 ",
-                        key = "<leader>cp",
+                        key = "<leader>cl",
                     },
                     { action = "qa", desc = " Quit", icon = " ", key = "q" },
                 },
