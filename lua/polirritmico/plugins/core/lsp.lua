@@ -60,6 +60,12 @@ return {
             })
         end
 
+        local function config_texlab()
+            lspconfig.texlab.setup({
+                settings = { texlab = { latexFormatter = "texlab" } },
+            })
+        end
+
         local function config_pylsp()
             lspconfig.pylsp.setup({
                 settings = {
@@ -91,6 +97,7 @@ return {
                 default_setup,
                 lua_ls = config_lua_ls,
                 pylsp = config_pylsp,
+                texlab = config_texlab,
             },
         })
 

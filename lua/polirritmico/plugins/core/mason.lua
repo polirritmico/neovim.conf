@@ -17,6 +17,7 @@ return {
             -- "isort", -- Python imports formatter
             "prettier", -- Formater for css, html, json, javascript, yaml and more.
         },
+        ui = { border = "rounded" },
     },
     config = function(_, opts)
         require("mason").setup(opts)
