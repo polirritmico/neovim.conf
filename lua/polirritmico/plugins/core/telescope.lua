@@ -96,6 +96,11 @@ return {
             ft = "markdown",
             desc = "Telescope: Get document headers (markdown).",
         },
+        {
+            "<leader>cc",
+            [[<cmd>lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })<cr>]],
+            desc = "Telescope: Configurations",
+        },
     },
     opts = function()
         local layout_strategy, layout_config
