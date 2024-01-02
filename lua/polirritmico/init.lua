@@ -5,21 +5,22 @@
 MyUser = "polirritmico"
 Workstation = true
 
---- Set paths
+--- Helper functions
 local utils = require(MyUser .. ".utils")
+P = utils.custom_print
+CustomFoldText = utils.fold_text
 
+--- Set paths
 MyConfigPath = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/"
 MyPluginConfigPath = MyConfigPath .. "plugins/"
 MyPluginsPath = vim.fn.finddir(vim.fn.expand("$HOME/Informática/Programación/"))
-    or vim.fn.expand("$HOME/Proyectos/")
+if MyPluginsPath == "" then
+    MyPluginsPath = vim.fn.expand("$HOME/Proyectos/")
+end
 
 assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!")
 assert(vim.fn.finddir(MyPluginConfigPath) ~= "", "Error: Missing plugins path.")
 assert(vim.fn.finddir(MyPluginsPath) ~= "", "Error: Missing personal plugins path.")
-
---- Helper functions
-P = utils.custom_print
-CustomFoldText = utils.fold_text
 
 ------------------
 -- Load configs --
