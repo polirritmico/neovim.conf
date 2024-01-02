@@ -44,9 +44,9 @@ return {
             },
             sources = cmp.config.sources({
                 -- Order of cmp menu entries
-                { name = "luasnip", option = { use_show_condition = false } },
                 { name = "path" },
                 { name = "nvim_lsp" },
+                { name = "luasnip", option = { use_show_condition = false } },
             }, {
                 { name = "buffer", keyword_lentgth = 3 },
             }),
