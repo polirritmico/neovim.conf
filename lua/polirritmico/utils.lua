@@ -30,6 +30,10 @@ end
 function Utils.custom_print(...)
     local args = { ... }
     local mapped = {}
+    if args == nil then
+        print("nil")
+        return nil
+    end
     for _, variable in pairs(args) do
         table.insert(mapped, vim.inspect(variable))
     end

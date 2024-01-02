@@ -10,31 +10,49 @@ return {
             hide = {
                 statusline = false, -- handled by Lualine itself
             },
+            preview = {
+                command = "cat",
+                file_path = vim.fn.expand(
+                    vim.fn.stdpath("config")
+                        .. "/lua/"
+                        .. MyUser
+                        .. "/plugins/extras/header/logo"
+                ),
+                file_height = 13,
+                file_width = 18,
+            },
             config = {
-                header = {
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-                    [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-                    [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-                    [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-                    [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-                    "",
-                    "",
-                    "",
-                },
+                -- header = {
+                --     "",
+                --     "",
+                --     "",
+                --     [[⠀⠀⠀⣠⣾⣆⠀⠀⠀⠀⠀⠀⠀⢰⣄⠀⠀⠀]],
+                --     [[⢀⢠⣾⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⢸⣿⣷⣄⠀]],
+                --     [[⡎⠱⡹⣿⣿⣿⣿⣷⡄⠀⠀⠀⠀⢸⣿⣿⣿⣷]],
+                --     [[⡇⠀⠘⢞⢿⣿⣿⣿⣿⣆⠀⠀⠀⢸⣿⣿⣿⣿]],
+                --     [[⡇⠀⠀ ⢪⢻⣿⣿⣿⣿⣧⠀⠀⢸⣿⣿⣿⣿]],
+                --     [[⡇⠀⠀⠀⢸⠀⠹⣿⣿⣿⣿⣷ ⢸⣿⣿⣿⣿]],
+                --     [[⡇⠀⠀⠀⢸⠀⠀⠘⣿⣿⣿⣿⣿⣌⢿⣿⣿⣿]],
+                --     [[⡇⠀⠀⠀⢸⠀⠀⠀⠈⢿⣿⣿⣿⣿⣦⠻⣿⣿]],
+                --     [[⢧ ⠀⠀⢸⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣷⡙⡟]],
+                --     [[⠀⠙⢦ ⢸⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⠟⠁⠀]],
+                --     [[⠀⠀⠀⠙⢾⠀⠀⠀⠀⠀⠀⠀⠈⠟⠁⠀⠀⠀]],
+                --     "",
+                --     "",
+                --     "",
+                -- },
                 center = {
                     {
                         action = "ene | startinsert",
                         desc = " New file",
                         icon = " ",
                         key = "e",
+                    },
+                    {
+                        action = "Telescope persisted",
+                        desc = " Restore Session",
+                        icon = " ",
+                        key = "<leader>ss",
                     },
                     {
                         action = "Telescope find_files",
@@ -57,7 +75,6 @@ return {
                     {
                         action = "Telescope help_tags",
                         desc = " Help docs",
-                        -- icon = "󰋖 ",
                         icon = "󰘥 ",
                         key = "<leader>fh",
                     },
@@ -67,7 +84,6 @@ return {
                         icon = " ",
                         key = "<leader>cc",
                     },
-                    -- { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
                     {
                         action = "Lazy",
                         desc = " Plugins",
@@ -95,17 +111,6 @@ return {
         for _, button in ipairs(opts.config.center) do
             button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
             button.key_format = "  %s"
-        end
-
-        -- close Lazy and re-open when the dashboard is ready
-        if vim.o.filetype == "lazy" then
-            vim.cmd.close()
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "DashboardLoaded",
-                callback = function()
-                    require("lazy").show()
-                end,
-            })
         end
 
         return opts
