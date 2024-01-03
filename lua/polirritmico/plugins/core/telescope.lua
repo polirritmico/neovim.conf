@@ -79,6 +79,23 @@ return {
             desc = "Telescope: Find telescope builtins functions",
         },
 
+        -- Configs
+        {
+            "<leader>cs",
+            [[<cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<cr>]],
+            desc = "Telescope: Snippets sources",
+        },
+        {
+            "<leader>cc",
+            [[<cmd>execute "Telescope find_files cwd=".MyConfigPath<cr>]],
+            desc = "Telescope: Configurations",
+        },
+        {
+            "<leader>ct",
+            [[<cmd>execute "Telescope find_files cwd=".stdpath("config")."/after/ftplugin"<cr>]],
+            desc = "Telescope: Configurations",
+        },
+
         -- Extensions
         {
             "<leader>fe",
@@ -95,11 +112,6 @@ return {
             "<cmd>Telescope heading<cr>",
             ft = "markdown",
             desc = "Telescope: Get document headers (markdown).",
-        },
-        {
-            "<leader>cc",
-            [[<cmd>lua require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })<cr>]],
-            desc = "Telescope: Configurations",
         },
     },
     opts = function()
@@ -135,6 +147,9 @@ return {
                 mappings = { i = { ["<C-h>"] = "which_key" } }, -- toggle keymaps help
             },
             extensions = {
+                file_browser = {
+                    follow_symlinks = true,
+                },
                 heading = {
                     treesitter = false,
                     picker_opts = {

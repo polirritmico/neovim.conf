@@ -1,10 +1,10 @@
 ---@class Utils Collection of utility functions
----@field set_keymap function
 ---@field custom_print function
----@field on_load function
+---@field detected_errors function
 ---@field fold_text function
 ---@field load_config function
----@field detected_errors function
+---@field on_load function
+---@field set_keymap function
 local Utils = {}
 
 -- Helper functions
