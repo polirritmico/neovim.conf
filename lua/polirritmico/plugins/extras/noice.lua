@@ -13,29 +13,29 @@ return {
                 ["vim.lsp.util.stylize_markdown"] = true,
                 ["cmp.entry.get_documentation"] = true,
             },
-            -- Avoid written messages
-            routes = {
-                {
-                    filter = {
-                        event = "msg_show",
-                        any = {
-                            { find = "%d+L, %d+B" },
-                            { find = "; after #%d+" },
-                            { find = "; before #%d+" },
-                        },
-                    },
-                },
-            },
             hover = {
                 enabled = true,
                 opts = { border = "rounded" },
             },
         },
+        -- Avoid written messages
+        -- routes = {
+        --     {
+        --         filter = {
+        --             event = "msg_show",
+        --             any = {
+        --                 { find = "%d+L, %d+B" },
+        --                 { find = "; after #%d+" },
+        --                 { find = "; before #%d+" },
+        --             },
+        --         },
+        --     },
+        -- },
         cmdline = { enabled = false },
         messages = { enabled = false },
         popupmenu = { enabled = false },
-        -- redirect = { view = nil, filter = { event = nil }, },
         notify = { enabled = false },
+        -- redirect = { view = nil, filter = { event = nil }, },
         -- signature = { enabled = false },
         -- documentation = { view = nil },
         views = {
@@ -43,4 +43,8 @@ return {
         },
         presets = { lsp_doc_border = true },
     },
+    config = function(_, opts)
+        vim.diagnostic.config({ update_in_insert = false })
+        require("noice").setup(opts)
+    end,
 }

@@ -1,7 +1,6 @@
 -- Greeter screen
 return {
     "nvimdev/dashboard-nvim",
-    requires = { "nvim-tree/nvim-web-devicons" },
     enabled = true,
     event = "VimEnter",
     opts = function()

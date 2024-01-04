@@ -18,10 +18,7 @@ return {
         color_headers = false,
         lualine_bold = true,
         lualine_style = "default",
-        -- hl_styles = {
-        --     floats = "default",
-        --     comments = { italic = false },
-        -- },
+        -- hl_styles = { comments = { italic = false } },
     },
     config = function(_, opts)
         vim.opt.cursorline = true -- Highlight line at the cursor position
