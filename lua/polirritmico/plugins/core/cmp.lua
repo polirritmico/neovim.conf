@@ -41,6 +41,14 @@ return {
                     end
                 end, { "i", "s" }),
                 ["<C-p>"] = cmp.mapping.select_prev_item(),
+                -- Hide/show hover documentation
+                ["<C-i>"] = function()
+                    if cmp.visible_docs() then
+                        cmp.close_docs()
+                    else
+                        cmp.open_docs()
+                    end
+                end,
             },
             sources = cmp.config.sources({
                 -- Order of cmp menu entries
