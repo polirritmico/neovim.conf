@@ -69,10 +69,6 @@ map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Paste from \" register to new l
 -- Select pasted text
 map({"n", "v"}, "gp", "`[v`]")
 
--- Avoid record macros by accident
-map("n", "Q", "q")
-map("n", "q", "<nop>")
-
 -- Change to normal mode from terminal mode
 map("t", "<c-n>", [[<c-\><c-n>]])
 
