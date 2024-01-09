@@ -1,4 +1,3 @@
---- Auto completion (full config in ../setups/cmp.lua)
 return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -41,14 +40,6 @@ return {
                     end
                 end, { "i", "s" }),
                 ["<C-p>"] = cmp.mapping.select_prev_item(),
-                -- Hide/show hover documentation
-                ["<C-i>"] = function()
-                    if cmp.visible_docs() then
-                        cmp.close_docs()
-                    else
-                        cmp.open_docs()
-                    end
-                end,
             },
             sources = cmp.config.sources({
                 -- Order of cmp menu entries
@@ -79,7 +70,7 @@ return {
                     cmp.config.compare.offset,
                     cmp.config.compare.exact,
                     cmp.config.compare.score,
-                    -- Dunder and Private methods
+                    -- Sort Dunder and Private methods to the btm
                     function(entry1, entry2)
                         local _, entry1_under = entry1.completion_item.label:find("^_+")
                         local _, entry2_under = entry2.completion_item.label:find("^_+")
@@ -104,17 +95,4 @@ return {
             },
         }
     end,
-    -- config = function(_, opts)
-    --     local cmp = require("cmp")
-    --     cmp.setup(opts)
-    --
-    --     -- Use cmdline & path source for ":"
-    --     cmp.setup.cmdline(":", {
-    --         mapping = cmp.mapping.preset.cmdline(),
-    --         sources = cmp.config.sources(
-    --             { { name = "path" } },
-    --             { { name = "cmdline" } }
-    --         ),
-    --     })
-    -- end,
 }

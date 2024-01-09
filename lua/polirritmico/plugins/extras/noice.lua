@@ -2,12 +2,15 @@ return {
     "folke/noice.nvim",
     -- enabled = false,
     event = "VeryLazy",
-    dependencies = {
-        "MunifTanjim/nui.nvim",
-    },
+    dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
-        -- override markdown rendering so that cmp and ohter plugins use Treesitter
+        cmdline = { enabled = false },
+        messages = { enabled = false },
+        popupmenu = { enabled = false },
+        notify = { enabled = false },
+        progress = { enabled = true },
         lsp = {
+            -- Override markdown rendering so that cmp and other plugins use Treesitter
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                 ["vim.lsp.util.stylize_markdown"] = true,
@@ -15,33 +18,24 @@ return {
             },
             hover = {
                 enabled = true,
-                opts = { border = "rounded" },
+                silent = false, -- true for not show msg if hover is not avaliable
+                -- opts = { border = "rounded" },
+            },
+            signature = { enabled = false },
+        },
+        presets = { lsp_doc_border = true }, -- signature and hover docs border
+        views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
+        -- Avoid written messages in insert mode
+        routes = {
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "written",
+                    kind = "",
+                },
+                opts = { skip = true },
             },
         },
-        -- Avoid written messages
-        -- routes = {
-        --     {
-        --         filter = {
-        --             event = "msg_show",
-        --             any = {
-        --                 { find = "%d+L, %d+B" },
-        --                 { find = "; after #%d+" },
-        --                 { find = "; before #%d+" },
-        --             },
-        --         },
-        --     },
-        -- },
-        cmdline = { enabled = false },
-        messages = { enabled = false },
-        popupmenu = { enabled = false },
-        notify = { enabled = false },
-        -- redirect = { view = nil, filter = { event = nil }, },
-        -- signature = { enabled = false },
-        -- documentation = { view = nil },
-        views = {
-            mini = { position = { row = -2 } },
-        },
-        presets = { lsp_doc_border = true },
     },
     config = function(_, opts)
         vim.diagnostic.config({ update_in_insert = false })
