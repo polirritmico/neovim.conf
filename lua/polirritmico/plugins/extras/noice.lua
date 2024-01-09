@@ -25,13 +25,23 @@ return {
         },
         presets = { lsp_doc_border = true }, -- signature and hover docs border
         views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
-        -- Avoid written messages in insert mode
+        -- Filter messages
         routes = {
             {
                 filter = {
                     event = "msg_show",
-                    find = "written",
-                    kind = "",
+                    any = {
+                        { find = "%d+L, %d+B" },
+                        { find = "; after #%d+" },
+                        { find = "; before #%d+" },
+                    },
+                },
+                view = "mini",
+            },
+            {
+                filter = {
+                    event = "lsp",
+                    find = "lint",
                 },
                 opts = { skip = true },
             },
