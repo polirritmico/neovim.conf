@@ -15,7 +15,7 @@ local opts = {
         rtp = {
             disabled_plugins = {
                 "gzip",
-                "netrwPlugin",
+                -- "netrwPlugin",
                 "tar",
                 "tarPlugin",
                 "tohtml",

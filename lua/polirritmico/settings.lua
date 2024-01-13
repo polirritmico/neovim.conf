@@ -1,4 +1,5 @@
 local opt = vim.opt
+local g = vim.g
 
 -------------------
 -- FUNCTIONALITY --
@@ -18,6 +19,7 @@ opt.ignorecase = true -- Ignore capitalization when searching
 opt.smartcase = true -- Match capitalization only if there are capital letters
 opt.incsearch = true -- Show results while searching
 opt.magic = true -- Standard regext patterns
+-- opt.inc = "" -- Avoid real time changes to substitutions -- set inc=
 
 -- Enter into insert mode when opening :terminal
 vim.cmd([[autocmd TermOpen term://* startinsert]])
@@ -59,6 +61,18 @@ vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
 
 -- vnoremenu PopUp.Copy "+y
 vim.cmd([[vnoremenu PopUp.Copy "+y]])
+
+--- Netrw
+g.netrw_keepdir = 0 -- Keep cwd sync with the browsing directory. Avoid move files error
+g.netrw_liststyle = 0 -- 0: one file per line, 1: 0 + timestamp, filezise, 2: multicol, 3: tree
+g.netrw_sizestyle = "H" -- Human-readable file sizes
+g.netrw_preview = 1 -- preview files in a vertical split
+g.netrw_localcopydircmd = "cp -r" -- defaults to recursive cp
+g.netrw_localmkdir = "mkdir -p" -- defaults to recursive dir creation
+g.netrw_localrmdir = "rm -r" -- to remove non-empty dirs
+-- g.netrw_list_hide = [[^\..*]] -- list of files/dirs to hide.
+g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- list of files/dirs to hide.
+g.netrw_hide = 1 -- 0: all, 1: not-hidden, 2: hidden-only
 
 ----------
 -- CODE --

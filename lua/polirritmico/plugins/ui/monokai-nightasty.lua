@@ -4,7 +4,7 @@ return {
     "polirritmico/monokai-nightasty.nvim",
     lazy = false,
     priority = 1000,
-    dev = false,
+    dev = true,
     keys = {
         {
             "<leader>tt",
@@ -13,7 +13,7 @@ return {
         },
     },
     opts = {
-        dark_style_background = "default",
+        dark_style_background = "transparent",
         light_style_background = "default",
         color_headers = false,
         lualine_bold = true,

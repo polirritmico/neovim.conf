@@ -48,7 +48,7 @@ return {
             return {
                 { "<Leader>di", dapui.eval, mode = { "n", "v" }, desc = "DAP: Show debug info of the element under the cursor", silent = true },
                 { "<Leader>dg", dapui.toggle, mode = { "n", "v" }, desc = "DAP: Toggle DAP GUI", silent = true },
-                { "<Leader>dt", function() require("dap-python").test_method() end, mode = { "n", "v" }, desc = "DAP: Run test method", silent = true },
+                { "<Leader>rtd", function() require("dap-python").test_method() end, mode = { "n", "v" }, desc = "DAP: Run test method", silent = true },
                 -- FIX: Reset UI size after running vim-test call
                 { "<Leader>dG", function() dapui.open({ reset = true }) end, mode = { "n", "v" }, desc = "DAP: Reset DAP GUI layout size", silent = true },
             }
