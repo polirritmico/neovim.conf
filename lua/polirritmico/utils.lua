@@ -1,13 +1,6 @@
----@class Utils Collection of utility functions
----@field custom_print function
----@field detected_errors function
----@field fold_text function
----@field load_config function
----@field on_load function
----@field set_keymap function
+---Collection of custom helper functions
+---@class Utils
 local Utils = {}
-
--- Helper functions
 
 ---A wrapper of `vim.keymap.set` function.
 ---@param mode string|table Mode short-name
@@ -82,7 +75,7 @@ function Utils.fold_text()
   )
 end
 
--- Collections of errors detected by load_config (if any).
+--- Table of errors detected by load_config (if any).
 Utils.catched_errors = {}
 
 ---Helper function to load the passed module. If the module returns an error,
@@ -119,8 +112,8 @@ function Utils.detected_errors()
 end
 
 ---Enable spanish dictionary and spell checkers
--- NOTE: To create the compiled dict from dic and aff files use:
--- :mkspell output input -> :mkspell es es_CL (in config/spell dir)
+--  NOTE: To create the compiled dict from dic and aff files use:
+-- `:mkspell output input`. e.g. `:mkspell es es_CL` (in config/spell dir)
 function Utils.es_dict()
   vim.opt.spelllang = { "es" }
   vim.cmd([[set spellfile="~/.config/nvim/spell/es.utf-8"]])

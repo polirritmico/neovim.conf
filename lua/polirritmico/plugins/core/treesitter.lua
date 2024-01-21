@@ -1,5 +1,4 @@
---- Treesitter: Syntactic analysis
-
+-- Treesitter: Parse program langs for highlights, indent, conceals, etc.
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",

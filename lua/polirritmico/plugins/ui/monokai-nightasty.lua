@@ -4,7 +4,7 @@ return {
   "polirritmico/monokai-nightasty.nvim",
   lazy = false,
   priority = 1000,
-  dev = true,
+  dev = false,
   keys = {
     {
       "<leader>tt",
