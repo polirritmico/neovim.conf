@@ -75,13 +75,13 @@ map("t", "<c-n>", [[<c-\><c-n>]])
 -- Give execution permissions to the current buffer if its filetype is in the list
 local valid_filetypes = { "bash", "sh", "python" }
 local chmod_exe = function()
-    for _, ft in pairs(valid_filetypes) do
-        if ft == vim.bo.filetype then
-            vim.cmd([[!chmod +x %]])
-            return
-        end
+  for _, ft in pairs(valid_filetypes) do
+    if ft == vim.bo.filetype then
+      vim.cmd([[!chmod +x %]])
+      return
     end
-    print("The current buffer does not have a valid filetype: " .. vim.inspect(valid_filetypes))
+  end
+  print("The current buffer does not have a valid filetype: " .. vim.inspect(valid_filetypes))
 end
 map("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
 
@@ -99,17 +99,17 @@ map("n", "<leader>cM", "<cmd>Mason<cr>", "Open Mason")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
-    cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
-    cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
-    cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
-    cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
+  cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
+  cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
+  cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
+  cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
 
 -- Python runner
 local autocmd = function(filetype, cmd)
-    vim.api.nvim_create_autocmd(
-        {"FileType"}, {pattern = filetype, command = cmd}
-    )
+  vim.api.nvim_create_autocmd(
+    {"FileType"}, {pattern = filetype, command = cmd}
+  )
 end
 
 autocmd("python", [[noremap <leader>rr :! python %<CR>]])

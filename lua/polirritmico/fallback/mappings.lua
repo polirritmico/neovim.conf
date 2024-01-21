@@ -49,10 +49,10 @@ map("n", "Q", "")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
-    cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
-    cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
-    cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
-    cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
+  cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
+  cnoremap <expr> <Down>  wildmenumode() ? '<Right>' : '<Down>'
+  cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
+  cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
 
 -- Config shortcuts

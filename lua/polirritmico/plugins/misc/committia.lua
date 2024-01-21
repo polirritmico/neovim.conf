@@ -1,5 +1,5 @@
 --- Git: Improved commits screen
 return {
-    "rhysd/committia.vim",
-    ft = { "gitcommit" },
+  "rhysd/committia.vim",
+  ft = { "gitcommit" },
 }

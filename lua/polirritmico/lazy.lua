@@ -8,36 +8,36 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Lazy config
 local opts = {
-    change_detection = { enabled = true, notify = true },
-    dev = { path = MyPluginsPath, fallback = false },
-    install = { colorscheme = { "monokai-nightasty" } },
-    performance = {
-        rtp = {
-            disabled_plugins = {
-                "gzip",
-                -- "netrwPlugin",
-                "tar",
-                "tarPlugin",
-                "tohtml",
-                "tutor",
-                "zip",
-                "zipPlugin",
-            },
-        },
+  change_detection = { enabled = true, notify = true },
+  dev = { path = MyPluginsPath, fallback = false },
+  install = { colorscheme = { "monokai-nightasty" } },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        -- "netrwPlugin",
+        "tar",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zip",
+        "zipPlugin",
+      },
     },
-    ui = { border = "rounded" },
+  },
+  ui = { border = "rounded" },
 }
 
 -- Plugins folders
 local specs_folders = {
-    { import = MyUser .. ".plugins.core" },
-    { import = MyUser .. ".plugins.develop" },
-    { import = MyUser .. ".plugins.helpers" },
-    { import = MyUser .. ".plugins.misc" },
-    { import = MyUser .. ".plugins.ui" },
+  { import = MyUser .. ".plugins.core" },
+  { import = MyUser .. ".plugins.develop" },
+  { import = MyUser .. ".plugins.helpers" },
+  { import = MyUser .. ".plugins.misc" },
+  { import = MyUser .. ".plugins.ui" },
 }
 if Workstation then
-    table.insert(specs_folders, { import = MyUser .. ".plugins.extras" })
+  table.insert(specs_folders, { import = MyUser .. ".plugins.extras" })
 end
 
 require("lazy").setup(specs_folders, opts)

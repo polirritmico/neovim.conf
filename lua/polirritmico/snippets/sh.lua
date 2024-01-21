@@ -1,6 +1,7 @@
 -- Bash snippets
 local ls = require("luasnip")
-local s, t, i, c, f = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
+local s, t, i, c, f =
+  ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 
@@ -8,9 +9,12 @@ local fmta = require("luasnip.extras.fmt").fmta
 local reload_key = { key = "my_bash_snippets" }
 
 ls.add_snippets("sh", {
-    s("layoutheader", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
+  s("layoutheader", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
 
-    s("layoutsafe", fmt([[
+  s(
+    "layoutsafe",
+    fmt(
+      [[
         # e - script stops on error (return !=0)
         # u - error if undefined variable
         # o pipefail - script fails if one of piped command fails
@@ -18,11 +22,18 @@ ls.add_snippets("sh", {
         set -euo pipefail
         
         {}]],
-        i(0))
-    ),
+      i(0)
+    )
+  ),
 
-    s(
-        {trig = "function", name = "Function Template", dscr = "A full function template."}, fmt([[
+  s(
+    {
+      trig = "function",
+      name = "Function Template",
+      dscr = "A full function template.",
+    },
+    fmt(
+      [[
         #===  FUNCTION  ================================================================
         #         NAME:   {name}
         #  DESCRIPTION:   {desc}
@@ -34,45 +45,55 @@ ls.add_snippets("sh", {
         }}  # ------------  end of function {alt_name} ------------
         
         
-        ]], {
+        ]],
+      {
         name = i(1, "Name"),
         desc = i(2, "description"),
         args = i(3, "argument (type)"),
-        alt_name = f(
-            function(func_name)
-                return (string.gsub(func_name[1][1], " ", "_")):lower()
-            end, {1}),
-        i(0)
-    })),
+        alt_name = f(function(func_name)
+          return (string.gsub(func_name[1][1], " ", "_")):lower()
+        end, { 1 }),
+        i(0),
+      }
+    )
+  ),
 
-    s("h1", fmt( [[
+  s(
+    "h1",
+    fmt(
+      [[
         #===============================================================================
         # {}
         #===============================================================================
 
         {}]],
-        {i(1, "Header"), i(0)})
-    ),
+      { i(1, "Header"), i(0) }
+    )
+  ),
 
-    s("h2", fmt([[
+  s(
+    "h2",
+    fmt(
+      [[
         #----------------------------------------
         # {}
         {}]],
-        {i(1, "Subheader"), i(0)})
-    ),
+      { i(1, "Subheader"), i(0) }
+    )
+  ),
 
-    s("h3", fmt(
-        "# -- {} --\n{}",
-        {i(1, "Section"), i(0)})
-    ),
+  s("h3", fmt("# -- {} --\n{}", { i(1, "Section"), i(0) })),
 
-    s("if", fmt("if [[ {} ]]; then\n    {}\nfi\n\n",
-        {i(1), i(0)})
-    ),
+  s("if", fmt("if [[ {} ]]; then\n    {}\nfi\n\n", { i(1), i(0) })),
 
-    s(
-        {trig = "layoutcolors", name = "Add Colors Definitions",
-        dscr = "Set colors and formats variables to uso in echo"}, fmta([=[
+  s(
+    {
+      trig = "layoutcolors",
+      name = "Add Colors Definitions",
+      dscr = "Set colors and formats variables to uso in echo",
+    },
+    fmta(
+      [=[
         #----------------------------------------
         # Terminal output font styles and colors
         GREEN="\033[0;32m"
@@ -83,12 +104,21 @@ ls.add_snippets("sh", {
         BLD="\e[1m"  # Bold text style
         ITL="\e[3m"  # Italic text style
 
-        <>]=], {
-        c(1, {t("F_OK=\"${GREEN}${BLD}OK${NS}\""), t("F_OK=\"${GREEN}${BLD}Done${NS}\""), t("")})
-    })),
+        <>]=],
+      {
+        c(1, {
+          t('F_OK="${GREEN}${BLD}OK${NS}"'),
+          t('F_OK="${GREEN}${BLD}Done${NS}"'),
+          t(""),
+        }),
+      }
+    )
+  ),
 
-    s(
-        {trig = "layoutcheckdeps", name = "checkdeps", dscr = "Check dependencies list."}, fmta([=[
+  s(
+    { trig = "layoutcheckdeps", name = "checkdeps", dscr = "Check dependencies list." },
+    fmta(
+      [=[
         #-----------------------------------------------------------------------
         # Check dependencies
         #-----------------------------------------------------------------------
@@ -108,9 +138,11 @@ ls.add_snippets("sh", {
         fi
 
         <>
-        ]=], {
+        ]=],
+      {
         i(1, '"each_package_string"'),
-        i(0)
-    })),
+        i(0),
+      }
+    )
+  ),
 }, reload_key)
-

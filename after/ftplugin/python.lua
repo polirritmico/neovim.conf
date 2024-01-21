@@ -1,4 +1,1 @@
-vim.opt_local.formatoptions = vim.opt_local.formatoptions
-    + "r"
-    - "o"
-    - "t"
+vim.opt_local.formatoptions = vim.opt_local.formatoptions + "r" - "o" - "t"

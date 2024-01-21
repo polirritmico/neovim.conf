@@ -26,8 +26,8 @@ vim.cmd([[autocmd TermOpen term://* startinsert]])
 
 -- Saves the current cursor position in the file.
 vim.cmd([[
-    autocmd BufRead * autocmd FileType <buffer> ++once
-        \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+  autocmd BufRead * autocmd FileType <buffer> ++once
+    \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
 --- Wildmenu
@@ -50,9 +50,9 @@ opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrol
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 --- Mouse related
@@ -112,6 +112,6 @@ opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 -- TODO: Move to util?
 -- Command to work with the same buffer in 2 column-type windows like printed articles.
 vim.cmd([[
-    command! TwoColumns exe "normal zR" | set noscrollbind | vsplit
-        \ | set scrollbind | wincmd w | exe "normal \<c-f>" | set scrollbind | wincmd p
+  command! TwoColumns exe "normal zR" | set noscrollbind | vsplit
+    \ | set scrollbind | wincmd w | exe "normal \<c-f>" | set scrollbind | wincmd p
 ]])
