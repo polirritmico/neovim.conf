@@ -15,7 +15,7 @@ return {
 
     -- Add custom snippets
     local custom_snips = vim.fn.stdpath("config") .. "/lua/" .. MyUser .. "/snippets/"
-    require("luasnip.loaders.from_lua").load({ paths = custom_snips })
+    require("luasnip.loaders.from_lua").load({ paths = { custom_snips } })
 
     -- Add virtual marks on inputs
     opts.ext_opts = {
