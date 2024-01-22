@@ -127,11 +127,11 @@ return {
       layout_config = { vertical = { preview_cutoff = 20, preview_height = 9 } }
     end
 
-        -- stylua: ignore
-        local file_ignore_patterns = {
-            "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp",
-            "%.mp3", "%.pdf", "%.odt", "%.ico", "%.ttf", "%.zip"
-        }
+    -- stylua: ignore
+    local file_ignore_patterns = {
+      "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.mp3",
+      "%.pdf", "%.odt", "%.ico", "%.ttf", "%.zip"
+    }
     for i = 1, #file_ignore_patterns do
       table.insert(file_ignore_patterns, file_ignore_patterns[i]:upper())
     end

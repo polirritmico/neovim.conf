@@ -39,8 +39,8 @@ end
 ---@param plugin_name string
 ---@param fn fun(plugin_name:string)
 function Utils.on_load(plugin_name, fn)
-  local Config = require("lazy.core.config")
-  if Config.plugins[plugin_name] and Config.plugins[plugin_name]._.loaded then
+  local lazy_cfg = require("lazy.core.config")
+  if lazy_cfg.plugins[plugin_name] and lazy_cfg.plugins[plugin_name]._.loaded then
     fn(plugin_name)
   else
     vim.api.nvim_create_autocmd("User", {
@@ -53,6 +53,13 @@ function Utils.on_load(plugin_name, fn)
       end,
     })
   end
+end
+
+---Check if the plugin is specified in the Lazy Plugins configuration and currently enabled
+---@param plugin string
+---@return boolean
+function Utils.lazy_has(plugin)
+  return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
 ---Function used to set a custom text when called by a fold action like zc.
@@ -113,7 +120,8 @@ end
 
 ---Enable spanish dictionary and spell checkers
 --  NOTE: To create the compiled dict from dic and aff files use:
--- `:mkspell output input`. e.g. `:mkspell es es_CL` (in config/spell dir)
+--  `:mkspell output input`. e.g. For `es_CL.aff` and `es_CL.dic` files, the
+--  command should be: `:mkspell es es_CL` (in config/spell dir).
 function Utils.es_dict()
   vim.opt.spelllang = { "es" }
   vim.cmd([[set spellfile="~/.config/nvim/spell/es.utf-8"]])

@@ -1,7 +1,7 @@
 -- Fallback mappings
 
 local function map(mode, key, command)
-	vim.keymap.set(mode, key, command, {silent = true})
+  vim.keymap.set(mode, key, command, { silent = true })
 end
 
 -- Leader keys
@@ -9,8 +9,8 @@ vim.g.mapleader = " "
 -- vim.g.maplocalleader = ","
 
 -- Comandos a ñ (misma posición ANSI)
-vim.keymap.set({"n", "v"}, "ñ", ":")
-vim.keymap.set({"n", "v"}, "Ñ", ";")
+vim.keymap.set({ "n", "v" }, "ñ", ":")
+vim.keymap.set({ "n", "v" }, "Ñ", ";")
 
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
 map("n", "<bar>", "`")
@@ -40,9 +40,9 @@ map("n", "N", "Nzzzv")
 map("n", "<leader>fe", vim.cmd.Ex)
 
 -- Registers and system clipboard
-map({"n", "v"}, "<leader>y", "\"+y")
-map("x", "<leader>p", "\"_dP")
-map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p")
+map({ "n", "v" }, "<leader>y", '"+y')
+map("x", "<leader>p", '"_dP')
+map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p')
 
 -- Avoid Ex entering Ex mode (not to be confused with Explorer)
 map("n", "Q", "")

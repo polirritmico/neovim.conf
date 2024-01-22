@@ -8,11 +8,11 @@ local map = require("polirritmico.utils").set_keymap
 vim.g.mapleader = " "
 
 -- Comandos a ñ (misma posición ANSI)
-map({"n", "v"}, "ñ", ":", "", true)
-map({"n", "v"}, "Ñ", ";", "", true)
+map({ "n", "v" }, "ñ", ":", "", true)
+map({ "n", "v" }, "Ñ", ";", "", true)
 
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
-map({"n", "v"}, "<bar>", "`", "", true)
+map({ "n", "v" }, "<bar>", "`", "", true)
 
 -- Horizontal scroll
 -- map({"n", "v"}, "zh", "z8h")
@@ -24,12 +24,12 @@ map("v", ">", ">gv", "", true)
 
 -- Toggle foldcolumn
 _G.ToggleFoldColumn = function()
-    vim.opt.foldcolumn = vim.api.nvim_win_get_option(0, "foldcolumn") == "0" and "auto:3" or "0"
+  vim.opt.foldcolumn = vim.api.nvim_win_get_option(0, "foldcolumn") == "0" and "auto:3" or "0"
 end
 map("n", "<leader>tf", ToggleFoldColumn, "Show/Hide fold column")
 
 -- Line number toggle
-map({"n", "v"}, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
+map({ "n", "v" }, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
 
 -- Buffers navigation:
 map("n", "<leader>l", "<CMD>bnext<CR>", "Go to next buffer")
@@ -62,12 +62,12 @@ map("n", "<C-p>", "<cmd>cprev<CR>zz", "Prev quick-list element")
 -- map("n", "<leader>j", "<cmd>lprev<CR>zz", "Prev location-list element")
 
 -- Registers and system clipboard
-map({"n", "v"}, "<leader>y", "\"+y", "Copy to system clipboard")
-map("x", "<leader>p", "\"_dP", "Paste without changing the register copy register")
-map({"n", "v"}, "<leader>P", "<ESC>o<ESC>\"+p", "Paste from \" register to new line")
+map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
+map("x", "<leader>p", '"_dP', "Paste without changing the register copy register")
+map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from " register to new line')
 
 -- Select pasted text
-map({"n", "v"}, "gp", "`[v`]")
+map({ "n", "v" }, "gp", "`[v`]")
 
 -- Change to normal mode from terminal mode
 map("t", "<c-n>", [[<c-\><c-n>]])
@@ -107,9 +107,7 @@ vim.cmd([[
 
 -- Python runner
 local autocmd = function(filetype, cmd)
-  vim.api.nvim_create_autocmd(
-    {"FileType"}, {pattern = filetype, command = cmd}
-  )
+  vim.api.nvim_create_autocmd({ "FileType" }, { pattern = filetype, command = cmd })
 end
 
 autocmd("python", [[noremap <leader>rr :! python %<CR>]])
