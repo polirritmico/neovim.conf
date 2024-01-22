@@ -110,9 +110,8 @@ function Utils.detected_errors()
   if vim.fn.input("Open offending files for editing? (y/n): ") == "y" then
     print(" ")
     print("Opening files...")
-    local config_path = vim.fn.stdpath("config") .. "/lua/" .. MyUser
     for _, module in pairs(Utils.catched_errors) do
-      vim.cmd("edit " .. config_path .. "/" .. module .. ".lua")
+      vim.cmd("edit " .. MyConfigPath .. module .. ".lua")
     end
   end
   return true
