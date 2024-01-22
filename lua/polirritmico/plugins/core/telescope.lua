@@ -19,100 +19,30 @@ return {
     { "nvim-telescope/telescope-file-browser.nvim" },
     { "crispgm/telescope-heading.nvim" },
   },
+  -- stylua: ignore
   keys = {
     -- Builtins
-    {
-      "<leader>ff",
-      "<cmd>Telescope find_files<cr>",
-      desc = "Telescope: Find files (nvim runtime path)",
-    },
-    {
-      "<leader>fF",
-      "<cmd>Telescope find_files cwd=%:p:h hidden=true<cr>",
-      desc = "Telescope: Find files (from file path)",
-    },
-    {
-      "<leader>fb",
-      "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
-      desc = "Telescope: Find/Switch between buffers",
-    },
-    {
-      "<leader>fg",
-      "<cmd>Telescope live_grep<cr>",
-      desc = "Telescope: Find Grep",
-    },
-    {
-      "<leader>fg",
-      "<cmd>Telescope grep_string<cr>",
-      mode = "x",
-      desc = "Telescope: Find Grep (selected string)",
-    },
-    {
-      "<leader>fr",
-      "<cmd>Telescope registers<cr>",
-      mode = { "n", "v" },
-      desc = "Telescope: Select and paste from registers",
-    },
-    {
-      "<leader>fo",
-      "<cmd>Telescope oldfiles<cr>",
-      desc = "Telescope: Find recent/old files",
-    },
-    {
-      "<leader>fl",
-      "<cmd>Telescope resume<cr>",
-      desc = "Telescope: List results of the last telescope search",
-    },
-    {
-      "<leader>fh",
-      "<cmd>Telescope help_tags<cr>",
-      desc = "Telescope: Find in help tags",
-    },
-    {
-      "<leader>fm",
-      "<cmd>Telescope marks<cr>",
-      desc = "Telescope: Find buffer marks",
-    },
-    {
-      "<leader>fT",
-      "<cmd>Telescope<cr>",
-      desc = "Telescope: Find telescope builtins functions",
-    },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Telescope: Find files (nvim runtime path)" },
+    { "<leader>fF", "<cmd>Telescope find_files cwd=%:p:h hidden=true<cr>", desc = "Telescope: Find files (from file path)" },
+    { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Telescope: Find/Switch between buffers" },
+    { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Telescope: Find Grep" },
+    { "<leader>fg", "<cmd>Telescope grep_string<cr>", mode = "x", desc = "Telescope: Find Grep (selected string)" },
+    { "<leader>fr", "<cmd>Telescope registers<cr>", mode = { "n", "v" }, desc = "Telescope: Select and paste from registers" },
+    { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Telescope: Find recent/old files" },
+    { "<leader>fl", "<cmd>Telescope resume<cr>", desc = "Telescope: List results of the last telescope search" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Telescope: Find in help tags" },
+    { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Telescope: Find buffer marks" },
+    { "<leader>fT", "<cmd>Telescope<cr>", desc = "Telescope: Find telescope builtins functions" },
 
     -- Configs
-    {
-      "<leader>cs",
-      [[<cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<cr>]],
-      desc = "Telescope: Snippets sources",
-    },
-    {
-      "<leader>cc",
-      [[<cmd>execute "Telescope find_files cwd=".MyConfigPath<cr>]],
-      desc = "Telescope: Configurations",
-    },
-    {
-      "<leader>ct",
-      [[<cmd>execute "Telescope find_files cwd=".stdpath("config")."/after/ftplugin"<cr>]],
-      desc = "Telescope: Configurations",
-    },
+    { "<leader>cs", [[<cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<cr>]], desc = "Telescope: Snippets sources" },
+    { "<leader>cc", [[<cmd>execute "Telescope find_files cwd=".MyConfigPath<cr>]], desc = "Telescope: Configurations" },
+    { "<leader>ct", [[<cmd>execute "Telescope find_files cwd=".stdpath("config")."/after/ftplugin"<cr>]], desc = "Telescope: Configurations" },
 
     -- Extensions
-    {
-      "<leader>fe",
-      "<cmd>Telescope file_browser<cr>",
-      desc = "Telescope: File explorer from nvim path",
-    },
-    {
-      "<leader>fE",
-      "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr> hidden=true<cr>",
-      desc = "Telescope: File explorer mode from buffer path.",
-    },
-    {
-      "<leader>fH",
-      "<cmd>Telescope heading<cr>",
-      ft = "markdown",
-      desc = "Telescope: Get document headers (markdown).",
-    },
+    { "<leader>fe", "<cmd>Telescope file_browser<cr>", desc = "Telescope: File explorer from nvim path" },
+    { "<leader>fE", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr> hidden=true<cr>", desc = "Telescope: File explorer mode from buffer path." },
+    { "<leader>fH", "<cmd>Telescope heading<cr>", ft = "markdown", desc = "Telescope: Get document headers (markdown)." },
   },
   opts = function()
     local layout_strategy, layout_config
