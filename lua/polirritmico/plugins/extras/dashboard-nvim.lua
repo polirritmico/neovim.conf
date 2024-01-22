@@ -34,7 +34,7 @@ return {
             action = "Telescope persisted",
             desc = " Restore Session",
             icon = " ",
-            key = "<leader>ss",
+            key = "<leader>fs",
           },
           {
             action = "Telescope find_files",

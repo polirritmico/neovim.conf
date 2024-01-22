@@ -16,10 +16,10 @@ return {
   keys = {
     { "<leader>sw", "<cmd>SessionSave<cr>", desc = "Persisted: Session save" },
     { "<leader>sl", "<cmd>SessionLoad<cr>", desc = "Persisted: Session load" },
-    { "<leader>ss", "<cmd>Telescope persisted<cr>", desc = "Persisted: Open sessions in Telescope" },
     { "<leader>sd", "<cmd>SessionDelete<cr>", desc = "Persisted: Delete current session" },
     { "<leader>sh", "<cmd>SessionLoadLast<cr>", desc = "Persisted: Halt session recording" },
     { "<leader>sr", "<cmd>SessionLoadLast<cr>", desc = "Persisted: Load most recent session" },
+    { "<leader>fs", "<cmd>Telescope persisted<cr>", desc = "Persisted: Find sessions in Telescope" },
   },
   opts = {
     save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
