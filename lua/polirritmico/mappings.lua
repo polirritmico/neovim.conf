@@ -29,11 +29,11 @@ end
 map("n", "<leader>tf", ToggleFoldColumn, "Show/Hide fold column")
 
 -- Line number toggle
-map({ "n", "v" }, "<leader>tN", "<CMD>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
+map({ "n", "v" }, "<leader>tN", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
 
 -- Buffers navigation:
-map("n", "<leader>l", "<CMD>bnext<CR>", "Go to next buffer")
-map("n", "<leader>h", "<CMD>bprevious<CR>", "Go to previous buffer")
+map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")
+map("n", "<leader>h", "<Cmd>bprevious<CR>", "Go to previous buffer")
 
 -- Go back to previous file
 map("n", "<leader>gb", "<C-^>", "Return to the previous buffer")
@@ -50,16 +50,16 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<cmd>resize +2<cr>", "Increase window height")
-map("n", "<C-Down>", "<cmd>resize -2<cr>", "Decrease window height")
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", "Decrease window width")
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", "Increase window width")
+map("n", "<C-Up>", "<Cmd>resize +2<CR>", "Increase window height")
+map("n", "<C-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
+map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
+map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
 -- Quick-list and location-list
-map("n", "<C-n>", "<cmd>cnext<CR>zz", "Next quick-list element")
-map("n", "<C-p>", "<cmd>cprev<CR>zz", "Prev quick-list element")
--- map("n", "<leader>k", "<cmd>lnext<CR>zz", "Next location-list element")
--- map("n", "<leader>j", "<cmd>lprev<CR>zz", "Prev location-list element")
+map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
+map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
+-- map("n", "<leader>k", "<Cmd>lnext<CR>zz", "Next location-list element")
+-- map("n", "<leader>j", "<Cmd>lprev<CR>zz", "Prev location-list element")
 
 -- Registers and system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
@@ -86,16 +86,12 @@ end
 map("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
-map("n", "<leader>ci", "<CMD>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
-map("n", "<leader>cm", "<CMD>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
-map("n", "<leader>cP", "<CMD>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
-map("n", "<leader>cg", "<CMD>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
-
-map("n", "<leader>cs", "<CMD>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
-map("n", "<leader>cL", "<CMD>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
-
-map("n", "<leader>cl", "<cmd>Lazy<cr>", "Open Lazy")
-map("n", "<leader>cM", "<cmd>Mason<cr>", "Open Mason")
+map("n", "<leader>ci", "<Cmd>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
+map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
+map("n", "<leader>cP", "<Cmd>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
+map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
+map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
+map("n", "<leader>cL", "<Cmd>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
@@ -110,4 +106,4 @@ local autocmd = function(filetype, cmd)
   vim.api.nvim_create_autocmd({ "FileType" }, { pattern = filetype, command = cmd })
 end
 
-autocmd("python", [[noremap <leader>rr :! python %<CR>]])
+autocmd("python", [[noremap <leader>rr <Cmd>! python %<CR>]])

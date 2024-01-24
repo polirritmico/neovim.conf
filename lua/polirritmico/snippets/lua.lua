@@ -82,7 +82,10 @@ ls.add_snippets("lua", {
           fmt('"{}"', i(1)),
         }),
         key = c(2, { fmt("<leader>{}", i(1)), i(1) }),
-        command = c(3, { fmt([[":{}<CR>"]], i(1, "command")), i(1, "vim.command") }),
+        command = c(
+          3,
+          { fmt([["<Cmd>{}<CR>"]], i(1, "command")), i(1, "vim.command") }
+        ),
         options = t("silent = true"),
       }
     )

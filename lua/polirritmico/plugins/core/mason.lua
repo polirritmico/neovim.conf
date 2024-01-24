@@ -4,7 +4,7 @@ return {
   build = { ":MasonUpdate" },
   cmd = "Mason",
   keys = {
-    { "<leader>Cm", "<cmd>Mason<cr>", desc = "Mason" },
+    { "<leader>Cm", "<Cmd>Mason<CR>", desc = "Open Mason" },
   },
   opts = {
     ensure_installed = {
@@ -12,10 +12,8 @@ return {
       "clangd", -- LSP for C/C++
       "lua-language-server", -- Lua language server
       "stylua", -- Lua code formatter
-      "python-lsp-server", -- fork of python-language-server
-      -- "black", -- Python formatter
-      -- "isort", -- Python imports formatter
       "prettier", -- Formater for css, html, json, javascript, yaml and more.
+      "python-lsp-server", -- fork of python-language-server
     },
     ui = { border = "rounded" },
   },

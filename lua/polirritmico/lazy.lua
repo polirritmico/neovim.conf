@@ -9,13 +9,16 @@ vim.opt.rtp:prepend(lazypath)
 -- Lazy config
 local opts = {
   change_detection = { enabled = true, notify = true },
+  custom_keys = {
+    ["<leader>cl"] = { "<Cmd>Lazy<CR>", desc = "Open Lazy" },
+  },
   dev = { path = MyPluginsPath, fallback = false },
   install = { colorscheme = { "monokai-nightasty" } },
   performance = {
     rtp = {
       disabled_plugins = {
         "gzip",
-        -- "netrwPlugin",
+        "netrwPlugin",
         "tar",
         "tarPlugin",
         "tohtml",

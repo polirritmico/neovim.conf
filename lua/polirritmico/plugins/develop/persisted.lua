@@ -14,12 +14,12 @@ return {
   },
   -- stylua: ignore
   keys = {
-    { "<leader>sw", "<cmd>SessionSave<cr>", desc = "Persisted: Session save" },
-    { "<leader>sl", "<cmd>SessionLoad<cr>", desc = "Persisted: Session load" },
-    { "<leader>sd", "<cmd>SessionDelete<cr>", desc = "Persisted: Delete current session" },
-    { "<leader>sh", "<cmd>SessionLoadLast<cr>", desc = "Persisted: Halt session recording" },
-    { "<leader>sr", "<cmd>SessionLoadLast<cr>", desc = "Persisted: Load most recent session" },
-    { "<leader>fs", "<cmd>Telescope persisted<cr>", desc = "Persisted: Find sessions in Telescope" },
+    { "<leader>sw", "<Cmd>SessionSave<CR>", desc = "Persisted: Session save" },
+    { "<leader>sl", "<Cmd>SessionLoad<CR>", desc = "Persisted: Session load" },
+    { "<leader>sd", "<Cmd>SessionDelete<CR>", desc = "Persisted: Delete current session" },
+    { "<leader>sh", "<Cmd>SessionLoadLast<CR>", desc = "Persisted: Halt session recording" },
+    { "<leader>sr", "<Cmd>SessionLoadLast<CR>", desc = "Persisted: Load most recent session" },
+    { "<leader>fs", "<Cmd>Telescope persisted<CR>", desc = "Persisted: Find sessions in Telescope" },
   },
   opts = {
     save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),

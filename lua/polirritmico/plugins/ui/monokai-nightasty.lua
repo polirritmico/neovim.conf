@@ -8,7 +8,7 @@ return {
   keys = {
     {
       "<leader>tt",
-      "<CMD>MonokaiToggleLight<CR>",
+      "<Cmd>MonokaiToggleLight<CR>",
       desc = "Monokai-Nightasty: Toggle dark/light theme.",
     },
   },
