@@ -5,7 +5,6 @@ return {
   opts = {
     enable_autosnippets = false,
     -- Don't jump into snippets that have been left
-    history = true,
     delete_check_events = "TextChanged,InsertLeave",
     region_check_events = "CursorMoved",
   },

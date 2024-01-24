@@ -17,17 +17,14 @@ return {
     indent = { enable = true },
     ensure_installed = {
       "bash",
-      "css",
       "comment",
-      "json",
+      "gitcommit",
       "lua",
       "markdown",
       "python",
       "regex",
-      "toml",
       "vim",
       "vimdoc",
-      "yaml",
     },
   },
   config = function(_, opts)

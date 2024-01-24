@@ -7,6 +7,7 @@ return {
       "css",
       "comment",
       "diff",
+      "gitcommit",
       "html",
       "json",
       "jsonc",

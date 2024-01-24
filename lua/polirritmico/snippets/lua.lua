@@ -1,7 +1,12 @@
 -- Lua Snippets
 local ls = require("luasnip")
-local s, t, i, c, f =
-  ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local c = ls.choice_node
+local f = ls.function_node
+local r = ls.restore_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 
@@ -89,6 +94,40 @@ ls.add_snippets("lua", {
         options = t("silent = true"),
       }
     )
+  ),
+
+  s(
+    {
+      trig = "lazymap",
+      name = "Lazy keymap",
+      dscr = "Layout for adding custom keymaps using the Lazy key spec.",
+    },
+    fmta([[{ "<lhs>", <rhs><mode><ft>, desc = "<desc>" },]], {
+      lhs = c(1, {
+        sn(1, { t("<leader>"), r(1, "user_lhs") }),
+        sn(1, { r(1, "user_lhs") }),
+      }),
+      rhs = c(2, {
+        { t('"'), r(1, "user_rhs"), t('"') },
+        { t("function() "), r(1, "user_rhs"), t(" end") },
+      }),
+      mode = c(3, {
+        t(', mode = { "n", "v" }'),
+        t(""),
+      }),
+      ft = c(4, {
+        { t(', ft = "'), r(1, "user_ft"), t('"') },
+        t(""),
+      }),
+      desc = i(5, "Plugin_Name: Description."),
+    }),
+    {
+      stored = {
+        ["user_lhs"] = i(1, "lhs"),
+        ["user_rhs"] = i(1, "rhs"),
+        ["user_ft"] = i(1, "filetype"),
+      },
+    }
   ),
 
   s(
