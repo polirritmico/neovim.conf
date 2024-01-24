@@ -16,6 +16,7 @@ return {
   },
   opts = {
     formatters_by_ft = {
+      ["*"] = { "trim_whitespace" },
       css = { "prettier" },
       json = { "prettier" },
       yaml = { "prettier" },
@@ -25,12 +26,10 @@ return {
     },
     format_on_save = { timeout_ms = 500, lsp_fallback = true },
     formatters = {
-      -- stylua = {
-      --     prepend_args = { "--indent-type", "Spaces" },
-      -- },
-      -- shfmt = { prepend_args = { "-i", "2" } },
-      prettier = { prepend_args = { "--tab-width", "2" } },
       black = { prepend_args = { "--line-length", "88" } },
+      prettier = { prepend_args = { "--tab-width", "2" } },
+      shfmt = { prepend_args = { "-i", "4" } },
+      stylua = { prepend_args = { "--indent-type", "Spaces" } }, -- overwrites stylua.toml
     },
   },
   init = function()

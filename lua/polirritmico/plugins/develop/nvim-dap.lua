@@ -3,55 +3,54 @@ return {
   {
     "mfussenegger/nvim-dap",
     version = "*",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    ft = { "python" },
-    dependencies = {
-      { "rcarriga/nvim-dap-ui" },
-      { "mfussenegger/nvim-dap-python" },
-      "mason.nvim",
+    -- stylua: ignore
+    keys = {
+      { "<F5>", function() require("dap").continue() end, desc = "DAP: Continue execution" },
+      { "<F6>", function() require("dap").pause() end, desc = "DAP: Pause execution" },
+      { "<F7>", function() require("dap").step_out() end, desc = "DAP: Step out" },
+      { "<F8>", function() require("dap").step_into() end, desc = "DAP: Step into" },
+      { "<F9>", function() require("dap").step_over() end, desc = "DAP: Step over" },
+      { "<F12>", function() require("dap").close() end, desc = "DAP: Close execution" },
+      { "<Leader>dc", function() require("dap").repl.open() end, desc = "DAP: Open debug console" },
+      { "<Leader>dr", function() require("dap").run_last() end, desc = "DAP: Rerun last debug adapter/config" },
+      { "<Leader>b", function() require("dap").toggle_breakpoint() end, desc = "DAP: Add/remove breakpoint into the current line" },
+      { "<Leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Add a conditional breakpoint" },
+      { "<Leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "DAP: Add a logpoint into the current line" },
     },
-    config = function()
-      local debugpy = require("mason-registry").get_package("debugpy")
-      local python_path = debugpy:get_install_path() .. "/venv/bin/"
-      require("dap-python").setup(python_path .. "python")
-      require("dap-python").test_runner = "pytest"
-    end,
-    keys = function()
-      local dap = require("dap")
+    dependencies = {
+      {
+        "mfussenegger/nvim-dap-python",
+        ft = "python",
+        dependencies = "mason.nvim",
+        config = function()
+          local debugpy = require("mason-registry").get_package("debugpy")
+          local python_path = debugpy:get_install_path() .. "/venv/bin/"
+          require("dap-python").setup(python_path .. "python")
+          require("dap-python").test_runner = "pytest"
+        end,
         -- stylua: ignore
-        return {
-          { "<F5>", dap.continue, mode = { "n", "v" }, desc = "DAP: Continue execution", silent = true },
-          { "<F6>", dap.pause, mode = { "n", "v" }, desc = "DAP: Pause execution", silent = true },
-          { "<F7>", dap.step_out, mode = { "n", "v" }, desc = "DAP: Step out", silent = true },
-          { "<F8>", dap.step_into, mode = { "n", "v" }, desc = "DAP: Step into", silent = true },
-          { "<F9>", dap.step_over, mode = { "n", "v" }, desc = "DAP: Step over", silent = true },
-          { "<F12>", dap.close, mode = { "n", "v" }, desc = "DAP: Close execution", silent = true },
-          { "<Leader>dc", dap.repl.open, mode = { "n", "v" }, desc = "DAP: Open debug console", silent = true },
-          { "<Leader>dr", dap.run_last, mode = { "n", "v" }, desc = "DAP: Rerun last debug adapter/config", silent = true },
-          { "<Leader>b", dap.toggle_breakpoint, mode = { "n", "v" },
-              desc = "DAP: Add/remove breakpoint into the current line", silent = true },
-          { "<Leader>B", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
-              mode = { "n", "v" }, desc = "DAP: Add a conditional breakpoint", silent = true },
-          { "<Leader>dl", function() dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end,
-              mode = { "n", "v" }, desc = "DAP: Add a logpoint into the current line", silent = true },
-        }
-    end,
+        keys = {
+          { "<Leader>rtd", function() require("dap-python").test_method() end, ft = "python", desc = "DAP: Run test method" },
+        },
+      },
+    },
   },
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "nvim-dap" },
-    lazy = true,
-    ft = "python",
-    keys = function()
+    dependencies = "nvim-dap",
+    -- stylua: ignore
+    keys = {
+      { "<Leader>di", function() require("dapui").eval() end, desc = "DAP: Show debug info of the element under the cursor" },
+      { "<Leader>dg", function() require("dapui").toggle({}) end, desc = "DAP: Toggle DAP GUI" },
+      { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
+    },
+    config = function(_, opts)
+      local dap = require("dap")
       local dapui = require("dapui")
-      -- stylua: ignore
-      return {
-        { "<Leader>di", dapui.eval, mode = { "n", "v" }, desc = "DAP: Show debug info of the element under the cursor", silent = true },
-        { "<Leader>dg", dapui.toggle, mode = { "n", "v" }, desc = "DAP: Toggle DAP GUI", silent = true },
-        { "<Leader>rtd", function() require("dap-python").test_method() end, mode = { "n", "v" }, desc = "DAP: Run test method", silent = true },
-        -- FIX: Reset UI size after running vim-test call
-        { "<Leader>dG", function() dapui.open({ reset = true }) end, mode = { "n", "v" }, desc = "DAP: Reset DAP GUI layout size", silent = true },
-      }
+      dapui.setup(opts)
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
+      end
     end,
     opts = {
       controls = {

@@ -44,9 +44,15 @@ return {
       end,
     })
 
-    --- Servers configurations
+    --- Servers configurations `:h lspconfig-configuration`
     local function default_setup(server)
       lspconfig[server].setup({})
+    end
+
+    local function config_clangd()
+      lspconfig.clangd.setup({
+        cmd = { "clangd", "--fallback-style=WebKit" },
+      })
     end
 
     local function config_lua_ls()
@@ -57,12 +63,6 @@ return {
             completion = { callSnippet = "Replace" },
           },
         },
-      })
-    end
-
-    local function config_texlab()
-      lspconfig.texlab.setup({
-        settings = { texlab = { latexFormatter = "texlab" } },
       })
     end
 
@@ -83,6 +83,12 @@ return {
       })
     end
 
+    local function config_texlab()
+      lspconfig.texlab.setup({
+        settings = { texlab = { latexFormatter = "texlab" } },
+      })
+    end
+
     local lsp_defaults = lspconfig.util.default_config
     lsp_defaults.capabilities = vim.tbl_deep_extend(
       "force",
@@ -95,6 +101,7 @@ return {
       ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp" },
       handlers = {
         default_setup,
+        clangd = config_clangd,
         lua_ls = config_lua_ls,
         pylsp = config_pylsp,
         texlab = config_texlab,
