@@ -1,8 +1,7 @@
---------------
--- MAPPINGS --
---------------
+--- Mappings
 
-local map = require("polirritmico.utils").set_keymap
+local utils = require(MyUser .. ".utils") ---@type Utils
+local map = utils.set_keymap
 
 -- Leader key
 vim.g.mapleader = " "
@@ -14,19 +13,12 @@ map({ "n", "v" }, "Ñ", ";", "", true)
 -- Fix goto mark (no reconoce la tecla ` en teclado español)
 map({ "n", "v" }, "<bar>", "`", "", true)
 
--- Horizontal scroll
--- map({"n", "v"}, "zh", "z8h")
--- map({"n", "v"}, "zl", "z8l")
-
 -- Preserve selection after indent
 map("v", "<", "<gv", "", true)
 map("v", ">", ">gv", "", true)
 
 -- Toggle foldcolumn
-_G.ToggleFoldColumn = function()
-  vim.opt.foldcolumn = vim.api.nvim_win_get_option(0, "foldcolumn") == "0" and "auto:3" or "0"
-end
-map("n", "<leader>tf", ToggleFoldColumn, "Show/Hide fold column")
+map("n", "<leader>tf", utils.toggle_fold_column, "Show/Hide fold column")
 
 -- Line number toggle
 map({ "n", "v" }, "<leader>tN", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
@@ -55,11 +47,9 @@ map("n", "<C-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
 map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
 map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
--- Quick-list and location-list
+-- Quick-list navigation
 map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
 map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
--- map("n", "<leader>k", "<Cmd>lnext<CR>zz", "Next location-list element")
--- map("n", "<leader>j", "<Cmd>lprev<CR>zz", "Prev location-list element")
 
 -- Registers and system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
@@ -72,18 +62,9 @@ map({ "n", "v" }, "gp", "`[v`]")
 -- Change to normal mode from terminal mode
 map("t", "<c-n>", [[<c-\><c-n>]])
 
--- Give execution permissions to the current buffer if its filetype is in the list
+-- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
-local chmod_exe = function()
-  for _, ft in pairs(valid_filetypes) do
-    if ft == vim.bo.filetype then
-      vim.cmd([[!chmod +x %]])
-      return
-    end
-  end
-  print("The current buffer does not have a valid filetype: " .. vim.inspect(valid_filetypes))
-end
-map("n", "<leader>gx", chmod_exe, "Give execution permissions to the current buffer")
+map("n", "<leader>gx", function() utils.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
 map("n", "<leader>ci", "<Cmd>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
@@ -101,9 +82,8 @@ vim.cmd([[
   cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
 
--- Python runner
-local autocmd = function(filetype, cmd)
-  vim.api.nvim_create_autocmd({ "FileType" }, { pattern = filetype, command = cmd })
-end
-
-autocmd("python", [[noremap <leader>rr <Cmd>! python %<CR>]])
+-- Setup runners per filetype
+local runner_keymap = "<leader>rr"
+utils.set_autocmd_runner("python", runner_keymap, "!python %")
+utils.set_autocmd_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
+utils.set_autocmd_runner("bash", runner_keymap, "!./%")

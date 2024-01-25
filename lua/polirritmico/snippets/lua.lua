@@ -1,12 +1,12 @@
 -- Lua Snippets
 local ls = require("luasnip")
+local c = ls.choice_node
+local f = ls.function_node
+local i = ls.insert_node
+local r = ls.restore_node
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
-local i = ls.insert_node
-local c = ls.choice_node
-local f = ls.function_node
-local r = ls.restore_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 
@@ -36,7 +36,7 @@ ls.add_snippets("lua", {
   ),
 
   s(
-    { trig = "snippet", dscr = "Meta-snippet to make snippets." },
+    { trig = "layoutsnippet", dscr = "Meta-snippet to make snippets." },
     fmt("{}", {
       c(1, {
         fmt(
@@ -70,30 +70,40 @@ ls.add_snippets("lua", {
 
   s(
     {
-      trig = "mapping",
+      trig = "nvimmap",
       name = "Add keymap",
-      dscr = "Layout for adding custom keymaps to Neovim.",
+      dscr = "Layout for adding custom keymaps using Neovim API.",
     },
-    fmta(
-      [[
-	    vim.keymap.set(<mode>, "<key>", <command>, {<options>})
-        ]],
-      {
-        mode = c(1, {
-          t('{"n"}'),
-          t('{"n", "v"}'),
-          t('{"v"}'),
-          t('{"i"}'),
-          fmt('"{}"', i(1)),
-        }),
-        key = c(2, { fmt("<leader>{}", i(1)), i(1) }),
-        command = c(
-          3,
-          { fmt([["<Cmd>{}<CR>"]], i(1, "command")), i(1, "vim.command") }
-        ),
-        options = t("silent = true"),
-      }
-    )
+    fmta([[vim.keymap.set(<mode>, "<lhs>", <rhs><options> )]], {
+      mode = c(1, {
+        t('{ "n" }'),
+        t('{ "n", "v" }'),
+        t('{ "v" }'),
+        t('{ "i" }'),
+        { t('"'), i(1), t('"') },
+        i(1),
+      }),
+      lhs = c(2, {
+        sn(1, { t("<leader>"), r(1, "user_lhs") }),
+        sn(1, { r(1, "user_lhs") }),
+      }),
+      rhs = c(3, {
+        { t('"<Cmd>'), r(1, "user_rhs"), t('<CR>"') },
+        { t("function() "), r(1, "user_rhs"), t(" end") },
+      }),
+      options = c(4, {
+        t(", { silent = true }"),
+        { t(', { silent = true, desc = "'), i(1), t('" }') },
+        { t(', { desc = "'), i(1), t('"}') },
+        { t(", { "), i(1), t(" }") },
+      }),
+    }),
+    {
+      stored = {
+        ["user_lhs"] = i(1, "lhs"),
+        ["user_rhs"] = i(1, "rhs"),
+      },
+    }
   ),
 
   s(
@@ -108,8 +118,9 @@ ls.add_snippets("lua", {
         sn(1, { r(1, "user_lhs") }),
       }),
       rhs = c(2, {
-        { t('"'), r(1, "user_rhs"), t('"') },
+        { t('"<Cmd>'), r(1, "user_rhs"), t('<CR>"') },
         { t("function() "), r(1, "user_rhs"), t(" end") },
+        { t('"'), r(1, "user_rhs"), t('"') },
       }),
       mode = c(3, {
         t(', mode = { "n", "v" }'),

@@ -1,4 +1,4 @@
--- Fallback mappings
+--- Fallback mappings
 
 local function map(mode, key, command)
   vim.keymap.set(mode, key, command, { silent = true })

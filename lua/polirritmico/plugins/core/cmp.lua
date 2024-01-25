@@ -25,8 +25,8 @@ return {
           behaviour = cmp.ConfirmBehavior.Insert,
           select = true,
         }),
-        ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        -- NOTE: cmp.mapping.scroll_docs does not work with lsp's hover window.
+        -- Use <C-w><C-w> to change the focus into the hover.
         ["<C-e>"] = cmp.mapping.abort(),
         ["<Up>"] = cmp.mapping.select_prev_item({ select = true }),
         ["<Down>"] = cmp.mapping.select_next_item({ select = true }),
@@ -43,11 +43,15 @@ return {
       },
       sources = cmp.config.sources({
         -- Order of cmp menu entries
-        { name = "path" },
-        { name = "nvim_lsp" },
-        { name = "luasnip", option = { use_show_condition = false } },
+        { name = "path", keyword_length = 2 },
+        { name = "nvim_lsp", keyword_length = 2 },
+        {
+          name = "luasnip",
+          keyword_length = 2,
+          option = { use_show_condition = false }, -- disable filtering completion candidates by snippet's show_condition
+        },
       }, {
-        { name = "buffer", keyword_lentgth = 3 },
+        { name = "buffer", keyword_length = 3 },
       }),
       formatting = {
         expandable_indicator = true, -- shows the ~ symbol when expandable
@@ -71,7 +75,8 @@ return {
         if vim.api.nvim_get_mode().mode == "c" then
           return true
         else
-          return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+          return not context.in_treesitter_capture("comment")
+            and not context.in_syntax_group("Comment")
         end
       end,
       sorting = vim.tbl_extend("force", defaults.sorting, {

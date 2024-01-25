@@ -1,21 +1,20 @@
 -- Python snippets
 local ls = require("luasnip")
-local s, t, i, c, f =
-  ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
+local c = ls.choice_node
+local i = ls.insert_node
+local s = ls.snippet
+local t = ls.text_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 -- Avoid multiple versions of the same snippet on reload
 local reload_key = { key = "my_python_snippets" }
 
 ls.add_snippets("python", {
-  s(
-    {
-      trig = "header",
-      name = "Python header",
-      dscr = "Python header with env and encoding.",
-    },
-    t({ "#!/usr/bin/env python", "# -*- coding: utf-8 -*-", "", "" })
-  ),
+  s({
+    trig = "header",
+    name = "Python header",
+    dscr = "Python header with env and encoding.",
+  }, t({ "#!/usr/bin/env python", "# -*- coding: utf-8 -*-", "", "" })),
 
   s(
     {
@@ -28,8 +27,8 @@ ls.add_snippets("python", {
         def main():
             {}
             return 0
-        
-        
+
+
         if __name__ == "__main__":
             main()
         ]],

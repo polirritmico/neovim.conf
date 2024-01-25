@@ -1,8 +1,8 @@
--- Fallback settings
+--- Fallback Settings
 
 local opt = vim.opt
 
--- FUNCTIONALITY --
+-- General
 opt.wrap = false -- Split long lines
 opt.errorbells = false -- Disable error notifications
 opt.mouse = "a" -- Enables mouse support
@@ -14,7 +14,7 @@ opt.incsearch = true -- Show results while searching
 opt.magic = true -- Standard regex patterns
 opt.path:append("**") -- Subfolders searching with tab-completion
 
--- INDENTATION --
+-- Indentation
 opt.autoindent = true -- indent based on the previous line
 opt.cindent = true -- indent comments at the beginning of the lines
 opt.cinkeys = opt.cinkeys - "0#" -- idem.
@@ -26,18 +26,15 @@ opt.smarttab = true -- tab follows tabstop, shiftwidth and softtabstop
 opt.softtabstop = 4 -- edit as if the tabs were 4 spaces
 opt.tabstop = 4 -- number of indentation spaces on the screen
 
--- WINDOWS --
+-- Windows
 opt.equalalways = true -- Resize windows to the same size when closing one
 
--- BACKUPS --
+-- Backups
 opt.backup = false -- Do not use backup files. It bothers more than it helps
 opt.undofile = false -- Disabled: Give errors if file is not saved on exit
 
-----------------
--- CONFIG GUI --
-----------------
+--- Config UI
 
--- OPTIONS --
 opt.colorcolumn = { 80, 100 } -- Guide margins for column width
 opt.cursorline = false -- Underline the cursor line
 opt.equalalways = true -- Resize windows to the same size when closing one

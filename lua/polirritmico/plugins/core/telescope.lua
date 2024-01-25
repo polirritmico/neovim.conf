@@ -33,7 +33,7 @@ return {
     { "<leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Telescope: Find in help tags" },
     { "<leader>fm", "<Cmd>Telescope marks<CR>", desc = "Telescope: Find buffer marks" },
     { "<leader>fT", "<Cmd>Telescope<CR>", desc = "Telescope: Find telescope builtins functions" },
-    -- TODO: add telescope spell suggestion leader fs
+    { "zf", "<Cmd>Telescope spell_suggest<CR>", desc = "Telescope: Find spell word suggestion" },
 
     -- Configs
     { "<leader>cs", [[<Cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<CR>]], desc = "Telescope: Snippets sources" },

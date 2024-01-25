@@ -1,11 +1,8 @@
+--- General Settings
+
 local opt = vim.opt
-local g = vim.g
 
--------------------
--- FUNCTIONALITY --
--------------------
-
---- Language
+--- Nvim language
 vim.cmd("language en_US.utf8")
 
 --- Generals
@@ -19,7 +16,7 @@ opt.ignorecase = true -- Ignore capitalization when searching
 opt.smartcase = true -- Match capitalization only if there are capital letters
 opt.incsearch = true -- Show results while searching
 opt.magic = true -- Standard regext patterns
--- opt.inc = "" -- Avoid real time changes to substitutions -- set inc=
+-- opt.inc = "" -- Avoid real time changes to substitutions. (set inc=)
 
 -- Enter into insert mode when opening :terminal
 vim.cmd([[autocmd TermOpen term://* startinsert]])
@@ -30,14 +27,7 @@ vim.cmd([[
     \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
---- Wildmenu
--- opt.wildmenu = true         -- Advanced command completion
--- opt.wildmode = "full"       -- :help wildmode
-
-----------------
--- APPEARANCE --
-----------------
-
+--- Appearance
 opt.cmdheight = 1 -- 0 to remove the command line below the statusbar
 opt.colorcolumn = { 80, 100 } -- Guide columns positions
 opt.cursorline = false -- Underline the cursor line
@@ -63,21 +53,18 @@ vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
 vim.cmd([[vnoremenu PopUp.Copy "+y]])
 
 --- Netrw
-g.netrw_keepdir = 0 -- Keep cwd sync with the browsing directory. Avoid move files error
-g.netrw_liststyle = 0 -- 0: one file per line, 1: 0 + timestamp, filezise, 2: multicol, 3: tree
-g.netrw_sizestyle = "H" -- Human-readable file sizes
-g.netrw_preview = 1 -- preview files in a vertical split
-g.netrw_localcopydircmd = "cp -r" -- defaults to recursive cp
-g.netrw_localmkdir = "mkdir -p" -- defaults to recursive dir creation
-g.netrw_localrmdir = "rm -r" -- to remove non-empty dirs
--- g.netrw_list_hide = [[^\..*]] -- list of files/dirs to hide.
-g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- list of files/dirs to hide.
-g.netrw_hide = 1 -- 0: all, 1: not-hidden, 2: hidden-only
+-- vim.g.netrw_keepdir = 0 -- Keep cwd sync with the browsing directory. Avoid move files error
+-- vim.g.netrw_liststyle = 0 -- 0: one file per line, 1: 0 + timestamp, filezise, 2: multicol, 3: tree
+-- vim.g.netrw_sizestyle = "H" -- Human-readable file sizes
+-- vim.g.netrw_preview = 1 -- preview files in a vertical split
+-- vim.g.netrw_localcopydircmd = "cp -r" -- defaults to recursive cp
+-- vim.g.netrw_localmkdir = "mkdir -p" -- defaults to recursive dir creation
+-- vim.g.netrw_localrmdir = "rm -r" -- to remove non-empty dirs
+-- -- vim.g.netrw_list_hide = [[^\..*]] -- list of files/dirs to hide.
+-- vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- list of files/dirs to hide.
+-- vim.g.netrw_hide = 1 -- 0: all, 1: not-hidden, 2: hidden-only
 
-----------
--- CODE --
-----------
-
+--- Code
 opt.wrap = false -- Split long lines
 opt.textwidth = 80 -- Adjust the lines to match this width limit
 
@@ -105,13 +92,19 @@ opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap func
 opt.foldtext = "v:lua.CustomFoldText()" -- Wrap fold text function (in globals.lua)
 opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
-------------
--- CUSTOM --
-------------
+--- Misc
 
--- TODO: Move to util?
--- Command to work with the same buffer in 2 column-type windows like printed articles.
-vim.cmd([[
-  command! TwoColumns exe "normal zR" | set noscrollbind | vsplit
-    \ | set scrollbind | wincmd w | exe "normal \<c-f>" | set scrollbind | wincmd p
-]])
+local utils = require(MyUser .. ".utils") ---@type Utils
+
+-- Spellcheck commands
+-- stylua: ignore start
+function Spelles() utils.dict_on("es") end
+function Spellen() utils.dict_on("en") end
+function Spellend() utils.dict_off() end
+-- stylua: ignore end
+vim.cmd("command! Spelles lua Spelles()")
+vim.cmd("command! Spellen lua Spellen()")
+vim.cmd("command! Spellend lua Spellend()")
+
+-- TwoColumns mode
+utils.set_two_columns_mode()

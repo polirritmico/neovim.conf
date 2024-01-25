@@ -1,7 +1,6 @@
 -- Makefile Snippets
 local ls = require("luasnip")
-local s, t, i, c, f =
-  ls.snippet, ls.text_node, ls.insert_node, ls.choice_node, ls.function_node
+local s, t, i, c = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 
@@ -18,28 +17,28 @@ ls.add_snippets("make", {
     fmt(
       [[
         SHELL = /bin/bash
-        
+
         SOURCE_SCRIPT_NAME = {}
-        
+
         TARGET_FOLDER_INSTALLATION = {}
         TARGET_SCRIPT_NAME = {}
-        
+
         # Style codes
         GREEN = \033[0;32m
         NS = \033[0m
         DONE = $(GREEN)Done
-        
+
         # =====================================================
-        
+
         default:
         	@echo -e "Use 'make install' to copy $(TARGET_SCRIPT_NAME) into $(TARGET_FOLDER_INSTALLATION)"
-        
+
         install:
         	@echo "Installing '$(SOURCE_SCRIPT_NAME)' into '$(TARGET_FOLDER_INSTALLATION)/'..."
         	@chmod +x $(SOURCE_SCRIPT_NAME)
         	cp $(SOURCE_SCRIPT_NAME) $(TARGET_FOLDER_INSTALLATION)/$(TARGET_SCRIPT_NAME)
         	@echo -e "$(DONE)$(NS)"
-        
+
         version:
         	@echo "Updating subversion..."
         	@sed -ri 's/(SCRIPT_VERSION=)\\"([0-9])\\.(.*)\\"/echo "\\1\\\\"\\2.$$((\\3+1))\\\\""/ge' $(SOURCE_SCRIPT_NAME)

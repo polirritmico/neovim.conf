@@ -9,9 +9,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Lazy config
 local opts = {
   change_detection = { enabled = true, notify = true },
-  custom_keys = {
-    ["<leader>cl"] = { "<Cmd>Lazy<CR>", desc = "Open Lazy" },
-  },
   dev = { path = MyPluginsPath, fallback = false },
   install = { colorscheme = { "monokai-nightasty" } },
   performance = {
@@ -44,3 +41,5 @@ if Workstation then
 end
 
 require("lazy").setup(specs_folders, opts)
+
+vim.keymap.set({ "n" }, "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Open Lazy" })
