@@ -1,5 +1,6 @@
 --- General Settings
 
+local utils = require(MyUser .. ".utils") ---@type Utils
 local opt = vim.opt
 
 --- Nvim language
@@ -93,8 +94,6 @@ opt.foldtext = "v:lua.CustomFoldText()" -- Wrap fold text function (in globals.l
 opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
 --- Misc
-
-local utils = require(MyUser .. ".utils") ---@type Utils
 
 -- Spellcheck commands
 -- stylua: ignore start
