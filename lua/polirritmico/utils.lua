@@ -144,7 +144,7 @@ end
 
 ---This function enables the **TwoColumns** mode, which splits the current
 ---buffer into two synced column-like windows, resembling newspaper articles.
----- **Usage**: `<Cmd>TwoColumns<CR>`.
+---- **Usage**: `<Cmd>TwoColumns<CR>`. To end just close one of the windows.
 function Utils.set_two_columns_mode()
   vim.cmd([[
     command! TwoColumns exe "normal zR" | set noscrollbind | vsplit
@@ -192,14 +192,17 @@ end
 ---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
 ---to `bash` if matches.
 function Utils.set_bash_ft_from_shebang()
+  local augroup = "ShebangFtDetection"
+  vim.api.nvim_create_augroup(augroup, { clear = false })
   vim.api.nvim_create_autocmd({ "Filetype" }, {
-    desc = "For `*.sh` files set the filetype based on the _shebang_ line.",
+    desc = "For `*.sh` files set the filetype based on the shebang header line.",
+    group = augroup,
     pattern = { "sh" },
     callback = function()
       local line = vim.fn.getline(1)
       local pattern1, pattern2 = "^#!.*/bin/env%s+bash", "^#!.*/bin/bash"
       if string.match(line, pattern1) or string.match(line, pattern2) then
-        vim.cmd("set filetype=bash")
+        vim.api.nvim_set_option_value("filetype", "bash", { buf = 0 })
       end
     end,
   })
