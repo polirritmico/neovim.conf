@@ -1,4 +1,4 @@
--- Treesitter: Parse program langs for highlights, indent, conceals, etc.
+--- Treesitter: Parse program langs for highlights, indent, conceals, etc.
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
@@ -15,6 +15,7 @@ return {
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
+    -- full list in plugins/extras/treesitter.lua
     ensure_installed = {
       "bash",
       "comment",

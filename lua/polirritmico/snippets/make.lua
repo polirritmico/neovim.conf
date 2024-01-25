@@ -1,6 +1,9 @@
--- Makefile Snippets
+--- Makefile Snippets
 local ls = require("luasnip")
-local s, t, i, c = ls.snippet, ls.text_node, ls.insert_node, ls.choice_node
+local c = ls.choice_node
+local i = ls.insert_node
+local s = ls.snippet
+local t = ls.text_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 

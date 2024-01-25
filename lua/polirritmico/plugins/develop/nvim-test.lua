@@ -1,4 +1,4 @@
--- Test manager
+--- Test manager
 return {
   "polirritmico/nvim-test",
   dev = false,

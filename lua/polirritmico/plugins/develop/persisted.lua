@@ -1,3 +1,4 @@
+--- Session Manager
 return {
   "olimorris/persisted.nvim",
   dependencies = { "nvim-telescope/telescope.nvim" },

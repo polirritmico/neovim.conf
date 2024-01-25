@@ -1,3 +1,4 @@
+--- Treesitter full `ensure_installed` list
 return {
   "nvim-treesitter",
   opts = {

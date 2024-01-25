@@ -1,4 +1,4 @@
--- Shows code context on the top (func, classes, etc.)
+--- Shows code context on the top (func, classes, etc.)
 return {
   "nvim-treesitter/nvim-treesitter-context",
   event = { "BufReadPost", "BufWritePost", "BufNewFile" },

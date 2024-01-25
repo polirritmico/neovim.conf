@@ -1,4 +1,4 @@
--- Python snippets
+--- Python Snippets
 local ls = require("luasnip")
 local c = ls.choice_node
 local i = ls.insert_node

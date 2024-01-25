@@ -1,4 +1,4 @@
--- Delete buffers without messing up the current layout
+--- Delete buffers without messing up the current layout
 return {
   "famiu/bufdelete.nvim",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+--- Noice. A lot of ui messages
 return {
   "folke/noice.nvim",
   -- enabled = false,

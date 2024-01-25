@@ -1,4 +1,4 @@
--- Greeter screen
+--- Greeter screen
 return {
   "nvimdev/dashboard-nvim",
   enabled = true,

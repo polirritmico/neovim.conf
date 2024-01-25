@@ -1,5 +1,4 @@
 --- Harpoon: Navigation through pinned files
-
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",

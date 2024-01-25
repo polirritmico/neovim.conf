@@ -1,5 +1,4 @@
--- Language Server Protocol
--- full config in ../setups/lsp.lua
+--- Language Server Protocol
 return {
   "neovim/nvim-lspconfig",
   dependencies = {

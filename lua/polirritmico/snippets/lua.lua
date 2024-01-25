@@ -1,4 +1,4 @@
--- Lua Snippets
+--- Lua Snippets
 local ls = require("luasnip")
 local c = ls.choice_node
 local f = ls.function_node
