@@ -31,7 +31,7 @@ return {
   end,
   keys = {
     {
-      "<c-j>",
+      "<C-j>",
       function()
         if require("luasnip").expand_or_jumpable() then
           require("luasnip").expand_or_jump()
@@ -42,7 +42,7 @@ return {
       silent = true,
     },
     {
-      "<c-f>",
+      "<C-f>",
       function()
         if require("luasnip").jumpable(1) then
           require("luasnip").jump(1)
@@ -53,7 +53,7 @@ return {
       silent = true,
     },
     {
-      "<c-k>",
+      "<C-k>",
       function()
         if require("luasnip").jumpable(-1) then
           require("luasnip").jump(-1)
@@ -64,7 +64,7 @@ return {
       silent = true,
     },
     {
-      "<c-l>",
+      "<C-l>",
       function()
         if require("luasnip").choice_active() then
           return "<Plug>luasnip-next-choice"
@@ -76,7 +76,7 @@ return {
       expr = true,
     },
     {
-      "<c-h>",
+      "<C-h>",
       function()
         if require("luasnip").choice_active() then
           return "<Plug>luasnip-prev-choice"

@@ -27,9 +27,6 @@ map({ "n", "v" }, "<leader>tN", "<Cmd>set relativenumber!<CR>", "Toggle relative
 map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")
 map("n", "<leader>h", "<Cmd>bprevious<CR>", "Go to previous buffer")
 
--- Go back to previous file
-map("n", "<leader>gb", "<C-^>", "Return to the previous buffer")
-
 -- Return to the position of the last insert
 map("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
 
@@ -60,7 +57,7 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from " register to new l
 map({ "n", "v" }, "gp", "`[v`]")
 
 -- Change to normal mode from terminal mode
-map("t", "<c-n>", [[<c-\><c-n>]])
+map("t", "<C-n>", [[<c-\><c-n>]])
 
 -- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
