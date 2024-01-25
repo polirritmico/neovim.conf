@@ -108,3 +108,6 @@ vim.cmd("command! Spellend lua Spellend()")
 
 -- TwoColumns mode
 utils.set_two_columns_mode()
+
+-- Read shebang to determine shell script filetype
+utils.set_bash_ft_from_shebang()

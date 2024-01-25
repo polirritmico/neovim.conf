@@ -189,4 +189,20 @@ function Utils.set_autocmd_runner(filetype, keymap, ext_cmd)
   vim.api.nvim_create_autocmd({ "FileType" }, { pattern = filetype, command = cmd })
 end
 
+---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
+---to `bash` if matches.
+function Utils.set_bash_ft_from_shebang()
+  vim.api.nvim_create_autocmd({ "Filetype" }, {
+    desc = "For `*.sh` files set the filetype based on the _shebang_ line.",
+    pattern = { "sh" },
+    callback = function()
+      local line = vim.fn.getline(1)
+      local pattern1, pattern2 = "^#!.*/bin/env%s+bash", "^#!.*/bin/bash"
+      if string.match(line, pattern1) or string.match(line, pattern2) then
+        vim.cmd("set filetype=bash")
+      end
+    end,
+  })
+end
+
 return Utils
