@@ -1,5 +1,4 @@
 --- Telescope: Searches with fzf
-local on_load = require(MyUser .. ".utils").on_load
 return {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
@@ -11,7 +10,8 @@ return {
       build = "make",
       enabled = vim.fn.executable("make") == 1,
       config = function()
-        on_load("telescope.nvim", function()
+        local utils = require(MyUser .. ".utils") ---@type Utils
+        utils.on_load("telescope.nvim", function()
           require("telescope").load_extension("fzf")
         end)
       end,

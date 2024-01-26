@@ -15,7 +15,7 @@ return {
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
-    -- full list in plugins/extras/treesitter.lua
+    -- full list in plugins/extras/treesitter
     ensure_installed = {
       "bash",
       "comment",

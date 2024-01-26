@@ -1,7 +1,6 @@
 --- Greeter screen
 return {
   "nvimdev/dashboard-nvim",
-  enabled = true,
   event = "VimEnter",
   opts = function()
     local opts = {

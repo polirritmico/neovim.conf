@@ -4,7 +4,7 @@ return {
   dependencies = {
     "mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim", config = true },
   },
   event = { "BufReadPost", "BufWritePost", "BufNewFile" },
   config = function()
