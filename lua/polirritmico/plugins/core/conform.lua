@@ -1,6 +1,7 @@
 --- Formatter
 return {
   "stevearc/conform.nvim",
+  dependencies = { "mason.nvim" },
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
   keys = {
@@ -24,7 +25,7 @@ return {
       sh = { "shfmt" },
     },
     format_on_save = function(bufnr)
-      -- Disable with a global or buffer-local variable
+      -- Only apply format if `disable_autoformat` is not true
       if not (vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat) then
         return { timeout_ms = 500, lsp_fallback = true }
       end
@@ -42,10 +43,11 @@ return {
   config = function(_, opts)
     vim.api.nvim_create_user_command("FormatDisable", function(args)
       if args.bang then
-        -- FormatDisable! will disable formatting just for this buffer
+        -- :FormatDisable!<CR>
         vim.b[0].disable_autoformat = true
-        vim.notify("Disabled autoformat-on-save for the current buffer.")
+        vim.notify("Disabled autoformat-on-save just for the current buffer.")
       else
+        -- :FormatDisable<CR>
         vim.g.disable_autoformat = true
         vim.notify("Disabled autoformat-on-save.")
       end
@@ -57,9 +59,9 @@ return {
     vim.api.nvim_create_user_command("FormatEnable", function()
       vim.b[0].disable_autoformat = false
       vim.g.disable_autoformat = false
-      vim.notify("Re-enabled autoformat-on-save.")
+      vim.notify("Enabled autoformat-on-save.")
     end, {
-      desc = "Re-enable autoformat-on-save",
+      desc = "Enable autoformat-on-save",
     })
 
     require("conform").setup(opts)
