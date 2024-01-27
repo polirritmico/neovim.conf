@@ -110,3 +110,6 @@ utils.set_two_columns_mode()
 
 -- Read shebang to determine shell script filetype
 utils.set_bash_ft_from_shebang()
+
+-- Redirect the output of a command into a new buffer
+utils.set_cmd_redirection()

@@ -26,7 +26,7 @@ return {
     save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
     silent = false, -- message when sourcing session file
     use_git_branch = true, -- sessions based on the branch of a git repo
-    autoload = false, -- load the session for the cwd on nvim startup
+    autoload = true, -- load the session for the cwd on nvim startup
     follow_cwd = true, -- change session file name to match cwd if it changes
     -- ignore_dirs = nil, -- table of dirs ignored on auto-save/auto-load
     autosave = true, -- save sessions on exit
