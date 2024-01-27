@@ -25,7 +25,7 @@ vim.cmd([[autocmd TermOpen term://* startinsert]])
 -- Saves the current cursor position in the file.
 vim.cmd([[
   autocmd BufRead * autocmd FileType <buffer> ++once
-    \ if &ft !~# 'commit\|rebase' && line("'\"") > 0 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+    \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
 --- Appearance
