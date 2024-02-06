@@ -65,7 +65,7 @@ ls.add_snippets("markdown", {
     )
   ),
 
-  s(
+  t(
     "image",
     fmt('![{}]({} "{}") {}', {
       i(1, "fallback text"),
@@ -94,7 +94,7 @@ ls.add_snippets("markdown", {
     }),
   }, {
     stored = {
-      ["user_text"] = i(1, "texto"),
+      ["user_text"] = i(1),
     },
   }),
 }, reload_key)

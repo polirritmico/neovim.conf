@@ -119,7 +119,7 @@ end
 ---`load_config`.
 ---If an error is detected it will **ask the user** to open the offending file.
 ---If `y` is pressed, it would open each error file in its own buffer.
----@return boolean # `True` if errors are detected. `False` otherwise.
+---@return boolean # `true` if errors are detected. `false` otherwise.
 function Utils.detected_errors()
   if #Utils._catched_errors == 0 then
     return false

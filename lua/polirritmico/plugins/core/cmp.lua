@@ -70,8 +70,13 @@ return {
       experimental = {
         ghost_text = { hl_group = "CmpGhostText" },
       },
-      -- Disable completion on comments
       enabled = function()
+        -- Disable on telescope prompt
+        if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+          return false
+        end
+
+        -- Disable completion on comments
         local context = require("cmp.config.context")
         if vim.api.nvim_get_mode().mode == "c" then
           return true
