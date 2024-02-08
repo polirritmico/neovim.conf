@@ -155,7 +155,7 @@ end
 
 ---This function enables the **TwoColumns** mode, which splits the current
 ---buffer into two synced column-like windows, resembling newspaper articles.
----- **Usage**: `<Cmd>TwoColumns<CR>`. To end just close one of the windows.
+---- **Usage**: `:TwoColumns`. To end just close one of the windows.
 function Utils.set_two_columns_mode()
   vim.cmd([[
     command! TwoColumns exe "normal zR" | set noscrollbind | vsplit

@@ -65,7 +65,7 @@ ls.add_snippets("markdown", {
     )
   ),
 
-  t(
+  s(
     "image",
     fmt('![{}]({} "{}") {}', {
       i(1, "fallback text"),
