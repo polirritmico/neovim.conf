@@ -31,13 +31,7 @@ local opts = {
 }
 
 -- Plugins folders
-local specs_folders = {
-  { import = MyUser .. ".plugins.core" },
-  { import = MyUser .. ".plugins.develop" },
-  { import = MyUser .. ".plugins.helpers" },
-  { import = MyUser .. ".plugins.misc" },
-  { import = MyUser .. ".plugins.ui" },
-}
+local specs_folders = { { import = MyUser .. ".plugins" } }
 if Workstation then
   table.insert(specs_folders, { import = MyUser .. ".plugins.extras" })
 end
