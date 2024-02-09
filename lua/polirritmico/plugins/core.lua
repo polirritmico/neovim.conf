@@ -462,7 +462,7 @@ return {
       },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "crispgm/telescope-heading.nvim" },
-      { "polirritmico/telescope-lazy-plugins", dev = false },
+      { "polirritmico/telescope-lazy-plugins", dev = true },
     },
     -- stylua: ignore
     keys = {

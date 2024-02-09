@@ -226,4 +226,30 @@ return {
       },
     },
   },
+  --- Active indent guide. Animates the highlight
+  {
+    "echasnovski/mini.indentscope",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    opts = {
+      options = { try_as_border = true },
+      symbol = "│",
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "help",
+          "dashboard",
+          "neo-tree",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+  },
 }
