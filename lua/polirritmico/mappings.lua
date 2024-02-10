@@ -66,10 +66,8 @@ map("n", "<leader>gx", function() utils.chmod_exe(valid_filetypes) end, "Give ex
 -- Config shortcuts
 map("n", "<leader>ci", "<Cmd>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
-map("n", "<leader>cP", "<Cmd>e " .. MyPluginConfigPath .. "<CR>", "Plugins settings")
 map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
-map("n", "<leader>cL", "<Cmd>e " .. MyPluginConfigPath .. "core/lsp.lua<CR>", "LSP server configs")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[

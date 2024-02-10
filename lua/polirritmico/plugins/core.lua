@@ -470,7 +470,7 @@ return {
       { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Telescope: Find files (nvim runtime path)" },
       { "<leader>fF", "<Cmd>Telescope find_files cwd=%:p:h hidden=true<CR>", desc = "Telescope: Find files (from file path)" },
       { "<leader>fb", "<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "Telescope: Find/Switch between buffers" },
-      { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Telescope: Find Grep" },
+      { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Telescope: Find grep" },
       { "<leader>fg", "<Cmd>Telescope grep_string<CR>", mode = "x", desc = "Telescope: Find Grep (selected string)" },
       { "<leader>fr", "<Cmd>Telescope registers<CR>", mode = { "n", "v" }, desc = "Telescope: Select and paste from registers" },
       { "<leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "Telescope: Find recent/old files" },
@@ -480,15 +480,16 @@ return {
       { "<leader>fT", "<Cmd>Telescope<CR>", desc = "Telescope: Find telescope builtins functions" },
       { "zf", "<Cmd>Telescope spell_suggest<CR>", desc = "Telescope: Find spell word suggestion" },
 
-      -- Configs
-      { "<leader>cs", [[<Cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<CR>]], desc = "Telescope: Snippets sources" },
-      { "<leader>ct", [[<Cmd>execute "Telescope find_files cwd=".stdpath("config")."/after/ftplugin"<CR>]], desc = "Telescope: Configurations" },
-
       -- Extensions
-      { "<leader>cc", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Plugins configurations" },
       { "<leader>fe", "<Cmd>Telescope file_browser<CR>", desc = "Telescope: File explorer from nvim path" },
       { "<leader>fE", "<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR> hidden=true<cr>", desc = "Telescope: File explorer mode from buffer path." },
       { "<leader>fH", "<Cmd>Telescope heading<CR>", ft = "markdown", desc = "Telescope: Get document headers (markdown)." },
+
+      -- Configs
+      { "<leader>cs", [[<Cmd>execute "Telescope find_files cwd=".MyConfigPath."snippets/"<CR>]], desc = "Telescope: Snippets sources" },
+      { "<leader>ct", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/after/ftplugin/"<CR>]], desc = "Telescope: Filetypes configurations" },
+      { "<leader>cc", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath<CR>]], desc = "Telescope: Plugins configurations" },
+      { "<leader>cp", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Config plugins" },
     },
     opts = function()
       local layout_strategy, layout_config

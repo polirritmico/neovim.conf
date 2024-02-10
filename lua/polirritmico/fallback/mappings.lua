@@ -58,7 +58,5 @@ vim.cmd([[
 -- Config shortcuts
 map("n", "<leader>CC", ":e " .. MyConfigPath .. "init.lua<CR>")
 map("n", "<leader>CM", ":e " .. MyConfigPath .. "mappings.lua<CR>")
-map("n", "<leader>CP", ":e " .. MyPluginConfigPath .. "<CR>")
 map("n", "<leader>CS", ":e " .. MyConfigPath .. "settings.lua<CR>")
 map("n", "<leader>Cs", ":e " .. MyConfigPath .. "snippets<CR>")
-map("n", "<leader>CL", ":e " .. MyPluginConfigPath .. "setups/lsp.lua<CR>")
