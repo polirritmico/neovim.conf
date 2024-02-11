@@ -14,11 +14,11 @@ CustomFoldText = utils.fold_text
 
 -- Paths
 
----@type string -- Path of the neovim config folder (`~/.config/nvim`)
+---@type string -- Path of the neovim config folder (`~/.config/nvim`).
 NeovimPath = vim.fn.stdpath("config")
----@type string -- Path of the lua config. (`nvim/lua/config/`)
+---@type string -- Path of the lua config (`nvim/lua/config/`).
 MyConfigPath = NeovimPath .. "/lua/config/"
----@type string -- Path of my custom plugins sources outside Nvim's rtp.
+---@type string -- Path of my custom plugins sources `outside` Nvim's rtp.
 MyPluginsPath = Workstation and vim.fn.expand("$HOME/Informática/Programación/")
   or vim.fn.expand("$HOME/Proyectos/")
 

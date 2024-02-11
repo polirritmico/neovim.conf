@@ -41,6 +41,8 @@ opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrol
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("User/TextYankHl", { clear = true }),
+  desc = "Highlight yanked text",
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -95,6 +97,12 @@ opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
 --- Misc
 
+-- Disable health checks
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
 -- Spellcheck commands
 -- stylua: ignore start
 function Spelles() utils.dict_on("es") end
@@ -113,3 +121,6 @@ utils.set_bash_ft_from_shebang()
 
 -- Redirect the output of a command into a new buffer
 utils.set_cmd_redirection()
+
+-- Create scratch buffers for taking notes
+utils.set_create_scratch_buffers()

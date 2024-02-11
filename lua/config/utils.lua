@@ -46,6 +46,25 @@ function Utils.set_cmd_redirection()
   end, { nargs = "+", complete = "command" })
 end
 
+---Create a buffer for taking notes into a scratch buffer
+--- **Usage:** `Scratch`
+function Utils.set_create_scratch_buffers()
+  vim.api.nvim_create_user_command("Scratch", function()
+    vim.cmd("bel 10new")
+    local buf = vim.api.nvim_get_current_buf()
+    local opts = {
+      bufhidden = "hide",
+      buftype = "nofile",
+      filetype = "scratch",
+      modifiable = true,
+      swapfile = false,
+    }
+    for key, value in pairs(opts) do
+      vim.api.nvim_set_option_value(key, value, { buf = buf })
+    end
+  end, { desc = "Create a scratch buffer" })
+end
+
 ---Create autocmds at "LazyLoad" events.
 ---@param plugin_name string
 ---@param fn fun(plugin_name:string)
