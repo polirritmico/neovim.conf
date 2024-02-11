@@ -1,6 +1,6 @@
 --- Mappings
 
-local utils = require(MyUser .. ".utils") ---@type Utils
+local utils = require("config.utils") ---@type Utils
 local map = utils.set_keymap
 
 -- Leader key
@@ -64,7 +64,7 @@ local valid_filetypes = { "bash", "sh", "python" }
 map("n", "<leader>gx", function() utils.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
-map("n", "<leader>ci", "<Cmd>e " .. MyConfigPath .. "init.lua<CR>", "Entry point for configurations")
+map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Entry point for configurations")
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
 map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")

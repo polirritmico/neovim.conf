@@ -105,10 +105,10 @@ Utils._catched_errors = {}
 ---> This expect a fallback config `<module-name.lua>` in the `fallback` folder.
 ---@param module string Name of the config module to load.
 function Utils.load_config(module)
-  local ok, err = pcall(require, MyUser .. "." .. module)
+  local ok, err = pcall(require, "config." .. module)
   if not ok then
     table.insert(Utils._catched_errors, module)
-    local fallback_cfg = MyUser .. ".fallback." .. module
+    local fallback_cfg = "config.fallback." .. module
     print("- Error loading the module '" .. module .. "':\n " .. err)
     print("  Loading fallback config file: '" .. fallback_cfg .. "'\n")
     require(fallback_cfg)

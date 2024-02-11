@@ -31,9 +31,9 @@ local opts = {
 }
 
 -- Plugins folders
-local specs_folders = { { import = MyUser .. ".plugins" } }
+local specs_folders = { { import = "plugins" } }
 if Workstation then
-  table.insert(specs_folders, { import = MyUser .. ".plugins.extras" })
+  table.insert(specs_folders, { import = "plugins.extras" })
 end
 
 require("lazy").setup(specs_folders, opts)
