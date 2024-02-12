@@ -3,7 +3,7 @@
 -- Improve load time
 vim.loader.enable()
 
----@type boolean true on workstation machine or false for laptop.
+---@type boolean Workstation machine or laptop
 Workstation = vim.fn.hostname() == "hal-9002"
 
 -- Helper functions
