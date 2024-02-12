@@ -86,11 +86,12 @@ function Utils.on_load(plugin_name, fn)
   end
 end
 
----Check if the plugin is specified in the Lazy Plugins configuration and currently enabled
+---Check if the plugin is loaded into the Lazy Plugins configurations spec
 ---@param plugin string
 ---@return boolean
 function Utils.lazy_has(plugin)
-  return require("lazy.core.config").spec.plugins[plugin] ~= nil
+  local spec = require("lazy.core.config").spec
+  return spec.plugins[plugin] ~= nil or spec.disabled[plugin] ~= nil
 end
 
 ---Function used to set a custom text when called by a fold action like zc.
