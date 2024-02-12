@@ -6,7 +6,6 @@ end
 
 -- Leader keys
 vim.g.mapleader = " "
--- vim.g.maplocalleader = ","
 
 -- Comandos a ñ (misma posición ANSI)
 vim.keymap.set({ "n", "v" }, "ñ", ":")
@@ -20,10 +19,10 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Buffers navigation:
-map("n", "<leader>l", ":bnext<CR>")
-map("n", "<leader>h", ":bprevious<CR>")
-map("n", "<leader>db", ":bp<bar>sp<bar>bn<bar>bd<CR>")
-map("n", "<leader>dB", ":bd<CR>")
+map("n", "<leader>l", "<Cmd>bnext<CR>")
+map("n", "<leader>h", "<Cmd>bprevious<CR>")
+map("n", "<leader>db", "<Cmd>bp<bar>sp<bar>bn<bar>bd<CR>")
+map("n", "<leader>dB", "<Cmd>bd<CR>")
 
 -- Go back to previous file
 map("n", "<leader>gb", "<C-^>")
@@ -56,7 +55,7 @@ vim.cmd([[
 ]])
 
 -- Config shortcuts
-map("n", "<leader>CC", ":e " .. MyConfigPath .. "init.lua<CR>")
-map("n", "<leader>CM", ":e " .. MyConfigPath .. "mappings.lua<CR>")
-map("n", "<leader>CS", ":e " .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>Cs", ":e " .. MyConfigPath .. "snippets<CR>")
+map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>")
+map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>")
+map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>")
+map("n", "<leader>cl", "<Cmd>e " .. MyConfigPath .. "lazy.lua<CR>")
