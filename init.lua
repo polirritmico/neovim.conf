@@ -10,7 +10,6 @@ Workstation = vim.fn.hostname() == "hal-9002"
 
 local utils = require("config.utils") ---@type Utils
 P = utils.custom_print
-CustomFoldText = utils.fold_text
 
 -- Paths
 

@@ -29,22 +29,91 @@ return {
             require("dap-python").setup(python_path .. "python")
             require("dap-python").test_runner = "pytest"
           end,
-        -- stylua: ignore
-        keys = {
-          { "<Leader>rtd", function() require("dap-python").test_method() end, ft = "python", desc = "DAP: Run test method" },
+          -- stylua: ignore
+          keys = {
+            { "<Leader>rtd", function() require("dap-python").test_method() end, ft = "python", desc = "DAP: Run test method" },
+          },
         },
+        {
+          "jbyuki/one-small-step-for-vimkind",
+          lazy = true,
+          config = function()
+            local dap = require("dap")
+            dap.configurations.lua = {
+              {
+                type = "nlua",
+                request = "attach",
+                name = "Attach to running Neovim instance",
+              },
+            }
+
+            dap.adapters.nlua = function(callback, config)
+              callback({
+                type = "server",
+                host = config.host or "127.0.0.1",
+                port = config.port or 8086,
+              })
+            end
+          end,
         },
+        -- {
+        --   "jbyuki/one-small-step-for-vimkind",
+        --   config = function()
+        --     local dap = require("dap")
+        --     dap.adapters.nlua = function(callback, conf)
+        --       local adapter = {
+        --         type = "server",
+        --         host = conf.host or "127.0.0.1",
+        --         port = conf.port or 8086,
+        --       }
+        --       if conf.start_neovim then
+        --         local dap_run = dap.run
+        --         dap.run = function(c)
+        --           adapter.port = c.port
+        --           adapter.host = c.host
+        --         end
+        --         require("osv").run_this()
+        --         dap.run = dap_run
+        --       end
+        --       callback(adapter)
+        --     end
+        --     dap.configurations.lua = {
+        --       {
+        --         type = "nlua",
+        --         request = "attach",
+        --         name = "Run this file",
+        --         start_neovim = {},
+        --       },
+        --       {
+        --         type = "nlua",
+        --         request = "attach",
+        --         name = "Attach to running Neovim instance (port = 8086)",
+        --         port = 8086,
+        --       },
+        --     }
+        --   end,
+        --   keys = {
+        --     {
+        --       "<leader>rl",
+        --       function()
+        --         require("osv").launch({ port = 8086 })
+        --       end,
+        --       ft = "lua",
+        --       desc = "Dap: Launch Lua adapter.",
+        --     },
+        --   },
+        -- },
       },
     },
     {
       "rcarriga/nvim-dap-ui",
       dependencies = "nvim-dap",
-    -- stylua: ignore
-    keys = {
-      { "<Leader>di", function() require("dapui").eval() end, desc = "DAP: Show debug info of the element under the cursor" },
-      { "<Leader>dg", function() require("dapui").toggle({}) end, desc = "DAP: Toggle DAP GUI" },
-      { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
-    },
+      -- stylua: ignore
+      keys = {
+        { "<Leader>di", function() require("dapui").eval() end, desc = "DAP: Show debug info of the element under the cursor" },
+        { "<Leader>dg", function() require("dapui").toggle({}) end, desc = "DAP: Toggle DAP GUI" },
+        { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
+      },
       config = function(_, opts)
         local dap = require("dap")
         local dapui = require("dapui")

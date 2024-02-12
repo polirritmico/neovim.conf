@@ -40,7 +40,8 @@ end
 function Utils.set_cmd_redirection()
   vim.api.nvim_create_user_command("Redir", function(ctx)
     local lines = vim.split(vim.api.nvim_exec(ctx.args, true), "\n", { plain = true })
-    vim.cmd("new")
+    vim.cmd("enew") -- `new` split the window
+    vim.bo.filetype = "lua"
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
     vim.opt_local.modified = false
   end, { nargs = "+", complete = "command" })
@@ -93,7 +94,7 @@ function Utils.lazy_has(plugin)
 end
 
 ---Function used to set a custom text when called by a fold action like zc.
----Should be setted with opt.foldtext = "v:lua.CustomFoldText()"
+---To set it check `:h v:lua-call` and `:h foldtext`.
 function Utils.fold_text()
   local first_line = vim.fn.getline(vim.v.foldstart)
   local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")

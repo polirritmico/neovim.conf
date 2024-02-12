@@ -3,6 +3,7 @@ return {
   {
     -- "nvimdev/dashboard-nvim",
     "polirritmico/dashboard-nvim",
+    branch = "doom-fix-multibyte-cursor-position",
     event = "VimEnter",
     opts = function()
       local opts = {
@@ -53,7 +54,6 @@ return {
               action = "Telescope help_tags",
               desc = " Help docs",
               icon = "󰘥 ",
-              icon_offset = 1,
               key = "<leader>fh",
             },
             {
@@ -72,7 +72,6 @@ return {
               action = "Lazy",
               desc = " Lazy",
               icon = "󰒲 ",
-              icon_offset = 1,
               key = "<leader>cl",
             },
             { action = "qa", desc = " Quit", icon = " ", key = "q" },

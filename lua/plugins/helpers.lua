@@ -85,14 +85,13 @@ return {
     "folke/todo-comments.nvim",
     cmd = { "TodoTelescope" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-  -- stylua: ignore
-  keys = {
-    { "]t", function() require("todo-comments").jump_next() end, desc = "todo-comments: Next todo comment" },
-    { "[t", function() require("todo-comments").jump_prev() end, desc = "todo-comments: Previous todo comment" },
-    { "<leader>ft", "<Cmd>TodoTelescope<CR>", desc = "todo-comments: Open todo list in telescope" },
-    { "<leader>fT", "<Cmd>TodoLocList<CR>", desc = "todo-comments: Open todo list in a panel" },
-    { "<leader>tl", "<Cmd>TodoQuickFix<CR>", desc = "todo-comments: Open quickfix list" },
-  },
+    -- stylua: ignore
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "todo-comments: Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "todo-comments: Previous todo comment" },
+      { "<leader>ft", "<Cmd>TodoTelescope<CR>", desc = "todo-comments: Open todo list in telescope" },
+      { "<leader>tl", "<Cmd>TodoQuickFix<CR>", desc = "todo-comments: Open quickfix list" },
+    },
     opts = {
       -- Style test:
       -- FIX: Some text
