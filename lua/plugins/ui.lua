@@ -128,7 +128,10 @@ return {
       lualine_require.require = require
 
       return {
-        options = { theme = "monokai-nightasty" },
+        options = {
+          disabled_filetypes = { statusline = { "dashboard" } },
+          theme = "monokai-nightasty",
+        },
         extensions = { "lazy" },
       }
     end,
