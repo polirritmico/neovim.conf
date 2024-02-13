@@ -1,9 +1,7 @@
 --- Greeter screen
 return {
   {
-    -- "nvimdev/dashboard-nvim",
-    "polirritmico/dashboard-nvim",
-    branch = "doom-fix-multibyte-cursor-position",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
       local opts = {
