@@ -1,6 +1,6 @@
 --- Mappings
 
-local utils = require("config.utils") ---@type Utils
+local utils = require("utils") ---@type Utils
 local map = utils.set_keymap
 
 -- Leader key
