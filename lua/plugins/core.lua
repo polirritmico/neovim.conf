@@ -454,7 +454,7 @@ return {
         build = "make",
         enabled = vim.fn.executable("make") == 1,
         config = function()
-          local utils = require("utils") ---@type Utils
+          local utils = require("config.utils") ---@type Utils
           utils.on_load("telescope.nvim", function()
             require("telescope").load_extension("fzf")
           end)

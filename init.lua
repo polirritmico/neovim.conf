@@ -8,7 +8,7 @@ Workstation = vim.fn.hostname() == "hal-9002"
 
 -- Helper functions
 
-local utils = require("utils") ---@type Utils
+local utils = require("config.utils") ---@type Utils
 P = utils.custom_print
 
 -- Paths
