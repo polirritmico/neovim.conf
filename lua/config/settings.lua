@@ -92,7 +92,7 @@ opt.foldlevel = 1 -- Fold only 1 level?
 opt.foldminlines = 1 -- Minimum folding level
 opt.foldnestmax = 3 -- Max nested folding level
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
-opt.foldtext = "v:lua.require'utils'.fold_text()" -- Wrap fold text function (in globals.lua)
+opt.foldtext = "v:lua.require'config.utils'.fold_text()" -- Wrap fold text function (in globals.lua)
 opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
 --- Misc
