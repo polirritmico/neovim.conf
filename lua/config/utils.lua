@@ -86,14 +86,6 @@ function Utils.on_load(plugin_name, fn)
   end
 end
 
----Check if the plugin is loaded into the Lazy Plugins configurations spec
----@param plugin string
----@return boolean
-function Utils.lazy_has(plugin)
-  local spec = require("lazy.core.config").spec
-  return spec.plugins[plugin] ~= nil or spec.disabled[plugin] ~= nil
-end
-
 ---Function used to set a custom text when called by a fold action like zc.
 ---To set it check `:h v:lua-call` and `:h foldtext`.
 function Utils.fold_text()
@@ -175,7 +167,7 @@ function Utils.dict_off()
 end
 
 ---This function enables the **TwoColumns** mode, which splits the current
----buffer into two synced column-like windows, resembling newspaper articles.
+---buffer into two synced column-like windows, resembling newspapers articles.
 ---- **Usage**: `:TwoColumns`. To end just close one of the windows.
 function Utils.set_two_columns_mode()
   vim.cmd([[
@@ -185,7 +177,7 @@ function Utils.set_two_columns_mode()
 end
 
 ---Give execution permissions to the current buffer if its filetype is in the list
----@param valid_filetypes table[string] Table of accepted filetypes
+---@param valid_filetypes table<string> Table of accepted filetypes
 function Utils.chmod_exe(valid_filetypes)
   for _, ft in pairs(valid_filetypes) do
     if ft == vim.bo.filetype then
