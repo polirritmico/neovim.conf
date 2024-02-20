@@ -1,15 +1,5 @@
 --- Python Snippets
-local ls = require("luasnip")
-local c = ls.choice_node
-local i = ls.insert_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_python_snippets" }
-
-ls.add_snippets("python", {
+return {
   s({
     trig = "header",
     name = "Python header",
@@ -165,4 +155,4 @@ ls.add_snippets("python", {
       }
     )
   ),
-}, reload_key)
+}

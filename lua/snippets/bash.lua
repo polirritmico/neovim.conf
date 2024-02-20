@@ -1,17 +1,5 @@
---- Bash Snippets
-local ls = require("luasnip")
-local c = ls.choice_node
-local f = ls.function_node
-local i = ls.insert_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_bash_snippets" }
-
-ls.add_snippets("bash", {
+--- Bash snippets
+return {
   s("layoutheader", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
 
   s(
@@ -62,7 +50,7 @@ ls.add_snippets("bash", {
   ),
 
   s(
-    "h1",
+    "header1",
     fmt(
       [[
         #===============================================================================
@@ -75,7 +63,7 @@ ls.add_snippets("bash", {
   ),
 
   s(
-    "h2",
+    "header2",
     fmt(
       [[
         #----------------------------------------
@@ -85,9 +73,9 @@ ls.add_snippets("bash", {
     )
   ),
 
-  s("h3", fmt("# -- {} --\n{}", { i(1, "Section"), i(0) })),
+  s("header3", fmt("# -- {} --\n{}", { i(1, "Section"), i(0) })),
 
-  s("if", fmt("if [[ {} ]]; then\n    {}\nfi\n\n", { i(1), i(0) })),
+  s("layoutif", fmt("if [[ {} ]]; then\n    {}\nfi\n\n", { i(1), i(0) })),
 
   s(
     {
@@ -148,4 +136,4 @@ ls.add_snippets("bash", {
       }
     )
   ),
-}, reload_key)
+}

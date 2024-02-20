@@ -1,16 +1,5 @@
 --- Makefile Snippets
-local ls = require("luasnip")
-local c = ls.choice_node
-local i = ls.insert_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-local rep = require("luasnip.extras").rep
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_makefile_snippets" }
-
-ls.add_snippets("make", {
+return {
   s(
     {
       trig = "layout",
@@ -56,4 +45,4 @@ ls.add_snippets("make", {
       }
     )
   ),
-}, reload_key)
+}

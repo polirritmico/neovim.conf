@@ -218,7 +218,11 @@ end
 ---@param ext_cmd string Command to run the file. Should begin with "`!`" and end with "` %`".
 function Utils.set_autocmd_runner(filetype, keymap, ext_cmd)
   local cmd = "noremap " .. keymap .. " <Cmd>" .. ext_cmd .. "<CR>"
-  vim.api.nvim_create_autocmd({ "FileType" }, { pattern = filetype, command = cmd })
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    command = cmd,
+    group = vim.api.nvim_create_augroup("UserAutocmd_" .. filetype, {}),
+    pattern = filetype,
+  })
 end
 
 ---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype

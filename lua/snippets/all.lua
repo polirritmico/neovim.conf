@@ -1,17 +1,5 @@
 --- Snippets For All Typefiles
-local ls = require("luasnip")
-local c = ls.choice_node
-local f = ls.function_node
-local i = ls.insert_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-local p = require("luasnip.extras").partial
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_all_snippets" }
-
-ls.add_snippets("all", {
+return {
   s(
     {
       trig = "datecurrent",
@@ -88,4 +76,4 @@ ls.add_snippets("all", {
       }
     )
   ),
-}, reload_key)
+}

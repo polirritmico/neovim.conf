@@ -1,16 +1,5 @@
 --- Markdown Snippets
-local ls = require("luasnip")
-local c = ls.choice_node
-local i = ls.insert_node
-local r = ls.restore_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_markdown_snippets" }
-
-ls.add_snippets("markdown", {
+return {
   s(
     {
       trig = "cmd",
@@ -97,4 +86,4 @@ ls.add_snippets("markdown", {
       ["user_text"] = i(1),
     },
   }),
-}, reload_key)
+}

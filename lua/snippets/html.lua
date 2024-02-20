@@ -1,16 +1,8 @@
+-- extend for htmldjango
+require("luasnip").filetype_extend("htmldjango", { "html" })
+
 --- HTML Snippets
-local ls = require("luasnip")
-local c = ls.choice_node
-local i = ls.insert_node
-local s = ls.snippet
-local t = ls.text_node
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-
--- Avoid multiple versions of the same snippet on reload
-local reload_key = { key = "my_html_snippets" }
-
-ls.add_snippets("html", {
+return {
   -- Headers
   s(
     { trig = "doctype", name = "Docktype", dscr = "Defines the document type" },
@@ -236,7 +228,4 @@ ls.add_snippets("html", {
       }
     )
   ),
-}, reload_key)
-
--- extend for htmldjango
-require("luasnip").filetype_extend("htmldjango", { "html" })
+}
