@@ -4,20 +4,20 @@ return {
     {
       "mfussenegger/nvim-dap",
       version = "*",
-    -- stylua: ignore
-    keys = {
-      { "<F5>", function() require("dap").continue() end, desc = "DAP: Continue execution" },
-      { "<F6>", function() require("dap").pause() end, desc = "DAP: Pause execution" },
-      { "<F7>", function() require("dap").step_out() end, desc = "DAP: Step out" },
-      { "<F8>", function() require("dap").step_into() end, desc = "DAP: Step into" },
-      { "<F9>", function() require("dap").step_over() end, desc = "DAP: Step over" },
-      { "<F12>", function() require("dap").close() end, desc = "DAP: Close execution" },
-      { "<Leader>dc", function() require("dap").repl.open() end, desc = "DAP: Open debug console" },
-      { "<Leader>dr", function() require("dap").run_last() end, desc = "DAP: Rerun last debug adapter/config" },
-      { "<Leader>b", function() require("dap").toggle_breakpoint() end, desc = "DAP: Add/remove breakpoint into the current line" },
-      { "<Leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Add a conditional breakpoint" },
-      { "<Leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "DAP: Add a logpoint into the current line" },
-    },
+      -- stylua: ignore
+      keys = {
+        { "<F5>", function() require("dap").continue() end, desc = "DAP: Continue execution" },
+        { "<F6>", function() require("dap").pause() end, desc = "DAP: Pause execution" },
+        { "<F7>", function() require("dap").step_out() end, desc = "DAP: Step out" },
+        { "<F8>", function() require("dap").step_into() end, desc = "DAP: Step into" },
+        { "<F9>", function() require("dap").step_over() end, desc = "DAP: Step over" },
+        { "<F12>", function() require("dap").close() end, desc = "DAP: Close execution" },
+        { "<Leader>dc", function() require("dap").repl.open() end, desc = "DAP: Open debug console" },
+        { "<Leader>dr", function() require("dap").run_last() end, desc = "DAP: Rerun last debug adapter/config" },
+        { "<Leader>b", function() require("dap").toggle_breakpoint() end, desc = "DAP: Add/remove breakpoint into the current line" },
+        { "<Leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Add a conditional breakpoint" },
+        { "<Leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "DAP: Add a logpoint into the current line" },
+      },
       dependencies = {
         {
           "mfussenegger/nvim-dap-python",
@@ -119,7 +119,7 @@ return {
         local dapui = require("dapui")
         dapui.setup(opts)
         dap.listeners.after.event_initialized["dapui_config"] = function()
-          dapui.open({})
+          dapui.open()
         end
       end,
       opts = {
@@ -203,15 +203,15 @@ return {
         stopinsert = false,
       },
     },
-  -- stylua: ignore
-  keys = {
-    { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Runs all test in the current file or runs the last file tests." },
-    { "<leader>rta", "<Cmd>silent TestSuite<CR>", desc = "nvim-test: Run the whole test suite following the current file or the last run test." },
-    { "<leader>rtu", "<Cmd>silent TestNearest<CR>", desc = "nvim-test: Run the test nearest to the cursor or run the last test." },
-    { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Runs the last test." },
-    { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
-    { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
-  },
+    -- stylua: ignore
+    keys = {
+      { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Runs all test in the current file or runs the last file tests." },
+      { "<leader>rta", "<Cmd>silent TestSuite<CR>", desc = "nvim-test: Run the whole test suite following the current file or the last run test." },
+      { "<leader>rtu", "<Cmd>silent TestNearest<CR>", desc = "nvim-test: Run the test nearest to the cursor or run the last test." },
+      { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Runs the last test." },
+      { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
+      { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
+    },
   },
   --- Session Manager
   {

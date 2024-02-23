@@ -68,6 +68,7 @@ map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Entry point 
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Mappings/Keys settings")
 map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "General nvim settings")
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Snippets settings")
+map("n", "<leader>cu", "<Cmd>e " .. MyConfigPath .. "utils.lua<CR>", "Utils functions")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
