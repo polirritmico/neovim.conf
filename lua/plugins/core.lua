@@ -153,7 +153,7 @@ return {
         black = { prepend_args = { "--line-length", "88" } },
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
-        stylua = { prepend_args = { "--indent-type", "Spaces" } }, -- overwrites stylua.toml
+        stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } }, -- overwrites stylua.toml
       },
     },
     init = function()

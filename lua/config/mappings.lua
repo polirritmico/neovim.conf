@@ -56,6 +56,9 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from " register to new l
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]")
 
+-- Replace default <C-g> (:f) to custom function
+map({ "n", "v" }, "<C-g>", function() utils.buffer_info() end, "Get buffer full path info")
+
 -- Change to normal mode from terminal mode
 map("t", "<C-n>", [[<c-\><c-n>]])
 

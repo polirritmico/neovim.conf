@@ -191,6 +191,14 @@ function Utils.chmod_exe(valid_filetypes)
   )
 end
 
+---Replace for <C-g> to get the full current buffer path
+function Utils.buffer_info()
+  local file = vim.fn.expand("%:p")
+  local line = vim.fn.line(".")
+  local percentage = math.floor(line * 100 / vim.fn.line("$"))
+  vim.notify(string.format([["%s" %i lines --%i%%--]], file, line, percentage))
+end
+
 ---Show/Hide the fold column at the left of the line numbers.
 function Utils.toggle_fold_column()
   if vim.api.nvim_win_get_option(0, "foldcolumn") == "0" then
