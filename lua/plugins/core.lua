@@ -520,13 +520,16 @@ return {
           layout_config = layout_config,
           path_display = { "truncate" },
           prompt_prefix = "   ",
-          selection_caret = " 󰄾  ",
+          selection_caret = "󰄾 ",
           sorting_strategy = "ascending",
           mappings = { i = { ["<C-h>"] = "which_key" } }, -- toggle keymaps help
         },
         extensions = {
           file_browser = {
             follow_symlinks = true,
+          },
+          lazy_plugins = {
+            show_disabled = true,
           },
           heading = {
             treesitter = false,
