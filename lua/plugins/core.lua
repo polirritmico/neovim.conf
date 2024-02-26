@@ -460,6 +460,7 @@ return {
           end)
         end,
       },
+      { "nvim-telescope/telescope-symbols.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "crispgm/telescope-heading.nvim" },
       { "polirritmico/telescope-lazy-plugins.nvim", dev = false },
@@ -522,7 +523,15 @@ return {
           prompt_prefix = "   ",
           selection_caret = "󰄾 ",
           sorting_strategy = "ascending",
-          mappings = { i = { ["<C-h>"] = "which_key" } }, -- toggle keymaps help
+          mappings = {
+            ["i"] = {
+              ["<C-h>"] = "which_key", -- toggle keymaps help
+              ["<LeftMouse>"] = function() end,
+            },
+            ["n"] = {
+              ["<LeftMouse>"] = function() end,
+            },
+          },
         },
         extensions = {
           file_browser = {

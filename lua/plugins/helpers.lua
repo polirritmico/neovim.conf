@@ -77,6 +77,7 @@ return {
   --- Automatically add closing tags for HTML and JSX
   {
     "windwp/nvim-ts-autotag",
+    enabled = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = true,
   },
@@ -130,6 +131,8 @@ return {
     end,
     config = function()
       vim.g.table_mode_corner = "|"
+      -- FIX: Really slow performance: https://github.com/dhruvasagar/vim-table-mode/issues/227
+      vim.g.table_mode_syntax = 0
     end,
   },
 }
