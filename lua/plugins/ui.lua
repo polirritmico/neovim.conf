@@ -162,12 +162,10 @@ return {
       vim.opt.cursorline = true -- Highlight line at the cursor position
       vim.o.background = "dark" -- Default to dark theme
 
-      -- Change to light between time
-      -- local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
-      -- local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
-      -- if system_time >= 1400 and system_time < 1930 then
-      --   vim.o.background = "light"
-      -- end
+      -- Open new Nvim instance with light theme between the range time
+      if require("config.utils").in_hours_range(1400, 1900) then
+        vim.o.background = "light"
+      end
 
       require("monokai-nightasty").load(opts)
     end,

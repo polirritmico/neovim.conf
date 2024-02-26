@@ -200,6 +200,7 @@ return {
       local mason_lsp = require("mason-lspconfig")
 
       --- Keys
+
       local function toggle_lsp_diag()
         if vim.diagnostic.is_disabled() then
           vim.diagnostic.enable()
@@ -220,7 +221,7 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
           vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, buf_opts)
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, buf_opts)
-          -- vim.keymap.set({"n", "x"}, "<F3>", function() vim.lsp.buf.format({async = true}) end, buf_opts)
+          -- <F3> (format current buffer) is handled by Conform
           vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, buf_opts)
 
           vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
@@ -231,7 +232,7 @@ return {
         end,
       })
 
-      --- Servers configurations `:h lspconfig-configuration`
+      --- Servers configurations `:h lspconfig-configurations`
       local function default_setup(server)
         lspconfig[server].setup({})
       end
