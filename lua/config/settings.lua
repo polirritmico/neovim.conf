@@ -86,13 +86,13 @@ opt.tabstop = 4 -- Number of indentation spaces on the screen
 --- Code folding
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
 opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression
+opt.foldtext = "v:lua.require'config.utils'.fold_text()" -- Wrap fold text function (in globals.lua)
 opt.foldenable = false -- Disable folding when opening file
 opt.foldlevelstart = 99 -- Don't fold all code when using folding
 opt.foldlevel = 1 -- Fold only 1 level?
 opt.foldminlines = 1 -- Minimum folding level
 opt.foldnestmax = 3 -- Max nested folding level
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
-opt.foldtext = "v:lua.require'config.utils'.fold_text()" -- Wrap fold text function (in globals.lua)
 opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
 --- Misc

@@ -255,4 +255,7 @@ function Utils.in_hours_range(start_time, end_time)
   return system_time >= start_time and system_time < end_time
 end
 
+---This function toggles a boolean value at the current line
+function Utils.toggle_boolean() end
+
 return Utils

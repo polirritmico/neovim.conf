@@ -112,7 +112,9 @@ return {
         TODO = { icon = "󰑕" },
         WARN = { icon = "", alt = { "WARNING" } },
       },
-      -- highlight = { exclude = {}, }, -- filetypes to exclude highlighting
+      highlight = {
+        pattern = [[^\s*\S{1,2}\s<(KEYWORDS)\s*:]], -- default: [[\b(KEYWORDS):]]
+      },
     },
   },
   --- Toggle comments on the selected or current line
