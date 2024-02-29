@@ -59,9 +59,6 @@ map({ "n", "v" }, "gp", "`[v`]")
 -- Replace default <C-g> (:f) to custom function
 map({ "n", "v" }, "<C-g>", u.custom.buffer_info, "Get buffer full path info")
 
--- Replace default <C-a>, <C-x> with custom inc and dec functions
---u.custom.toggle_boolean()
-
 -- Change to normal mode from terminal mode
 map("t", "<C-n>", [[<c-\><c-n>]])
 
