@@ -57,9 +57,7 @@ return {
       for _, bracket in pairs(brackets) do
         Rule("", " " .. bracket[2])
           :with_pair(cond.none())
-          :with_move(function(_opts)
-            return _opts.char == bracket[2]
-          end)
+          :with_move(function(_opts) return _opts.char == bracket[2] end)
           :with_cr(cond.none())
           :with_del(cond.none())
           :use_key(bracket[2])
@@ -126,9 +124,13 @@ return {
   --- Toggle boolean values
   {
     "polirritmico/simple-boolean-toggle.nvim",
-    dev = true,
+    dev = false,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    config = true,
+    -- stylua: ignore
+    keys = {
+      { "<leader>tB", "<Cmd>lua require('simple-boolean-toggle').toggle_builtins()<Cr>", desc = "Boolean Toggle" },
+    },
+    opts = {},
   },
   --- Tables automatization
   {

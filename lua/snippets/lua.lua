@@ -107,7 +107,6 @@ return {
       rhs = c(2, {
         { t('"<Cmd>'), r(1, "user_rhs"), t('<CR>"') },
         { t("function() "), r(1, "user_rhs"), t(" end") },
-        { t('"'), r(1, "user_rhs"), t('"') },
         { r(1, "user_rhs") },
       }),
       mode = c(3, {
@@ -132,10 +131,14 @@ return {
   s(
     {
       trig = "---",
-      name = "Horizontal line",
-      dscr = "A horizontal separation line (79 characters).",
+      name = "Horizontal separator line",
+      dscr = "Add a comment line separator.",
     },
-    t("-------------------------------------------------------------------------------")
+    f(function()
+      local col = vim.api.nvim_win_get_cursor(0)[2]
+      local width = vim.api.nvim_get_option("textwidth") - col - 1
+      return string.rep("-", width)
+    end)
   ),
 
   s(

@@ -7,9 +7,7 @@ return {
       return {
         {
           "<leader>db",
-          function()
-            require("bufdelete").bufdelete(0, true)
-          end,
+          function() require("bufdelete").bufdelete(0, true) end,
           { "n", "v" },
           desc = "bufdelete: Fercibly delete the current buffer.",
           silent = true,

@@ -128,9 +128,7 @@ return {
         local dap = require("dap")
         local dapui = require("dapui")
         dapui.setup(opts)
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-          dapui.open()
-        end
+        dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
       end,
       opts = {
         controls = {
@@ -226,7 +224,7 @@ return {
   --- Session Manager
   {
     "rmagatti/auto-session",
-    enabled = true,
+    enabled = false,
     event = "VeryLazy",
     opts = {
       auto_session_suppress_dirs = {

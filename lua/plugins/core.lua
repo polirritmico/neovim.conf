@@ -18,9 +18,7 @@ return {
       return {
         completion = { completeopt = "menu,menuone,noinsert" },
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+          expand = function(args) luasnip.lsp_expand(args.body) end,
         },
         mapping = {
           ["<C-j>"] = cmp.mapping.confirm({
@@ -126,9 +124,7 @@ return {
     keys = {
       {
         "<F3>",
-        function()
-          require("conform").format({ async = false, lsp_fallback = true })
-        end,
+        function() require("conform").format({ async = false, lsp_fallback = true }) end,
         mode = { "n", "v" },
         desc = "Conform: Format buffer",
       },
@@ -158,9 +154,7 @@ return {
         }, -- overwrites stylua.toml
       },
     },
-    init = function()
-      vim.o.formatexpr = [[v:lua.require("conform").formatexpr()]]
-    end,
+    init = function() vim.o.formatexpr = [[v:lua.require("conform").formatexpr()]] end,
     config = function(_, opts)
       vim.api.nvim_create_user_command("FormatDisable", function(args)
         if args.bang then
@@ -235,9 +229,7 @@ return {
       })
 
       --- Servers configurations `:h lspconfig-configurations`
-      local function default_setup(server)
-        lspconfig[server].setup({})
-      end
+      local function default_setup(server) lspconfig[server].setup({}) end
 
       local function config_clangd()
         lspconfig.clangd.setup({
@@ -423,12 +415,15 @@ return {
       -- trigger FileType event to try loading newly installed servers
       local mr = require("mason-registry")
       mr:on("package:install:success", function()
-        vim.defer_fn(function()
-          require("lazy.core.handler.event").trigger({
-            event = "FileType",
-            buf = vim.api.nvim_get_current_buf(),
-          })
-        end, 100)
+        vim.defer_fn(
+          function()
+            require("lazy.core.handler.event").trigger({
+              event = "FileType",
+              buf = vim.api.nvim_get_current_buf(),
+            })
+          end,
+          100
+        )
       end)
       local function ensure_installed()
         for _, tool in ipairs(opts.ensure_installed) do
@@ -457,9 +452,10 @@ return {
         build = "make",
         enabled = vim.fn.executable("make") == 1,
         config = function()
-          require("utils").config.on_load("telescope.nvim", function()
-            require("telescope").load_extension("fzf")
-          end)
+          require("utils").config.on_load(
+            "telescope.nvim",
+            function() require("telescope").load_extension("fzf") end
+          )
         end,
       },
       { "nvim-telescope/telescope-symbols.nvim" },
@@ -587,8 +583,6 @@ return {
         "vimdoc",
       },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
+    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   },
 }
