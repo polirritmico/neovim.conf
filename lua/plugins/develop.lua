@@ -20,6 +20,12 @@ return {
       },
       dependencies = {
         {
+          -- NOTE: Instructions
+          -- 1. launch the server in the debuggee nvim whit <F10>
+          -- 2. launch second instance with the code and dap
+          -- 3. place breakpoint <leader>b
+          -- 4. Connect to the debuggee with <F5> (code instance)
+          -- 5. Run the code from the debuggee
           "mfussenegger/nvim-dap-python",
           ft = "python",
           dependencies = "mason.nvim",
@@ -55,6 +61,10 @@ return {
               })
             end
           end,
+          keys = {
+            -- stylua: ignore
+            { "<F10>", function() require("osv").launch({port = 8086}) end, mode = { "n", "v" }, ft = "lua", desc = "OSV: Launch Server." },
+          },
         },
         -- {
         --   "jbyuki/one-small-step-for-vimkind",
@@ -216,7 +226,8 @@ return {
   --- Session Manager
   {
     "rmagatti/auto-session",
-    enabled = false,
+    enabled = true,
+    event = "VeryLazy",
     opts = {
       auto_session_suppress_dirs = {
         vim.fn.expand("$HOME/"),

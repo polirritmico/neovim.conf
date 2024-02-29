@@ -1,7 +1,7 @@
 --- Mappings
 
-local utils = require("config.utils") ---@type Utils
-local map = utils.set_keymap
+local u = require("utils") ---@type Utils
+local map = u.config.set_keymap
 
 -- Leader key
 vim.g.mapleader = " "
@@ -18,7 +18,7 @@ map("v", "<", "<gv", "", true)
 map("v", ">", ">gv", "", true)
 
 -- Toggle foldcolumn
-map("n", "<leader>tf", utils.toggle_fold_column, "Show/Hide fold column")
+map("n", "<leader>tf", u.custom.toggle_fold_column, "Show/Hide fold column")
 
 -- Line number toggle
 map({ "n", "v" }, "<leader>rn", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
@@ -57,14 +57,17 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from " register to new l
 map({ "n", "v" }, "gp", "`[v`]")
 
 -- Replace default <C-g> (:f) to custom function
-map({ "n", "v" }, "<C-g>", function() utils.buffer_info() end, "Get buffer full path info")
+map({ "n", "v" }, "<C-g>", u.custom.buffer_info, "Get buffer full path info")
+
+-- Replace default <C-a>, <C-x> with custom inc and dec functions
+--u.custom.toggle_boolean()
 
 -- Change to normal mode from terminal mode
 map("t", "<C-n>", [[<c-\><c-n>]])
 
 -- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
-map("n", "<leader>gx", function() utils.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
+map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
 -- Config shortcuts
 map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Entry point for configurations")
@@ -83,6 +86,6 @@ vim.cmd([[
 
 -- Setup runners per filetype
 local runner_keymap = "<leader>rr"
-utils.set_autocmd_runner("python", runner_keymap, "!python %")
-utils.set_autocmd_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
-utils.set_autocmd_runner("bash", runner_keymap, "!./%")
+u.autocmds.set_autocmd_runner("python", runner_keymap, "!python %")
+u.autocmds.set_autocmd_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
+u.autocmds.set_autocmd_runner("bash", runner_keymap, "!./%")

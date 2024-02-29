@@ -123,6 +123,13 @@ return {
     config = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
   },
+  --- Toggle boolean values
+  {
+    "polirritmico/simple-boolean-toggle.nvim",
+    dev = true,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    config = true,
+  },
   --- Tables automatization
   {
     "dhruvasagar/vim-table-mode",

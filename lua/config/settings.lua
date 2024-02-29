@@ -1,6 +1,6 @@
 --- General Settings
 
-local utils = require("config.utils") ---@type Utils
+local u = require("utils") ---@type Utils
 local opt = vim.opt
 
 --- Nvim language
@@ -23,10 +23,7 @@ opt.magic = true -- Standard regext patterns
 vim.cmd([[autocmd TermOpen term://* startinsert]])
 
 -- Saves the current cursor position in the file.
-vim.cmd([[
-  autocmd BufRead * autocmd FileType <buffer> ++once
-    \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-]])
+u.custom.save_cursor_position()
 
 --- Appearance
 opt.cmdheight = 1 -- 0 to remove the command line below the statusbar
@@ -40,13 +37,7 @@ opt.title = true -- Set the window name
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
 
 -- Highlight yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = vim.api.nvim_create_augroup("User/TextYankHl", { clear = true }),
-  desc = "Highlight yanked text",
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+u.custom.highlight_yanked_text("TextYankPost", "User/TextYankHl")
 
 --- Mouse related
 -- Disable "How-to disable mouse" entry on mouse right click menu
@@ -86,7 +77,7 @@ opt.tabstop = 4 -- Number of indentation spaces on the screen
 --- Code folding
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
 opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression
-opt.foldtext = "v:lua.require'config.utils'.fold_text()" -- Wrap fold text function (in globals.lua)
+opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
 opt.foldenable = false -- Disable folding when opening file
 opt.foldlevelstart = 99 -- Don't fold all code when using folding
 opt.foldlevel = 1 -- Fold only 1 level?
@@ -104,23 +95,18 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- Spellcheck commands
--- stylua: ignore start
-function Spelles() utils.dict_on("es") end
-function Spellen() utils.dict_on("en") end
-function Spellend() utils.dict_off() end
--- stylua: ignore end
-vim.cmd("command! Spelles lua Spelles()")
-vim.cmd("command! Spellen lua Spellen()")
-vim.cmd("command! Spellend lua Spellend()")
+vim.api.nvim_create_user_command("Spelles", function() u.writing.dict_on("es") end, {})
+vim.api.nvim_create_user_command("Spellen", function() u.writing.dict_on("en") end, {})
+vim.api.nvim_create_user_command("Spellend", u.writing.dict_off, {})
 
 -- TwoColumns mode
-utils.set_two_columns_mode()
+u.writing.set_two_columns_mode()
 
 -- Read shebang to determine shell script filetype
-utils.set_bash_ft_from_shebang()
+u.autocmds.set_bash_ft_from_shebang()
 
 -- Redirect the output of a command into a new buffer
-utils.set_cmd_redirection()
+u.helpers.set_cmd_redirection()
 
 -- Create scratch buffers for taking notes
-utils.set_create_scratch_buffers()
+u.helpers.set_create_scratch_buffers()

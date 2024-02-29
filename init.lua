@@ -8,8 +8,8 @@ Workstation = vim.fn.hostname() == "hal-9002"
 
 -- Helper functions
 
-local utils = require("config.utils") ---@type Utils
-P = utils.custom_print
+local u = require("utils") ---@type Utils
+P = u.helpers.custom_print
 
 -- Paths
 
@@ -31,9 +31,9 @@ vim.api.nvim_set_var("MyConfigPath", MyConfigPath)
 
 --- Load configs
 
-utils.load_config("settings")
-utils.load_config("mappings")
-if not utils.detected_errors() then
+u.config.load_config("settings")
+u.config.load_config("mappings")
+if not u.config.detected_errors() then
   require("config.lazy")
 end
 if vim.g.neovide then

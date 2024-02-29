@@ -153,7 +153,9 @@ return {
         black = { prepend_args = { "--line-length", "88" } },
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
-        stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } }, -- overwrites stylua.toml
+        stylua = {
+          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+        }, -- overwrites stylua.toml
       },
     },
     init = function()
@@ -455,8 +457,7 @@ return {
         build = "make",
         enabled = vim.fn.executable("make") == 1,
         config = function()
-          local utils = require("config.utils") ---@type Utils
-          utils.on_load("telescope.nvim", function()
+          require("utils").config.on_load("telescope.nvim", function()
             require("telescope").load_extension("fzf")
           end)
         end,

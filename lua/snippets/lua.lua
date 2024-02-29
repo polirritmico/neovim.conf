@@ -56,7 +56,7 @@ return {
 
   s(
     {
-      trig = "nvimmap",
+      trig = "layoutmapnvim",
       name = "Add keymap",
       dscr = "Layout for adding custom keymaps using Neovim API.",
     },
@@ -76,6 +76,7 @@ return {
       rhs = c(3, {
         { t('"<Cmd>'), r(1, "user_rhs"), t('<CR>"') },
         { t("function() "), r(1, "user_rhs"), t(" end") },
+        { r(1, "user_rhs") },
       }),
       options = c(4, {
         t(", { silent = true }"),
@@ -94,7 +95,7 @@ return {
 
   s(
     {
-      trig = "lazymap",
+      trig = "layoutmaplazy",
       name = "Lazy keymap",
       dscr = "Layout for adding custom keymaps using the Lazy key spec.",
     },
@@ -107,6 +108,7 @@ return {
         { t('"<Cmd>'), r(1, "user_rhs"), t('<CR>"') },
         { t("function() "), r(1, "user_rhs"), t(" end") },
         { t('"'), r(1, "user_rhs"), t('"') },
+        { r(1, "user_rhs") },
       }),
       mode = c(3, {
         t(', mode = { "n", "v" }'),
@@ -134,5 +136,10 @@ return {
       dscr = "A horizontal separation line (79 characters).",
     },
     t("-------------------------------------------------------------------------------")
+  ),
+
+  s(
+    { trig = "lazyenterevent", dscr = "Add common lazy enter buffer event" },
+    t([[event = { "BufReadPost", "BufWritePost", "BufNewFile" },]])
   ),
 }
