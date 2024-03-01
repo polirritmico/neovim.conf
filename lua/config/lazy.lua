@@ -45,4 +45,4 @@ local specs_folders = {
 
 require("lazy").setup(specs_folders, opts)
 
-vim.keymap.set({ "n" }, "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Open Lazy" })
+vim.keymap.set({ "n" }, "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Lazy: Open panel" })

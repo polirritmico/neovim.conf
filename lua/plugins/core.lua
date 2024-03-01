@@ -397,7 +397,7 @@ return {
     build = { ":MasonUpdate" },
     cmd = "Mason",
     keys = {
-      { "<leader>cM", "<Cmd>Mason<CR>", desc = "Open Mason" },
+      { "<leader>cM", "<Cmd>Mason<CR>", desc = "Mason: Open panel" },
     },
     opts = {
       ensure_installed = {

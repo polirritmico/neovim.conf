@@ -128,7 +128,7 @@ return {
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keys = {
-      { "<leader>tB", "<Cmd>lua require('simple-boolean-toggle').toggle_builtins()<Cr>", desc = "Boolean Toggle" },
+      { "<leader>tB", "<Cmd>lua require('simple-boolean-toggle').toggle_builtins()<Cr>", desc = "Boolean Toggle: Enable/Disable the builtin overwrite" },
     },
     opts = {},
   },
