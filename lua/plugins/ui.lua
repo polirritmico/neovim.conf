@@ -138,7 +138,7 @@ return {
   -- To reload use `:Lazy reload monokai-nightasty.nvim`
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = true,
+    dev = false,
     lazy = false,
     priority = 1000,
     keys = {
