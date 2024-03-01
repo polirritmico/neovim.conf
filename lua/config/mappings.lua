@@ -21,7 +21,7 @@ map("v", ">", ">gv", "inner indent", true)
 map("n", "<leader>tf", u.custom.toggle_fold_column, "Show/Hide fold column")
 
 -- Line number toggle
-map({ "n", "v" }, "<leader>rn", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
+map({ "n", "v" }, "<leader>tl", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
 
 -- Buffers navigation:
 map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")

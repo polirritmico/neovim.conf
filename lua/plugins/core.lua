@@ -304,6 +304,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
+    dir = "~/Informática/Patches/LuaSnip",
     opts = {
       enable_autosnippets = false,
       -- Don't jump into snippets that have been left

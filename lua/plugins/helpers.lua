@@ -89,7 +89,6 @@ return {
       { "]t", function() require("todo-comments").jump_next() end, desc = "todo-comments: Next todo comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "todo-comments: Previous todo comment" },
       { "<leader>ft", "<Cmd>TodoTelescope<CR>", desc = "todo-comments: Open todo list in telescope" },
-      { "<leader>tl", "<Cmd>TodoQuickFix<CR>", desc = "todo-comments: Open quickfix list" },
     },
     opts = {
       -- Style test:
