@@ -20,12 +20,6 @@ return {
       },
       dependencies = {
         {
-          -- NOTE: Instructions
-          -- 1. launch the server in the debuggee nvim whit <F10>
-          -- 2. launch second instance with the code and dap
-          -- 3. place breakpoint <leader>b
-          -- 4. Connect to the debuggee with <F5> (code instance)
-          -- 5. Run the code from the debuggee
           "mfussenegger/nvim-dap-python",
           ft = "python",
           dependencies = "mason.nvim",
@@ -41,6 +35,12 @@ return {
           },
         },
         {
+          -- NOTE: Instructions
+          -- 1. launch the server in the debuggee nvim whit <F10>
+          -- 2. launch second instance with the code and dap
+          -- 3. place breakpoint <leader>b
+          -- 4. Connect to the debuggee with <F5> (code instance)
+          -- 5. Run the code from the debuggee
           "jbyuki/one-small-step-for-vimkind",
           lazy = true,
           config = function()

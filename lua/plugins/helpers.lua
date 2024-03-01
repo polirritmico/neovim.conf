@@ -75,7 +75,7 @@ return {
   --- Automatically add closing tags for HTML and JSX
   {
     "windwp/nvim-ts-autotag",
-    enabled = true,
+    enabled = false,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = true,
   },
