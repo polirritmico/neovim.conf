@@ -28,17 +28,14 @@ function M.fold_text()
   )
 end
 
----Highlight the yanked/copied text.
----@param event string|any The event name. "User/something"
----@param group string The name of the augroup group
+---Highlight the yanked/copied text. Uses the event `TextYankPost` and the
+---group name `User/TextYankHl`.
 ---@param on_yank_opts? table Options for the on_yank function. Check `:h on_yank for help`.
-function M.highlight_yanked_text(event, group, on_yank_opts)
-  vim.api.nvim_create_autocmd(event, {
-    group = vim.api.nvim_create_augroup(group, { clear = true }),
+function M.highlight_yanked_text(on_yank_opts)
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("User/TextYankHl", { clear = true }),
     desc = "Highlight yanked text",
-    callback = function()
-      vim.highlight.on_yank(on_yank_opts or {})
-    end,
+    callback = function() vim.highlight.on_yank(on_yank_opts) end,
   })
 end
 
@@ -57,12 +54,6 @@ function M.toggle_fold_column()
   else
     vim.opt.foldcolumn = "0"
   end
-end
-
----Replace the base <C-a>/<C-x> to extend toggle between boolean values.
----For example, local foo = "yes" -> local foo = "no", true to false, etc.
-function M.toggle_boolean()
-  require("utils.booleans_toggle")
 end
 
 return M

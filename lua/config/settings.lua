@@ -37,7 +37,7 @@ opt.title = true -- Set the window name
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
 
 -- Highlight yanked text
-u.custom.highlight_yanked_text("TextYankPost", "User/TextYankHl")
+u.custom.highlight_yanked_text()
 
 --- Mouse related
 -- Disable "How-to disable mouse" entry on mouse right click menu

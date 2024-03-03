@@ -531,6 +531,9 @@ return {
             },
           },
         },
+        -- pickers = {
+        --   keymaps = { show_plug = false },
+        -- },
         extensions = {
           file_browser = {
             follow_symlinks = true,
