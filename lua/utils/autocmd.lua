@@ -1,14 +1,15 @@
-local M = {}
+---Functions that create autocommands helpers
+---@class UtilsAutoCmds
+local UtilsAutoCmds = {}
 
 ---Sets up an autocmd to create a custom mapping for the passed filetype.
----
 ---This function automatically creates a custom mapping defined by the provided
 ---`keymap` when the specified `filetype` is detected. When pressed the mapping,
 ---it run the passed external command (`ext_cmd`) over the current buffer.
 ---@param filetype string Filetype extension
 ---@param keymap string Mapping that is going to trigger the command
 ---@param ext_cmd string Command to run the file. Should begin with "`!`" and end with "` %`".
-function M.set_autocmd_runner(filetype, keymap, ext_cmd)
+function UtilsAutoCmds.set_autocmd_runner(filetype, keymap, ext_cmd)
   local cmd = "noremap " .. keymap .. " <Cmd>" .. ext_cmd .. "<CR>"
   vim.api.nvim_create_autocmd({ "FileType" }, {
     command = cmd,
@@ -19,7 +20,7 @@ end
 
 ---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
 ---to `bash` if matches.
-function M.set_bash_ft_from_shebang()
+function UtilsAutoCmds.set_bash_ft_from_shebang()
   local augroup = "ShebangFtDetection"
   vim.api.nvim_create_augroup(augroup, { clear = false })
   vim.api.nvim_create_autocmd({ "Filetype" }, {
@@ -36,4 +37,4 @@ function M.set_bash_ft_from_shebang()
   })
 end
 
-return M
+return UtilsAutoCmds

@@ -109,4 +109,7 @@ u.autocmds.set_bash_ft_from_shebang()
 u.helpers.set_cmd_redirection()
 
 -- Create scratch buffers for taking notes
-u.helpers.set_create_scratch_buffers()
+u.custom.set_create_scratch_buffers()
+
+-- Open directories with telescope-file-browser
+u.custom.attach_telescope_file_browser()

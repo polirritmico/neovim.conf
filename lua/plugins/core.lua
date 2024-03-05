@@ -461,7 +461,7 @@ return {
       { "nvim-telescope/telescope-symbols.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "crispgm/telescope-heading.nvim" },
-      { "polirritmico/telescope-lazy-plugins.nvim", dev = false },
+      { "polirritmico/telescope-lazy-plugins.nvim", dev = true },
     },
     -- stylua: ignore
     keys = {
@@ -470,6 +470,7 @@ return {
       { "<leader>fF", "<Cmd>Telescope find_files cwd=%:p:h hidden=true<CR>", desc = "Telescope: Find files (from file path)" },
       { "<leader>fb", "<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "Telescope: Find/Switch between buffers" },
       { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Telescope: Find grep" },
+      -- { "<leader>fG", "<Cmd>Telescope live_grep cwd=<CR>", desc = "Telescope: Find grep (from buffer path)" },
       { "<leader>fg", "<Cmd>Telescope grep_string<CR>", mode = "x", desc = "Telescope: Find Grep (selected string)" },
       { "<leader>fr", "<Cmd>Telescope registers<CR>", mode = { "n", "v" }, desc = "Telescope: Select and paste from registers" },
       { "<leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "Telescope: Find recent/old files" },
@@ -531,9 +532,7 @@ return {
             },
           },
         },
-        -- pickers = {
-        --   keymaps = { show_plug = false },
-        -- },
+        -- pickers = { keymaps = { show_plug = false } },
         extensions = {
           file_browser = {
             follow_symlinks = true,

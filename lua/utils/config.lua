@@ -1,4 +1,6 @@
-local M = {}
+---Functions helpers used to configure Nvim.
+---@class UtilsConfig
+local Config = {}
 
 ---@type table Collection of errors detected by `load_config` (if any).
 ---@private
@@ -9,7 +11,7 @@ local catched_errors = {}
 ---If an error is detected it will **ask the user** to open the offending file.
 ---If `y` is pressed, it would open each error file in its own buffer.
 ---@return boolean # `true` if errors are detected. `false` otherwise.
-function M.detected_errors()
+function Config.detected_errors()
   if #catched_errors == 0 then
     return false
   end
@@ -31,7 +33,7 @@ end
 ---
 ---> This expect a fallback config `<module-name.lua>` in the `fallback` folder.
 ---@param module string Name of the config module to load.
-function M.load_config(module)
+function Config.load_config(module)
   local ok, err = pcall(require, "config." .. module)
   if not ok then
     table.insert(catched_errors, module)
@@ -46,7 +48,7 @@ end
 ---@param start_time integer Start time of the range in HHMM format (inclusive)
 ---@param end_time integer End time of the range in HHMM format (exclusive)
 ---@return boolean
-function M.in_hours_range(start_time, end_time)
+function Config.in_hours_range(start_time, end_time)
   local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
   local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
 
@@ -56,7 +58,7 @@ end
 ---Create autocmds at "LazyLoad" events.
 ---@param plugin_name string
 ---@param fn fun(plugin_name:string)
-function M.on_load(plugin_name, fn)
+function Config.on_load(plugin_name, fn)
   local lazy_cfg = require("lazy.core.config")
   if lazy_cfg.plugins[plugin_name] and lazy_cfg.plugins[plugin_name]._.loaded then
     fn(plugin_name)
@@ -79,7 +81,7 @@ end
 ---@param command string|function Right-hand side of the mapping, could be a Lua function.
 ---@param description? string Optional human-readable description of the mapping, default to nil.
 ---@param verbose? boolean Optional set to true to disable the silent-mode. Default to false.
-function M.set_keymap(mode, key, command, description, verbose)
+function Config.set_keymap(mode, key, command, description, verbose)
   local silent = verbose == nil or not verbose
   if description == nil or description == "" then
     vim.keymap.set(mode, key, command, { silent = silent })
@@ -88,4 +90,4 @@ function M.set_keymap(mode, key, command, description, verbose)
   end
 end
 
-return M
+return Config

@@ -57,7 +57,7 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from the `"` register to
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
 
 -- Replace default <C-g> (:f) to custom function
-map({ "n", "v" }, "<C-g>", u.custom.buffer_info, "Get buffer fullpath info and current position in %")
+map({ "n", "v" }, "<C-g>", u.helpers.buffer_info, "Get buffer fullpath info and current position in %")
 
 -- Change to normal mode from terminal mode
 map("t", "<C-n>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)")
@@ -86,3 +86,8 @@ local runner_keymap = "<leader>rr"
 u.autocmds.set_autocmd_runner("python", runner_keymap, "!python %")
 u.autocmds.set_autocmd_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmds.set_autocmd_runner("bash", runner_keymap, "!./%")
+
+-- Setup custom spell commands
+vim.keymap.set({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", { silent = true, desc = "Enable english spell check" } )
+vim.keymap.set({ "n", "v" }, "<leader>Ss", "<Cmd>Spelles<CR>", { silent = true, desc = "Enable spanish spell check" } )
+vim.keymap.set({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", { silent = true, desc = "Disable spell check" } )

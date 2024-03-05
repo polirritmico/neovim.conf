@@ -1,8 +1,10 @@
-local M = {}
+---Helper functions used to facilitate commonly used Nvim operations
+---@class UtilsHelpers
+local Helpers = {}
 
 ---Give execution permissions to the current buffer if its filetype is in the list
 ---@param valid_filetypes table<string> Table of accepted filetypes
-function M.chmod_exe(valid_filetypes)
+function Helpers.chmod_exe(valid_filetypes)
   for _, ft in pairs(valid_filetypes) do
     if ft == vim.bo.filetype then
       vim.cmd([[!chmod +x %]])
@@ -18,7 +20,7 @@ end
 ---Wrapper function to pretty print variables instead of getting memory addresses.
 ---@param ... any Variable or variables to pretty print
 ---@return any # Return the variables unpacked
-function M.custom_print(...)
+function Helpers.custom_print(...)
   local args = { ... }
   local mapped = {}
   if args == nil then
@@ -35,7 +37,7 @@ end
 
 ---Redirects the output of the passed command-line into a new buffer
 --- **Usage:** `:Redir <the command>`
-function M.set_cmd_redirection()
+function Helpers.set_cmd_redirection()
   vim.api.nvim_create_user_command("Redir", function(ctx)
     local lines = vim.split(vim.api.nvim_exec(ctx.args, true), "\n", { plain = true })
     vim.cmd("enew") -- `new` split the window
@@ -45,23 +47,12 @@ function M.set_cmd_redirection()
   end, { nargs = "+", complete = "command" })
 end
 
----Create a buffer for taking notes into a scratch buffer
---- **Usage:** `Scratch`
-function M.set_create_scratch_buffers()
-  vim.api.nvim_create_user_command("Scratch", function()
-    vim.cmd("bel 10new")
-    local buf = vim.api.nvim_get_current_buf()
-    local opts = {
-      bufhidden = "hide",
-      buftype = "nofile",
-      filetype = "scratch",
-      modifiable = true,
-      swapfile = false,
-    }
-    for key, value in pairs(opts) do
-      vim.api.nvim_set_option_value(key, value, { buf = buf })
-    end
-  end, { desc = "Create a scratch buffer" })
+---Replace for <C-g> to get the full current buffer path
+function Helpers.buffer_info()
+  local file = vim.fn.expand("%:p")
+  local line = vim.fn.line(".")
+  local percentage = math.floor(line * 100 / vim.fn.line("$"))
+  vim.notify(string.format([["%s" %i lines --%i%%--]], file, line, percentage))
 end
 
-return M
+return Helpers
