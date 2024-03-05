@@ -110,6 +110,3 @@ u.helpers.set_cmd_redirection()
 
 -- Create scratch buffers for taking notes
 u.custom.set_create_scratch_buffers()
-
--- Open directories with telescope-file-browser
-u.custom.attach_telescope_file_browser()

@@ -458,19 +458,31 @@ return {
           )
         end,
       },
+      {
+        "nvim-telescope/telescope-file-browser.nvim",
+        init = function() require("utils").custom.attach_telescope_file_browser() end,
+      },
+      {
+        "polirritmico/telescope-lazy-plugins.nvim",
+        dev = true,
+        config = function()
+          require("utils").config.on_load(
+            "telescope.nvim",
+            function() require("telescope").load_extension("lazy_plugins") end
+          )
+        end,
+      },
       { "nvim-telescope/telescope-symbols.nvim" },
-      { "nvim-telescope/telescope-file-browser.nvim" },
       { "crispgm/telescope-heading.nvim" },
-      { "polirritmico/telescope-lazy-plugins.nvim", dev = true },
     },
     -- stylua: ignore
     keys = {
       -- Builtins
       { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Telescope: Find files (nvim runtime path)" },
-      { "<leader>fF", "<Cmd>Telescope find_files cwd=%:p:h hidden=true<CR>", desc = "Telescope: Find files (from file path)" },
+      { "<leader>fF", "<Cmd>Telescope find_files cwd=%:p:h hidden=true prompt_title=Find\\ Files\\ (cwd\\ from\\ file)<CR>", desc = "Telescope: Find files (from file path)" },
       { "<leader>fb", "<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "Telescope: Find/Switch between buffers" },
       { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Telescope: Find grep" },
-      -- { "<leader>fG", "<Cmd>Telescope live_grep cwd=<CR>", desc = "Telescope: Find grep (from buffer path)" },
+      { "<leader>fG", "<Cmd>Telescope live_grep cwd=%:p:h prompt_title=Live\\ Grep\\ (cwd\\ from\\ file)<CR>", desc = "Telescope: Find grep (from buffer path)" },
       { "<leader>fg", "<Cmd>Telescope grep_string<CR>", mode = "x", desc = "Telescope: Find Grep (selected string)" },
       { "<leader>fr", "<Cmd>Telescope registers<CR>", mode = { "n", "v" }, desc = "Telescope: Select and paste from registers" },
       { "<leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "Telescope: Find recent/old files" },
@@ -536,6 +548,7 @@ return {
         extensions = {
           file_browser = {
             follow_symlinks = true,
+            hijack_netrw = true,
           },
           lazy_plugins = {
             show_disabled = true,

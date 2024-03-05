@@ -51,7 +51,7 @@ function Custom.toggle_fold_column()
 end
 
 ---Create an autocommand to launch Telescope file browser when opening dirs.
----This is a copy from the plugin code function `hijack_netrw` (without the
+---This is a copy from the plugin local function `hijack_netrw` (without the
 ---netrw part) that allows lazy-loading of the plugin without requiring
 ---Telescope at startup.
 function Custom.attach_telescope_file_browser()
