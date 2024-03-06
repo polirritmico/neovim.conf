@@ -55,24 +55,24 @@ end
 ---netrw part) that allows lazy-loading of the plugin without requiring
 ---Telescope at startup.
 function Custom.attach_telescope_file_browser()
-  local browser_bufname
+  local previous_buffer_name
   vim.api.nvim_create_autocmd("BufEnter", {
     group = vim.api.nvim_create_augroup("UserFileBrowser", { clear = true }),
     pattern = "*",
     callback = function()
       vim.schedule(function()
-        local bufname = vim.api.nvim_buf_get_name(0)
-        if vim.fn.isdirectory(bufname) == 0 then
-          _, browser_bufname = pcall(vim.fn.expand, "#:p:h")
+        local buffer_name = vim.api.nvim_buf_get_name(0)
+        if vim.fn.isdirectory(buffer_name) == 0 then
+          _, previous_buffer_name = pcall(vim.fn.expand, "#:p:h")
           return
         end
 
         -- Avoid reopening when exiting without selecting a file
-        if browser_bufname == bufname then
-          browser_bufname = nil
+        if previous_buffer_name == buffer_name then
+          previous_buffer_name = nil
           return
         else
-          browser_bufname = bufname
+          previous_buffer_name = buffer_name
         end
 
         -- Ensure no buffers remain with the directory name
