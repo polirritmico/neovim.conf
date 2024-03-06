@@ -229,27 +229,19 @@ return {
       })
 
       --- Servers configurations `:h lspconfig-configurations`
-      local function default_setup(server) lspconfig[server].setup({}) end
-
-      local function config_clangd()
-        lspconfig.clangd.setup({
+      local servers_configs = {
+        clangd = {
           cmd = { "clangd", "--fallback-style=WebKit" },
-        })
-      end
-
-      local function config_lua_ls()
-        lspconfig.lua_ls.setup({
+        },
+        lua_ls = {
           settings = {
             Lua = {
               workspace = { checkThirdParty = false },
               completion = { callSnippet = "Replace" },
             },
           },
-        })
-      end
-
-      local function config_pylsp()
-        lspconfig.pylsp.setup({
+        },
+        pylsp = {
           settings = {
             pylsp = {
               plugins = {
@@ -262,19 +254,16 @@ return {
               },
             },
           },
-        })
-      end
-
-      local function config_texlab()
-        lspconfig.texlab.setup({
+        },
+        texlab = {
           settings = { texlab = { latexFormatter = "texlab" } },
-        })
-      end
+        },
+      }
 
-      local lsp_defaults = lspconfig.util.default_config
-      lsp_defaults.capabilities = vim.tbl_deep_extend(
+      -- Add cmp capabilities to nvim defaults
+      local capabilities = vim.tbl_deep_extend(
         "force",
-        lsp_defaults.capabilities,
+        vim.lsp.protocol.make_client_capabilities(),
         require("cmp_nvim_lsp").default_capabilities()
       )
 
@@ -282,11 +271,12 @@ return {
       mason_lsp.setup({
         ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp" },
         handlers = {
-          default_setup,
-          clangd = config_clangd,
-          lua_ls = config_lua_ls,
-          pylsp = config_pylsp,
-          texlab = config_texlab,
+          function(server_name)
+            local server = servers_configs[server_name] or {}
+            server.capabilities =
+              vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+            require("lspconfig")[server_name].setup(server)
+          end,
         },
       })
 
