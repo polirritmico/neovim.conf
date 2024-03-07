@@ -138,7 +138,7 @@ return {
   -- To reload use `:Lazy reload monokai-nightasty.nvim`
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = false,
+    dev = true,
     lazy = false,
     priority = 1000,
     keys = {
@@ -154,6 +154,7 @@ return {
       color_headers = false,
       lualine_bold = true,
       lualine_style = "default",
+      markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
     },
     config = function(_, opts)
