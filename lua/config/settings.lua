@@ -103,7 +103,7 @@ vim.api.nvim_create_user_command("Spellend", u.writing.dict_off, {})
 u.writing.set_two_columns_mode()
 
 -- Read shebang to determine shell script filetype
-u.autocmds.set_bash_ft_from_shebang()
+u.autocmd.set_bash_ft_from_shebang()
 
 -- Redirect the output of a command into a new buffer
 u.helpers.set_cmd_redirection()

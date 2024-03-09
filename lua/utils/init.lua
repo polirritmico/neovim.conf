@@ -2,7 +2,7 @@
 ---@class Utils
 local Utils = {}
 
-Utils.autocmds = require("utils.autocmd")
+Utils.autocmd = require("utils.autocmd")
 Utils.config = require("utils.config")
 Utils.helpers = require("utils.helpers")
 Utils.custom = require("utils.custom")

@@ -22,8 +22,10 @@ MyPluginsPath = Workstation and vim.fn.expand("$HOME/Informática/Programación/
   or vim.fn.expand("$HOME/Proyectos/")
 
 -- Check paths
-assert(vim.fn.finddir(MyConfigPath) ~= "", "Error: Missing configuration path?!")
-assert(vim.fn.finddir(MyPluginsPath) ~= "", "Error: Missing personal plugins path.")
+assert(vim.fn.finddir(MyConfigPath) ~= "", "Unexpected: Missing configuration path?!")
+if vim.fn.finddir(MyPluginsPath) == "" then
+  vim.notify("Missing personal plugins path.", vim.log.levels.WARN)
+end
 
 -- Set variables for vimscript env
 vim.api.nvim_set_var("NeovimPath", NeovimPath)
@@ -35,7 +37,4 @@ u.config.load_config("settings")
 u.config.load_config("mappings")
 if not u.config.detected_errors() then
   require("config.lazy")
-end
-if vim.g.neovide then
-  require("config.neovide")
 end

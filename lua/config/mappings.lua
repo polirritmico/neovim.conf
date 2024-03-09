@@ -83,9 +83,9 @@ vim.cmd([[
 
 -- Setup runners per filetype
 local runner_keymap = "<leader>rr"
-u.autocmds.set_autocmd_runner("python", runner_keymap, "!python %")
-u.autocmds.set_autocmd_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
-u.autocmds.set_autocmd_runner("bash", runner_keymap, "!./%")
+u.autocmd.set_runner("python", runner_keymap, "!python %")
+u.autocmd.set_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
+u.autocmd.set_runner("bash", runner_keymap, "!./%")
 
 -- Setup custom spell commands
 vim.keymap.set({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", { silent = true, desc = "Enable english spell check" } )

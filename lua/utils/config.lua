@@ -55,31 +55,6 @@ function Config.in_hours_range(start_time, end_time)
   return system_time >= start_time and system_time < end_time
 end
 
----Create autocmds at "LazyLoad" events.
----The LazyLoad events are triggered by Lazy after loading a plugin, with the name of
----the loaded plugin in the `data` field of the event.
----This function checks if the plugin is already loaded and execute the passed
----function. If not, then it sets an autocmd that waits for the event and
----execute the passed function.
----@param plugin_name string Name of the plugin to wait
----@param fn fun(plugin_name:string) Function to execute after the plugin is loaded
-function Config.on_load(plugin_name, fn)
-  local lazy_cfg = require("lazy.core.config").plugins
-  if lazy_cfg[plugin_name] and lazy_cfg[plugin_name]._.loaded then
-    fn(plugin_name)
-  else
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyLoad",
-      callback = function(event)
-        if event.data == plugin_name then
-          fn(plugin_name)
-          return true
-        end
-      end,
-    })
-  end
-end
-
 ---A wrapper of `vim.keymap.set` function.
 ---@param mode string|table Mode short-name
 ---@param key string Left-hand side of the mapping, the keys to be pressed.

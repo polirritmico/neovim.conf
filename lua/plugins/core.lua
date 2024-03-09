@@ -442,7 +442,7 @@ return {
         build = "make",
         enabled = vim.fn.executable("make") == 1,
         init = function()
-          require("utils").config.on_load(
+          require("utils").autocmd.on_load(
             "telescope.nvim",
             function() require("telescope").load_extension("fzf") end
           )
@@ -456,7 +456,7 @@ return {
         "polirritmico/telescope-lazy-plugins.nvim",
         dev = false,
         init = function()
-          require("utils").config.on_load(
+          require("utils").autocmd.on_load(
             "telescope.nvim",
             function() require("telescope").load_extension("lazy_plugins") end
           )
