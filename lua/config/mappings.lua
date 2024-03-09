@@ -88,6 +88,6 @@ u.autocmd.set_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmd.set_runner("bash", runner_keymap, "!./%")
 
 -- Setup custom spell commands
-vim.keymap.set({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", { silent = true, desc = "Enable english spell check" } )
-vim.keymap.set({ "n", "v" }, "<leader>Ss", "<Cmd>Spelles<CR>", { silent = true, desc = "Enable spanish spell check" } )
-vim.keymap.set({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", { silent = true, desc = "Disable spell check" } )
+map({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", "Enable english spell check")
+map({ "n", "v" }, "<leader>Ss", "<Cmd>Spelles<CR>", "Enable spanish spell check")
+map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")

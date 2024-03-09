@@ -13,12 +13,17 @@ function Writing.dict_on(lang)
     vim.opt.spelllang = lang
   end
   vim.opt.spell = true
+  vim.notify("Spell enabled " .. lang)
 end
 
 ---Disable spell checkers and unset the `spelllang` variable.
 function Writing.dict_off()
+  if vim.api.nvim_get_option("spelllang") == "" then
+    return
+  end
   vim.opt.spelllang = ""
   vim.opt.spell = false
+  vim.notify("Spell disabled")
 end
 
 ---This function enables the **TwoColumns** mode, which splits the current
