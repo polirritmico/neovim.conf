@@ -3,17 +3,15 @@ return {
   {
     "famiu/bufdelete.nvim",
     event = "VeryLazy",
-    keys = function()
-      return {
-        {
-          "<leader>db",
-          function() require("bufdelete").bufdelete(0, true) end,
-          { "n", "v" },
-          desc = "bufdelete: Fercibly delete the current buffer.",
-          silent = true,
-        },
-      }
-    end,
+    keys = {
+      {
+        "<leader>db",
+        function() require("bufdelete").bufdelete(0, true) end,
+        { "n", "v" },
+        desc = "bufdelete: Fercibly delete the current buffer.",
+        silent = true,
+      },
+    },
   },
   --- Git: Highlight code changes from last commit
   {
