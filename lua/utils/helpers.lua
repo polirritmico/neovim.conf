@@ -39,7 +39,8 @@ end
 --- **Usage:** `:Redir <the command>`
 function Helpers.set_cmd_redirection()
   vim.api.nvim_create_user_command("Redir", function(ctx)
-    local lines = vim.split(vim.api.nvim_exec(ctx.args, true), "\n", { plain = true })
+    local cmd_output = vim.api.nvim_exec(ctx.args, { output = true })
+    local lines = vim.split(cmd_output, "\n", { plain = true })
     vim.cmd("enew") -- `new` split the window
     vim.bo.filetype = "lua"
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
