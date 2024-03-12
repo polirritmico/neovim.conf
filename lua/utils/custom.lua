@@ -105,4 +105,41 @@ function Custom.set_create_scratch_buffers()
   end, { desc = "Create a scratch buffer" })
 end
 
+---Custom lualine section that integrates Harpoon marks
+---@return string
+function Custom.lualine_harpoon()
+  local hp_list = require("harpoon"):list()
+  local total_marks = hp_list:length()
+  if total_marks == 0 then
+    return ""
+  end
+
+  local nvim_mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+  local hp_keymap = { "j", "k", "l", "h" }
+  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
+    or nvim_mode == "i" and "%#lualine_b_insert#"
+    or nvim_mode == "c" and "%#lualine_b_command#"
+    or "%#lualine_b_visual#"
+  local hl_selected = string.find("vV", nvim_mode)
+      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
+    or "%#lualine_b_diagnostics_warn_normal#"
+
+  local full_name = vim.api.nvim_buf_get_name(0)
+  local buffer_name = vim.fn.expand("%")
+  local output = { " " }
+
+  for index = 1, total_marks <= 4 and total_marks or 4 do
+    local mark = hp_list.items[index].value
+    if mark == buffer_name or mark == full_name then
+      table.insert(output, hl_selected)
+      table.insert(output, hp_keymap[index])
+      table.insert(output, hl_normal)
+    else
+      table.insert(output, hp_keymap[index])
+    end
+  end
+
+  return table.concat(output, "")
+end
+
 return Custom
