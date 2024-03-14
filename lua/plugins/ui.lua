@@ -129,7 +129,6 @@ return {
       return {
         options = {
           disabled_filetypes = { statusline = { "dashboard", "man" } },
-          theme = "monokai-nightasty",
         },
         extensions = { "lazy" },
         sections = { lualine_y = section_y },

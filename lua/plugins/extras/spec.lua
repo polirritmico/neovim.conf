@@ -31,7 +31,7 @@ return {
               key = "e",
             },
             {
-              action = "Telescope persisted",
+              action = function() require("auto-session.session-lens").search_session() end,
               desc = " Restore Session",
               icon = " ",
               key = "<leader>fs",
@@ -246,9 +246,7 @@ return {
           "toggleterm",
           "lazyterm",
         },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
+        callback = function() vim.b.miniindentscope_disable = true end,
       })
     end,
   },

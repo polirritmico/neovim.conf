@@ -17,6 +17,28 @@ return {
 
   s(
     {
+      trig = "header",
+      name = "Framed header",
+      dscr = "A framed header that wraps around the content.",
+    },
+    fmt(
+      [[
+        ---{}---
+        -- {} --
+        ---{}---
+
+        {}]],
+      {
+        f(function(args) return string.rep("-", string.len(args[1][1])) end, { 1 }),
+        i(1),
+        f(function(args) return string.rep("-", string.len(args[1][1])) end, { 1 }),
+        i(0),
+      }
+    )
+  ),
+
+  s(
+    {
       trig = "license",
       name = "License Layout",
       dscr = "Template with various licenses.",
@@ -31,14 +53,8 @@ return {
 
             ]],
       {
-        f(function()
-          return os.date("%Y")
-        end),
-        c(1, {
-          t("Eduardo Bray (ejbray@uc.cl)"),
-          t("Estudios 6/8 (bakumapu@gmail.com)"),
-          i(1),
-        }),
+        f(function() return os.date("%Y") end),
+        i(1, "Name (email)"),
         i(2, "Project-Name"),
         c(3, {
           t("GPLv2 License: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"),
@@ -47,32 +63,6 @@ return {
           t("MIT License: https://mit-license.org/"),
           i(1),
         }),
-      }
-    )
-  ),
-
-  s(
-    {
-      trig = "header",
-      name = "Framed header",
-      dscr = "A framed header that wraps around the content.",
-    },
-    fmt(
-      [[
-        ---{}---
-        -- {} --
-        ---{}---
-
-        {}]],
-      {
-        f(function(args)
-          return string.rep("-", string.len(args[1][1]))
-        end, { 1 }),
-        i(1),
-        f(function(args)
-          return string.rep("-", string.len(args[1][1]))
-        end, { 1 }),
-        i(0),
       }
     )
   ),

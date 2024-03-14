@@ -226,7 +226,7 @@ return {
     "rmagatti/auto-session",
     enabled = false,
     dir = "/home/eduardo/Informática/Patches/auto-session",
-    event = "VeryLazy",
+    lazy = false,
     opts = {
       auto_session_suppress_dirs = {
         vim.fn.expand("$HOME/"),
