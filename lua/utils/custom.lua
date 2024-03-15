@@ -126,7 +126,7 @@ function Custom.lualine_harpoon()
 
   local full_name = vim.api.nvim_buf_get_name(0)
   local buffer_name = vim.fn.expand("%")
-  local output = { " " }
+  local output = { " " } -- 󰀱
 
   for index = 1, total_marks <= 4 and total_marks or 4 do
     local mark = hp_list.items[index].value
