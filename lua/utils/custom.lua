@@ -105,40 +105,53 @@ function Custom.set_create_scratch_buffers()
   end, { desc = "Create a scratch buffer" })
 end
 
----Custom lualine section that integrates Harpoon marks
+---Custom lualine section that integrates Harpoon marks.
+---Since this is running constanly, to optimize performance (at least in a tiny
+---ammount), here we are caching the static variables and returning the actual
+---function that does the work (`Custom.lualine_harpoon`).
+---@return function Custom.lualine_harpoon
+function Custom.set_lualine_harpoon()
+  Custom.llh_cache = {
+    keymaps = { "j", "k", "l", "h" },
+    hl_normal = {
+      ["n"] = "%#lualine_b_normal#",
+      ["i"] = "%#lualine_b_insert#",
+      ["c"] = "%#lualine_b_command#",
+    },
+    hl_normal_default = "%#lualine_b_visual#",
+    hl_selected = {
+      ["v"] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
+      ["V"] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
+      [""] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
+    },
+    hl_selected_default = "%#lualine_b_diagnostics_warn_normal#",
+  }
+  return Custom.lualine_harpoon
+end
+
+---Return a custom lualine tabline section that integrates Harpoon marks.
+---> Don't set directly or it would fail: Use `Custom.set_lualine_harpoon()`.
 ---@return string
 function Custom.lualine_harpoon()
   local hp_list = require("harpoon"):list()
-  local total_marks = hp_list:length()
-  if total_marks == 0 then
+  local hp_current_total_marks = hp_list:length()
+  if hp_current_total_marks == 0 then
     return ""
   end
 
-  local nvim_mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-  local hp_keymap = { "j", "k", "l", "h" }
-  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
-    or nvim_mode == "i" and "%#lualine_b_insert#"
-    or nvim_mode == "c" and "%#lualine_b_command#"
-    or "%#lualine_b_visual#"
-  local hl_selected = string.find("vV", nvim_mode)
-      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
-    or "%#lualine_b_diagnostics_warn_normal#"
-
-  local full_name = vim.api.nvim_buf_get_name(0)
-  local buffer_name = vim.fn.expand("%")
+  local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
   local output = { " " } -- 󰀱
-
-  for index = 1, total_marks <= 4 and total_marks or 4 do
+  for index = 1, hp_current_total_marks <= 4 and hp_current_total_marks or 4 do
     local mark = hp_list.items[index].value
-    if mark == buffer_name or mark == full_name then
-      table.insert(output, hl_selected)
-      table.insert(output, hp_keymap[index])
-      table.insert(output, hl_normal)
+    -- stylua: ignore
+    if mark == vim.fn.expand("%") or mark == vim.api.nvim_buf_get_name(0) then
+      table.insert(output, Custom.llh_cache.hl_selected[mode] or Custom.llh_cache.hl_selected_default)
+      table.insert(output, Custom.llh_cache.keymaps[index])
+      table.insert(output, Custom.llh_cache.hl_normal[mode] or Custom.llh_cache.hl_normal_default)
     else
-      table.insert(output, hp_keymap[index])
+      table.insert(output, Custom.llh_cache.keymaps[index])
     end
   end
-
   return table.concat(output, "")
 end
 
