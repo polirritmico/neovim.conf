@@ -134,10 +134,11 @@ return {
         ["*"] = { "trim_whitespace" },
         css = { "prettier" },
         json = { "prettier" },
-        yaml = { "prettier" },
         lua = { "stylua" },
+        markdown = { "prettier_markdown" },
         python = { "isort", "black" },
         sh = { "shfmt" },
+        yaml = { "prettier" },
       },
       format_on_save = function(bufnr)
         -- Only apply format if `disable_autoformat` is not true
@@ -180,6 +181,22 @@ return {
       })
 
       require("conform").setup(opts)
+
+      -- Add markdown custom prettier
+      require("conform").formatters.prettier_markdown = function()
+        return {
+          command = require("conform.util").from_node_modules("prettier"),
+          cwd = require("conform.formatters.prettier").cwd,
+          args = {
+            "--prose-wrap",
+            "always",
+            "--print-width",
+            "80",
+            "--stdin-filepath",
+            "$FILENAME",
+          },
+        }
+      end
     end,
   },
   --- Language Server Protocol

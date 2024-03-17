@@ -1,5 +1,5 @@
---- Fix close {} indentation for Python
 return {
+  --- Fix close {} indentation for Python
   {
     "Vimjas/vim-python-pep8-indent",
     ft = "python",
@@ -7,13 +7,14 @@ return {
   --- Pairs of (), [], {}, etc.
   {
     "windwp/nvim-autopairs",
+    enabled = false,
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
     opts = {
       enable_check_bracket_line = true,
       fast_wrap = {
         map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
+        chars = { "{", "[", "(", '"', "'", "`" },
         pattern = [=[[%'%"%>%]%)%}%,]]=],
         end_key = "L",
         keys = "asdfghjklqwertyuiopzxcvbnm",
@@ -72,11 +73,11 @@ return {
       end
     end,
   },
-  --- Automatically add closing tags for HTML and JSX
+  --- Surround operations
   {
-    "windwp/nvim-ts-autotag",
-    enabled = false,
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    "kylechui/nvim-surround",
+    version = "*", -- latest stable
+    event = "VeryLazy",
     config = true,
   },
   --- TODO, FIX, etc. comments highlights
@@ -134,6 +135,7 @@ return {
   --- Tables automatization
   {
     "dhruvasagar/vim-table-mode",
+    enabled = false,
     ft = "markdown",
     init = function()
       -- Avoid polluting <leader>t mappings. (keep <leader>tm for enable)
