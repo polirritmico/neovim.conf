@@ -304,7 +304,7 @@ return {
   --- Snippets
   {
     "L3MON4D3/LuaSnip",
-    version = "v2.*",
+    -- version = "v2.*",
     opts = {
       enable_autosnippets = false,
       -- Don't jump into snippets that have been left

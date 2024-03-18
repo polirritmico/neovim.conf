@@ -3,7 +3,6 @@ return {
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
-    -- dir = "~/Informática/Patches/dashboard-nvim",
     opts = function()
       local opts = {
         theme = "doom",
