@@ -3,6 +3,7 @@ return {
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
+    -- dir = "~/Informática/Patches/dashboard-nvim",
     opts = function()
       local opts = {
         theme = "doom",
@@ -31,7 +32,8 @@ return {
               key = "e",
             },
             {
-              action = function() require("auto-session.session-lens").search_session() end,
+              -- action = function() require("auto-session.session-lens").search_session() end,
+              action = function() vim.notify("No session manager set!") end,
               desc = " Restore Session",
               icon = " ",
               key = "<leader>fs",

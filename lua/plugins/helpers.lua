@@ -7,7 +7,6 @@ return {
   --- Pairs of (), [], {}, etc.
   {
     "windwp/nvim-autopairs",
-    enabled = false,
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
     opts = {
@@ -78,7 +77,18 @@ return {
     "kylechui/nvim-surround",
     version = "*", -- latest stable
     event = "VeryLazy",
-    config = true,
+    config = {
+      -- TODO: While learning this maps I'm keeping the defaults on the right.
+      -- Remove in a few months.
+      keymaps = {
+        -- Change the mappings, there is no reason to keep `s`.
+        normal = "s", -- ys
+        normal_cur = "ss", -- yss
+        normal_cur_line = "sS", -- ySS
+        visual = "s", -- S
+        visual_line = "S", -- gS
+      },
+    },
   },
   --- TODO, FIX, etc. comments highlights
   {

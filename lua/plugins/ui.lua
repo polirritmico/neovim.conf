@@ -124,7 +124,7 @@ return {
       lualine_require.require = require
 
       local section_y = not Workstation and { "progress" }
-        or { "progress", require("utils.custom").set_lualine_harpoon() }
+        or { "progress", require("utils.custom").lualine_harpoon }
 
       return {
         options = {
@@ -157,6 +157,11 @@ return {
       lualine_style = "default",
       markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
+      on_highlights = function(hl, _)
+        -- HACK: This fix dapui buttons panel: https://github.com/rcarriga/nvim-dap-ui/issues/315
+        hl.StatusLineNormal = { link = "Normal" }
+        hl.StatusLineNC = { link = "NormalNC" }
+      end,
     },
     config = function(_, opts)
       vim.opt.cursorline = true -- Highlight line at the cursor position

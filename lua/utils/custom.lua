@@ -2,6 +2,8 @@
 ---@class UtilsCustom
 local Custom = {}
 
+local api = vim.api
+
 ---Function used to set a custom text when called by a fold action like zc.
 ---To set it check `:h v:lua-call` and `:h foldtext`.
 function Custom.fold_text()
@@ -26,14 +28,15 @@ end
 ---group name `User/TextYankHl`.
 ---@param on_yank_opts? table Options for the on_yank function. Check `:h on_yank for help`.
 function Custom.highlight_yanked_text(on_yank_opts)
-  vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("User/TextYankHl", { clear = true }),
+  api.nvim_create_autocmd("TextYankPost", {
+    group = api.nvim_create_augroup("User/TextYankHl", { clear = true }),
     desc = "Highlight yanked text",
     callback = function() vim.highlight.on_yank(on_yank_opts) end,
   })
 end
 
----Keeps the current buffer position across sessions.
+---Restore the cursor position when last exiting the current buffer.
+---Copied from the manual. Check `:h restore-cursor`
 function Custom.save_cursor_position()
   vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
@@ -43,7 +46,7 @@ end
 
 ---Show/Hide the fold column at the left of the line numbers.
 function Custom.toggle_fold_column()
-  if vim.api.nvim_win_get_option(0, "foldcolumn") == "0" then
+  if api.nvim_win_get_option(0, "foldcolumn") == "0" then
     vim.opt.foldcolumn = "auto:3"
   else
     vim.opt.foldcolumn = "0"
@@ -56,12 +59,12 @@ end
 ---Telescope at startup.
 function Custom.attach_telescope_file_browser()
   local previous_buffer_name
-  vim.api.nvim_create_autocmd("BufEnter", {
-    group = vim.api.nvim_create_augroup("UserFileBrowser", { clear = true }),
+  api.nvim_create_autocmd("BufEnter", {
+    group = api.nvim_create_augroup("UserFileBrowser", { clear = true }),
     pattern = "*",
     callback = function()
       vim.schedule(function()
-        local buffer_name = vim.api.nvim_buf_get_name(0)
+        local buffer_name = api.nvim_buf_get_name(0)
         if vim.fn.isdirectory(buffer_name) == 0 then
           _, previous_buffer_name = pcall(vim.fn.expand, "#:p:h")
           return
@@ -76,7 +79,7 @@ function Custom.attach_telescope_file_browser()
         end
 
         -- Ensure no buffers remain with the directory name
-        vim.api.nvim_buf_set_option(0, "bufhidden", "wipe")
+        api.nvim_buf_set_option(0, "bufhidden", "wipe")
         require("telescope").extensions.file_browser.file_browser({
           cwd = vim.fn.expand("%:p:h"),
         })
@@ -89,9 +92,9 @@ end
 ---Create a buffer for taking notes into a scratch buffer
 --- **Usage:** `Scratch`
 function Custom.set_create_scratch_buffers()
-  vim.api.nvim_create_user_command("Scratch", function()
+  api.nvim_create_user_command("Scratch", function()
     vim.cmd("bel 10new")
-    local buf = vim.api.nvim_get_current_buf()
+    local buf = api.nvim_get_current_buf()
     local opts = {
       bufhidden = "hide",
       buftype = "nofile",
@@ -100,59 +103,44 @@ function Custom.set_create_scratch_buffers()
       swapfile = false,
     }
     for key, value in pairs(opts) do
-      vim.api.nvim_set_option_value(key, value, { buf = buf })
+      api.nvim_set_option_value(key, value, { buf = buf })
     end
   end, { desc = "Create a scratch buffer" })
 end
 
----Custom lualine section that integrates Harpoon marks.
----Since this is running constanly, to optimize performance (at least in a tiny
----ammount), here we are caching the static variables and returning the actual
----function that does the work (`Custom.lualine_harpoon`).
----@return function Custom.lualine_harpoon
-function Custom.set_lualine_harpoon()
-  Custom.llh_cache = {
-    keymaps = { "j", "k", "l", "h" },
-    hl_normal = {
-      ["n"] = "%#lualine_b_normal#",
-      ["i"] = "%#lualine_b_insert#",
-      ["c"] = "%#lualine_b_command#",
-    },
-    hl_normal_default = "%#lualine_b_visual#",
-    hl_selected = {
-      ["v"] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
-      ["V"] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
-      [""] = "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#",
-    },
-    hl_selected_default = "%#lualine_b_diagnostics_warn_normal#",
-  }
-  return Custom.lualine_harpoon
-end
-
 ---Return a custom lualine tabline section that integrates Harpoon marks.
----> Don't set directly or it would fail: Use `Custom.set_lualine_harpoon()`.
 ---@return string
 function Custom.lualine_harpoon()
   local hp_list = require("harpoon"):list()
-  local hp_current_total_marks = hp_list:length()
-  if hp_current_total_marks == 0 then
+  local total_marks = hp_list:length()
+  if total_marks == 0 then
     return ""
   end
 
-  local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-  local output = { " " } -- 󰀱
-  for index = 1, hp_current_total_marks <= 4 and hp_current_total_marks or 4 do
+  local nvim_mode = api.nvim_get_mode().mode:sub(1, 1)
+  local hp_keymap = { "j", "k", "l", "h" }
+  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
+    or nvim_mode == "i" and "%#lualine_b_insert#"
+    or nvim_mode == "c" and "%#lualine_b_command#"
+    or "%#lualine_b_visual#"
+  local hl_selected = ("v" == nvim_mode or "V" == nvim_mode or "" == nvim_mode)
+      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
+    or "%#lualine_b_diagnostics_warn_normal#"
+
+  local full_name = api.nvim_buf_get_name(0)
+  local buffer_name = vim.fn.expand("%")
+  local output = " " -- 󰀱
+
+  for index = 1, total_marks <= 4 and total_marks or 4 do
     local mark = hp_list.items[index].value
-    -- stylua: ignore
-    if mark == vim.fn.expand("%") or mark == vim.api.nvim_buf_get_name(0) then
-      table.insert(output, Custom.llh_cache.hl_selected[mode] or Custom.llh_cache.hl_selected_default)
-      table.insert(output, Custom.llh_cache.keymaps[index])
-      table.insert(output, Custom.llh_cache.hl_normal[mode] or Custom.llh_cache.hl_normal_default)
+    if mark == buffer_name or mark == full_name then
+      output = output .. hl_selected .. hp_keymap[index] .. hl_normal
     else
-      table.insert(output, Custom.llh_cache.keymaps[index])
+      output = output .. hp_keymap[index]
     end
   end
-  return table.concat(output, "")
+
+  return output
 end
 
 return Custom

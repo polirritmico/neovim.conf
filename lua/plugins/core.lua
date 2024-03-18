@@ -182,21 +182,15 @@ return {
 
       require("conform").setup(opts)
 
-      -- Add markdown custom prettier
-      require("conform").formatters.prettier_markdown = function()
-        return {
-          command = require("conform.util").from_node_modules("prettier"),
-          cwd = require("conform.formatters.prettier").cwd,
-          args = {
-            "--prose-wrap",
-            "always",
-            "--print-width",
-            "80",
-            "--stdin-filepath",
-            "$FILENAME",
-          },
-        }
-      end
+      -- Add custom options for markdown prettier
+      local markdown_formatter = vim.deepcopy(require("conform.formatters.prettier"))
+      require("conform.util").add_formatter_args(markdown_formatter, {
+        "--prose-wrap",
+        "always",
+        "--print-width",
+        "80",
+      }, { append = false })
+      require("conform").formatters.prettier_markdown = markdown_formatter
     end,
   },
   --- Language Server Protocol
