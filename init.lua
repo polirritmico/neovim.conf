@@ -18,8 +18,8 @@ NeovimPath = vim.fn.stdpath("config")
 ---@type string -- Path of the lua config (`nvim/lua/config/`).
 MyConfigPath = NeovimPath .. "/lua/config/"
 ---@type string -- Path of my custom plugins sources `outside` Nvim's rtp.
-MyPluginsPath = Workstation and vim.fn.expand("$HOME/Informática/Programación/")
-  or vim.fn.expand("$HOME/Proyectos/")
+MyPluginsPath = Workstation and vim.fn.expand("$USR_PROJECTS_DIR/Neovim/")
+  or vim.fn.expand("$USR_PROJECTS_DIR/")
 
 -- Check paths
 assert(vim.fn.finddir(MyConfigPath) ~= "", "Unexpected: Missing configuration path?!")

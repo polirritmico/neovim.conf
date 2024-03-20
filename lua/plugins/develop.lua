@@ -230,7 +230,8 @@ return {
     opts = {
       auto_session_suppress_dirs = {
         vim.fn.expand("$HOME/"),
-        vim.fn.expand("$XDG_DOWNLOAD_DIR"),
+        -- Setear en .bash_profile: export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:=$XDG_DOWNLOAD_DIR}
+        -- vim.fn.expand("$XDG_DOWNLOAD_DIR"),
         "/",
       },
     },
