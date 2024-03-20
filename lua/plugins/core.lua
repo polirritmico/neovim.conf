@@ -84,12 +84,14 @@ return {
               and not context.in_syntax_group("Comment")
           end
         end,
+
+        -- Sort python dunder and private methods to the btm
+        -- Source: https://github.com/lukas-reineke/cmp-under-comparator
         sorting = vim.tbl_extend("force", defaults.sorting, {
           comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
-            -- Sort python dunder and private methods to the btm
             function(entry1, entry2)
               local _, entry1_under = entry1.completion_item.label:find("^_+")
               local _, entry2_under = entry2.completion_item.label:find("^_+")
@@ -107,6 +109,7 @@ return {
             cmp.config.compare.order,
           },
         }),
+
         -- Add border to popup window
         window = {
           completion = cmp.config.window.bordered(),
@@ -190,6 +193,7 @@ return {
         "--print-width",
         "80",
       }, { append = false })
+      ---@cast markdown_formatter conform.FormatterConfigOverride
       require("conform").formatters.prettier_markdown = markdown_formatter
     end,
   },
@@ -203,16 +207,15 @@ return {
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = function()
-      local lspconfig = require("lspconfig")
-      local mason_lsp = require("mason-lspconfig")
-
       --- Keys
 
       local function toggle_lsp_diag()
         if vim.diagnostic.is_disabled() then
           vim.diagnostic.enable()
+          vim.notify("LSP: Diagnostics enabled")
         else
           vim.diagnostic.disable()
+          vim.notify("LSP: Diagnostics Disabled")
         end
       end
 
@@ -279,7 +282,7 @@ return {
       )
 
       -- Apply servers configurations
-      mason_lsp.setup({
+      require("mason-lspconfig").setup({
         ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp" },
         handlers = {
           function(server_name)

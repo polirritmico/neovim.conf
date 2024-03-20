@@ -113,33 +113,11 @@ return {
         hover = {
           enabled = true,
           silent = false, -- true for not show msg if hover is not avaliable
-          -- opts = { border = "rounded" },
         },
         signature = { enabled = false },
       },
       presets = { lsp_doc_border = true }, -- signature and hover docs border
       views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
-      -- Filter messages
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-            },
-          },
-          view = "mini",
-        },
-        {
-          filter = {
-            event = "lsp",
-            find = "lint",
-          },
-          opts = { skip = true },
-        },
-      },
     },
     config = function(_, opts)
       vim.diagnostic.config({ update_in_insert = false })
@@ -247,7 +225,7 @@ return {
           "toggleterm",
           "lazyterm",
         },
-        callback = function() vim.b.miniindentscope_disable = true end,
+        callback = function() vim.b["miniindentscope_disable"] = true end,
       })
     end,
   },

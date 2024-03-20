@@ -1,5 +1,5 @@
---- DAP: Debugger connector
 return {
+  --- DAP: Debugger connector
   {
     {
       "mfussenegger/nvim-dap",

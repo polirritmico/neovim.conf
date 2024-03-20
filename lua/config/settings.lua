@@ -28,7 +28,6 @@ u.custom.save_cursor_position()
 --- Appearance
 opt.cmdheight = 1 -- 0 to remove the command line below the statusbar
 opt.colorcolumn = { 80, 100 } -- Guide columns positions
-opt.cursorline = false -- Underline the cursor line
 opt.laststatus = 3 -- Global status bar (not one for each window)
 opt.number = true -- Shows the current line number instead of 0
 opt.relativenumber = true -- Show relative line numbers
