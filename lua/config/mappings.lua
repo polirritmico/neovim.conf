@@ -48,10 +48,14 @@ map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
 map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
 
+-- Flip paste mappings in visual-mode to avoid buffer replacement
+map("v", "p", "P")
+map("v", "P", "p")
+
 -- Registers and system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
-map("x", "<leader>p", '"_dP', "Paste without changing the register copy register")
-map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line')
+map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
+map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
