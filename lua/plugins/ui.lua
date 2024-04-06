@@ -139,7 +139,7 @@ return {
   -- To reload use `:Lazy reload monokai-nightasty.nvim`
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = true,
+    dev = false,
     lazy = false,
     priority = 1000,
     keys = {
@@ -157,11 +157,10 @@ return {
       lualine_style = "default",
       markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
-      on_highlights = function(hl, c)
+      on_highlights = function(hl, _)
         -- HACK: This fix dapui buttons panel: https://github.com/rcarriga/nvim-dap-ui/issues/315
         hl.StatusLineNormal = { link = "Normal" }
         hl.StatusLineNC = { link = "NormalNC" }
-        -- hl["@property"] = { fg = c.purple }
       end,
     },
     config = function(_, opts)
