@@ -60,9 +60,6 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
 
--- Replace default <C-g> (:f) to custom function
-map({"n"}, "<C-g>", u.helpers.buffer_info, "Get buffer fullpath info and current position in %")
-
 -- Change to normal mode from terminal mode
 map("t", "<C-n>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)")
 

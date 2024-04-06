@@ -203,7 +203,24 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      { "folke/neodev.nvim", config = true },
+      {
+        "folke/neodev.nvim",
+        config = {
+          override = function(root_dir, library)
+            -- Enable neodev for plugins inside MyPluginsPath
+            local custom_plugins_path = vim.loop.fs_realpath(MyPluginsPath)
+            if custom_plugins_path then
+              for plugin in vim.fs.dir(custom_plugins_path) do
+                local plugin_root = string.format("%s/%s", custom_plugins_path, plugin)
+                if root_dir:find(plugin_root, 1, true) == 1 then
+                  library.enabled = true
+                  library.plugins = true
+                end
+              end
+            end
+          end,
+        },
+      },
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = function()

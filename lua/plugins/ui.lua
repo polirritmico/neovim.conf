@@ -139,7 +139,7 @@ return {
   -- To reload use `:Lazy reload monokai-nightasty.nvim`
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = false,
+    dev = true,
     lazy = false,
     priority = 1000,
     keys = {
@@ -150,17 +150,18 @@ return {
       },
     },
     opts = {
-      dark_style_background = "transparent",
+      dark_style_background = "default",
       light_style_background = "default",
       color_headers = false,
       lualine_bold = true,
       lualine_style = "default",
       markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
-      on_highlights = function(hl, _)
+      on_highlights = function(hl, c)
         -- HACK: This fix dapui buttons panel: https://github.com/rcarriga/nvim-dap-ui/issues/315
         hl.StatusLineNormal = { link = "Normal" }
         hl.StatusLineNC = { link = "NormalNC" }
+        -- hl["@property"] = { fg = c.purple }
       end,
     },
     config = function(_, opts)
@@ -168,7 +169,7 @@ return {
       vim.o.background = "dark" -- Default to dark theme
 
       -- Open new Nvim instance with light theme between the range time
-      if require("utils").config.in_hours_range(1400, 1900) then
+      if require("utils").config.in_hours_range(1400, 1730) then
         vim.o.background = "light"
       end
 
