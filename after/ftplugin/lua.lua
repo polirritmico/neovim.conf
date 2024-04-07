@@ -13,11 +13,3 @@ for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
   vim.opt_local.path:append(path .. "/lua")
 end
 vim.opt_local.suffixesadd:prepend(".lua")
-
--- plenary tests
-vim.keymap.set(
-  "n",
-  "<leader>rr",
-  "<Plug>PlenaryTestFile",
-  { desc = "Run Plenary test file" }
-)

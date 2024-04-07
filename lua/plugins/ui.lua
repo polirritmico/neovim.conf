@@ -150,7 +150,7 @@ return {
       },
     },
     opts = {
-      dark_style_background = "default",
+      dark_style_background = "transparent",
       light_style_background = "default",
       color_headers = false,
       lualine_bold = true,

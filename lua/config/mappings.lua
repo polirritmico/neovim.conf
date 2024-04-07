@@ -6,16 +6,20 @@ local map = u.config.set_keymap
 -- Leader key
 vim.g.mapleader = " "
 
+--- Workarounds for the spanish keyboard layout
 -- Comandos a ñ (misma posición ANSI)
 map({ "n", "v" }, "ñ", ":", "`:` ex cmd line", true)
 map({ "n", "v" }, "Ñ", ";", "`;` repeat t/T/f/F", true)
 
--- Fix goto mark (no reconoce la tecla ` en teclado español)
+-- registros a +
+map({ "n", "v" }, "+", '"')
+
+-- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 
 -- Preserve selection after indent
-map("v", "<", "<gv", "outer indent", true)
-map("v", ">", ">gv", "inner indent", true)
+map("v", "<", "<gv", "outer indent")
+map("v", ">", ">gv", "inner indent")
 
 -- Toggle foldcolumn
 map("n", "<leader>tf", u.custom.toggle_fold_column, "Show/Hide fold column")
@@ -51,6 +55,10 @@ map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
 -- Flip paste mappings in visual-mode to avoid buffer replacement
 map("v", "p", "P")
 map("v", "P", "p")
+
+-- Flip full buffer info
+map("n", "1<C-g>", "<C-g>")
+map("n", "<C-g>", "1<C-g>")
 
 -- Registers and system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")

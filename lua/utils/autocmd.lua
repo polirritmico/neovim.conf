@@ -7,7 +7,7 @@ local UtilsAutoCmds = {}
 ---it run the passed external command (`ext_cmd`).
 ---@param filetype string Filetype extension where the mapping is created
 ---@param keymap string Mapping that is going to trigger the command
----@param ext_cmd string Command to run the file. Should begin with "`!`".
+---@param ext_cmd string Command to run the file. It will probably start with "`!`".
 function UtilsAutoCmds.set_runner(filetype, keymap, ext_cmd)
   local cmd = "noremap " .. keymap .. " <Cmd>" .. ext_cmd .. "<CR>"
   vim.api.nvim_create_autocmd({ "FileType" }, {
