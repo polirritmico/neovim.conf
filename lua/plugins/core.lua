@@ -203,7 +203,6 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      { "p00f/clangd_extensions.nvim", lazy = true },
       {
         "folke/neodev.nvim",
         config = {
@@ -466,7 +465,7 @@ return {
     "nvim-lua/plenary.nvim",
     -- stylua: ignore
     keys = {
-      { "<leader>rr", "<Plug>PlenaryTestFile", desc = "Plenary: Run lua tests in buffer" },
+      { "<leader>rr", "<Plug>PlenaryTestFile", ft = "lua", desc = "Plenary: Run lua tests in buffer" },
     },
   },
   --- Telescope: Searches with fzf
