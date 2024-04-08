@@ -77,7 +77,7 @@ return {
     "kylechui/nvim-surround",
     version = "*", -- latest stable
     event = "VeryLazy",
-    config = {
+    opts = {
       -- TODO: While learning this maps I'm keeping the defaults on the right.
       -- Remove in a few months.
       keymaps = {
@@ -141,20 +141,5 @@ return {
       { "<leader>tB", "<Cmd>lua require('simple-boolean-toggle').toggle_builtins()<Cr>", desc = "Boolean Toggle: Enable/Disable the builtin overwrite" },
     },
     opts = {},
-  },
-  --- Tables automatization
-  {
-    "dhruvasagar/vim-table-mode",
-    enabled = false,
-    ft = "markdown",
-    init = function()
-      -- Avoid polluting <leader>t mappings. (keep <leader>tm for enable)
-      vim.g.table_mode_disable_tableize_mappings = 1
-
-      -- FIX: Really slow performance: https://github.com/dhruvasagar/vim-table-mode/issues/227
-      vim.g.table_mode_syntax = 0
-
-      vim.g.table_mode_corner = "|"
-    end,
   },
 }

@@ -2,6 +2,7 @@
 
 local u = require("utils") ---@type Utils
 local map = u.config.set_keymap
+local toggle = u.helpers.toggle_vim_opt
 
 -- Leader key
 vim.g.mapleader = " "
@@ -21,11 +22,10 @@ map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 map("v", "<", "<gv", "outer indent")
 map("v", ">", ">gv", "inner indent")
 
--- Toggle foldcolumn
-map("n", "<leader>tf", u.custom.toggle_fold_column, "Show/Hide fold column")
-
--- Line number toggle
-map({ "n", "v" }, "<leader>tl", "<Cmd>set relativenumber!<CR>", "Toggle relative/absolute line numbers")
+--- Toggles:
+map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
+map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
+map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
 
 -- Buffers navigation:
 map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")

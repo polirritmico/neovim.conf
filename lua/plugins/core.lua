@@ -67,7 +67,8 @@ return {
           end,
         },
         experimental = {
-          ghost_text = { hl_group = "CmpGhostText" },
+          -- ghost_text = { hl_group = "CmpGhostText" },
+          ghost_text = true,
         },
         enabled = function()
           -- Disable on telescope prompt

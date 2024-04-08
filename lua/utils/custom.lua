@@ -44,15 +44,6 @@ function Custom.save_cursor_position()
   ]])
 end
 
----Show/Hide the fold column at the left of the line numbers.
-function Custom.toggle_fold_column()
-  if api.nvim_win_get_option(0, "foldcolumn") == "0" then
-    vim.opt.foldcolumn = "auto:3"
-  else
-    vim.opt.foldcolumn = "0"
-  end
-end
-
 ---Create an autocommand to launch Telescope file browser when opening dirs.
 ---This is a copy from the plugin local function `hijack_netrw` (without the
 ---netrw part) that allows lazy-loading of the plugin without requiring

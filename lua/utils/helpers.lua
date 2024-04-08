@@ -56,4 +56,27 @@ function Helpers.buffer_info()
   vim.notify(string.format([["%s" %i lines --%i%%--]], file, line, percentage))
 end
 
+---Set vim.opt\[`option`\] to `b` if its current value is `a` or to `a` otherwise
+---@param option string `vim.o.<option>` to toggle
+---@param a any Defaults to `true`
+---@param b any Defaults to `false`
+---@param silent boolean? Defaults to `false`
+function Helpers.toggle_vim_opt(option, a, b, silent)
+  if a == nil and b == nil then
+    a, b = true, false
+  end
+
+  local new_opt
+  if vim.api.nvim_win_get_option(0, option) == a then
+    new_opt = b
+  else
+    new_opt = a
+  end
+  vim.opt[option] = new_opt
+
+  if silent == nil or silent ~= false then
+    vim.notify(string.format("%s = %s", option, new_opt), vim.log.levels.INFO)
+  end
+end
+
 return Helpers
