@@ -145,4 +145,23 @@ return {
     { trig = "lazyenterevent", dscr = "Add common lazy enter buffer event" },
     t([[event = { "BufReadPost", "BufWritePost", "BufNewFile" },]])
   ),
+
+  s(
+    {
+      trig = "layoutunittest",
+      name = "Unit test",
+      dscr = "Pleanary unit test",
+    },
+    fmt(
+      [[
+        it("{}", function()
+          {}
+        end)
+        ]],
+      {
+        i(1, "Description"),
+        i(2, "-- test"),
+      }
+    )
+  ),
 }

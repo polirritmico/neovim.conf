@@ -576,6 +576,7 @@ return {
             },
           },
         },
+        pickers = { find_files = { follow = true } },
         extensions = {
           file_browser = {
             follow_symlinks = true,
