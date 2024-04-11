@@ -93,6 +93,14 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
+-- Replace grep with ripgrep
+if vim.fn.executable("rg") == 1 then
+  -- vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+  -- vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+  vim.opt.grepprg = "rg --vimgrep --smart-case"
+  vim.opt.grepformat = "%f:%l:%c:%m"
+end
+
 -- Spellcheck commands
 vim.api.nvim_create_user_command("Spelles", function() u.writing.dict_on("es") end, {})
 vim.api.nvim_create_user_command("Spellen", function() u.writing.dict_on("en") end, {})

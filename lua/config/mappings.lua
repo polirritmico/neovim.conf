@@ -26,6 +26,7 @@ map("v", ">", ">gv", "inner indent")
 map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
 map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
 map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
+map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
 
 -- Buffers navigation:
 map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")

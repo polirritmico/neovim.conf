@@ -206,7 +206,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       {
         "folke/neodev.nvim",
-        config = {
+        opts = {
           override = function(root_dir, library)
             -- Enable neodev for plugins inside MyPluginsPath
             local custom_plugins_path = vim.loop.fs_realpath(MyPluginsPath)
@@ -461,13 +461,6 @@ return {
         ensure_installed()
       end
     end,
-  },
-  {
-    "nvim-lua/plenary.nvim",
-    -- stylua: ignore
-    keys = {
-      { "<leader>rr", "<Plug>PlenaryTestFile", ft = "lua", desc = "Plenary: Run lua tests in buffer" },
-    },
   },
   --- Telescope: Searches with fzf
   {

@@ -150,17 +150,25 @@ return {
     {
       trig = "layoutunittest",
       name = "Unit test",
-      dscr = "Pleanary unit test",
+      dscr = "Plenary unit test",
     },
     fmt(
-      [[
+      [=[
         it("{}", function()
+          local case = [[{}]]
+          local expected = h.clean_text_format([[{}]])
+
           {}
+
+          local output = h.get_buffer_content(bufnr)
+          assert.same(expected, output)
         end)
-        ]],
+      ]=],
       {
-        i(1, "Description"),
-        i(2, "-- test"),
+        i(1, "Test name"),
+        i(2),
+        i(3),
+        i(4, "plugin.foo(case)"),
       }
     )
   ),
