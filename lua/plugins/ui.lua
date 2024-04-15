@@ -168,9 +168,9 @@ return {
       vim.o.background = "dark" -- Default to dark theme
 
       -- Open new Nvim instance with light theme between the range time
-      if require("utils").config.in_hours_range(1400, 1630) then
-        vim.o.background = "light"
-      end
+      -- if require("utils").config.in_hours_range(1400, 1630) then
+      --   vim.o.background = "light"
+      -- end
 
       require("monokai-nightasty").load(opts)
     end,
