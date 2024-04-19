@@ -287,8 +287,14 @@ return {
             },
           },
         },
+        -- TODO: Not working
         texlab = {
-          settings = { texlab = { latexFormatter = "texlab" } },
+          settings = {
+            texlab = {
+              rootDirectory = ".",
+              latexFormatter = "texlab",
+            },
+          },
         },
       }
 

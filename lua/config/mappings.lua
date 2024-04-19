@@ -96,6 +96,7 @@ local runner_keymap = "<leader>rr"
 u.autocmd.set_runner("python", runner_keymap, "!python %")
 u.autocmd.set_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmd.set_runner("bash", runner_keymap, "!./%")
+u.autocmd.set_runner("tex", runner_keymap, "!xelatex -synctex=1 -interaction=batchmode -halt-on-error %")
 
 -- Setup custom spell commands
 map({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", "Enable english spell check")
