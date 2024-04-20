@@ -567,6 +567,7 @@ return {
           sorting_strategy = "ascending",
           mappings = {
             ["i"] = {
+              ["<CR>"] = require("utils.helpers").telescope_open_single_and_multi,
               ["<C-h>"] = "which_key", -- toggle keymaps help
               ["<LeftMouse>"] = function() end,
             },

@@ -79,4 +79,21 @@ function Helpers.toggle_vim_opt(option, a, b, silent)
   end
 end
 
+---Telescope action helper to open single or multiple files
+---@param bufnr integer telescope prompt buffer number
+function Helpers.telescope_open_single_and_multi(bufnr)
+  local picker = require("telescope.actions.state").get_current_picker(bufnr)
+  local selection = picker:get_multi_selection()
+  if not vim.tbl_isempty(selection) then
+    require("telescope.actions").close(bufnr)
+    for _, file in pairs(selection) do
+      if file.path ~= nil then
+        vim.cmd(string.format("%s %s", "edit", file.path))
+      end
+    end
+  else
+    require("telescope.actions").select_default(bufnr)
+  end
+end
+
 return Helpers
