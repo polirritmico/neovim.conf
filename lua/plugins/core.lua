@@ -487,10 +487,6 @@ return {
         end,
       },
       {
-        "nvim-telescope/telescope-file-browser.nvim",
-        init = function() require("utils").custom.attach_telescope_file_browser() end,
-      },
-      {
         "polirritmico/telescope-lazy-plugins.nvim",
         dev = false,
         init = function()
@@ -500,7 +496,6 @@ return {
           )
         end,
       },
-      { "crispgm/telescope-heading.nvim" },
     },
     -- stylua: ignore
     keys = {
@@ -527,11 +522,6 @@ return {
       { "<leader>ct", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/after/ftplugin/"<CR>]], desc = "Telescope: Filetypes configurations" },
       { "<leader>cc", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath<CR>]], desc = "Telescope: Plugins configurations" },
       { "<leader>cp", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Config plugins" },
-
-      -- Extensions
-      { "<leader>fe", "<Cmd>Telescope file_browser<CR>", desc = "Telescope: File explorer from nvim path" },
-      { "<leader>fE", "<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR> hidden=true<cr>", desc = "Telescope: File explorer mode from buffer path." },
-      { "<leader>fH", "<Cmd>Telescope heading<CR>", ft = "markdown", desc = "Telescope: Get document headers (markdown)." },
     },
     opts = function()
       local layout_strategy, layout_config

@@ -142,4 +142,16 @@ return {
     },
     opts = {},
   },
+  --- Handle system Files
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "Oil" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>fe", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
+      { "<leader>fE", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
+    },
+    opts = {},
+  },
 }
