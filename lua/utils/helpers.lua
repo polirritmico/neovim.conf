@@ -48,14 +48,6 @@ function Helpers.set_cmd_redirection()
   end, { nargs = "+", complete = "command" })
 end
 
----Replace for <C-g> to get the full current buffer path
-function Helpers.buffer_info()
-  local file = vim.fn.expand("%:p")
-  local line = vim.fn.line(".")
-  local percentage = math.floor(line * 100 / vim.fn.line("$"))
-  vim.notify(string.format([["%s" %i lines --%i%%--]], file, line, percentage))
-end
-
 ---Set vim.opt\[`option`\] to `b` if its current value is `a` or to `a` otherwise
 ---@param option string `vim.o.<option>` to toggle
 ---@param a any Defaults to `true`

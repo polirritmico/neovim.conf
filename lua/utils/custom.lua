@@ -44,11 +44,10 @@ function Custom.save_cursor_position()
   ]])
 end
 
----Create an autocommand to launch Telescope file browser when opening dirs.
----This is a copy from the plugin local function `hijack_netrw` (without the
----netrw part) that allows lazy-loading of the plugin without requiring
----Telescope at startup.
-function Custom.attach_telescope_file_browser()
+---Create an autocommand to launch a plugin file browser when opening dirs.
+---@param plugin_name string
+---@param plugin_open fun(path: string) Function to open the file browser
+function Custom.attach_file_browser(plugin_name, plugin_open)
   local previous_buffer_name
   api.nvim_create_autocmd("BufEnter", {
     group = api.nvim_create_augroup("UserFileBrowser", { clear = true }),
@@ -71,12 +70,10 @@ function Custom.attach_telescope_file_browser()
 
         -- Ensure no buffers remain with the directory name
         api.nvim_buf_set_option(0, "bufhidden", "wipe")
-        require("telescope").extensions.file_browser.file_browser({
-          cwd = vim.fn.expand("%:p:h"),
-        })
+        plugin_open(vim.fn.expand("%:p:h"))
       end)
     end,
-    desc = "telescope-file-browser.nvim replacement for netrw",
+    desc = string.format("[%s] replacement for netrw", plugin_name),
   })
 end
 

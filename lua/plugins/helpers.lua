@@ -146,6 +146,10 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    init = function()
+      local oil_open_folder = function(path) require("oil").open(path) end
+      require("utils").custom.attach_file_browser("oil", oil_open_folder)
+    end,
     cmd = { "Oil" },
     -- stylua: ignore
     keys = {
