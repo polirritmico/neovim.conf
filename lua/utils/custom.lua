@@ -84,11 +84,12 @@ function Custom.set_create_scratch_buffers()
     vim.cmd("bel 10new")
     local buf = api.nvim_get_current_buf()
     local opts = {
-      bufhidden = "hide",
+      -- `:h scratch-buffer`
       buftype = "nofile",
+      bufhidden = "hide",
+      swapfile = false,
       filetype = "scratch",
       modifiable = true,
-      swapfile = false,
     }
     for key, value in pairs(opts) do
       api.nvim_set_option_value(key, value, { buf = buf })

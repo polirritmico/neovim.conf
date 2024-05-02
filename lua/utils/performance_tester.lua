@@ -70,26 +70,27 @@ function M.write_log()
   file:close()
 end
 
+---@param fun Runner
+function M.execute_fn(fun)
+  local logp = M.print_and_add_to_log
+  logp(string.format("\n- Executing `%s`...", fun.name))
+  local start_time = os.clock()
+  for _ = 1, M.loops do
+    fun.call()
+  end
+
+  local end_time = os.clock()
+  local time = end_time - start_time
+  logp(string.format("  - Total execution time: %.4f seconds", time))
+  logp(string.format("  - Average execution time: %.6f seconds", time / M.loops))
+
+  fun.time = time
+end
+
 ---Execute the passed tests
 function M.tests_run()
   local logp = M.print_and_add_to_log
   logp("Running...")
-
-  ---@param fun Runner
-  function M.execute_fn(fun)
-    logp(string.format("\n- Executing `%s`...", fun.name))
-    local start_time = os.clock()
-    for _ = 1, M.loops do
-      fun.call()
-    end
-
-    local end_time = os.clock()
-    local time = end_time - start_time
-    logp(string.format("  - Total execution time: %.4f seconds", time))
-    logp(string.format("  - Average execution time: %.6f seconds", time / M.loops))
-
-    fun.time = time
-  end
 
   M.execute_fn(M.fn1)
   M.execute_fn(M.fn2)

@@ -18,10 +18,6 @@ map({ "n", "v" }, "+", '"')
 -- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 
--- Preserve selection after indent
-map("v", "<", "<gv", "outer indent")
-map("v", ">", ">gv", "inner indent")
-
 --- Toggles:
 map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
 map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
@@ -66,6 +62,10 @@ map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
 map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
 map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
+-- Preserve selection after indent
+map("v", "<", "<gv", "outer indent")
+map("v", ">", ">gv", "inner indent")
+
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
 
@@ -83,6 +83,10 @@ map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config:
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
 map("n", "<leader>cu", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
 
+-- Replicates Netrw `gx` open url
+-- TODO: Remove when updating to 0.10: https://github.com/neovim/neovim/pull/23401
+map("n", "gx", u.helpers.open_url, "Open url on a browser.")
+
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
   cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
@@ -97,6 +101,7 @@ u.autocmd.set_runner("python", runner_keymap, "!python %")
 u.autocmd.set_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmd.set_runner("bash", runner_keymap, "!./%")
 u.autocmd.set_runner("tex", runner_keymap, "!xelatex -synctex=1 -interaction=batchmode -halt-on-error %")
+u.autocmd.set_runner("lua", runner_keymap, "PlenaryBustedFile %:p")
 
 -- Setup custom spell commands
 map({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", "Enable english spell check")

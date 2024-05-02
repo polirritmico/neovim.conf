@@ -28,7 +28,7 @@ end
 ---_Helper function to load the passed module._
 ---
 ---If the module returns an **error**, then print it and use the **fallback
----config module** instead (`user.fallback.<module>`). All errors are stored in
+---config module** instead (`config.fallback.<module>`). All errors are stored in
 ---the `_catched_errors` table.
 ---
 ---> This expect a fallback config `<module-name.lua>` in the `fallback` folder.

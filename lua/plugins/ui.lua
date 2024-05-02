@@ -162,6 +162,9 @@ return {
         hl.StatusLineNormal = { link = "Normal" }
         hl.StatusLineNC = { link = "NormalNC" }
       end,
+      on_colors = function(c)
+        c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
+      end,
     },
     config = function(_, opts)
       vim.opt.cursorline = true -- Highlight line at the cursor position

@@ -137,6 +137,7 @@ return {
       formatters_by_ft = {
         ["*"] = { "trim_whitespace" },
         css = { "prettier" },
+        html = { "prettier" },
         json = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier_markdown" },

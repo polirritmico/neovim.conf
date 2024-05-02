@@ -27,7 +27,7 @@ if vim.fn.finddir(MyPluginsPath) == "" then
   vim.notify("Missing personal plugins path.", vim.log.levels.WARN)
 end
 
--- Set variables for vimscript env
+-- Set global variables for vimscript env
 vim.api.nvim_set_var("NeovimPath", NeovimPath)
 vim.api.nvim_set_var("MyConfigPath", MyConfigPath)
 

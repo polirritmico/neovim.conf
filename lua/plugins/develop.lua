@@ -189,4 +189,24 @@ return {
       },
     },
   },
+  --- Refactorion helper
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      {
+        "<leader>o",
+        -- function() require("telescope").extensions.refactoring.refactors() end,
+        function() require("refactoring").select_refactor() end,
+        mode = { "n", "x" },
+        desc = "Refactoring: Open refactor dialogue",
+      },
+    },
+    opts = {
+      show_success_message = true,
+    },
+  },
 }

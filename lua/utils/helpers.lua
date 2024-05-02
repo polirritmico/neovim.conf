@@ -19,7 +19,7 @@ end
 
 ---Wrapper function to pretty print variables instead of getting memory addresses.
 ---@param ... any Variable or variables to pretty print
----@return any # Return the variables unpacked
+---@return any -- Return the variables unpacked
 function Helpers.custom_print(...)
   local args = { ... }
   local mapped = {}
@@ -85,6 +85,22 @@ function Helpers.telescope_open_single_and_multi(bufnr)
     end
   else
     require("telescope.actions").select_default(bufnr)
+  end
+end
+
+---Replicate the `gx` functionality from Netrw
+function Helpers.open_url()
+  local pattern = [[https?://[%w-_%.%?%.:/%+=&]+[^ >"\',;`]*]]
+  local current_str = vim.fn.expand("<cfile>") -- or cWORD?
+  local url = string.match(current_str, pattern)
+  if not url then
+    local msg = string.format("Can't detect url for [%s]", current_str)
+    vim.notify(msg, vim.log.levels.WARN)
+    return
+  end
+  local cmd_output = vim.fn.jobstart({ "xdg-open", url }, { detach = true })
+  if cmd_output <= 0 then
+    vim.notify(string.format("Error opening '%s'.", url), vim.log.levels.ERROR)
   end
 end
 
