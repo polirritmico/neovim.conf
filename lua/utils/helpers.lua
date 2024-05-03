@@ -104,4 +104,13 @@ function Helpers.open_url()
   end
 end
 
+---Set the current working directory to the location of the current buffer
+function Helpers.buffer_path_to_cwd()
+  local buffer_path = vim.fn.expand("%:p:h")
+  if buffer_path then
+    vim.api.nvim_set_current_dir(buffer_path)
+    vim.notify(string.format("New cwd: %s", buffer_path))
+  end
+end
+
 return Helpers
