@@ -157,11 +157,6 @@ return {
       lualine_style = "default",
       markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
-      on_highlights = function(hl, _)
-        -- HACK: This fix dapui buttons panel: https://github.com/rcarriga/nvim-dap-ui/issues/315
-        hl.StatusLineNormal = { link = "Normal" }
-        hl.StatusLineNC = { link = "NormalNC" }
-      end,
       on_colors = function(c)
         c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
       end,

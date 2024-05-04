@@ -288,7 +288,6 @@ return {
             },
           },
         },
-        -- TODO: Not working
         texlab = {
           settings = {
             texlab = {

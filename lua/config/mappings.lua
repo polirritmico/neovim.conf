@@ -84,7 +84,7 @@ map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Ope
 map("n", "<leader>cu", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
 
 -- Set buffer path as root
-map("n", "<leader>gc", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
+map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
 
 -- Replicates Netrw `gx` open url
 -- TODO: Remove when updating to 0.10: https://github.com/neovim/neovim/pull/23401
