@@ -74,20 +74,8 @@ return {
 
   s("ic", fmt("`{}` {}", { i(1), i(0) })),
 
-  s({ trig = "...", name = "Puntos suspensivos" }, t("…")),
-
-  s({
-    trig = "dlg",
-    name = "Diálogo",
-    dscr = "Inserta un diálogo con el símbolo correcto.",
-  }, {
-    c(1, {
-      { t("—"), r(1, "user_text") },
-      { t("—"), r(1, "user_text"), t("—") },
-    }),
-  }, {
-    stored = {
-      ["user_text"] = i(1),
-    },
-  }),
+  s(
+    { trig = [[(.*)%.%.%.]], trigEngine = "pattern", name = "Puntos suspensivos" },
+    f(function(_, snip) return snip.captures[1] .. "…" end, {})
+  ),
 }

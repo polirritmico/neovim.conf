@@ -12,6 +12,9 @@ vim.g.mapleader = " "
 map({ "n", "v" }, "ñ", ":", "`:` ex cmd line", true)
 map({ "n", "v" }, "Ñ", ";", "`;` repeat t/T/f/F", true)
 
+-- Agregar signo de diálogo (<A-w>)
+map("i", "ſ", "—")
+
 -- registros a +
 map({ "n", "v" }, "+", '"')
 
