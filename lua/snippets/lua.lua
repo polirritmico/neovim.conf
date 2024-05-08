@@ -131,7 +131,7 @@ return {
   s({
     trig = "---",
     name = "Horizontal separator line",
-    dscr = "Add a comment line separator.",
+    dscr = "A horizontal separation line (79 characters).",
   }, {
     f(function()
       local col = vim.api.nvim_win_get_cursor(0)[2]

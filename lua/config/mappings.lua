@@ -48,6 +48,9 @@ map("n", "<C-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
 map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
 map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
+-- Close all buffers without saving and exit
+map("n", "ZQ", "<Cmd>qa!<CR>", "Quit without saving")
+
 -- Quick-list navigation
 map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
 map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
