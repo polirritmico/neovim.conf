@@ -8,18 +8,17 @@ local toggle = u.helpers.toggle_vim_opt
 vim.g.mapleader = " "
 
 --- Workarounds for the spanish keyboard layout
--- Comandos a ñ (misma posición ANSI)
-map({ "n", "v" }, "ñ", ":", "`:` ex cmd line", true)
-map({ "n", "v" }, "Ñ", ";", "`;` repeat t/T/f/F", true)
-
--- Agregar signo de diálogo (<A-w>)
-map("i", "ſ", "—")
-
--- registros a +
-map({ "n", "v" }, "+", '"')
+-- Intercambiar {} [] ñ: Ñ;
+vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
 -- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
+
+-- Registros a +
+map({ "n", "v" }, "+", '"')
+
+-- Agregar signo de diálogo (<A-w>)
+map({ "i", "c" }, "ſ", "—")
 
 --- Toggles:
 map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
@@ -113,6 +112,6 @@ u.autocmd.set_runner("tex", runner_keymap, "!xelatex -synctex=1 -interaction=bat
 u.autocmd.set_runner("lua", runner_keymap, "PlenaryBustedFile %:p")
 
 -- Setup custom spell commands
-map({ "n", "v" }, "<leader>Se", "<Cmd>Spellen<CR>", "Enable english spell check")
-map({ "n", "v" }, "<leader>Ss", "<Cmd>Spelles<CR>", "Enable spanish spell check")
+map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Enable english spell check")
+map({ "n", "v" }, "<leader>Se", "<Cmd>Spelles<CR>", "Enable spanish spell check")
 map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")
