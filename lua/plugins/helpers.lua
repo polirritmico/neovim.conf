@@ -4,6 +4,22 @@ return {
     "Vimjas/vim-python-pep8-indent",
     ft = "python",
   },
+  --- Handle system Files
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    init = function()
+      local oil_open_folder = function(path) require("oil").open(path) end
+      require("utils").custom.attach_file_browser("oil", oil_open_folder)
+    end,
+    cmd = { "Oil" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>fe", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
+      { "<leader>fE", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
+    },
+    opts = {},
+  },
   --- Pairs of (), [], {}, etc.
   {
     "windwp/nvim-autopairs",
@@ -125,12 +141,6 @@ return {
       },
     },
   },
-  --- Toggle comments on the selected or current line
-  {
-    "numToStr/Comment.nvim",
-    config = true,
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-  },
   --- Toggle boolean values
   {
     "polirritmico/simple-boolean-toggle.nvim",
@@ -143,20 +153,10 @@ return {
     },
     opts = {},
   },
-  --- Handle system Files
+  --- Toggle comments on the selected or current line
   {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    init = function()
-      local oil_open_folder = function(path) require("oil").open(path) end
-      require("utils").custom.attach_file_browser("oil", oil_open_folder)
-    end,
-    cmd = { "Oil" },
-    -- stylua: ignore
-    keys = {
-      { "<leader>fe", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
-      { "<leader>fE", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
-    },
-    opts = {},
+    "numToStr/Comment.nvim",
+    config = true,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
   },
 }

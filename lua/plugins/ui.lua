@@ -1,5 +1,42 @@
---- Delete buffers without messing up the current layout
 return {
+  --- Best colorscheme for nvim
+  {
+    "polirritmico/monokai-nightasty.nvim",
+    dev = false,
+    lazy = false,
+    priority = 1000,
+    keys = {
+      {
+        "<leader>tt",
+        "<Cmd>MonokaiToggleLight<CR>",
+        desc = "Monokai-Nightasty: Toggle dark/light theme.",
+      },
+    },
+    opts = {
+      dark_style_background = "transparent",
+      light_style_background = "default",
+      color_headers = false,
+      lualine_bold = true,
+      lualine_style = "default",
+      markdown_header_marks = true,
+      -- hl_styles = { comments = { italic = false } },
+      on_colors = function(c)
+        c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
+      end,
+    },
+    config = function(_, opts)
+      vim.opt.cursorline = true -- Highlight line at the cursor position
+      vim.o.background = "dark" -- Default to dark theme
+
+      -- Open new Nvim instance with light theme between the range time
+      -- if require("utils").config.in_hours_range(1400, 1630) then
+      --   vim.o.background = "light"
+      -- end
+
+      require("monokai-nightasty").load(opts)
+    end,
+  },
+  --- Delete buffers without messing up the current layout
   {
     "famiu/bufdelete.nvim",
     event = "VeryLazy",
@@ -133,44 +170,6 @@ return {
         extensions = { "lazy" },
         sections = { lualine_y = section_y },
       }
-    end,
-  },
-  --- Best colorscheme for nvim
-  -- To reload use `:Lazy reload monokai-nightasty.nvim`
-  {
-    "polirritmico/monokai-nightasty.nvim",
-    dev = false,
-    lazy = false,
-    priority = 1000,
-    keys = {
-      {
-        "<leader>tt",
-        "<Cmd>MonokaiToggleLight<CR>",
-        desc = "Monokai-Nightasty: Toggle dark/light theme.",
-      },
-    },
-    opts = {
-      dark_style_background = "transparent",
-      light_style_background = "default",
-      color_headers = false,
-      lualine_bold = true,
-      lualine_style = "default",
-      markdown_header_marks = true,
-      -- hl_styles = { comments = { italic = false } },
-      on_colors = function(c)
-        c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
-      end,
-    },
-    config = function(_, opts)
-      vim.opt.cursorline = true -- Highlight line at the cursor position
-      vim.o.background = "dark" -- Default to dark theme
-
-      -- Open new Nvim instance with light theme between the range time
-      -- if require("utils").config.in_hours_range(1400, 1630) then
-      --   vim.o.background = "light"
-      -- end
-
-      require("monokai-nightasty").load(opts)
     end,
   },
   --- Shows code context on the top (func, classes, etc.)

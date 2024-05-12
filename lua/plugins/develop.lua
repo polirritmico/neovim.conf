@@ -143,6 +143,21 @@ return {
       },
     },
   },
+  --- Session Manager
+  {
+    "rmagatti/auto-session",
+    enabled = false,
+    dir = "/home/eduardo/Informática/Patches/auto-session",
+    lazy = false,
+    opts = {
+      auto_session_suppress_dirs = {
+        vim.fn.expand("$HOME/"),
+        -- Setear en .bash_profile: export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:=$XDG_DOWNLOAD_DIR}
+        -- vim.fn.expand("$XDG_DOWNLOAD_DIR"),
+        "/",
+      },
+    },
+  },
   --- Test manager
   {
     "polirritmico/nvim-test",
@@ -172,41 +187,6 @@ return {
       { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Runs the last test." },
       { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
       { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
-    },
-  },
-  --- Session Manager
-  {
-    "rmagatti/auto-session",
-    enabled = false,
-    dir = "/home/eduardo/Informática/Patches/auto-session",
-    lazy = false,
-    opts = {
-      auto_session_suppress_dirs = {
-        vim.fn.expand("$HOME/"),
-        -- Setear en .bash_profile: export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:=$XDG_DOWNLOAD_DIR}
-        -- vim.fn.expand("$XDG_DOWNLOAD_DIR"),
-        "/",
-      },
-    },
-  },
-  --- Refactorion helper
-  {
-    "ThePrimeagen/refactoring.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    keys = {
-      {
-        "<leader>o",
-        -- function() require("telescope").extensions.refactoring.refactors() end,
-        function() require("refactoring").select_refactor() end,
-        mode = { "n", "x" },
-        desc = "Refactoring: Open refactor dialogue",
-      },
-    },
-    opts = {
-      show_success_message = true,
     },
   },
 }
