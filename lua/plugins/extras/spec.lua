@@ -102,7 +102,6 @@ return {
       messages = { enabled = false },
       popupmenu = { enabled = false },
       notify = { enabled = false },
-      progress = { enabled = true },
       lsp = {
         -- Override markdown rendering so that cmp and other plugins use Treesitter
         override = {
@@ -110,19 +109,12 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
-        hover = {
-          enabled = true,
-          silent = false, -- true for not show msg if hover is not avaliable
-        },
+        hover = { enabled = true, silent = false },
         signature = { enabled = false },
       },
       presets = { lsp_doc_border = true }, -- signature and hover docs border
       views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
     },
-    config = function(_, opts)
-      vim.diagnostic.config({ update_in_insert = false })
-      require("noice").setup(opts)
-    end,
   },
   --- Center buffer on screen
   {

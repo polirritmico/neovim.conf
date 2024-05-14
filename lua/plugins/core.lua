@@ -307,7 +307,6 @@ return {
 
       -- Apply servers configurations
       require("mason-lspconfig").setup({
-        ensure_installed = { "bashls", "clangd", "lua_ls", "pylsp" },
         handlers = {
           function(server_name)
             local server = servers_configs[server_name] or {}

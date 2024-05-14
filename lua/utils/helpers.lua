@@ -90,6 +90,7 @@ end
 
 ---Replicate the `gx` functionality from Netrw
 function Helpers.open_url()
+  -- TODO: Remove when updating to 0.10: https://github.com/neovim/neovim/pull/23401
   local pattern = [[https?://[%w-_%.%?%.:/%+=&]+[^ >"\',;`]*]]
   local current_str = vim.fn.expand("<cfile>") -- or cWORD?
   local url = string.match(current_str, pattern)

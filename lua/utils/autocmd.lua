@@ -61,4 +61,17 @@ function UtilsAutoCmds.on_load(plugin_name, fn)
   end
 end
 
+---Autocmd to set terminal options when opening a terminal buffer
+---@param opts table Options to set through `vim.opt_local.option_name = value`
+function UtilsAutoCmds.setup_term(opts)
+  vim.api.nvim_create_autocmd("TermOpen", {
+    group = vim.api.nvim_create_augroup("UserAutocmd_terminal", {}),
+    callback = function()
+      for option, value in pairs(opts) do
+        vim.opt_local[option] = value
+      end
+    end,
+  })
+end
+
 return UtilsAutoCmds

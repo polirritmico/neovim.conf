@@ -7,8 +7,10 @@ local toggle = u.helpers.toggle_vim_opt
 -- Leader key
 vim.g.mapleader = " "
 
+-------------------------------------------------------------------------------
 --- Workarounds for the spanish keyboard layout
--- Intercambiar {} [] ñ: Ñ;
+
+-- Intercambiar {}[] ñ: Ñ;
 vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
 -- Fix goto (no reconoce la tecla `)
@@ -20,18 +22,12 @@ map({ "n", "v" }, "+", '"')
 -- Agregar signo de diálogo (<A-w>)
 map({ "i", "c" }, "ſ", "—")
 
---- Toggles:
-map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
-map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
-map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
-map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
+-------------------------------------------------------------------------------
+--- Navigation and windows
 
 -- Buffers navigation:
 map("n", "<leader>l", "<Cmd>bnext<CR>", "Go to next buffer")
 map("n", "<leader>h", "<Cmd>bprevious<CR>", "Go to previous buffer")
-
--- Return to the position of the last insert
-map("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
 
 -- Center content after scrolling
 map("n", "<C-d>", "<C-d>zz")
@@ -41,59 +37,45 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv", "Scroll window Upwards in the buffer and center the screen")
 map("n", "N", "Nzzzv", "Scroll window Downwards in the buffer and center the screen")
 
+-- Quick-list navigation
+map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
+map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
+
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<Cmd>resize +2<CR>", "Increase window height")
 map("n", "<C-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
 map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
 map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
+-- Return to the position of the last insert
+map("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
+
+-------------------------------------------------------------------------------
+--- Adjust defaults behaviour
+
 -- Close all buffers without saving and exit
 map("n", "ZQ", "<Cmd>qa!<CR>", "Quit without saving")
-
--- Quick-list navigation
-map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
-map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
-
--- Flip paste mappings in visual-mode to avoid buffer replacement
-map("v", "p", "P")
-map("v", "P", "p")
 
 -- Flip full buffer info
 map("n", "1<C-g>", "<C-g>")
 map("n", "<C-g>", "1<C-g>")
 
--- Registers and system clipboard
-map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
-map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
-map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
-
 -- Preserve selection after indent
 map("v", "<", "<gv", "outer indent")
 map("v", ">", ">gv", "inner indent")
 
+--- Registers and clipboard
+-- Flip paste mappings in visual-mode to avoid buffer replacement
+map("v", "p", "P", "Paste without changing the `0` register")
+map("v", "P", "p", "Paste replacing the `0` register")
+
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
 
--- Change to normal mode from terminal mode
-map("t", "<C-n>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)")
-
--- Give execution permissions to the current buffer if matches a valid filetype
-local valid_filetypes = { "bash", "sh", "python" }
-map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
-
--- Config shortcuts
-map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
-map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Config: Open the keys mappings settings")
-map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Nvim settings")
-map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
-map("n", "<leader>cu", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
-
--- Set buffer path as root
-map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
-
--- Replicates Netrw `gx` open url
--- TODO: Remove when updating to 0.10: https://github.com/neovim/neovim/pull/23401
-map("n", "gx", u.helpers.open_url, "Open url on a browser.")
+-- Registers and system clipboard
+map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
+map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
+map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
@@ -102,6 +84,32 @@ vim.cmd([[
   cnoremap <expr> <Left>  wildmenumode() ? '<Up>'    : '<Left>'
   cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
+
+-- Custom "gx" to open urls with Netrw disabled
+map("n", "gx", u.helpers.open_url, "Open url on a browser.")
+
+-- Change to normal mode in terminal mode
+map("t", "<Esc><Esc>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)")
+
+-------------------------------------------------------------------------------
+--- Toggle options:
+
+map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
+map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
+map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
+
+--- Toggle special windows:
+map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
+map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a Shell terminal at the bottom")
+
+-------------------------------------------------------------------------------
+
+-- Set buffer path as root
+map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
+
+-- Give execution permissions to the current buffer if matches a valid filetype
+local valid_filetypes = { "bash", "sh", "python" }
+map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
 -- Setup runners per filetype
 local runner_keymap = "<leader>rr"
@@ -115,3 +123,11 @@ u.autocmd.set_runner("lua", runner_keymap, "PlenaryBustedFile %:p")
 map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Enable english spell check")
 map({ "n", "v" }, "<leader>Se", "<Cmd>Spelles<CR>", "Enable spanish spell check")
 map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")
+
+-- Shortcuts to configuration files
+map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
+map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Config: Open the keys mappings settings")
+map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Nvim settings")
+map("n", "<leader>cu", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
+map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
+

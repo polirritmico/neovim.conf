@@ -16,11 +16,18 @@ opt.timeoutlen = 2000 -- 1000ms default
 opt.ignorecase = true -- Ignore capitalization when searching
 opt.smartcase = true -- Match capitalization only if there are capital letters
 opt.incsearch = true -- Show results while searching
+opt.inccommand = "split" -- Show the changes into a split window
 opt.magic = true -- Standard regext patterns
--- opt.inc = "" -- Avoid real time changes to substitutions. (set inc=)
 
 -- Enter into insert mode when opening :terminal
 vim.cmd([[autocmd TermOpen term://* startinsert]])
+
+-- Set terminal options.
+u.autocmd.setup_term({
+  number = false,
+  relativenumber = false,
+  scrolloff = 0,
+})
 
 -- Saves the current cursor position in the file.
 u.custom.save_cursor_position()
