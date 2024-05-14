@@ -61,7 +61,8 @@ function UtilsAutoCmds.on_load(plugin_name, fn)
   end
 end
 
----Autocmd to set terminal options when opening a terminal buffer
+---Autocmd to set terminal options and enter into `insert-mode` when opening a
+---terminal buffer.
 ---@param opts table Options to set through `vim.opt_local.option_name = value`
 function UtilsAutoCmds.setup_term(opts)
   vim.api.nvim_create_autocmd("TermOpen", {
@@ -70,6 +71,7 @@ function UtilsAutoCmds.setup_term(opts)
       for option, value in pairs(opts) do
         vim.opt_local[option] = value
       end
+      vim.cmd.startinsert()
     end,
   })
 end

@@ -146,41 +146,34 @@ end
 local term_state
 
 ---Open/Close a persistent terminal at the bottom with a fixed height
----@param height integer Height size in characters. Defaults to 12
+---@param height integer Height size in characters. Defaults to `12`
 function Custom.toggle_term(height)
   height = height or 12
 
-  if not term_state then
-    -- new terminal
+  if not term_state or not term_state.open then
     vim.cmd.new()
     vim.cmd.wincmd("J")
-    term_state = {
-      win = vim.api.nvim_get_current_win(),
-      buf = vim.api.nvim_get_current_buf(),
-      open = true,
-    }
-    vim.api.nvim_win_set_height(term_state.win, height)
-    vim.wo.winfixheight = true
-    vim.cmd.term()
-  elseif not term_state.open then
-    -- open closed terminal
-    term_state.open = true
-    vim.cmd.new()
-    vim.cmd.wincmd("J")
-    term_state.win = vim.api.nvim_get_current_win()
-    vim.api.nvim_win_set_buf(term_state.win, term_state.buf)
-    vim.api.nvim_win_set_height(term_state.win, height)
-    vim.wo.winfixheight = true
-  else
-    -- close current terminal
-    if vim.api.nvim_win_is_valid(term_state.win) then
-      vim.api.nvim_win_close(term_state.win, true)
-      term_state.open = false
+    if not term_state then
+      term_state = {
+        open = true,
+        win = vim.api.nvim_get_current_win(),
+        buf = vim.api.nvim_get_current_buf(),
+      }
+      vim.cmd.term()
     else
-      -- When the terminal has been closed by `exit` or similar
-      term_state = nil
-      Custom.toggle_term(height)
+      term_state.open = true
+      term_state.win = vim.api.nvim_get_current_win()
+      vim.api.nvim_win_set_buf(term_state.win, term_state.buf)
     end
+    vim.api.nvim_win_set_height(term_state.win, height)
+    vim.wo.winfixheight = true
+    vim.cmd.startinsert()
+  elseif not vim.api.nvim_win_is_valid(term_state.win) then
+    term_state = nil
+    Custom.toggle_term(height)
+  else
+    vim.api.nvim_win_close(term_state.win, true)
+    term_state.open = false
   end
 end
 

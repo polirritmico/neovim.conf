@@ -19,15 +19,8 @@ opt.incsearch = true -- Show results while searching
 opt.inccommand = "split" -- Show the changes into a split window
 opt.magic = true -- Standard regext patterns
 
--- Enter into insert mode when opening :terminal
-vim.cmd([[autocmd TermOpen term://* startinsert]])
-
--- Set terminal options.
-u.autocmd.setup_term({
-  number = false,
-  relativenumber = false,
-  scrolloff = 0,
-})
+-- Set terminal emulator options.
+u.autocmd.setup_term({ number = false, relativenumber = false })
 
 -- Saves the current cursor position in the file.
 u.custom.save_cursor_position()
