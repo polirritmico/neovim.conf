@@ -145,11 +145,10 @@ end
 
 local term_state
 
----Open/Close a persistent terminal at the bottom with a fixed height
----@param height integer Height size in characters. Defaults to `12`
-function Custom.toggle_term(height)
-  height = height or 12
-
+---Open/Close a persistent terminal at the bottom with a fixed height or with
+---the `v.count` height passed before the shortcut, e.g., `20<toggle_term-map>`.
+function Custom.toggle_term()
+  local height = vim.v.count > 0 and vim.v.count or 12
   local function set_window_panel()
     vim.cmd.new()
     vim.cmd.wincmd("J")
@@ -180,7 +179,7 @@ function Custom.toggle_term(height)
   else
     -- the terminal panel has been closed externally
     term_state = nil
-    Custom.toggle_term(height)
+    Custom.toggle_term()
   end
 end
 
