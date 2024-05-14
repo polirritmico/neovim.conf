@@ -150,30 +150,37 @@ local term_state
 function Custom.toggle_term(height)
   height = height or 12
 
-  if not term_state or not term_state.open then
+  local function set_window_panel()
     vim.cmd.new()
     vim.cmd.wincmd("J")
-    if not term_state then
-      term_state = {
-        open = true,
-        win = vim.api.nvim_get_current_win(),
-        buf = vim.api.nvim_get_current_buf(),
-      }
-      vim.cmd.term()
-    else
-      term_state.open = true
-      term_state.win = vim.api.nvim_get_current_win()
-      vim.api.nvim_win_set_buf(term_state.win, term_state.buf)
-    end
-    vim.api.nvim_win_set_height(term_state.win, height)
+    local win = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_height(win, height)
     vim.wo.winfixheight = true
+    return win
+  end
+
+  if not term_state then
+    -- new terminal panel
+    term_state = {
+      win = set_window_panel(),
+      buf = vim.api.nvim_get_current_buf(),
+      open = true,
+    }
+    vim.cmd.term()
+  elseif not term_state.open then
+    -- reopen the closed terminal panel
+    term_state.win = set_window_panel()
+    vim.api.nvim_win_set_buf(term_state.win, term_state.buf)
+    term_state.open = true
     vim.cmd.startinsert()
-  elseif not vim.api.nvim_win_is_valid(term_state.win) then
-    term_state = nil
-    Custom.toggle_term(height)
-  else
+  elseif vim.api.nvim_win_is_valid(term_state.win) then
+    -- close the terminal panel
     vim.api.nvim_win_close(term_state.win, true)
     term_state.open = false
+  else
+    -- the terminal panel has been closed externally
+    term_state = nil
+    Custom.toggle_term(height)
   end
 end
 
