@@ -10,7 +10,7 @@ function Custom.fold_text()
   local first_line = vim.fn.getline(vim.v.foldstart)
   local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
   local lines_count = tostring(vim.v.foldend - vim.v.foldstart)
-  local space_width = vim.api.nvim_get_option("textwidth")
+  local space_width = api.nvim_get_option("textwidth")
     - #first_line
     - #last_line
     - #lines_count
@@ -153,8 +153,8 @@ function Custom.toggle_term(height)
   local function set_window_panel()
     vim.cmd.new()
     vim.cmd.wincmd("J")
-    local win = vim.api.nvim_get_current_win()
-    vim.api.nvim_win_set_height(win, height)
+    local win = api.nvim_get_current_win()
+    api.nvim_win_set_height(win, height)
     vim.wo.winfixheight = true
     return win
   end
@@ -163,19 +163,19 @@ function Custom.toggle_term(height)
     -- new terminal panel
     term_state = {
       win = set_window_panel(),
-      buf = vim.api.nvim_get_current_buf(),
+      buf = api.nvim_get_current_buf(),
       open = true,
     }
     vim.cmd.term()
   elseif not term_state.open then
     -- reopen the closed terminal panel
     term_state.win = set_window_panel()
-    vim.api.nvim_win_set_buf(term_state.win, term_state.buf)
+    api.nvim_win_set_buf(term_state.win, term_state.buf)
     term_state.open = true
     vim.cmd.startinsert()
-  elseif vim.api.nvim_win_is_valid(term_state.win) then
+  elseif api.nvim_win_is_valid(term_state.win) then
     -- close the terminal panel
-    vim.api.nvim_win_close(term_state.win, true)
+    api.nvim_win_close(term_state.win, true)
     term_state.open = false
   else
     -- the terminal panel has been closed externally
