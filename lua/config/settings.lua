@@ -83,8 +83,8 @@ vim.g.loaded_node_provider = 0
 
 -- Replace grep with ripgrep
 if vim.fn.executable("rg") == 1 then
-  vim.opt.grepprg = "rg --vimgrep --smart-case"
-  vim.opt.grepformat = "%f:%l:%c:%m"
+  opt.grepprg = "rg --vimgrep --smart-case"
+  opt.grepformat = "%f:%l:%c:%m"
 end
 
 -- Spellcheck commands
