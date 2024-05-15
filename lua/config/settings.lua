@@ -45,18 +45,6 @@ vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]])
 -- vnoremenu PopUp.Copy "+y
 vim.cmd([[vnoremenu PopUp.Copy "+y]])
 
---- Netrw
--- vim.g.netrw_keepdir = 0 -- Keep cwd sync with the browsing directory. Avoid move files error
--- vim.g.netrw_liststyle = 0 -- 0: one file per line, 1: 0 + timestamp, filezise, 2: multicol, 3: tree
--- vim.g.netrw_sizestyle = "H" -- Human-readable file sizes
--- vim.g.netrw_preview = 1 -- preview files in a vertical split
--- vim.g.netrw_localcopydircmd = "cp -r" -- defaults to recursive cp
--- vim.g.netrw_localmkdir = "mkdir -p" -- defaults to recursive dir creation
--- vim.g.netrw_localrmdir = "rm -r" -- to remove non-empty dirs
--- -- vim.g.netrw_list_hide = [[^\..*]] -- list of files/dirs to hide.
--- vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]] -- list of files/dirs to hide.
--- vim.g.netrw_hide = 1 -- 0: all, 1: not-hidden, 2: hidden-only
-
 --- Code
 opt.wrap = false -- Split long lines
 opt.textwidth = 80 -- Adjust the lines to match this width limit
@@ -95,8 +83,6 @@ vim.g.loaded_node_provider = 0
 
 -- Replace grep with ripgrep
 if vim.fn.executable("rg") == 1 then
-  -- vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-  -- vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
   vim.opt.grepprg = "rg --vimgrep --smart-case"
   vim.opt.grepformat = "%f:%l:%c:%m"
 end
