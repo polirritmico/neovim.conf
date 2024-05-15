@@ -237,8 +237,8 @@ return {
     opts = {
       -- stylua: ignore
       on_attach = function(bn)
-        vim.keymap.set("n", "g{", "<Cmd>AerialPrev<CR>", { buffer = bn, desc = "Aerial: Jump backwards" })
-        vim.keymap.set("n", "g}", "<Cmd>AerialNext<CR>", { buffer = bn, desc = "Aerial: Jump forwards" })
+        vim.keymap.set("n", "{", "<Cmd>AerialPrev<CR>", { buffer = bn, desc = "Aerial: Jump backwards" })
+        vim.keymap.set("n", "}", "<Cmd>AerialNext<CR>", { buffer = bn, desc = "Aerial: Jump forwards" })
       end,
       layout = {
         min_width = 20,

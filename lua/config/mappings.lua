@@ -100,7 +100,7 @@ map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relati
 
 --- Toggle special windows:
 map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
-map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a Shell terminal at the bottom")
+map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a shell terminal at the bottom")
 
 -------------------------------------------------------------------------------
 

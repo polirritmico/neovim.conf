@@ -3,7 +3,6 @@
 local Config = {}
 
 ---@type table Collection of errors detected by `load_config` (if any).
----@private
 local catched_errors = {}
 
 ---Helper function to open config files when errors are detected by
@@ -25,6 +24,17 @@ function Config.detected_errors()
   return true
 end
 
+---This function check if the current system time is between a time range
+---@param start_time integer Start time of the range in HHMM format (inclusive)
+---@param end_time integer End time of the range in HHMM format (exclusive)
+---@return boolean
+function Config.in_hours_range(start_time, end_time)
+  local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
+  local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
+
+  return system_time >= start_time and system_time < end_time
+end
+
 ---_Helper function to load the passed module._
 ---
 ---If the module returns an **error**, then print it and use the **fallback
@@ -42,17 +52,6 @@ function Config.load_config(module)
     print("  Loading fallback config file: '" .. fallback_cfg .. "'\n")
     require(fallback_cfg)
   end
-end
-
----This function check if the current system time is between a time range
----@param start_time integer Start time of the range in HHMM format (inclusive)
----@param end_time integer End time of the range in HHMM format (exclusive)
----@return boolean
-function Config.in_hours_range(start_time, end_time)
-  local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
-  local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
-
-  return system_time >= start_time and system_time < end_time
 end
 
 ---A wrapper of `vim.keymap.set` function.

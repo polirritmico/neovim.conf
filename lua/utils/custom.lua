@@ -24,17 +24,6 @@ function Custom.fold_text()
   )
 end
 
----Highlight the yanked/copied text. Uses the event `TextYankPost` and the
----group name `User/TextYankHl`.
----@param on_yank_opts? table Options for the on_yank function. Check `:h on_yank for help`.
-function Custom.highlight_yanked_text(on_yank_opts)
-  api.nvim_create_autocmd("TextYankPost", {
-    group = api.nvim_create_augroup("User/TextYankHl", { clear = true }),
-    desc = "Highlight yanked text",
-    callback = function() vim.highlight.on_yank(on_yank_opts) end,
-  })
-end
-
 ---Restore the cursor position when last exiting the current buffer.
 ---Copied from the manual. Check `:h restore-cursor`
 function Custom.save_cursor_position()
@@ -42,39 +31,6 @@ function Custom.save_cursor_position()
     autocmd BufRead * autocmd FileType <buffer> ++once
       \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
   ]])
-end
-
----Create an autocommand to launch a plugin file browser when opening dirs.
----@param plugin_name string
----@param plugin_open fun(path: string) Function to open the file browser
-function Custom.attach_file_browser(plugin_name, plugin_open)
-  local previous_buffer_name
-  api.nvim_create_autocmd("BufEnter", {
-    group = api.nvim_create_augroup("UserFileBrowser", { clear = true }),
-    pattern = "*",
-    callback = function()
-      vim.schedule(function()
-        local buffer_name = api.nvim_buf_get_name(0)
-        if vim.fn.isdirectory(buffer_name) == 0 then
-          _, previous_buffer_name = pcall(vim.fn.expand, "#:p:h")
-          return
-        end
-
-        -- Avoid reopening when exiting without selecting a file
-        if previous_buffer_name == buffer_name then
-          previous_buffer_name = nil
-          return
-        else
-          previous_buffer_name = buffer_name
-        end
-
-        -- Ensure no buffers remain with the directory name
-        api.nvim_buf_set_option(0, "bufhidden", "wipe")
-        plugin_open(vim.fn.expand("%:p:h"))
-      end)
-    end,
-    desc = string.format("[%s] replacement for netrw", plugin_name),
-  })
 end
 
 ---Create a buffer for taking notes into a scratch buffer
@@ -106,8 +62,8 @@ function Custom.lualine_harpoon()
     return ""
   end
 
+  local hp_keys = { "j", "k", "l", "h" }
   local nvim_mode = api.nvim_get_mode().mode:sub(1, 1)
-  local hp_keymap = { "j", "k", "l", "h" }
   local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
     or nvim_mode == "i" and "%#lualine_b_insert#"
     or nvim_mode == "c" and "%#lualine_b_command#"
@@ -123,9 +79,9 @@ function Custom.lualine_harpoon()
   for index = 1, total_marks <= 4 and total_marks or 4 do
     local mark = hp_list.items[index].value
     if mark == buffer_name or mark == full_name then
-      output = output .. hl_selected .. hp_keymap[index] .. hl_normal
+      output = output .. hl_selected .. hp_keys[index] .. hl_normal
     else
-      output = output .. hp_keymap[index]
+      output = output .. hp_keys[index]
     end
   end
 
