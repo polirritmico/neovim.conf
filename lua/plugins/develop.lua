@@ -143,6 +143,32 @@ return {
       },
     },
   },
+  --- Database
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>td", "<Cmd>DBUIToggle<CR>", desc = "vim-dadbod-ui: Toggle UI" },
+    },
+    init = function() vim.g.db_ui_use_nerd_fonts = 1 end,
+    dependencies = {
+      { "tpope/vim-dadbod" },
+      {
+        "kristijanhusak/vim-dadbod-completion",
+        dependencies = { "nvim-cmp" },
+        ft = { "sql", "mysql", "plsql" },
+        config = function(_, opts)
+          require("cmp").setup.filetype({ "sql", "mysql", "plsql" }, {
+            sources = {
+              { name = "vim-dadbod-completion" },
+              { name = "buffer" },
+            },
+          })
+        end,
+      },
+    },
+  },
   --- Session Manager
   {
     "rmagatti/auto-session",
