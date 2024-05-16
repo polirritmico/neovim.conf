@@ -224,13 +224,13 @@ return {
   --- Aerial: Code components quick navigation
   {
     "stevearc/aerial.nvim",
+    enabled = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     -- stylua: ignore
     keys = {
-      -- { "<leader>fa", "<Cmd>AerialToggle! float<CR>", desc = "Aerial: Toggle TOC" },
       { "<leader>fa", "<Cmd>AerialToggle!<CR>", desc = "Aerial: Toggle TOC" },
       { "<leader>fn", "<Cmd>AerialNavToggle<CR>", desc = "Aerial: navigation" },
     },

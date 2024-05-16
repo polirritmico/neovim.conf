@@ -101,5 +101,5 @@ u.autocmd.set_bash_ft_from_shebang()
 -- Redirect the output of a command into a new buffer
 u.helpers.set_cmd_redirection()
 
--- Create scratch buffers for taking notes
-u.custom.set_create_scratch_buffers()
+-- Resize windows splits when the neovim's terminal windows size has change
+u.autocmd.autoresize_windows()

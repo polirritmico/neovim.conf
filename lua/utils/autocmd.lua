@@ -1,8 +1,11 @@
----Functions that create autocommands helpers
----@class UtilsAutoCmds
-local UtilsAutoCmds = {}
-
 local api = vim.api
+
+---Functions that create autocommands helpers into the `UserCustomAutocmds` group
+---@class UtilsAutoCmds
+---@field group_id integer
+local UtilsAutoCmds = {
+  group_id = api.nvim_create_augroup("UserCustomAutocmds", { clear = true }),
+}
 
 ---Create an autocmd to launch a file browser plugin when opening dirs.
 ---@param plugin_name string
@@ -10,7 +13,7 @@ local api = vim.api
 function UtilsAutoCmds.attach_file_browser(plugin_name, plugin_open)
   local previous_buffer_name
   api.nvim_create_autocmd("BufEnter", {
-    group = api.nvim_create_augroup("UserFileBrowser", { clear = true }),
+    group = UtilsAutoCmds.group_id,
     pattern = "*",
     callback = function()
       vim.schedule(function()
@@ -37,12 +40,21 @@ function UtilsAutoCmds.attach_file_browser(plugin_name, plugin_open)
   })
 end
 
+---Resize splits and distributions when the neovim's terminal got resized
+function UtilsAutoCmds.autoresize_windows()
+  vim.api.nvim_create_autocmd("VimResized", {
+    group = UtilsAutoCmds.group_id,
+    callback = function() vim.cmd.tabdo("wincmd =") end,
+    desc = "Resize splits after the neovim's terminal got resized",
+  })
+end
+
 ---Highlight the yanked/copied text. Uses the event `TextYankPost` and the
 ---group name `User/TextYankHl`.
 ---@param on_yank_opts? table Options for the on_yank function. Check `:h on_yank for help`.
 function UtilsAutoCmds.highlight_yanked_text(on_yank_opts)
   api.nvim_create_autocmd("TextYankPost", {
-    group = api.nvim_create_augroup("User/TextYankHl", { clear = true }),
+    group = UtilsAutoCmds.group_id,
     desc = "Highlight yanked text",
     callback = function() vim.highlight.on_yank(on_yank_opts) end,
   })
@@ -62,6 +74,7 @@ function UtilsAutoCmds.on_load(plugin_name, fn)
     fn(plugin_name)
   else
     api.nvim_create_autocmd("User", {
+      group = UtilsAutoCmds.group_id,
       pattern = "LazyLoad",
       callback = function(event)
         if event.data == plugin_name then
@@ -76,11 +89,9 @@ end
 ---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
 ---to `bash` if matches.
 function UtilsAutoCmds.set_bash_ft_from_shebang()
-  local augroup = "ShebangFtDetection"
-  api.nvim_create_augroup(augroup, { clear = false })
   api.nvim_create_autocmd({ "Filetype" }, {
     desc = "For `*.sh` files set the filetype based on the shebang header line.",
-    group = augroup,
+    group = UtilsAutoCmds.group_id,
     pattern = { "sh" },
     callback = function()
       local line = vim.fn.getline(1)
@@ -101,18 +112,18 @@ end
 function UtilsAutoCmds.set_runner(filetype, keymap, ext_cmd)
   local cmd = "noremap " .. keymap .. " <Cmd>" .. ext_cmd .. "<CR>"
   api.nvim_create_autocmd({ "FileType" }, {
+    group = UtilsAutoCmds.group_id,
     command = cmd,
-    group = api.nvim_create_augroup("UserAutocmd_" .. filetype, {}),
     pattern = filetype,
   })
 end
 
 ---Autocmd to set terminal options and enter into `insert-mode` when opening a
 ---terminal buffer.
----@param opts table Options to set through `vim.opt_local.option_name = value`
+---@param opts table Options to set through `vim.opt_local.[option_name] = value`
 function UtilsAutoCmds.setup_term(opts)
   api.nvim_create_autocmd("TermOpen", {
-    group = api.nvim_create_augroup("UserAutocmd_terminal", {}),
+    group = UtilsAutoCmds.group_id,
     callback = function()
       for option, value in pairs(opts) do
         vim.opt_local[option] = value

@@ -521,6 +521,9 @@ return {
       { "<leader>ct", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/after/ftplugin/"<CR>]], desc = "Telescope: Filetypes configurations" },
       { "<leader>cc", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath<CR>]], desc = "Telescope: Plugins configurations" },
       { "<leader>cp", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Config plugins" },
+
+      -- Custom
+      { "<leader>fn", require("utils").custom.scratchs, desc = "Telescope: Open or create a new scratch buffer" },
     },
     opts = function()
       local layout_strategy, layout_config

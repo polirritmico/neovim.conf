@@ -24,7 +24,7 @@ function Custom.fold_text()
   )
 end
 
----Restore the cursor position when last exiting the current buffer.
+---Restore the cursor to its last position when reopening the buffer.
 ---Copied from the manual. Check `:h restore-cursor`
 function Custom.save_cursor_position()
   vim.cmd([[
@@ -33,24 +33,39 @@ function Custom.save_cursor_position()
   ]])
 end
 
----Create a buffer for taking notes into a scratch buffer
---- **Usage:** `Scratch`
-function Custom.set_create_scratch_buffers()
-  api.nvim_create_user_command("Scratch", function()
-    vim.cmd("bel 10new")
-    local buf = api.nvim_get_current_buf()
-    local opts = {
-      -- `:h scratch-buffer`
-      buftype = "nofile",
-      bufhidden = "hide",
-      swapfile = false,
-      filetype = "scratch",
-      modifiable = true,
-    }
-    for key, value in pairs(opts) do
-      api.nvim_set_option_value(key, value, { buf = buf })
+---Create or open scratch notes through a Telescope picker.
+---Defaults to `.md` if no filetype is specified.
+function Custom.scratchs()
+  local state = require("telescope.actions.state")
+  local close = require("telescope.actions").close
+
+  local function open_or_new_scratch_note(bufnr)
+    local selection = state.get_selected_entry()
+    local scratch = selection and selection[1] or state.get_current_line()
+    if not scratch:match("%.") then
+      scratch = scratch .. ".md"
     end
-  end, { desc = "Create a scratch buffer" })
+
+    close(bufnr)
+    vim.cmd.edit(string.format("%s/%s", ScratchNotesPath, scratch))
+    -- api.nvim_set_option_value("bufhidden", "wipe", {})
+  end
+
+  local function open_scratch_directory(bufnr)
+    close(bufnr)
+    vim.cmd.edit(ScratchNotesPath)
+  end
+
+  require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
+    prompt_title = "Scratch notes (<C-d> open dir)",
+    no_ignore = true, -- show files ignored by .gitignore
+    cwd = ScratchNotesPath,
+    attach_mappings = function(_, map)
+      map("i", "<Cr>", open_or_new_scratch_note)
+      map("i", "<C-d>", open_scratch_directory)
+      return true
+    end,
+  }))
 end
 
 ---Return a custom lualine tabline section that integrates Harpoon marks.
@@ -88,7 +103,7 @@ function Custom.lualine_harpoon()
   return output
 end
 
----Show/Hide the quickfix list
+---Show/Hide the quickfix list.
 function Custom.toggle_quickfix()
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win.quickfix == 1 then

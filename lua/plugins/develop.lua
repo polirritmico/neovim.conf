@@ -146,6 +146,7 @@ return {
   --- Database
   {
     "kristijanhusak/vim-dadbod-ui",
+    enabled = false,
     cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
     -- stylua: ignore
     keys = {
@@ -178,8 +179,6 @@ return {
     opts = {
       auto_session_suppress_dirs = {
         vim.fn.expand("$HOME/"),
-        -- Setear en .bash_profile: export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:=$XDG_DOWNLOAD_DIR}
-        -- vim.fn.expand("$XDG_DOWNLOAD_DIR"),
         "/",
       },
     },
@@ -207,10 +206,10 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Runs all test in the current file or runs the last file tests." },
+      { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Run all test in the current file or run the last file tests." },
       { "<leader>rta", "<Cmd>silent TestSuite<CR>", desc = "nvim-test: Run the whole test suite following the current file or the last run test." },
       { "<leader>rtu", "<Cmd>silent TestNearest<CR>", desc = "nvim-test: Run the test nearest to the cursor or run the last test." },
-      { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Runs the last test." },
+      { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Run the last test." },
       { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
       { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
     },
