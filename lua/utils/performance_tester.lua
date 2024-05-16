@@ -1,3 +1,8 @@
+---Utility module to execute performance test between two functions.
+---**Usage:** Set the test functions and then execute them.
+---1. Import the module: `local perf_tester = require("utils.performance_tester")`
+---2. Set the tests: `perf_tester.set_test(fn1, fn2, loops, log_file)`
+---3. Run the tests: `perf_tester.run()`
 ---@class PerformanceTester
 local M = {}
 
@@ -45,7 +50,7 @@ end
 ---@param log_file? string Path to output the log_file
 function M.set_tests(fn1, fn2, loops, log_file)
   local logp = M.print_and_add_to_log
-  M.output_log = log_file
+  M.output_log = log_file and vim.fn.expand(log_file) or nil
   M.loops = loops
   M.fn1 = fn1
   M.fn2 = fn2
@@ -88,7 +93,7 @@ function M.execute_fn(fun)
 end
 
 ---Execute the passed tests
-function M.tests_run()
+function M.run()
   local logp = M.print_and_add_to_log
   logp("Running...")
 
@@ -104,7 +109,9 @@ function M.tests_run()
   logp(string.format("Better by: %.4f seconds (%.2f%%)", diff_time, diff_percentage))
   logp("\n\n")
 
-  M.write_log()
+  if M.output_log then
+    M.write_log()
+  end
 end
 
 return M

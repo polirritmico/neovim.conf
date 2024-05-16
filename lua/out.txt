@@ -1,0 +1,21 @@
+--------------------------------------------------------------------
+Performance Test: Fibonacci naive - Fibonacci iterative
+Iterations: 10
+Date: 2024-05-16T00:46:39
+--------------------------------------------------------------------
+Running...
+
+- Executing `Fibonacci naive`...
+  - Total execution time: 0.0002 seconds
+  - Average execution time: 0.000023 seconds
+
+- Executing `Fibonacci iterative`...
+  - Total execution time: 0.0000 seconds
+  - Average execution time: 0.000002 seconds
+OK
+
+--------------------------------------------------------------------
+Faster performant: Fibonacci iterative
+Better by: 0.0002 seconds (172.58%)
+
+
