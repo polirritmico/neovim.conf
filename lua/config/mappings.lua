@@ -85,9 +85,6 @@ vim.cmd([[
   cnoremap <expr> <Right> wildmenumode() ? '<Down>'  : '<Right>'
 ]])
 
--- Custom "gx" to open urls with Netrw disabled
-map("n", "gx", u.helpers.open_url, "Open url on a browser.")
-
 -- Change to normal mode in terminal mode
 map("t", "<Esc><Esc>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)")
 

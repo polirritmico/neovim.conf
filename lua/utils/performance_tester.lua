@@ -68,7 +68,7 @@ function M.write_log()
   end
   print("[write] " .. M.output_log)
   if vim.fn.finddir(M.output_log) == "" then
-    vim.fn.mkdir(vim.fs.dirname(M.output_log), "p")
+    vim.fn.mkdir(vim.fs.dirname(M.output_log) or "", "p")
   end
   local file = assert(io.open(M.output_log, "a"))
   file:write(table.concat(M.log, "\n"))

@@ -72,7 +72,7 @@ return {
         },
         enabled = function()
           -- Disable on telescope prompt
-          if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+          if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
             return false
           end
 
@@ -210,7 +210,7 @@ return {
         opts = {
           override = function(root_dir, library)
             -- Enable neodev for plugins inside MyPluginsPath
-            local custom_plugins_path = vim.loop.fs_realpath(MyPluginsPath)
+            local custom_plugins_path = vim.uv.fs_realpath(MyPluginsPath)
             if custom_plugins_path then
               for plugin in vim.fs.dir(custom_plugins_path) do
                 local plugin_root = string.format("%s/%s", custom_plugins_path, plugin)
@@ -229,20 +229,15 @@ return {
       --- Keys
 
       local function toggle_lsp_diag()
-        if vim.diagnostic.is_disabled() then
-          vim.diagnostic.enable()
-          vim.notify("LSP: Diagnostics enabled")
-        else
-          vim.diagnostic.disable()
-          vim.notify("LSP: Diagnostics Disabled")
-        end
+        local state = vim.diagnostic.is_enabled()
+        vim.diagnostic.enable(not state)
+        vim.notify("LSP: Diagnostics " .. (state and "disabled" or "enabled"))
       end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         callback = function(event)
           local buf_opts = { buffer = event.buf }
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, buf_opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
@@ -254,8 +249,6 @@ return {
           vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, buf_opts)
 
           vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
-          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, buf_opts)
-          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, buf_opts)
           vim.keymap.set({ "n", "v" }, "<leader>gH", toggle_lsp_diag, buf_opts)
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, buf_opts)
         end,

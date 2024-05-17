@@ -9,7 +9,7 @@ local Writing = {}
 ---Enables spell checkers for the specified language.
 ---@param lang string Language ISO-like string. _E.g. es_CL, es, en, etc._
 function Writing.dict_on(lang)
-  if vim.api.nvim_get_option("spelllang") ~= lang then
+  if vim.api.nvim_get_option_value("spelllang", {}) ~= lang then
     vim.opt.spelllang = lang
   end
   vim.opt.spell = true
@@ -18,7 +18,7 @@ end
 
 ---Disable spell checkers and unset the `spelllang` variable.
 function Writing.dict_off()
-  if vim.api.nvim_get_option("spelllang") == "" then
+  if vim.api.nvim_get_option_value("spelllang", {}) == "" then
     return
   end
   vim.opt.spelllang = ""

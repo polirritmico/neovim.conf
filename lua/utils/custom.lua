@@ -10,7 +10,7 @@ function Custom.fold_text()
   local first_line = vim.fn.getline(vim.v.foldstart)
   local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
   local lines_count = tostring(vim.v.foldend - vim.v.foldstart)
-  local space_width = api.nvim_get_option("textwidth")
+  local space_width = api.nvim_get_option_value("textwidth", {})
     - #first_line
     - #last_line
     - #lines_count
@@ -114,6 +114,12 @@ function Custom.toggle_quickfix()
   vim.cmd.copen()
 end
 
+---@class UtilsCustomTermState
+---@field win integer
+---@field buf integer
+---@field open boolean
+
+---@type UtilsCustomTermState?
 local term_state
 
 ---Open/Close a persistent terminal at the bottom with a fixed height or with

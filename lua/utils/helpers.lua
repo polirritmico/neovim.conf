@@ -29,7 +29,7 @@ end
 ---Wrapper function to pretty print variables instead of getting memory addresses.
 ---@param ... any Variable or variables to pretty print
 ---@return any -- Return the variables unpacked
-function Helpers.custom_print(...)
+function Helpers.print_wrapper(...)
   local args = { ... }
   local mapped = {}
   for _, variable in pairs(args) do
@@ -38,23 +38,6 @@ function Helpers.custom_print(...)
   print(unpack(mapped))
 
   return unpack(args)
-end
-
----Replicate the `gx` functionality from Netrw
-function Helpers.open_url()
-  -- TODO: Remove when updating to 0.10: https://github.com/neovim/neovim/pull/23401
-  local pattern = [[https?://[%w-_%.%?%.:/%+=&]+[^ >"\',;`]*]]
-  local current_str = vim.fn.expand("<cfile>") -- or cWORD?
-  local url = string.match(current_str, pattern)
-  if not url then
-    local msg = string.format("Can't detect url for [%s]", current_str)
-    vim.notify(msg, vim.log.levels.WARN)
-    return
-  end
-  local cmd_output = vim.fn.jobstart({ "xdg-open", url }, { detach = true })
-  if cmd_output <= 0 then
-    vim.notify(string.format("Error opening '%s'.", url), vim.log.levels.ERROR)
-  end
 end
 
 ---Redirects the output of the passed command-line into a new buffer
@@ -98,7 +81,7 @@ function Helpers.toggle_vim_opt(option, a, b, silent)
   end
 
   local new_opt
-  if vim.api.nvim_win_get_option(0, option) == a then
+  if vim.api.nvim_get_option_value(option, { win = 0 }) == a then
     new_opt = b
   else
     new_opt = a
