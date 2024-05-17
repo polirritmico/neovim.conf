@@ -39,6 +39,15 @@ function Custom.scratchs()
   local state = require("telescope.actions.state")
   local close = require("telescope.actions").close
 
+  local function new_scratch_note(bufnr)
+    local scratch = state.get_current_line()
+    if not scratch:match("%.") then
+      scratch = scratch .. ".md"
+    end
+    close(bufnr)
+    vim.cmd.edit(string.format("%s/%s", ScratchNotesPath, scratch))
+  end
+
   local function open_or_new_scratch_note(bufnr)
     local selection = state.get_selected_entry()
     local scratch = selection and selection[1] or state.get_current_line()
@@ -48,7 +57,6 @@ function Custom.scratchs()
 
     close(bufnr)
     vim.cmd.edit(string.format("%s/%s", ScratchNotesPath, scratch))
-    -- api.nvim_set_option_value("bufhidden", "wipe", {})
   end
 
   local function open_scratch_directory(bufnr)
@@ -57,11 +65,12 @@ function Custom.scratchs()
   end
 
   require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
-    prompt_title = "Scratch notes (<C-d> open dir)",
+    prompt_title = "Scratch notes (<S-CR> new | <C-d> dir)",
     no_ignore = true, -- show files ignored by .gitignore
     cwd = ScratchNotesPath,
     attach_mappings = function(_, map)
       map("i", "<Cr>", open_or_new_scratch_note)
+      map("i", "<S-CR>", new_scratch_note)
       map("i", "<C-d>", open_scratch_directory)
       return true
     end,

@@ -249,7 +249,7 @@ return {
           vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, buf_opts)
 
           vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
-          vim.keymap.set({ "n", "v" }, "<leader>gH", toggle_lsp_diag, buf_opts)
+          vim.keymap.set({ "n", "v" }, "<leader>td", toggle_lsp_diag, buf_opts)
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, buf_opts)
         end,
       })

@@ -134,35 +134,30 @@ return {
       width = 100,
     },
     keys = function()
-      NoNeckPain_default_border_hl = {}
-      NoNeckPainToggleState = false
+      local toggle_state = false
+      local border_hl
 
-      local function NNP_toggle_with_custom_border_hl()
+      local function toggle_custom_hl_border()
         local border_name = "WinSeparator"
         local custom_hl = { fg = 4079166 } -- "#3e3e3e" in dec
 
-        if NoNeckPain_default_border_hl.fg == nil then
-          NoNeckPain_default_border_hl =
-            vim.api.nvim_get_hl(0, { name = border_name, link = true })
+        if not border_hl then
+          border_hl = vim.api.nvim_get_hl(0, { name = border_name })
         end
 
-        if NoNeckPainToggleState then
-          vim.api.nvim_set_hl(0, border_name, NoNeckPain_default_border_hl)
+        if toggle_state then
+          ---@cast border_hl vim.api.keyset.highlight
+          vim.api.nvim_set_hl(0, border_name, border_hl)
         else
           vim.api.nvim_set_hl(0, border_name, custom_hl)
         end
-        NoNeckPainToggleState = not NoNeckPainToggleState
+        toggle_state = not toggle_state
         vim.cmd([[NoNeckPain]])
       end
 
       return {
-        {
-          "<leader>tc",
-          NNP_toggle_with_custom_border_hl,
-          { "n", "s" },
-          desc = "NoNeckPain: Toggle center mode",
-          silent = true,
-        },
+        -- stylua: ignore
+        { "<leader>tc", toggle_custom_hl_border, mode = { "n", "v" }, desc = "NoNeckPain: Toggle center mode" },
       }
     end,
   },
