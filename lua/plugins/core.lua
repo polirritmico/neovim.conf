@@ -563,23 +563,8 @@ return {
         },
         pickers = { find_files = { follow = true } },
         extensions = {
-          file_browser = {
-            follow_symlinks = true,
-            hijack_netrw = true,
-          },
           lazy_plugins = {
             show_disabled = true,
-          },
-          heading = {
-            treesitter = true,
-            picker_opts = {
-              layout_strategy = "horizontal",
-              sorting_strategy = "ascending",
-              layout_config = {
-                preview_cutoff = 20,
-                preview_width = 0.7,
-              },
-            },
           },
         },
       }

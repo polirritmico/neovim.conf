@@ -43,15 +43,17 @@ end
 ---
 ---> This expect a fallback config `<module-name.lua>` in the `fallback` folder.
 ---@param module string Name of the config module to load.
+---@return any call_return Return of the require module call (if any).
 function Config.load_config(module)
-  local ok, err = pcall(require, "config." .. module)
+  local ok, call_return = pcall(require, "config." .. module)
   if not ok then
     table.insert(catched_errors, module)
     local fallback_cfg = "config.fallback." .. module
-    print("- Error loading the module '" .. module .. "':\n " .. err)
+    print("- Error loading the module '" .. module .. "':\n " .. call_return)
     print("  Loading fallback config file: '" .. fallback_cfg .. "'\n")
     require(fallback_cfg)
   end
+  return call_return
 end
 
 ---A wrapper of `vim.keymap.set` function.

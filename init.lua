@@ -1,6 +1,6 @@
 --- Globals
 
--- Improve load time
+-- Improved loader that byte-compile and caches lua files (experimental)
 vim.loader.enable()
 
 ---@type boolean Workstation machine or laptop
