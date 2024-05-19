@@ -37,6 +37,12 @@ return {
       require("monokai-nightasty").load(opts)
     end,
   },
+  --- Custom vertical width column/ruler
+  {
+    "lukas-reineke/virt-column.nvim",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    opts = { char = "┊" },
+  },
   --- Delete buffers without messing up the current layout
   {
     "famiu/bufdelete.nvim",
@@ -108,7 +114,6 @@ return {
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
-    event = "VeryLazy",
     keys = function()
       local harpoon = require("harpoon")
       -- stylua: ignore
@@ -136,21 +141,6 @@ return {
       scope = { enabled = false },
     },
   },
-  --- Lsp function hover
-  {
-    "ray-x/lsp_signature.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
-    enabled = true,
-    -- event = "VeryLazy",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = {
-      floating_window_above_cur_line = true,
-      close_timeout = 2000,
-      hint_prefix = " ",
-      toggle_key = "<A-i>",
-      toggle_key_flip_floatwin_setting = true,
-    },
-  },
   --- Lualine: Status bar
   {
     "nvim-lualine/lualine.nvim",
@@ -173,6 +163,38 @@ return {
       }
     end,
   },
+  --- Noice. A lot of ui messages
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {
+      cmdline = { enabled = false },
+      messages = { enabled = false },
+      popupmenu = { enabled = false },
+      notify = { enabled = false },
+      lsp = {
+        -- Override markdown rendering so that cmp and other plugins use Treesitter
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+        hover = { enabled = true, silent = false },
+        signature = { enabled = true },
+      },
+      presets = { lsp_doc_border = true }, -- signature and hover docs border
+      views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
+    },
+    config = function(_, opts)
+      require("noice").setup(opts)
+
+      local n_docs = require("noice.lsp.docs")
+      local hide_signature = function() n_docs.hide(n_docs.get("signature")) end
+      -- stylua: ignore
+      vim.keymap.set("i", "<C-e>", hide_signature, { desc = "Noice: Hide signature info" } )
+    end,
+  },
   --- Shows code context on the top (func, classes, etc.)
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -181,11 +203,5 @@ return {
       min_window_height = 10, -- in lines
       max_lines = 3, -- max number of lines of the header context
     },
-  },
-  --- Custom vertical width column/ruler
-  {
-    "lukas-reineke/virt-column.nvim",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = { char = "┊" },
   },
 }

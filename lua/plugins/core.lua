@@ -66,10 +66,7 @@ return {
             return item
           end,
         },
-        experimental = {
-          -- ghost_text = { hl_group = "CmpGhostText" },
-          ghost_text = true,
-        },
+        -- experimental = { ghost_text = true },
         enabled = function()
           -- Disable on telescope prompt
           if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
@@ -254,7 +251,9 @@ return {
         end,
       })
 
-      --- Servers configurations `:h lspconfig-configurations`
+      -------------------------------------------------------------------------
+
+      --- Servers configurations (`:h lspconfig-configurations`)
       local servers_configs = {
         clangd = {
           cmd = { "clangd", "--fallback-style=WebKit" },
@@ -309,6 +308,8 @@ return {
           end,
         },
       })
+
+      -------------------------------------------------------------------------
 
       -- Add borders to LspInfo
       require("lspconfig.ui.windows").default_options.border = "rounded"

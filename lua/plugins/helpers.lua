@@ -95,7 +95,7 @@ return {
   {
     "kylechui/nvim-surround",
     version = "*", -- latest stable
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       -- TODO: While learning this maps I'm keeping the defaults on the right.
       -- Remove in a few months.

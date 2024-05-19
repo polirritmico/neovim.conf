@@ -92,30 +92,6 @@ return {
       return opts
     end,
   },
-  --- Noice. A lot of ui messages
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {
-      cmdline = { enabled = false },
-      messages = { enabled = false },
-      popupmenu = { enabled = false },
-      notify = { enabled = false },
-      lsp = {
-        -- Override markdown rendering so that cmp and other plugins use Treesitter
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-        hover = { enabled = true, silent = false },
-        signature = { enabled = false },
-      },
-      presets = { lsp_doc_border = true }, -- signature and hover docs border
-      views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
-    },
-  },
   --- Center buffer on screen
   {
     "shortcuts/no-neck-pain.nvim",
