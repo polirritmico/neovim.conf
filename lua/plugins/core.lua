@@ -554,6 +554,7 @@ return {
           mappings = {
             ["i"] = {
               ["<CR>"] = require("utils.helpers").telescope_open_single_and_multi,
+              ["<C-q>"] = require("utils.helpers").telescope_open_and_fill_qflist,
               ["<C-h>"] = "which_key", -- toggle keymaps help
               ["<LeftMouse>"] = function() end,
             },

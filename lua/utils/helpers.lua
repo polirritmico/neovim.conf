@@ -53,20 +53,33 @@ function Helpers.set_cmd_redirection()
   end, { nargs = "+", complete = "command" })
 end
 
+---Telescope action helper to open a qflist with all current matches an open
+---the first entry.
+---@param bufnr integer Telescope prompt buffer number
+function Helpers.telescope_open_and_fill_qflist(bufnr)
+  local actions = require("telescope.actions")
+  actions.send_to_qflist(bufnr)
+  actions.open_qflist(bufnr)
+  vim.api.nvim_input("<CR>")
+end
+
 ---Telescope action helper to open single or multiple files
----@param bufnr integer telescope prompt buffer number
+---@param bufnr integer Telescope prompt buffer number
 function Helpers.telescope_open_single_and_multi(bufnr)
-  local picker = require("telescope.actions.state").get_current_picker(bufnr)
-  local selection = picker:get_multi_selection()
-  if not vim.tbl_isempty(selection) then
-    require("telescope.actions").close(bufnr)
-    for _, file in pairs(selection) do
+  local actions = require("telescope.actions")
+  local actions_state = require("telescope.actions.state")
+  local single_selection = actions_state.get_selected_entry()
+  local multi_selection = actions_state.get_current_picker(bufnr):get_multi_selection()
+  if not vim.tbl_isempty(multi_selection) then
+    actions.close(bufnr)
+    for _, file in pairs(multi_selection) do
       if file.path ~= nil then
         vim.cmd(string.format("%s %s", "edit", file.path))
       end
     end
+    vim.cmd(string.format("%s %s", "edit", single_selection.path))
   else
-    require("telescope.actions").select_default(bufnr)
+    actions.select_default(bufnr)
   end
 end
 

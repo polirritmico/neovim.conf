@@ -2,7 +2,7 @@ return {
   --- Best colorscheme for nvim
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = false,
+    dev = true,
     lazy = false,
     priority = 1000,
     keys = {
