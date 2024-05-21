@@ -73,6 +73,15 @@ opt.foldnestmax = 3 -- Max nested folding level
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
 opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
 
+--- Filetypes
+
+vim.filetype.add({
+  extension = {
+    qml = "qmljs",
+    tex = "tex", -- Force LaTeX over plaintex files
+  },
+})
+
 --- Misc
 
 -- Disable health checks
