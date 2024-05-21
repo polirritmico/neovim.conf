@@ -2,7 +2,7 @@ return {
   --- Best colorscheme for nvim
   {
     "polirritmico/monokai-nightasty.nvim",
-    dev = true,
+    dev = false,
     lazy = false,
     priority = 1000,
     keys = {
@@ -151,7 +151,7 @@ return {
       local lualine_require = require("lualine_require")
       lualine_require.require = require
 
-      local section_y = not Workstation and { "progress" }
+      local custom_section_y = not Workstation and { "progress" }
         or { "progress", require("utils.custom").lualine_harpoon }
 
       return {
@@ -159,7 +159,7 @@ return {
           disabled_filetypes = { statusline = { "dashboard", "man" } },
         },
         extensions = { "lazy" },
-        sections = { lualine_y = section_y },
+        sections = { lualine_y = custom_section_y },
       }
     end,
   },
