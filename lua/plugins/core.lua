@@ -73,7 +73,7 @@ return {
             return false
           end
 
-          -- Disable completion on comments
+          -- Disable on comments
           local context = require("cmp.config.context")
           if vim.api.nvim_get_mode().mode == "c" then
             return true
