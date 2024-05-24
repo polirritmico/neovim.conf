@@ -20,7 +20,7 @@ return {
     },
     opts = {
       buf_options = { buflisted = true },
-      keymaps = { ["_"] = "actions.select" },
+      keymaps = { ["_"] = "actions.select", ["<C-h>"] = "actions.toggle_hidden" },
     },
   },
   --- Pairs of (), [], {}, etc.

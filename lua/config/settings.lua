@@ -80,6 +80,11 @@ vim.filetype.add({
     qml = "qmljs",
     tex = "tex", -- Force LaTeX over plaintex files
   },
+  pattern = {
+    [".*/playbooks/.+%.ya?ml"] = "yaml.ansible",
+    [".*/tasks/.+%.ya?ml"] = "yaml.ansible",
+    [".*/.*ansible.*%.ya?ml"] = "yaml.ansible",
+  },
 })
 
 --- Misc

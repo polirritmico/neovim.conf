@@ -255,6 +255,7 @@ return {
 
       --- Servers configurations (`:h lspconfig-configurations`)
       local servers_configs = {
+        ansiblels = {},
         clangd = {
           cmd = { "clangd", "--fallback-style=WebKit" },
         },
