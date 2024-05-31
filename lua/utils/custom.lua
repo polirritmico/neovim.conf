@@ -24,6 +24,17 @@ function Custom.fold_text()
   )
 end
 
+---Oil.nvim: Set a configuramtion key for the confirm changes prompt.
+---@param key string Confirmation key.
+function Custom.oil_confirmation_key(key)
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "oil_preview",
+    callback = function(prms)
+      vim.keymap.set("n", key, "Y", { buffer = prms.buf, remap = true, nowait = true })
+    end,
+  })
+end
+
 ---Restore the cursor to its last position when reopening the buffer.
 ---Copied from the manual. Check `:h restore-cursor`
 function Custom.save_cursor_position()

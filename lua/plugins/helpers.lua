@@ -11,6 +11,7 @@ return {
     init = function()
       local oil_open_folder = function(path) require("oil").open(path) end
       require("utils").autocmd.attach_file_browser("oil", oil_open_folder)
+      require("utils").custom.oil_confirmation_key("y")
     end,
     cmd = { "Oil" },
     -- stylua: ignore
