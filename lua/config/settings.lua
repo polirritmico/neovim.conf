@@ -97,7 +97,7 @@ vim.g.loaded_node_provider = 0
 
 -- Replace grep with ripgrep
 if vim.fn.executable("rg") == 1 then
-  opt.grepprg = "rg --vimgrep --smart-case"
+  opt.grepprg = "rg --vimgrep --smart-case --follow"
   opt.grepformat = "%f:%l:%c:%m"
 end
 

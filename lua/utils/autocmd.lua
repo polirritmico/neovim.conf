@@ -50,7 +50,7 @@ function Autocmds.autoresize_windows()
 end
 
 ---Highlight the yanked/copied text. Uses the event `TextYankPost` and the
----group name `User/TextYankHl`.
+---group name `Autocmds.group_id` (`UserCustomAutocmds`).
 ---@param on_yank_opts? table Options for the on_yank function. Check `:h on_yank for help`.
 function Autocmds.highlight_yanked_text(on_yank_opts)
   api.nvim_create_autocmd("TextYankPost", {
@@ -61,11 +61,11 @@ function Autocmds.highlight_yanked_text(on_yank_opts)
 end
 
 ---Create autocmds at "LazyLoad" events.
----The LazyLoad events are triggered by Lazy after loading a plugin, with the name of
----the loaded plugin in the `data` field of the event.
----This function checks if the plugin is already loaded and execute the passed
----function. If not, then it sets an autocmd that waits for the event to
----execute the passed function.
+---The LazyLoad events are triggered by Lazy after loading a plugin, with the
+---name of the loaded plugin in the `data` field of the event.
+---This function checks if the plugin is already loaded and executes the passed
+---function. If not, it sets an autocmd that waits for the event raised when the
+---plugin is loaded and then executes the passed function.
 ---@param plugin_name string Plugin name waiting to be loaded
 ---@param fn fun(plugin_name:string) Function to execute after the plugin is loaded
 function Autocmds.on_load(plugin_name, fn)
