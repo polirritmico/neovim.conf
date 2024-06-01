@@ -13,6 +13,10 @@ vim.g.mapleader = " "
 -- Intercambiar {}[] ñ: Ñ;
 vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
+-- Fix `ci` operations inverted behaviour caused by the above langmap
+map("", "ci{", "ci[")
+map("", "ci[", "ci{")
+
 -- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 
