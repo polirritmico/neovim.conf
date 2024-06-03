@@ -202,32 +202,13 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      -- {
-      --   "folke/neodev.nvim",
-      --   opts = {
-      --     override = function(root_dir, library)
-      --       -- Enable neodev for plugins inside MyPluginsPath
-      --       local custom_plugins_path = vim.uv.fs_realpath(MyPluginsPath)
-      --       if custom_plugins_path then
-      --         for plugin in vim.fs.dir(custom_plugins_path) do
-      --           local plugin_root = string.format("%s/%s", custom_plugins_path, plugin)
-      --           if root_dir:find(plugin_root, 1, true) == 1 then
-      --             library.enabled = true
-      --             library.plugins = true
-      --           end
-      --         end
-      --       end
-      --     end,
-      --   },
-      -- },
       {
         "folke/lazydev.nvim",
         dependencies = {
-          "Bilal2453/luvit-meta", -- `vim.uv` typings
-          enabled = true,
+          { "Bilal2453/luvit-meta", enabled = true },
         },
         ft = "lua",
-        opts = {},
+        config = true,
       },
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
