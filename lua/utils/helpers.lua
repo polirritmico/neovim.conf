@@ -40,17 +40,29 @@ function Helpers.print_wrapper(...)
   return unpack(args)
 end
 
----Redirects the output of the passed command-line into a new buffer
---- **Usage:** `:Redir <the command>`
+---Redirects the output of the passed command-line into a buffer.
+---**Usage:** `:Redir <command>` or `:Redir! <command>`. With bang writes into
+---the current buffer at cursor position. For Lua: `:Redir lua foo()`.
 function Helpers.set_cmd_redirection()
   vim.api.nvim_create_user_command("Redir", function(ctx)
     local cmd_output = vim.api.nvim_exec2(ctx.args, { output = true }).output
     local lines = vim.split(cmd_output, "\n", { plain = true })
-    vim.cmd("enew") -- `new` split the window
-    vim.bo.filetype = "lua"
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-    vim.opt_local.modified = false
-  end, { nargs = "+", complete = "command" })
+    if ctx.bang then
+      -- local linenr = vim.api.nvim_win_get_cursor(0)[1]
+      -- vim.api.nvim_buf_set_lines(0, linenr, linenr + #lines, false, lines)
+      vim.api.nvim_put(lines, "l", true, true)
+    else
+      vim.cmd("enew") -- `new` split the window
+      vim.bo.filetype = "lua"
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      vim.opt_local.modified = false
+    end
+  end, {
+    nargs = "+",
+    complete = "command",
+    bang = true,
+    desc = "Redirect cmd output into buffer",
+  })
 end
 
 ---Telescope action helper to open a qflist with all current matches an open
