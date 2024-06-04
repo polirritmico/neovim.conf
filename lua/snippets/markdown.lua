@@ -14,14 +14,12 @@ return {
         {}]],
       {
         c(1, {
-          t("command"),
           i(1),
           t("bash"),
+          t("command"),
           t("lua"),
           t("python"),
           t("html"),
-          t("sql"),
-          t("cpp"),
           t("json"),
         }),
         i(2),
@@ -29,11 +27,30 @@ return {
       }
     )
   ),
-
+  s(
+    {
+      trig = [[cmd(.+)]],
+      trigEngine = "pattern",
+      name = "Command section block",
+      desc = "Usage: cmd`<the language>`",
+    },
+    fmt(
+      [[
+        ```{}
+        {}
+        ```
+        {}]],
+      {
+        f(function(_, sn) return sn.captures[1] ~= "(.+)" and sn.captures[1] or "" end),
+        i(1),
+        i(0),
+      }
+    )
+  ),
   s({
     trig = "---",
     name = "Horizontal separator line",
-    dscr = "A horizontal separation line (79 characters).",
+    desc = "A horizontal separation line (79 characters).",
   }, {
     f(function()
       local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -44,7 +61,7 @@ return {
   }),
 
   s(
-    { trig = "imagelink", name = "Image with link", dscr = "An image with link" },
+    { trig = "imagelink", name = "Image with link", desc = "An image with link" },
     fmt(
       [=[
         [![{fallback}]({image} "{hover}")]({url}) {}]=],
