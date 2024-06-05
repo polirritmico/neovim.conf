@@ -112,7 +112,7 @@ u.writing.set_two_columns_mode()
 -- Read shebang to determine shell script filetype
 u.autocmd.set_bash_ft_from_shebang()
 
--- Redirect the output of a command into a new buffer
+-- Set a custom command to redirect the output of a command into a buffer
 u.helpers.set_cmd_redirection()
 
 -- Resize windows splits when the neovim's terminal windows size has change

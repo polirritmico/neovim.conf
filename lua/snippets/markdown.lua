@@ -86,6 +86,7 @@ return {
   ),
 
   s("link", fmt("[{}]({}) {}", { i(1, "Description"), i(2, "url"), i(0) })),
+  s("url", fmt("[{}]({}) {}", { i(1, "Description"), i(2, "url"), i(0) })),
 
   s("ftnote", fmt("[^{}] {}", { i(1), i(0) })),
 
