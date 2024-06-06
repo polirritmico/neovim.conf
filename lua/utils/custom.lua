@@ -7,6 +7,7 @@ local api = vim.api
 ---Function used to set a custom text when called by a fold action like zc.
 ---To set it check `:h v:lua-call` and `:h foldtext`.
 function Custom.fold_text()
+  -- TODO: Get first and last lines highlights
   local first_line = vim.fn.getline(vim.v.foldstart)
   local last_line = vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
   local lines_count = tostring(vim.v.foldend - vim.v.foldstart)

@@ -53,28 +53,27 @@ opt.textwidth = 80 -- Adjust the lines to match this width limit
 opt.autoindent = true -- Indent based on the previous line
 opt.cindent = true -- Indent comments at the beginning of the lines
 opt.cinkeys = opt.cinkeys - "0#" -- Idem.
-opt.expandtab = true -- Replace tab with spaces in Insert mode
-opt.shiftround = true -- Approx. the indentation in multiples of shiftwidth
-opt.shiftwidth = 4 -- Number of spaces used by indent and unindent
-opt.smartindent = true -- Autoindent when adding a new line
-opt.smarttab = true -- Tab follows tabstop, shiftwidth and softtabstop
-opt.softtabstop = 4 -- Edit as if the tabs were 4 spaces
+opt.expandtab = true -- Use spaces instead of tabs
+opt.shiftround = true -- Round the indentation to a multiple of `shiftwidth`
+opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
+opt.smartindent = true -- Autoindent when adding a new line (for C-like languages)
+opt.smarttab = true -- Tab follows `tabstop`, `shiftwidth` and `softtabstop`
+opt.softtabstop = 4 -- Number of spaces added or removed by <Tab> or <BS>
 opt.tabstop = 4 -- Number of indentation spaces on the screen
 
 --- Code folding
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression
-opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use Treesitter folding.
+opt.foldtext = "" -- Custom text to display in a closed fold. "" preserve the highlights
 opt.foldenable = false -- Disable folding when opening file
-opt.foldlevelstart = 99 -- Don't fold all code when using folding
-opt.foldlevel = 1 -- Fold only 1 level?
-opt.foldminlines = 1 -- Minimum folding level
-opt.foldnestmax = 3 -- Max nested folding level
+opt.foldlevelstart = 99 -- When opening a file, start with all folds open (up to level 99)
+opt.foldlevel = 1 -- Fold only the top level (1) during the session
+opt.foldminlines = 1 -- Minimum number of lines for a fold to be created
+opt.foldnestmax = 3 -- Max number of nested folds
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
-opt.fillchars:append({ fold = " " }) -- Remove dots after foldtext
+opt.fillchars = "fold: " -- Remove default dots after foldtext
 
 --- Filetypes
-
 vim.filetype.add({
   extension = {
     qml = "qmljs",

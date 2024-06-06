@@ -208,7 +208,7 @@ return {
           { "Bilal2453/luvit-meta", enabled = true },
         },
         ft = "lua",
-        config = true,
+        opts = { library = { { path = "luvit-meta/library", words = { "vim%.uv" } } } },
       },
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
