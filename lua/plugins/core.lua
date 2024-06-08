@@ -8,6 +8,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-calc",
       "saadparwaiz1/cmp_luasnip",
     },
     opts = function()
@@ -50,6 +51,7 @@ return {
             keyword_length = 2,
             option = { use_show_condition = false }, -- disable filtering completion candidates by snippet's show_condition
           },
+          { name = "calc" },
         }, {
           { name = "buffer", keyword_length = 3 },
         }),

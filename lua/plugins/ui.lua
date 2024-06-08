@@ -92,7 +92,7 @@ return {
           gs.toggle_deleted()
           gs.toggle_word_diff()
         end
-        cmap("n", "<leader>gt", toggle_gitsigns, "GitSigns: Toggle show deleted lines")
+        cmap("n", "<leader>tg", toggle_gitsigns, "GitSigns: Toggle show deleted lines")
         cmap("n", "<leader>gn", gs.next_hunk, "GitSigns: Next file change")
         cmap("n", "<leader>gp", gs.prev_hunk, "GitSigns: Previous file change")
         cmap("n", "<leader>gsb", gs.stage_buffer, "GitSigns: Stage buffer")
