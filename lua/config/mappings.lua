@@ -11,7 +11,7 @@ vim.g.mapleader = " "
 --- Workarounds for the spanish keyboard layout
 
 -- Intercambiar {}[] ñ: Ñ;
-vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
+vim.o.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
 -- Fix `ci` operations inverted behaviour caused by the above langmap
 map("", "ci{", "ci[")
@@ -19,6 +19,9 @@ map("", "ci[", "ci{")
 
 -- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
+
+-- Fix <S-6> de & a ^
+map({ "n", "v" }, "&", "^")
 
 -- Registros a +
 map({ "n", "v" }, "+", '"')
