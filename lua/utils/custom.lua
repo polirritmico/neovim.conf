@@ -45,9 +45,21 @@ function Custom.save_cursor_position()
   ]])
 end
 
+---Check if `ScratchNotesPath` exists. If not ask for the user to create it.
+local function check_ScratchNotesPath()
+  if vim.fn.finddir(ScratchNotesPath) == "" then
+    local msg = "Missing personal scratch notes path.\nCreate directory? [y/n]: "
+    if vim.fn.input(msg):lower() == "y" then
+      vim.fn.mkdir(ScratchNotesPath, "p")
+    end
+  end
+end
+
 ---Create or open scratch notes through a Telescope picker.
 ---Defaults to `.md` if no filetype is specified.
 function Custom.scratchs()
+  check_ScratchNotesPath()
+
   local state = require("telescope.actions.state")
   local close = require("telescope.actions").close
 

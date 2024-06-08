@@ -547,6 +547,7 @@ return {
             ["i"] = {
               ["<CR>"] = require("utils.helpers").telescope_open_single_and_multi,
               ["<C-q>"] = require("utils.helpers").telescope_open_and_fill_qflist,
+              ["<C-f>"] = require("utils.helpers").telescope_matches_to_live_grep,
               ["<C-h>"] = "which_key", -- toggle keymaps help
               ["<LeftMouse>"] = function() end,
             },

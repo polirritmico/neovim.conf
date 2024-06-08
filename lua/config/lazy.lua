@@ -38,11 +38,11 @@ local opts = {
 }
 
 ---@type table<LazySpecImport>
-local specs_folders = {
+local plugins = {
   { import = "plugins" },
   { import = "plugins.extras", cond = Workstation },
 }
 
-require("lazy").setup(specs_folders, opts)
+require("lazy").setup(plugins, opts)
 
 vim.keymap.set({ "n" }, "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Lazy: Open panel" })

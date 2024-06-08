@@ -65,7 +65,16 @@ function Helpers.set_cmd_redirection()
   })
 end
 
----Telescope action helper to open a qflist with all current matches an open
+---Telescope action helper to pass the current matches into a live_grep instance.
+---@param bufnr integer Telescope prompt buffer number
+function Helpers.telescope_matches_to_live_grep(bufnr)
+  local map_entries = require("telescope.actions.utils").map_entries
+  local matches = {}
+  map_entries(bufnr, function(entry) table.insert(matches, entry[0] or entry[1]) end)
+  require("telescope.builtin").live_grep({ search_dirs = matches })
+end
+
+---Telescope action helper to open a qflist with all current matches and open
 ---the first entry.
 ---@param bufnr integer Telescope prompt buffer number
 function Helpers.telescope_open_and_fill_qflist(bufnr)

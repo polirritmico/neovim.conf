@@ -2,10 +2,10 @@
 ---@class Utils
 local Utils = {}
 
-Utils.autocmd = require("utils.autocmd")
 Utils.config = require("utils.config")
-Utils.helpers = require("utils.helpers")
+Utils.autocmd = require("utils.autocmd")
 Utils.custom = require("utils.custom")
+Utils.helpers = require("utils.helpers")
 Utils.writing = require("utils.writing")
 
 return Utils
