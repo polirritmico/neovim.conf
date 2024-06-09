@@ -25,7 +25,7 @@ function Custom.fold_text()
   )
 end
 
----Oil.nvim: Set a configuramtion key for the confirm changes prompt.
+---Oil.nvim: Set a configuration key for the confirm changes prompt.
 ---@param key string Confirmation key.
 function Custom.oil_confirmation_key(key)
   vim.api.nvim_create_autocmd("FileType", {
