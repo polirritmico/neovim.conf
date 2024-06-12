@@ -170,19 +170,6 @@ return {
       },
     },
   },
-  --- Session Manager
-  {
-    "rmagatti/auto-session",
-    enabled = false,
-    dir = "/home/eduardo/Informática/Patches/auto-session",
-    lazy = false,
-    opts = {
-      auto_session_suppress_dirs = {
-        vim.fn.expand("$HOME/"),
-        "/",
-      },
-    },
-  },
   --- Test manager
   {
     "polirritmico/nvim-test",

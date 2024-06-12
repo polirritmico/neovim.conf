@@ -62,15 +62,16 @@ opt.softtabstop = 4 -- Number of spaces added or removed by <Tab> or <BS>
 opt.tabstop = 4 -- Number of indentation spaces on the screen
 
 --- Code folding
-opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use Treesitter folding.
-opt.foldtext = "" -- Custom text to display in a closed fold. "" preserve the highlights
 opt.foldenable = false -- Disable folding when opening file
 opt.foldlevelstart = 99 -- When opening a file, start with all folds open (up to level 99)
 opt.foldlevel = 1 -- Fold only the top level (1) during the session
 opt.foldminlines = 1 -- Minimum number of lines for a fold to be created
 opt.foldnestmax = 3 -- Max number of nested folds
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
+
+opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
+opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression. To use Treesitter folding: "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
 opt.fillchars = "fold: " -- Remove default dots after foldtext
 
 --- Filetypes
