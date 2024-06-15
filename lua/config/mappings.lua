@@ -2,7 +2,7 @@
 
 local u = require("utils") ---@type Utils
 local map = u.config.set_keymap
-local toggle = u.helpers.toggle_vim_opt
+local toggle = u.config.toggle_vim_opt
 
 -- Leader key
 vim.g.mapleader = " "
