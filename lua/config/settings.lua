@@ -12,6 +12,9 @@ opt.mouse = "a" -- Enables mouse support
 opt.timeout = true -- Enables wait time for key combinations
 opt.timeoutlen = 2000 -- 1000ms default
 
+-- Backups / Undo
+opt.undofile = true -- Saves undo history into an undo file (`:h undodir`)
+
 --- Searches
 opt.ignorecase = true -- Ignore capitalization when searching
 opt.smartcase = true -- Match capitalization only if there are capital letters
