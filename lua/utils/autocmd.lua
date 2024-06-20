@@ -41,7 +41,7 @@ function Autocmds.attach_file_browser(plugin_name, plugin_open)
 end
 
 ---Resize splits and distributions when the neovim's terminal got resized
-function Autocmds.autoresize_windows()
+function Autocmds.autoresize_splits_at_window_resize()
   vim.api.nvim_create_autocmd("VimResized", {
     group = Autocmds.group_id,
     desc = "Resize splits after the neovim's terminal got resized",
@@ -88,6 +88,15 @@ function Autocmds.on_load(plugin_name, fn)
   end
 end
 
+---Restore the cursor to its last position when reopening the buffer.
+---Copied from the manual. Check `:h restore-cursor`
+function Autocmds.save_cursor_position_in_file()
+  vim.cmd([[
+    autocmd BufRead * autocmd FileType <buffer> ++once
+      \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+  ]])
+end
+
 ---Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
 ---to `bash` if matches.
 function Autocmds.set_bash_ft_from_shebang()
@@ -123,7 +132,7 @@ end
 ---Autocmd to set terminal options and enter into `insert-mode` when opening a
 ---terminal buffer.
 ---@param opts table Options to set through `vim.opt_local.[option_name] = value`
-function Autocmds.setup_term(opts)
+function Autocmds.setup_term_opts(opts)
   api.nvim_create_autocmd("TermOpen", {
     group = Autocmds.group_id,
     desc = "Open `terminal-mode` in `insert-mode`",

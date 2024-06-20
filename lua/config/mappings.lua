@@ -13,21 +13,23 @@ vim.g.mapleader = " "
 -- Intercambiar {}[] ñ: Ñ;
 vim.o.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
--- Fix `ci` operations inverted behaviour caused by the above langmap
-map("", "ci{", "ci[")
-map("", "ci[", "ci{")
+-- Fix `i{`/`i[` operations inverted by the above langmap
+for _, cmd in pairs({ "c", "d", "v" }) do
+  map("n", cmd .. "i{", cmd .. "i[")
+  map("n", cmd .. "i[", cmd .. "i{")
+end
 
 -- Fix goto (no reconoce la tecla `)
 map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 
--- Fix <S-6> de & a ^
+-- Fix <S-6> de `&` a `^`
 map({ "n", "v" }, "&", "^")
 
 -- Registros a +
 map({ "n", "v" }, "+", '"')
 
--- Agregar signo de diálogo (<A-w>)
-map({ "i", "c" }, "ſ", "—")
+-- Agregar signo de diálogo (<A-d>)
+map({ "i", "c" }, "ð", "—")
 
 -------------------------------------------------------------------------------
 --- Navigation and windows
@@ -55,7 +57,7 @@ map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
 map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
 
 -- Return to the position of the last insert
-map("n", "<C-i>", "`^", "Go to the last cursor position in Insert mode")
+map("n", "<C-S-I>", "`^", "Go to the last cursor position in Insert mode")
 
 -------------------------------------------------------------------------------
 --- Adjust defaults behaviour

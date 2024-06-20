@@ -43,7 +43,7 @@ end
 ---Redirects the output of the passed command-line into a buffer.
 ---**Usage:** `:Redir <command>` or `:Redir! <command>`. With bang writes into
 ---the current buffer at cursor position. For Lua: `:Redir lua foo()`.
-function Helpers.set_cmd_redirection()
+function Helpers.set_redirection_cmd()
   vim.api.nvim_create_user_command("Redir", function(ctx)
     local cmd_output = vim.api.nvim_exec2(ctx.args, { output = true }).output
     local lines = vim.split(cmd_output, "\n", { plain = true })

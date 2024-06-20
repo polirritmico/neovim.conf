@@ -38,7 +38,7 @@ end
 
 ---Restore the cursor to its last position when reopening the buffer.
 ---Copied from the manual. Check `:h restore-cursor`
-function Custom.save_cursor_position()
+function Custom.save_cursor_position_in_file()
   vim.cmd([[
     autocmd BufRead * autocmd FileType <buffer> ++once
       \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
