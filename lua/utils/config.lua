@@ -45,6 +45,17 @@ function Config.detected_errors()
   return true
 end
 
+---This function check if the current system time is between a time range
+---@param start_time integer Start time of the range in HHMM format (inclusive)
+---@param end_time integer End time of the range in HHMM format (exclusive)
+---@return boolean
+function Config.in_hours_range(start_time, end_time)
+  local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
+  local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
+
+  return system_time >= start_time and system_time < end_time
+end
+
 ---A wrapper of `vim.keymap.set` function.
 ---@param mode string|table Mode short-name
 ---@param key string Left-hand side of the mapping, the keys to be pressed.
@@ -60,15 +71,27 @@ function Config.set_keymap(mode, key, command, description, verbose)
   end
 end
 
----This function check if the current system time is between a time range
----@param start_time integer Start time of the range in HHMM format (inclusive)
----@param end_time integer End time of the range in HHMM format (exclusive)
----@return boolean
-function Config.in_hours_range(start_time, end_time)
-  local date_output = vim.api.nvim_exec2("!date +'\\%H\\%M'", { output = true })
-  local system_time = tonumber(string.match(date_output["output"], "%d%d%d%d"))
+---Set vim.opt\[`option`\] to `b` if its current value is `a` or to `a` otherwise
+---@param option string `vim.o.<option>` to toggle
+---@param a any Defaults to `true`
+---@param b any Defaults to `false`
+---@param silent boolean? Defaults to `false`
+function Config.toggle_vim_opt(option, a, b, silent)
+  if a == nil and b == nil then
+    a, b = true, false
+  end
 
-  return system_time >= start_time and system_time < end_time
+  local new_opt
+  if vim.api.nvim_get_option_value(option, { win = 0 }) == a then
+    new_opt = b
+  else
+    new_opt = a
+  end
+  vim.opt[option] = new_opt
+
+  if silent ~= false then
+    vim.notify(string.format("%s = %s", option, new_opt), vim.log.levels.INFO)
+  end
 end
 
 return Config
