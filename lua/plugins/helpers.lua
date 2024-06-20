@@ -149,7 +149,7 @@ return {
   {
     "polirritmico/simple-boolean-toggle.nvim",
     enabled = true,
-    dev = true,
+    dev = false,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keys = {

@@ -40,6 +40,7 @@
   "oil.nvim": { "branch": "master", "commit": "b77ed915ab1e53720a6283702816cea2695a2638" },
   "one-small-step-for-vimkind": { "branch": "main", "commit": "e92abbce0b9b77fed1aaf6f122fb18b7045b15ec" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
+  "simple-boolean-toggle.nvim": { "branch": "main", "commit": "181151134430398578c725603b743c0fb0967d92" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9ef21b2e6bb6ebeaf349a0781745549bbb870d27" },
   "telescope-lazy-plugins.nvim": { "branch": "main", "commit": "86729ba68e07f87edee6d8035698eaa188894c2b" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
