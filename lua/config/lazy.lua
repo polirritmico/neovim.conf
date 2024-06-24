@@ -34,7 +34,6 @@ local opts = {
       },
     },
   },
-  rocks = { enabled = false },
   ui = { border = "rounded" },
 }
 
