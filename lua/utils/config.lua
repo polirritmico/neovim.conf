@@ -72,25 +72,39 @@ function Config.set_keymap(mode, key, command, description, verbose)
 end
 
 ---Set vim.opt\[`option`\] to `b` if its current value is `a` or to `a` otherwise
----@param option string `vim.o.<option>` to toggle
----@param a any Defaults to `true`
----@param b any Defaults to `false`
----@param silent boolean? Defaults to `false`
-function Config.toggle_vim_opt(option, a, b, silent)
-  if a == nil and b == nil then
-    a, b = true, false
+---@param name string Option name to toggle (`vim.o.<option name>`)
+---@param opts? {a?:any, b?:any, global?:boolean, silent?:boolean} defaults: `a`: `true`, `b`: `false`, `global`: `false`, `silent`: `false`
+function Config.toggle_vim_opt(name, opts)
+  local a, b = true, false
+  local global, silent
+  if opts then
+    if opts.a ~= nil then
+      a = opts.a
+      b = opts.b
+    end
+    global = opts.global
+    silent = opts.silent
   end
 
-  local new_opt
-  if vim.api.nvim_get_option_value(option, { win = 0 }) == a then
-    new_opt = b
+  local new_val
+  if vim.api.nvim_get_option_value(name, { win = 0 }) == a then
+    new_val = b
   else
-    new_opt = a
+    new_val = a
   end
-  vim.opt[option] = new_opt
 
-  if silent ~= false then
-    vim.notify(string.format("%s = %s", option, new_opt), vim.log.levels.INFO)
+  if global == true then
+    local current_bufnr = vim.api.nvim_get_current_buf()
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      vim.api.nvim_set_current_buf(bufnr)
+      vim.o[name] = new_val
+    end
+    vim.api.nvim_set_current_buf(current_bufnr)
+  else
+    vim.o[name] = new_val
+  end
+  if silent ~= true then
+    vim.notify(string.format("%s%s = %s", global and "global " or "", name, new_val, 2))
   end
 end
 

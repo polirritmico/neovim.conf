@@ -313,6 +313,9 @@ return {
         vim.lsp.handlers["textDocument/hover"] =
           vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
       end
+
+      -- Disable log
+      vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
     end,
   },
   --- Mason package manager for non-nvim tools
@@ -475,7 +478,7 @@ return {
       },
       {
         "polirritmico/telescope-lazy-plugins.nvim",
-        dev = false,
+        dev = true,
         init = function()
           require("utils").autocmd.on_load(
             "telescope.nvim",

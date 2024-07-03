@@ -36,6 +36,13 @@ function Custom.oil_confirmation_key(key)
   })
 end
 
+---Open the app at the path of the current buffer. (Defaults to KDE Dolphin)
+---@param app string
+function Custom.open_at_buffpath(app)
+  app = app or "dolphin"
+  vim.fn.jobstart({ app, vim.fn.expand("%:p:h") }, { detach = true })
+end
+
 ---Restore the cursor to its last position when reopening the buffer.
 ---Copied from the manual. Check `:h restore-cursor`
 function Custom.save_cursor_position_in_file()
@@ -158,6 +165,7 @@ local term_state
 ---Open/Close a persistent terminal at the bottom with a fixed height or with
 ---the `v.count` height passed before the shortcut, e.g., `20<toggle_term-map>`.
 function Custom.toggle_term()
+  -- TODO: Hide buffer from the list (:Telescope buffers)
   local height = vim.v.count > 0 and vim.v.count or 12
   local function set_window_panel()
     vim.cmd.new()

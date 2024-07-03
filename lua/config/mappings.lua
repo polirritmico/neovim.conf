@@ -86,6 +86,10 @@ map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
 map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
 map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
+-- Open current fold and its inner folds by default
+map("", "zo", "zO")
+map("", "zO", "zo")
+
 -- Change directions of the arrow keys in the wildmenu to something with sense
 vim.cmd([[
   cnoremap <expr> <Up>    wildmenumode() ? '<Left>'  : '<Up>'
@@ -100,8 +104,8 @@ map("t", "<Esc><Esc>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)
 -------------------------------------------------------------------------------
 --- Toggle options:
 
-map("n", "<leader>tf", function() toggle("foldcolumn", "auto:3", "0") end, "Show/Hide fold column")
-map("n", "<leader>tw", function() toggle("wrap") end, "On/Off line wrap")
+map("n", "<leader>tf", function() toggle("foldcolumn", { a = "auto:3", b = "0" }) end, "Show/Hide fold column")
+map("n", "<leader>tw", function() toggle("wrap", { global = true }) end, "On/Off line wrap")
 map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
 
 --- Toggle special windows:
@@ -112,6 +116,9 @@ map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a shell terminal at the
 
 -- Set buffer path as root
 map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
+
+-- Open Dolphin at buffer path
+map("n", "<leader>CD", u.custom.open_at_buffpath, "Open desktop file browser at buffer path")
 
 -- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
