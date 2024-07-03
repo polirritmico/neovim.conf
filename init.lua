@@ -8,7 +8,14 @@ Workstation = vim.fn.hostname() == "hal-9002"
 
 -- Helper functions
 
-local u = require("utils") ---@type Utils
+local ok, u = pcall(require, "utils")
+if not ok then
+  vim.notify("Error loading utils. Using fallback config", vim.log.levels.ERROR)
+  require("config.fallback.settings")
+  require("config.fallback.mappings")
+  return
+end
+---@cast u Utils
 P = u.helpers.print_wrapper
 
 -- Paths

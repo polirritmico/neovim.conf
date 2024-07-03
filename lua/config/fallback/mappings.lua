@@ -55,7 +55,7 @@ vim.cmd([[
 ]])
 
 -- Config shortcuts
-map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>")
-map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>")
-map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>")
-map("n", "<leader>cl", "<Cmd>e " .. MyConfigPath .. "lazy.lua<CR>")
+map("n", "<leader>ci", "<Cmd>e ~/.config/nvim/init.lua<CR>")
+map("n", "<leader>cm", "<Cmd>e ~/.config/nvim/lua/config/mappings.lua<CR>")
+map("n", "<leader>cg", "<Cmd>e ~/.config/nvim/lua/config/settings.lua<CR>")
+map("n", "<leader>cl", "<Cmd>e ~/.config/nvim/lua/config/lazy.lua<CR>")
