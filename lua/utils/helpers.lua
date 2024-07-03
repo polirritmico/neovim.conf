@@ -65,13 +65,23 @@ function Helpers.set_redirection_cmd()
   })
 end
 
----Telescope action helper to pass the current matches into a live_grep instance.
+---Telescope action helper to pass the current matches into another telescope
+---instance. `live_grep` by default. If is a `live_grep`, then pass the matches
+---into a `find_files` picker.
 ---@param bufnr integer Telescope prompt buffer number
 function Helpers.telescope_matches_to_live_grep(bufnr)
+  local builtin = require("telescope.builtin")
+  local actions_state = require("telescope.actions.state")
   local map_entries = require("telescope.actions.utils").map_entries
   local matches = {}
-  map_entries(bufnr, function(entry) table.insert(matches, entry[0] or entry[1]) end)
-  require("telescope.builtin").live_grep({ search_dirs = matches })
+
+  if actions_state.get_current_picker(bufnr).prompt_title ~= "Live Grep" then
+    map_entries(bufnr, function(entry) table.insert(matches, entry[0] or entry[1]) end)
+    builtin.live_grep({ search_dirs = matches })
+  else
+    map_entries(bufnr, function(entry) table.insert(matches, entry.filename) end)
+    builtin.find_files({ search_dirs = matches })
+  end
 end
 
 ---Telescope action helper to open a qflist with all current matches and open
