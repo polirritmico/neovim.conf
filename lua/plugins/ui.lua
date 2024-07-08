@@ -93,8 +93,8 @@ return {
           gs.toggle_word_diff()
         end
         cmap("n", "<leader>tg", toggle_gitsigns, "GitSigns: Toggle show deleted lines")
-        cmap("n", "<leader>gn", gs.next_hunk, "GitSigns: Next file change")
-        cmap("n", "<leader>gp", gs.prev_hunk, "GitSigns: Previous file change")
+        cmap("n", "]c", gs.next_hunk, "GitSigns: Next file change")
+        cmap("n", "[c", gs.prev_hunk, "GitSigns: Previous file change")
         cmap("n", "<leader>gsb", gs.stage_buffer, "GitSigns: Stage buffer")
         cmap({ "n", "v" }, "<leader>gsh", ":Gitsigns stage_hunk<CR>", "GitSigns: Stage hunk")
         cmap({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<CR>", "GitSigns: Reset hunk")

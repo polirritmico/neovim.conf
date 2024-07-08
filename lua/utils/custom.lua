@@ -133,6 +133,7 @@ function Custom.lualine_harpoon()
 
   for index = 1, total_marks <= 4 and total_marks or 4 do
     local mark = hp_list.items[index].value
+    -- BUG: Sometimes the buffname is the full path and others the symlink...
     if mark == buffer_name or mark == full_name then
       output = output .. hl_selected .. hp_keys[index] .. hl_normal
     else
