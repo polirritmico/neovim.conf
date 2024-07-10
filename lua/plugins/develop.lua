@@ -63,7 +63,7 @@ return {
           end,
           keys = {
             -- stylua: ignore
-            { "<F10>", function() require("osv").launch({port = 8086}) end, mode = { "n", "v" }, ft = "lua", desc = "DAP: (Lua) Launch Server." },
+            { "<F10>", function() require("osv").launch({port = 8086}) end, mode = { "n", "v" }, desc = "DAP: (Lua) Launch Server." },
           },
         },
       },

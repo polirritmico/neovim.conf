@@ -49,10 +49,10 @@ return {
               key = "<leader>fr",
             },
             {
-              action = "Telescope help_tags",
-              desc = " Help docs",
-              icon = "󰘥 ",
-              key = "<leader>fh",
+              action = "lua require('osv').launch({ port = 8086 })",
+              desc = " Debug session",
+              icon = "🔧",
+              key = "<F10>",
             },
             {
               action = "Telescope find_files cwd=~/.config/nvim",
