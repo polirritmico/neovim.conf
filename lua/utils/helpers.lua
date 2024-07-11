@@ -46,16 +46,16 @@ end
 ---> With bang (!) writes the output into the current buffer at cursor position.
 function Helpers.set_redirection_cmd()
   vim.api.nvim_create_user_command("Redir", function(ctx)
-    local cmd_output = vim.api.nvim_exec2(ctx.args, { output = true }).output
-    local lines = vim.split(cmd_output:match(".*\r\n\n(.*)"), "\n", { plain = true })
+    local raw_output = vim.api.nvim_exec2(ctx.args, { output = true }).output
+    local output = raw_output:match(".*\r\n\n(.*)") or raw_output
+    local splited_output_lines = vim.split(output, "\n", { plain = true })
+
     if ctx.bang then
-      -- local linenr = vim.api.nvim_win_get_cursor(0)[1]
-      -- vim.api.nvim_buf_set_lines(0, linenr, linenr + #lines, false, lines)
-      vim.api.nvim_put(lines, "l", false, false)
+      vim.api.nvim_put(splited_output_lines, "l", false, false)
     else
       vim.cmd("enew") -- `new` split the window
       vim.bo.filetype = "lua"
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, splited_output_lines)
       vim.opt_local.modified = false
     end
   end, {
