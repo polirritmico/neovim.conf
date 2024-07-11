@@ -41,16 +41,17 @@ function Helpers.print_wrapper(...)
 end
 
 ---Redirects the output of the passed command-line into a buffer.
----**Usage:** `:Redir <command>` or `:Redir! <command>`. With bang writes into
----the current buffer at cursor position. For Lua: `:Redir lua foo()`.
+---**Usage:** `:Redir <command>` or `:Redir! <command>`.
+---Similar to `:r` but with support for lua functions `:Redir lua foo()`.
+---> With bang (!) writes the output into the current buffer at cursor position.
 function Helpers.set_redirection_cmd()
   vim.api.nvim_create_user_command("Redir", function(ctx)
     local cmd_output = vim.api.nvim_exec2(ctx.args, { output = true }).output
-    local lines = vim.split(cmd_output, "\n", { plain = true })
+    local lines = vim.split(cmd_output:match(".*\r\n\n(.*)"), "\n", { plain = true })
     if ctx.bang then
       -- local linenr = vim.api.nvim_win_get_cursor(0)[1]
       -- vim.api.nvim_buf_set_lines(0, linenr, linenr + #lines, false, lines)
-      vim.api.nvim_put(lines, "l", true, true)
+      vim.api.nvim_put(lines, "l", false, false)
     else
       vim.cmd("enew") -- `new` split the window
       vim.bo.filetype = "lua"
