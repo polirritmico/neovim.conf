@@ -36,12 +36,6 @@ return {
         },
         {
           "jbyuki/one-small-step-for-vimkind",
-          -- NOTE: Instructions
-          -- 1. launch the server in the debuggee nvim whit <F10>
-          -- 2. launch second instance with the code and dap
-          -- 3. place breakpoint <leader>b
-          -- 4. Connect to the debuggee with <F5> (code instance)
-          -- 5. Run the code from the debuggee
           lazy = true,
           config = function()
             local dap = require("dap")

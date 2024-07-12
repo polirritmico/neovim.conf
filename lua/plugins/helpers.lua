@@ -21,7 +21,11 @@ return {
     },
     opts = {
       buf_options = { buflisted = true },
-      keymaps = { ["_"] = "actions.select", ["<C-h>"] = "actions.toggle_hidden" },
+      keymaps = {
+        ["_"] = "actions.select",
+        ["<C-h>"] = "actions.toggle_hidden",
+        ["<leader>cd"] = "actions.cd",
+      },
     },
   },
   --- Pairs of (), [], {}, etc.

@@ -478,7 +478,7 @@ return {
       },
       {
         "polirritmico/telescope-lazy-plugins.nvim",
-        dev = true,
+        dev = false,
         init = function()
           require("utils").autocmd.on_load(
             "telescope.nvim",

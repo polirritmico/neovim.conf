@@ -14,9 +14,11 @@ vim.g.mapleader = " "
 vim.o.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
 -- Fix `i{`/`i[` operations inverted by the above langmap
-for _, cmd in pairs({ "c", "d", "v" }) do
+for _, cmd in pairs({ "c", "d", "v", "y" }) do
   map("n", cmd .. "i{", cmd .. "i[")
   map("n", cmd .. "i[", cmd .. "i{")
+  map("n", cmd .. "a{", cmd .. "a[")
+  map("n", cmd .. "a[", cmd .. "a{")
 end
 
 -- Fix goto (no reconoce la tecla `)
