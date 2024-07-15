@@ -2,6 +2,7 @@ return {
   --- Autocompletion
   {
     "hrsh7th/nvim-cmp",
+    commit = "7e348da",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -18,9 +19,38 @@ return {
 
       return {
         completion = { completeopt = "menu,menuone,noinsert" },
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
+        -- experimental = { ghost_text = true },
+
+        enabled = function()
+          -- Disable on telescope prompt
+          if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
+            return false
+          end
+
+          -- Disable on comments
+          local context = require("cmp.config.context")
+          if vim.api.nvim_get_mode().mode == "c" then
+            return true
+          else
+            return not context.in_treesitter_capture("comment")
+              and not context.in_syntax_group("Comment")
+          end
+        end,
+
+        formatting = {
+          expandable_indicator = true, -- shows the ~ symbol when expandable
+          fields = { "abbr", "menu", "kind" }, -- suggestions order :h formatting.fields
+          format = function(entry, item)
+            local short_name = {
+              nvim_lsp = "LSP",
+              nvim_lua = "nvim",
+            }
+            local menu_name = short_name[entry.source.name] or entry.source.name
+            item.menu = string.format("[%s]", menu_name)
+            return item
+          end,
         },
+
         mapping = {
           ["<C-j>"] = cmp.mapping.confirm({
             behaviour = cmp.ConfirmBehavior.Insert,
@@ -42,48 +72,12 @@ return {
           end, { "i", "s" }),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
         },
-        sources = cmp.config.sources({
-          -- Order of cmp menu entries
-          { name = "path", keyword_length = 2 },
-          { name = "nvim_lsp", keyword_length = 2 },
-          {
-            name = "luasnip",
-            keyword_length = 2,
-            option = { use_show_condition = false }, -- disable filtering completion candidates by snippet's show_condition
-          },
-          { name = "calc" },
-        }, {
-          { name = "buffer", keyword_length = 3 },
-        }),
-        formatting = {
-          expandable_indicator = true, -- shows the ~ symbol when expandable
-          fields = { "abbr", "menu", "kind" }, -- suggestions order :h formatting.fields
-          format = function(entry, item)
-            local short_name = {
-              nvim_lsp = "LSP",
-              nvim_lua = "nvim",
-            }
-            local menu_name = short_name[entry.source.name] or entry.source.name
-            item.menu = string.format("[%s]", menu_name)
-            return item
-          end,
-        },
-        -- experimental = { ghost_text = true },
-        enabled = function()
-          -- Disable on telescope prompt
-          if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
-            return false
-          end
 
-          -- Disable on comments
-          local context = require("cmp.config.context")
-          if vim.api.nvim_get_mode().mode == "c" then
-            return true
-          else
-            return not context.in_treesitter_capture("comment")
-              and not context.in_syntax_group("Comment")
-          end
-        end,
+        performance = { max_view_entries = 12 },
+
+        snippet = {
+          expand = function(args) luasnip.lsp_expand(args.body) end,
+        },
 
         -- Sort python dunder and private methods to the btm
         -- Source: https://github.com/lukas-reineke/cmp-under-comparator
@@ -110,12 +104,38 @@ return {
           },
         }),
 
+        sources = cmp.config.sources({
+          -- Order of cmp menu entries
+          { name = "path", keyword_length = 2 },
+          { name = "nvim_lsp", keyword_length = 2 },
+          {
+            name = "luasnip",
+            keyword_length = 2,
+            option = { use_show_condition = false }, -- disable filtering completion candidates by snippet's show_condition
+          },
+        }, {
+          { name = "buffer", keyword_length = 3 },
+        }, {
+          { name = "calc", keyword_length = 3 },
+        }),
+
         -- Add border to popup window
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
       }
+    end,
+    config = function(_, opts)
+      local cmp = require("cmp")
+      cmp.setup(opts)
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources(
+          { { name = "path" } },
+          { { name = "cmdline", keyword_length = 6 } }
+        ),
+      })
     end,
   },
   --- Formatter
@@ -204,14 +224,6 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      {
-        "folke/lazydev.nvim",
-        dependencies = {
-          { "Bilal2453/luvit-meta", enabled = true },
-        },
-        ft = "lua",
-        opts = { library = { { path = "luvit-meta/library", words = { "vim%.uv" } } } },
-      },
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = function()
@@ -552,7 +564,7 @@ return {
             ["i"] = {
               ["<CR>"] = require("utils.helpers").telescope_open_single_and_multi,
               ["<C-q>"] = require("utils.helpers").telescope_open_and_fill_qflist,
-              ["<C-f>"] = require("utils.helpers").telescope_matches_to_live_grep,
+              ["<C-f>"] = require("utils.helpers").telescope_narrow_matches,
               ["<C-h>"] = "which_key", -- toggle keymaps help
               ["<LeftMouse>"] = function() end,
             },

@@ -166,33 +166,57 @@ return {
   },
   --- Test manager
   {
-    "polirritmico/nvim-test",
-    dev = false,
-    cmd = {
-      "TestSuite",
-      "TestFile",
-      "TestNearest",
-      "TestLast",
-      "TestVisit",
-      "TestInfo",
-    },
-    opts = {
-      termOpts = {
-        direction = "float", -- vertical, horizontal, float
-        float_position = "bottom",
-        height = 24,
-        width = 200,
-        stopinsert = false,
+    "nvim-neotest/neotest",
+    enabled = false,
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      -- Adapters
+      {
+        "MisanthropicBit/neotest-busted",
+        enabled = false,
+        opts = {
+          -- busted_command = "",
+          minimal_init = "mininit.lua",
+        },
       },
     },
     -- stylua: ignore
     keys = {
-      { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Run all test in the current file or run the last file tests." },
-      { "<leader>rta", "<Cmd>silent TestSuite<CR>", desc = "nvim-test: Run the whole test suite following the current file or the last run test." },
-      { "<leader>rtu", "<Cmd>silent TestNearest<CR>", desc = "nvim-test: Run the test nearest to the cursor or run the last test." },
-      { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Run the last test." },
-      { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
-      { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
+      { "<leader>rtf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "neotest: Run all test in the current file" },
+      { "<leader>rtt", function() require("neotest").run.run() end, desc = "neotest: Run nearest test" },
+      { "<leader>rts", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
+    },
+    opts = {},
+  },
+  --- Function stats (like references)
+  {
+    "VidocqH/lsp-lens.nvim",
+    enabled = false,
+    opts = {
+      sections = {
+        git_authors = false,
+      },
+    },
+  },
+  --- Lsp helpers like types for lua and neovim plugin development
+  {
+    "folke/lazydev.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "Bilal2453/luvit-meta",
+      { "LuaCATS/luassert", name = "luassert-types" },
+      { "LuaCATS/busted", name = "busted-types" },
+    },
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+        { path = "luassert-types/library", words = { "assert" } },
+        { path = "busted-types/library", words = { "describe" } },
+      },
     },
   },
 }

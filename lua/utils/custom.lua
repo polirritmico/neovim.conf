@@ -188,6 +188,8 @@ function Custom.toggle_term()
   elseif not term_state.open then
     -- reopen the closed terminal panel
     term_state.win = set_window_panel()
+    -- TODO: Avoid listing the buffer, so `:bn` dont open the terminal
+    -- api.nvim_set_option_value("bufhidden", "hide", { buf = term_state.buf })
     api.nvim_win_set_buf(term_state.win, term_state.buf)
     term_state.open = true
     vim.cmd.startinsert()

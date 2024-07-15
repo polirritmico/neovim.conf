@@ -145,7 +145,6 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    dev = true,
     event = "VeryLazy",
     opts = function()
       -- PERF: Replace lualine_require (wtf?!) with nvim require

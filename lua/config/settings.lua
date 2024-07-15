@@ -21,6 +21,13 @@ opt.relativenumber = true -- Show relative line numbers
 opt.showmode = false -- Show status in command area
 opt.title = true -- Set the window name
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
+vim.opt.fillchars = {
+  -- diff = "╱",
+  fold = " ",
+  foldclose = "",
+  foldopen = "",
+  foldsep = " ",
+}
 
 -- Backups / Undo
 opt.undofile = true -- Saves undo history into an undo file (`:h undodir`)
@@ -40,7 +47,6 @@ opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap func
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
 opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression. To use Treesitter folding: "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
-opt.fillchars = "fold: " -- Remove default dots after foldtext
 
 --- Code indent
 opt.autoindent = true -- Indent based on the previous line
@@ -97,9 +103,3 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
-
--- Replace grep with ripgrep
-if vim.fn.executable("rg") == 1 then
-  opt.grepprg = "rg --vimgrep --smart-case --follow"
-  opt.grepformat = "%f:%l:%c:%m"
-end

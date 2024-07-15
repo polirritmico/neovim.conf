@@ -70,7 +70,7 @@ end
 ---instance. `live_grep` by default. If is a `live_grep`, then pass the matches
 ---into a `find_files` picker.
 ---@param bufnr integer Telescope prompt buffer number
-function Helpers.telescope_matches_to_live_grep(bufnr)
+function Helpers.telescope_narrow_matches(bufnr)
   local builtin = require("telescope.builtin")
   local actions_state = require("telescope.actions.state")
   local map_entries = require("telescope.actions.utils").map_entries
