@@ -2,7 +2,6 @@ return {
   --- Autocompletion
   {
     "hrsh7th/nvim-cmp",
-    commit = "7e348da",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
