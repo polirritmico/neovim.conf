@@ -19,6 +19,7 @@ local opts = {
   change_detection = { notify = false },
   dev = { path = MyPluginsPath, fallback = false },
   install = { colorscheme = { "monokai-nightasty" } },
+  lockfile = vim.fn.stdpath("state") .. "/lazy/lazy-lock.json",
   performance = {
     rtp = {
       disabled_plugins = {

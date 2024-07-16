@@ -132,7 +132,7 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
           { { name = "path" } },
-          { { name = "cmdline", keyword_length = 6 } }
+          { { name = "cmdline", keyword_length = 6, max_item_count = 4 } }
         ),
       })
     end,

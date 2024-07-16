@@ -173,15 +173,6 @@ return {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
-      -- Adapters
-      {
-        "MisanthropicBit/neotest-busted",
-        enabled = false,
-        opts = {
-          -- busted_command = "",
-          minimal_init = "mininit.lua",
-        },
-      },
     },
     -- stylua: ignore
     keys = {
@@ -207,15 +198,15 @@ return {
     dependencies = {
       "neovim/nvim-lspconfig",
       "Bilal2453/luvit-meta",
-      { "LuaCATS/luassert", name = "luassert-types" },
-      { "LuaCATS/busted", name = "busted-types" },
+      { "LuaCATS/luassert" },
+      { "LuaCATS/busted" },
     },
     ft = "lua",
     opts = {
       library = {
         { path = "luvit-meta/library", words = { "vim%.uv" } },
-        { path = "luassert-types/library", words = { "assert" } },
-        { path = "busted-types/library", words = { "describe" } },
+        { path = "luassert/library", words = { "assert" } },
+        { path = "busted/library", words = { "describe" } },
       },
     },
   },
