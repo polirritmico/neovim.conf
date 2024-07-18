@@ -564,10 +564,8 @@ return {
               ["<CR>"] = require("utils").plugins.telescope_open_single_and_multi,
               ["<C-q>"] = require("utils").plugins.telescope_open_and_fill_qflist,
               ["<C-f>"] = require("utils").plugins.telescope_narrow_matches,
-              ["<C-h>"] = "which_key", -- toggle keymaps help
-              ["<LeftMouse>"] = function() end,
-            },
-            ["n"] = {
+              ["<C-h>"] = "which_key", -- show/hide keymaps help
+              ["<ESC>"] = "close",
               ["<LeftMouse>"] = function() end,
             },
           },

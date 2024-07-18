@@ -2,23 +2,99 @@
 ---@class UtilsPlugins
 local Plugins = {}
 
----Add a Telescope picker to use MiniSessions functions
+---A custom Telescope picker to use MiniSessions actions
 function Plugins.mini_sessions_manager()
   local mini_sessions = require("mini.sessions")
+  local tlstate = require("telescope.actions.state")
+  local close = require("telescope.actions").close
+  local theme = require("telescope.themes").get_dropdown
+
+  ---@return string?, string?
+  local function get_user_input()
+    local selected = tlstate.get_selected_entry()
+    local input_text = tlstate.get_current_line()
+    selected = selected and selected[1] or nil
+    input_text = input_text ~= "" and input_text or nil
+    return selected, input_text
+  end
+
+  ---@param filename string?
+  local function write_session(bufnr, filename)
+    if not filename then
+      local selected, input_text = get_user_input()
+      filename = selected or input_text
+    end
+
+    if not filename or filename == "" then
+      vim.notify("write_session: Empty or nil filename", vim.log.levels.WARN)
+    elseif vim.fn.findfile(vim.fn.expand(filename)) == "" then
+      close(bufnr)
+      mini_sessions.write(filename)
+    elseif vim.fn.input("Overwrite session? [y/n]: "):lower() == "y" then
+      close(bufnr)
+      mini_sessions.write(filename)
+    else
+      vim.notify("Aborted", vim.log.levels.INFO)
+    end
+  end
+
+  local function delete_session(bufnr)
+    local selected, _ = get_user_input()
+    if not selected then
+      vim.notify("delete_session: Empty selection", vim.log.levels.WARN)
+    elseif vim.fn.input("Delete session? [y/n]: "):lower() == "y" then
+      mini_sessions.delete(selected, { force = true })
+      close(bufnr)
+    else
+      vim.notify("Aborted", vim.log.levels.INFO)
+    end
+  end
+
+  local function read_or_write_session(bufnr)
+    local selected, input_text = get_user_input()
+
+    if not selected and not input_text then
+      vim.notify("Empty selection and input text", vim.log.levels.INFO)
+    elseif not selected and input_text then
+      write_session(bufnr, input_text)
+    elseif selected and not input_text then
+      mini_sessions.read(selected)
+    elseif selected == input_text then
+      mini_sessions.read(selected)
+    else -- user must decide
+      local msg = string.format(
+        "Choose 'r' to read '%s' or 'w' to write '%s': ",
+        selected,
+        input_text
+      )
+      local user_input = vim.fn.input(msg):lower()
+
+      if user_input == "w" then
+        write_session(bufnr, input_text)
+      elseif user_input == "r" then
+        mini_sessions.read(selected)
+      end
+    end
+  end
+
+  -- Build the picker
   local opts = {
     cwd = mini_sessions.config.directory,
     results_title = "Sessions Manager",
-    prompt_title = "<CR>:Open  <C-s>:Save  <C-r>:Remove",
+    prompt_title = "<CR>:Open  <C-w>:Write  <C-d>:Delete",
     previewer = false,
     layout_config = { height = { 0.6, max = 21 }, width = { 0.99, max = 65 } },
+    attach_mappings = function(_, map)
+      map("i", "<CR>", read_or_write_session)
+      map("i", "<C-w>", write_session)
+      map("i", "<C-d>", delete_session)
+      map("i", "<ESC>", close)
+      map("i", "<C-n>", "move_selection_next")
+      map("i", "<C-p>", "move_selection_previous")
+      return false -- false to only use attached mappings
+    end,
   }
-  ---@type table<string, ActionInstruction>
-  local instructions = {
-    ["<CR>"] = { func = mini_sessions.read, entry = 1, close = false },
-    ["<C-s>"] = { func = mini_sessions.write },
-    ["<C-r>"] = { func = mini_sessions.delete, entry = 1 },
-  }
-  Plugins.telescope_wrapper(instructions, opts, "sessions")
+  require("telescope.builtin").find_files(theme(opts))
 end
 
 ---Telescope action helper to pass the current matches into another telescope
@@ -68,74 +144,6 @@ function Plugins.telescope_open_single_and_multi(bufnr)
   else
     actions.select_default(bufnr)
   end
-end
-
-Plugins.constructed_pickers = {}
-
----@alias ActionInstruction { func:function, entry?:string|integer, close?:boolean }
----Telescope helper wrapper for builtin pickers.
----@param instructions table<string, ActionInstruction> List of functions to be executed and the field from the entries. If the field is nil, then the current input text field from the picker is used.
----@param opts table Telescope picker options
----@param cache_name string Name used to store the picker in the constructed_pickers
----@param picker_name? string Defaults to `find_files`
-function Plugins.telescope_wrapper(instructions, opts, cache_name, picker_name)
-  -- Dont build every time
-  if Plugins.constructed_pickers[cache_name] then
-    Plugins.constructed_pickers[cache_name]()
-    return
-  end
-
-  picker_name = picker_name or "find_files"
-  local picker = require("telescope.builtin")[picker_name]
-  if not picker then
-    vim.notify("telescope_wrapper: nil picker " .. picker_name, vim.log.levels.ERROR)
-    return
-  end
-  local tl_actions = require("telescope.actions")
-  local tl_state = require("telescope.actions.state")
-
-  ---Build telescope a action from the instruction
-  ---@param instruction ActionInstruction
-  ---@return function
-  local function construct_action(instruction)
-    local get_value
-    if not instruction.entry then
-      get_value = tl_state.get_current_line
-    else
-      get_value = function()
-        local selected = tl_state.get_selected_entry()
-        if not selected or not selected[instruction.entry] then
-          error("Error: Empty selection or selection does not exists")
-        else
-          return selected[instruction.entry]
-        end
-      end
-    end
-
-    return function(bufnr)
-      local ok, value = pcall(get_value, bufnr)
-      if not ok then
-        vim.notify(value, vim.log.levels.WARN)
-        return
-      end
-      instruction.func(value)
-      if instruction.close ~= false then
-        tl_actions.close(bufnr)
-      end
-    end
-  end
-
-  opts.attach_mappings = function(_, map)
-    for key, instruction in pairs(instructions) do
-      local action = construct_action(instruction)
-      map("i", key, action)
-    end
-
-    return true
-  end
-
-  Plugins.constructed_pickers[cache_name] = function() picker(opts) end
-  Plugins.constructed_pickers[cache_name]()
 end
 
 return Plugins

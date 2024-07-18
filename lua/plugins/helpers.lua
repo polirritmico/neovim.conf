@@ -106,6 +106,7 @@ return {
     opts = {
       directory = vim.fn.stdpath("state") .. "/sessions",
       file = ".Sessions.vim",
+      verbose = { read = true, write = true, delete = true },
     },
   },
   --- Surround operations
