@@ -8,26 +8,23 @@ Workstation = vim.fn.hostname() == "hal-9002"
 
 -- Helper functions
 
-local ok, u = pcall(require, "utils")
+local ok, u = pcall(require, "utils") ---@type boolean, Utils
 if not ok then
   vim.notify("Error loading utils. Using fallback config", vim.log.levels.ERROR)
   require("config.fallback.settings")
   require("config.fallback.mappings")
   return
 end
----@cast u Utils
-P = u.helpers.print_wrapper
 
 -- Paths
 
----@type string Path of the neovim config folder (`~/.config/nvim`).
----@diagnostic disable [assign-type-mismatch]
-NeovimPath = vim.fn.stdpath("config")
----@type string Path of the lua config (`nvim/lua/config/`).
+---Path of the neovim config folder (`~/.config/nvim`).
+NeovimPath = vim.fn.stdpath("config") --[[@as string]]
+---Path of the lua config (`nvim/lua/config/`).
 MyConfigPath = NeovimPath .. "/lua/config/"
----@type string Path of my custom plugins sources `outside` Nvim's rtp. (`$USR_PROJECTS_DIR/Neovim/`)
+---Path of my custom plugins sources `outside` Nvim's rtp. (`$USR_PROJECTS_DIR/Neovim/`)
 MyPluginsPath = vim.fn.expand("$USR_PROJECTS_DIR/" .. (Workstation and "Neovim/" or ""))
----@type string Path to store scratch notes (`~/.local/share/nvim/scratchs`)
+---Path to store scratch notes (`~/.local/share/nvim/scratchs`)
 ScratchNotesPath = vim.fn.stdpath("data") .. "/scratch/"
 
 -- Check paths

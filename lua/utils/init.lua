@@ -9,4 +9,6 @@ Utils.helpers = require("utils.helpers")
 Utils.plugins = require("utils.plugins")
 Utils.writing = require("utils.writing")
 
+P = Utils.helpers.print_wrapper
+
 return Utils

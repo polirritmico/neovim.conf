@@ -36,7 +36,7 @@ function Custom.oil_confirmation_key(key)
   })
 end
 
----Open the app at the path of the current buffer. (Defaults to KDE Dolphin)
+---Open the application at the path of the current buffer. (Defaults to KDE Dolphin)
 ---@param app string
 function Custom.open_at_buffpath(app)
   app = app or "dolphin"
