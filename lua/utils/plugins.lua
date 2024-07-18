@@ -98,14 +98,28 @@ function Plugins.telescope_wrapper(instructions, opts, cache_name, picker_name)
   ---@param instruction ActionInstruction
   ---@return function
   local function construct_action(instruction)
-    local close_picker = instruction.close ~= false
-    local get_value = not instruction.entry and tl_state.get_current_line
-      or function() return tl_state.get_selected_entry()[instruction.entry] end
+    local get_value
+    if not instruction.entry then
+      get_value = tl_state.get_current_line
+    else
+      get_value = function()
+        local selected = tl_state.get_selected_entry()
+        if not selected or not selected[instruction.entry] then
+          error("Error: Empty selection or selection does not exists")
+        else
+          return selected[instruction.entry]
+        end
+      end
+    end
 
     return function(bufnr)
-      local value = get_value()
+      local ok, value = pcall(get_value, bufnr)
+      if not ok then
+        vim.notify(value, vim.log.levels.WARN)
+        return
+      end
       instruction.func(value)
-      if close_picker then
+      if instruction.close ~= false then
         tl_actions.close(bufnr)
       end
     end
