@@ -64,7 +64,8 @@ map("n", "<C-S-I>", "`^", "Go to the last cursor position in Insert mode")
 -------------------------------------------------------------------------------
 --- Adjust defaults behaviour
 
--- Close all buffers without saving and exit
+-- Close all buffers with/without saving and exit
+map("n", "ZZ", "<Cmd>wqa<CR>", "Quit without saving")
 map("n", "ZQ", "<Cmd>qa!<CR>", "Quit without saving")
 
 -- Flip full buffer info

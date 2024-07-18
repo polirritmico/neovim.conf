@@ -45,7 +45,8 @@ opt.foldnestmax = 3 -- Max number of nested folds
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
 
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
-opt.foldexpr = "nvim_treesitter#foldexpr()" -- Definition of the expression. To use Treesitter folding: "v:lua.vim.treesitter.foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Built-in
+-- opt.foldexpr = "nvim_treesitter#foldexpr()" -- from nvim-treesitter
 opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
 
 --- Code indent

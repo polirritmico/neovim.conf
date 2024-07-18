@@ -155,20 +155,21 @@ function Custom.toggle_quickfix()
   vim.cmd.copen()
 end
 
----@class UtilsCustomTermState
+---@class UtilsCustomTermState:nil
 ---@field win integer
 ---@field buf integer
+---@field height integer
 ---@field open boolean
-
----@type UtilsCustomTermState?
 local term_state
 
 ---Open/Close a persistent terminal at the bottom with a fixed height or with
 ---the `v.count` height passed before the shortcut, e.g., `20<toggle_term-map>`.
 function Custom.toggle_term()
-  -- TODO: Hide buffer from the list (:Telescope buffers)
-  local height = vim.v.count > 0 and vim.v.count or 12
-  local function set_window_panel()
+  local height = vim.v.count > 0 and vim.v.count
+    or term_state and term_state.height
+    or 12
+
+  local function set_panel_window()
     vim.cmd.new()
     vim.cmd.wincmd("J")
     local win = api.nvim_get_current_win()
@@ -177,28 +178,77 @@ function Custom.toggle_term()
     return win
   end
 
-  if not term_state then
-    -- new terminal panel
+  local function set_buffterm_opts()
+    assert(term_state, "Error: Setting panel buffer options but term_state is nil")
+    api.nvim_set_option_value("buftype", "terminal", { buf = term_state.buf })
+    api.nvim_set_option_value("bufhidden", "hide", { buf = term_state.buf })
+    api.nvim_set_option_value("buflisted", false, { buf = term_state.buf })
+  end
+
+  ---@return boolean previous_term_detected Return `true` if there's currently a opened terminal buffer
+  local function set_term_state()
+    local window, bufnr
+
+    local previous_term_detected = false
+    for _, _window in ipairs(vim.api.nvim_list_wins()) do
+      local _bufnr = api.nvim_win_get_buf(_window)
+      local buftype = api.nvim_get_option_value("buftype", { buf = _bufnr })
+      if buftype == "terminal" then
+        previous_term_detected = true
+        window = _window
+        bufnr = _bufnr
+        break
+      end
+    end
+
     term_state = {
-      win = set_window_panel(),
-      buf = api.nvim_get_current_buf(),
+      win = window or set_panel_window(),
+      buf = bufnr or api.nvim_get_current_buf(),
+      height = height,
       open = true,
     }
+    if previous_term_detected then
+      set_buffterm_opts()
+    end
+    return previous_term_detected
+  end
+
+  local function new_terminal()
+    assert(term_state, "Error: Creating terminal panel but term_state is nil")
     vim.cmd.term()
-  elseif not term_state.open then
-    -- reopen the closed terminal panel
-    term_state.win = set_window_panel()
-    -- TODO: Avoid listing the buffer, so `:bn` dont open the terminal
-    -- api.nvim_set_option_value("bufhidden", "hide", { buf = term_state.buf })
+    set_buffterm_opts()
+  end
+
+  local function close_terminal()
+    assert(term_state, "Error: Closing terminal panel but term_state is nil")
+    if #vim.api.nvim_list_wins() == 1 then
+      vim.notify("Can't close last window")
+      return
+    end
+    api.nvim_win_close(term_state.win, true)
+    term_state.open = false
+  end
+
+  local function reopen_terminal()
+    assert(term_state, "Error: Re-opening terminal panel but term_state is nil")
+    term_state.win = set_panel_window()
     api.nvim_win_set_buf(term_state.win, term_state.buf)
     term_state.open = true
     vim.cmd.startinsert()
+  end
+
+  if not term_state then
+    local previous_term_detected = set_term_state()
+    if previous_term_detected then
+      close_terminal()
+    else
+      new_terminal()
+    end
+  elseif not term_state.open then
+    reopen_terminal()
   elseif api.nvim_win_is_valid(term_state.win) then
-    -- close the terminal panel
-    api.nvim_win_close(term_state.win, true)
-    term_state.open = false
+    close_terminal()
   else
-    -- the terminal panel has been closed externally
     term_state = nil
     Custom.toggle_term()
   end

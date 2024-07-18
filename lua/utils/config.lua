@@ -1,4 +1,4 @@
----Functions helpers used to configure Nvim.
+---Functions helpers used to configure Neovim.
 ---@class UtilsConfig
 local Config = {}
 

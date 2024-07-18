@@ -1,4 +1,28 @@
 return {
+  --- Active indent guide. Animates the highlight
+  {
+    "echasnovski/mini.indentscope",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    opts = {
+      options = { try_as_border = true },
+      symbol = "│",
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "help",
+          "dashboard",
+          "neo-tree",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+        callback = function() vim.b["miniindentscope_disable"] = true end,
+      })
+    end,
+  },
   --- Greeter screen
   {
     "nvimdev/dashboard-nvim",
@@ -30,11 +54,10 @@ return {
               key = "e",
             },
             {
-              -- action = function() require("auto-session.session-lens").search_session() end,
-              action = function() vim.notify("No session manager set!") end,
+              action = require("utils").plugins.mini_sessions_manager,
               desc = " Restore Session",
               icon = " ",
-              key = "<leader>fs",
+              key = "<leader>ss",
             },
             {
               action = "Telescope find_files",
@@ -166,29 +189,5 @@ return {
         "yaml",
       },
     },
-  },
-  --- Active indent guide. Animates the highlight
-  {
-    "echasnovski/mini.indentscope",
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = {
-      options = { try_as_border = true },
-      symbol = "│",
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "dashboard",
-          "neo-tree",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-        callback = function() vim.b["miniindentscope_disable"] = true end,
-      })
-    end,
   },
 }

@@ -96,21 +96,31 @@ return {
       end
     end,
   },
+  --- Session manager
+  {
+    "echasnovski/mini.sessions",
+    -- stylua: ignore
+    keys = {
+      { "<leader>ss", require("utils").plugins.mini_sessions_manager, desc = "mini.sessions: Select a session." },
+    },
+    opts = {
+      directory = vim.fn.stdpath("state") .. "/sessions",
+      file = ".Sessions.vim",
+    },
+  },
   --- Surround operations
   {
     "kylechui/nvim-surround",
     version = "*", -- latest stable
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
-      -- TODO: While learning this maps I'm keeping the defaults on the right.
-      -- Remove in a few months.
       keymaps = {
-        -- Change the mappings, there is no reason to keep `s`.
-        normal = "s", -- ys
-        normal_cur = "ss", -- yss
-        normal_cur_line = "sS", -- ySS
-        visual = "s", -- S
-        visual_line = "S", -- gS
+        -- Change the mappings, there is no reason to keep `s`
+        normal = "s",
+        normal_cur = "ss",
+        normal_cur_line = "sS",
+        visual = "s",
+        visual_line = "S",
       },
     },
   },
