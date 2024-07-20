@@ -159,7 +159,10 @@ return {
           disabled_filetypes = { statusline = { "dashboard", "man" } },
         },
         extensions = { "lazy" },
-        sections = { lualine_y = custom_section_y },
+        sections = {
+          lualine_c = { { "filename", path = 1 } }, -- show parent directory
+          lualine_y = custom_section_y,
+        },
       }
     end,
   },

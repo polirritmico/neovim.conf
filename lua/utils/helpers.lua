@@ -66,4 +66,34 @@ function Helpers.set_redirection_cmd()
   })
 end
 
+---Set a debug session manually loading nvim-dap and osv
+function Helpers.set_debug()
+  -- Add plugins paths
+  local dappath = vim.fn.stdpath("data") .. "/lazy/nvim-dap"
+  local osvpath = vim.fn.stdpath("data") .. "/lazy/one-small-step-for-vimkind"
+  vim.opt.rtp:prepend(dappath)
+  vim.opt.rtp:prepend(osvpath)
+
+  -- Config Dap
+  local dap = require("dap")
+
+  dap.adapters.nlua = function(callback, config)
+    ---@diagnostic disable [undefined-field]
+    callback({
+      type = "server",
+      host = config.host or "127.0.0.1",
+      port = config.port or 8086,
+    })
+  end
+  dap.configurations.lua = {
+    {
+      type = "nlua",
+      request = "attach",
+      name = "Attach to running Neovim instance",
+    },
+  }
+
+  vim.keymap.set("", "<F10>", function() require("osv").launch({ port = 8086 }) end)
+  vim.notify("Press <F10> to start the debuggee session", vim.log.levels.INFO)
+end
 return Helpers
