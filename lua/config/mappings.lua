@@ -52,14 +52,11 @@ map("n", "N", "Nzzzv", "Scroll window Downwards in the buffer and center the scr
 map("n", "<C-n>", "<Cmd>cnext<CR>zz", "Next quick-list element")
 map("n", "<C-p>", "<Cmd>cprev<CR>zz", "Prev quick-list element")
 
--- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<Cmd>resize +2<CR>", "Increase window height")
-map("n", "<C-Down>", "<Cmd>resize -2<CR>", "Decrease window height")
-map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", "Decrease window width")
-map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", "Increase window width")
-
 -- Return to the position of the last insert
 map("n", "<C-S-I>", "`^", "Go to the last cursor position in Insert mode")
+
+-- Resize window using <ctrl> arrow keys
+u.config.set_win_resize_keys()
 
 -------------------------------------------------------------------------------
 --- Adjust defaults behaviour

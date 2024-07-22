@@ -152,7 +152,7 @@ return {
       lualine_require.require = require
 
       local custom_section_y = not Workstation and { "progress" }
-        or { "progress", require("utils.custom").lualine_harpoon }
+        or { "progress", require("utils.plugins").lualine_harpoon }
 
       return {
         options = {

@@ -2,6 +2,42 @@
 ---@class UtilsPlugins
 local Plugins = {}
 
+---Return a custom lualine tabline section that integrates Harpoon marks.
+---@return string
+function Plugins.lualine_harpoon()
+  local hp_list = require("harpoon"):list()
+  local total_marks = hp_list:length()
+  if total_marks == 0 then
+    return ""
+  end
+
+  local hp_keys = { "j", "k", "l", "h" }
+  local nvim_mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
+    or nvim_mode == "i" and "%#lualine_b_insert#"
+    or nvim_mode == "c" and "%#lualine_b_command#"
+    or "%#lualine_b_visual#"
+  local hl_selected = ("v" == nvim_mode or "V" == nvim_mode or "" == nvim_mode)
+      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
+    or "%#lualine_b_diagnostics_warn_normal#"
+
+  local full_name = vim.api.nvim_buf_get_name(0)
+  local buffer_name = vim.fn.expand("%")
+  local output = " " -- 󰀱
+
+  for index = 1, total_marks <= 4 and total_marks or 4 do
+    local mark = hp_list.items[index].value
+    -- BUG: Sometimes the buffname is the full path and others the symlink...
+    if mark == buffer_name or mark == full_name then
+      output = output .. hl_selected .. hp_keys[index] .. hl_normal
+    else
+      output = output .. hp_keys[index]
+    end
+  end
+
+  return output
+end
+
 ---A custom Telescope picker to use MiniSessions actions
 function Plugins.mini_sessions_manager()
   local mini_sessions = require("mini.sessions")
@@ -95,6 +131,17 @@ function Plugins.mini_sessions_manager()
     end,
   }
   require("telescope.builtin").find_files(theme(opts))
+end
+
+---Oil.nvim: Set a configuration key for the confirm changes prompt.
+---@param key string Confirmation key.
+function Plugins.oil_confirmation_key(key)
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "oil_preview",
+    callback = function(prms)
+      vim.keymap.set("n", key, "Y", { buffer = prms.buf, remap = true, nowait = true })
+    end,
+  })
 end
 
 ---Telescope action helper to pass the current matches into another telescope

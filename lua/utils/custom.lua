@@ -25,31 +25,11 @@ function Custom.fold_text()
   )
 end
 
----Oil.nvim: Set a configuration key for the confirm changes prompt.
----@param key string Confirmation key.
-function Custom.oil_confirmation_key(key)
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "oil_preview",
-    callback = function(prms)
-      vim.keymap.set("n", key, "Y", { buffer = prms.buf, remap = true, nowait = true })
-    end,
-  })
-end
-
 ---Open the application at the path of the current buffer. (Defaults to KDE Dolphin)
 ---@param app string
 function Custom.open_at_buffpath(app)
   app = app or "dolphin"
   vim.fn.jobstart({ app, vim.fn.expand("%:p:h") }, { detach = true })
-end
-
----Restore the cursor to its last position when reopening the buffer.
----Copied from the manual. Check `:h restore-cursor`
-function Custom.save_cursor_position_in_file()
-  vim.cmd([[
-    autocmd BufRead * autocmd FileType <buffer> ++once
-      \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-  ]])
 end
 
 ---Check if `ScratchNotesPath` exists. If not ask for the user to create it.
@@ -106,42 +86,6 @@ function Custom.scratchs()
       return true
     end,
   }))
-end
-
----Return a custom lualine tabline section that integrates Harpoon marks.
----@return string
-function Custom.lualine_harpoon()
-  local hp_list = require("harpoon"):list()
-  local total_marks = hp_list:length()
-  if total_marks == 0 then
-    return ""
-  end
-
-  local hp_keys = { "j", "k", "l", "h" }
-  local nvim_mode = api.nvim_get_mode().mode:sub(1, 1)
-  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
-    or nvim_mode == "i" and "%#lualine_b_insert#"
-    or nvim_mode == "c" and "%#lualine_b_command#"
-    or "%#lualine_b_visual#"
-  local hl_selected = ("v" == nvim_mode or "V" == nvim_mode or "" == nvim_mode)
-      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
-    or "%#lualine_b_diagnostics_warn_normal#"
-
-  local full_name = api.nvim_buf_get_name(0)
-  local buffer_name = vim.fn.expand("%")
-  local output = " " -- 󰀱
-
-  for index = 1, total_marks <= 4 and total_marks or 4 do
-    local mark = hp_list.items[index].value
-    -- BUG: Sometimes the buffname is the full path and others the symlink...
-    if mark == buffer_name or mark == full_name then
-      output = output .. hl_selected .. hp_keys[index] .. hl_normal
-    else
-      output = output .. hp_keys[index]
-    end
-  end
-
-  return output
 end
 
 ---Show/Hide the quickfix list.
