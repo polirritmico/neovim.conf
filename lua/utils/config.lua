@@ -82,8 +82,8 @@ function Config.set_win_resize_keys()
   -- stylua: ignore end
 end
 
----Get the winlayuot tree, search the current window node, get its position in
----the tree. Then execute the proper `resize` command
+---Get the windows layout tree, search the current window node, get its position
+---on the tree/screen and execute the proper `resize` command.
 ---@param direction string
 function Config.win_resize(direction)
   local layout = vim.fn.winlayout()
@@ -99,8 +99,8 @@ function Config.win_resize(direction)
   ---@param inner_lay table<string, string|table>
   ---@return boolean|coords
   local function travel_win_layout(inner_lay)
-    local or_col = coords.col
-    local or_row = coords.row
+    local initial_col = coords.col
+    local initial_row = coords.row
 
     local tag = inner_lay[1]
     if tag == "leaf" then
@@ -116,8 +116,8 @@ function Config.win_resize(direction)
       coords[tag] = coords[tag] + 1
     end
 
-    coords.row = or_row
-    coords.col = or_col
+    coords.row = initial_row
+    coords.col = initial_col
     return false
   end
 
@@ -125,10 +125,10 @@ function Config.win_resize(direction)
 
   if direction == "U" or direction == "D" then
     if state.col ~= state.last_col then
-      -- ↓ decrease; ↑ increase
+      -- ↑ decrease; ↓ increase
       vim.cmd(direction == "U" and "resize -2" or "resize +2")
     elseif state.last_col ~= 1 then -- `~= 1` to avoid resizing the cmdheight
-      -- ↓ increase; ↑ decrease
+      -- ↑ increase; ↓ decrease
       vim.cmd(direction == "U" and "resize +2" or "resize -2")
     end
   else
