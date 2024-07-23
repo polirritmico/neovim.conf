@@ -75,10 +75,10 @@ end
 ---the screen.
 function Config.set_win_resize_keys()
   -- stylua: ignore start
-  Config.set_keymap("n", "<C-Up>", function() Config.win_resize("U") end, "Increase window height")
-  Config.set_keymap("n", "<C-Down>", function() Config.win_resize("D") end, "Decrease window height")
-  Config.set_keymap("n", "<C-Left>", function() Config.win_resize("L") end, "Decrease window width")
-  Config.set_keymap("n", "<C-Right>", function() Config.win_resize("R") end, "Increase window width")
+  Config.set_keymap("n", "<C-Up>", function() Config.win_resize("k") end, "Resize window")
+  Config.set_keymap("n", "<C-Down>", function() Config.win_resize("j") end, "Resize window")
+  Config.set_keymap("n", "<C-Left>", function() Config.win_resize("h") end, "Resize window")
+  Config.set_keymap("n", "<C-Right>", function() Config.win_resize("l") end, "Resize window")
   -- stylua: ignore end
 end
 
@@ -86,58 +86,25 @@ end
 ---on the tree/screen and execute the proper `resize` command.
 ---@param direction string
 function Config.win_resize(direction)
-  local layout = vim.fn.winlayout()
-  if layout[1] == "leaf" then
-    return
-  end
+  local current_win = vim.fn.winnr()
+  local resize_cmd = (direction == "h" or direction == "l") and "vertical resize "
+    or "resize "
+  local opposite = direction == "j" and "k"
+    or direction == "k" and "j"
+    or direction == "h" and "l"
+    or direction == "l" and "h"
 
-  ---@alias coords { col:integer, row:integer, last_col:integer, last_row:integer }
-  local coords = { col = 1, row = 1, last_col = 1, last_row = 1 }
-  local win = vim.api.nvim_get_current_win()
-
-  ---Travel the layout tree. Check `:h winlayout`
-  ---@param inner_lay table<string, string|table>
-  ---@return boolean|coords
-  local function travel_win_layout(inner_lay)
-    local initial_col = coords.col
-    local initial_row = coords.row
-
-    local tag = inner_lay[1]
-    if tag == "leaf" then
-      return inner_lay[2] == win
-    end
-
-    local last = #inner_lay[2]
-    for i = 1, last do
-      if travel_win_layout(inner_lay[2][i]) then
-        coords["last_" .. tag] = last
-        return coords
-      end
-      coords[tag] = coords[tag] + 1
-    end
-
-    coords.row = initial_row
-    coords.col = initial_col
-    return false
-  end
-
-  local state = travel_win_layout(layout) --[[@as coords]]
-
-  if direction == "U" or direction == "D" then
-    if state.col ~= state.last_col then
-      -- ↑ decrease; ↓ increase
-      vim.cmd(direction == "U" and "resize -2" or "resize +2")
-    elseif state.last_col ~= 1 then -- `~= 1` to avoid resizing the cmdheight
-      -- ↑ increase; ↓ decrease
-      vim.cmd(direction == "U" and "resize +2" or "resize -2")
+  if direction == "j" or direction == "l" then
+    if current_win == vim.fn.winnr(direction) then
+      vim.api.nvim_command(resize_cmd .. "-2")
+    else
+      vim.api.nvim_command(resize_cmd .. "+2")
     end
   else
-    if state.row == state.last_row then
-      -- <- increase; -> decrease
-      vim.cmd(direction == "L" and "vertical resize +2" or "vertical resize -2")
+    if current_win == vim.fn.winnr(opposite) then
+      vim.api.nvim_command(resize_cmd .. "+2")
     else
-      -- <- decrease; -> increase
-      vim.cmd(direction == "L" and "vertical resize -2" or "vertical resize +2")
+      vim.api.nvim_command(resize_cmd .. "-2")
     end
   end
 end
