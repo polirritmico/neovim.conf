@@ -67,7 +67,7 @@ return {
       dependencies = { "nvim-dap", "nvim-neotest/nvim-nio" },
       -- stylua: ignore
       keys = {
-        { "<Leader>di", function() require("dapui").eval() end, desc = "DAP: Show debug info of the element under the cursor" },
+        { "<Leader>dk", function() require("dapui").eval() end, desc = "DAP: Show debug info of the element under the cursor" },
         { "<Leader>dg", function() require("dapui").toggle() end, desc = "DAP: Toggle DAP GUI" },
         { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
       },
@@ -140,8 +140,8 @@ return {
   --- Database
   {
     "kristijanhusak/vim-dadbod-ui",
-    enabled = false,
-    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+    enabled = true,
+    cmd = { "DB", "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
     -- stylua: ignore
     keys = {
       { "<leader>td", "<Cmd>DBUIToggle<CR>", desc = "vim-dadbod-ui: Toggle UI" },
@@ -173,14 +173,57 @@ return {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
+      -- Adapters
+      "nvim-neotest/neotest-python",
     },
     -- stylua: ignore
     keys = {
       { "<leader>rtf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "neotest: Run all test in the current file" },
+      { "<leader>rtd", function() require("neotest").run.run({strategy = "dap"}) end, desc = "neotest: Debug nearest test" },
       { "<leader>rtt", function() require("neotest").run.run() end, desc = "neotest: Run nearest test" },
-      { "<leader>rts", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
+      { "<leader>rtS", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
+      { "<leader>rto", function() require("neotest").output_panel.toggle() end, desc = "neotest: Toggle output panel" },
+      { "<leader>rtO", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "neotest: Show test output" },
+      { "<leader>rts", function() require("neotest").summary.toggle() end, desc = "neotest: Toggle summary" },
     },
-    opts = {},
+    opts = {
+      status = { virtual_text = true },
+      output = { open_on_run = true },
+    },
+    config = function(_, opts)
+      opts.adapters = { require("neotest-python") }
+      require("neotest").setup(opts)
+    end,
+  },
+  {
+    "polirritmico/nvim-test",
+    dev = false,
+    cmd = {
+      "TestSuite",
+      "TestFile",
+      "TestNearest",
+      "TestLast",
+      "TestVisit",
+      "TestInfo",
+    },
+    opts = {
+      termOpts = {
+        direction = "float", -- vertical, horizontal, float
+        float_position = "bottom",
+        height = 24,
+        width = 200,
+        stopinsert = false,
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>rtf", "<Cmd>silent TestFile<CR>", desc = "nvim-test: Run all test in the current file or run the last file tests." },
+      { "<leader>rta", "<Cmd>silent TestSuite<CR>", desc = "nvim-test: Run the whole test suite following the current file or the last run test." },
+      { "<leader>rtu", "<Cmd>silent TestNearest<CR>", desc = "nvim-test: Run the test nearest to the cursor or run the last test." },
+      { "<leader>rtl", "<Cmd>silent TestLast<CR>", desc = "nvim-test: Run the last test." },
+      { "<leader>glt", "<Cmd>silent TestVisit<CR>", desc = "nvim-test: Go/Open to the last test file that has ben run." },
+      { "<leader>rtI", "<Cmd>silent TestInfo<CR>", desc = "nvim-test: Show info about the plugin" },
+    },
   },
   --- Function stats (like references)
   {
