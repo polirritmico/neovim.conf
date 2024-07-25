@@ -8,19 +8,12 @@ return {
       symbol = "│",
     },
     init = function()
+      local disable = function(args) vim.b[args.buf].miniindentscope_disable = true end
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "dashboard",
-          "neo-tree",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-        callback = function() vim.b["miniindentscope_disable"] = true end,
+        pattern = { "help", "dashboard", "lazy", "mason", "notify" },
+        callback = disable,
       })
+      vim.api.nvim_create_autocmd("TermOpen", { callback = disable })
     end,
   },
   --- Greeter screen

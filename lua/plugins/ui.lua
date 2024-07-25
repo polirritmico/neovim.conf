@@ -23,7 +23,7 @@ return {
       on_colors = function(c)
         c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
       end,
-      terminal_colors = function(colors) return { Normal = { fg = colors.fg_dark } } end,
+      terminal_colors = function(colors) return { fg = colors.fg_dark } end,
     },
     config = function(_, opts)
       vim.opt.cursorline = true -- Highlight line at the cursor position
@@ -34,7 +34,8 @@ return {
       --   vim.o.background = "light"
       -- end
 
-      require("monokai-nightasty").load(opts)
+      require("monokai-nightasty").setup(opts)
+      require("monokai-nightasty").load()
     end,
   },
   --- Custom vertical width column/ruler

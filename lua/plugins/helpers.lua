@@ -26,6 +26,12 @@ return {
         ["<C-h>"] = "actions.toggle_hidden",
         ["<leader>cd"] = "actions.cd",
       },
+      skip_confirm_for_simple_edits = true,
+      view_options = {
+        is_always_hidden = function(name, _) return name == ".." or name == ".git" end,
+        natural_order = true,
+        show_hidden = true,
+      },
     },
   },
   --- Pairs of (), [], {}, etc.
