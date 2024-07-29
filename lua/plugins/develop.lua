@@ -140,7 +140,7 @@ return {
   --- Database
   {
     "kristijanhusak/vim-dadbod-ui",
-    enabled = true,
+    enabled = false,
     cmd = { "DB", "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
     -- stylua: ignore
     keys = {
@@ -235,6 +235,7 @@ return {
       },
     },
   },
+  --- Neovim Development
   --- Lsp helpers like types for lua and neovim plugin development
   {
     "folke/lazydev.nvim",
@@ -252,5 +253,20 @@ return {
         { path = "busted/library", words = { "describe" } },
       },
     },
+  },
+  --- Show highlights applied to variables names and virtual text marks
+  {
+    "echasnovski/mini.hipatterns",
+    enabled = false,
+    event = "VeryLazy",
+    opts = {},
+  },
+  --- Profiler
+  {
+    "stevearc/profile.nvim",
+    enabled = false,
+    priority = 1500,
+    lazy = false,
+    -- Use utils.plugins.toggle_profile() to begin/end the profiler
   },
 }

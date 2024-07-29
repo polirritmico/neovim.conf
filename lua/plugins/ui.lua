@@ -17,12 +17,8 @@ return {
       light_style_background = "default",
       color_headers = false,
       lualine_bold = true,
-      lualine_style = "default",
       markdown_header_marks = true,
       -- hl_styles = { comments = { italic = false } },
-      on_colors = function(c)
-        c.lualine.normal_bg = vim.o.background == "light" and "#7ebd00" or c.green
-      end,
       terminal_colors = function(colors) return { fg = colors.fg_dark } end,
     },
     config = function(_, opts)
@@ -34,8 +30,7 @@ return {
       --   vim.o.background = "light"
       -- end
 
-      require("monokai-nightasty").setup(opts)
-      require("monokai-nightasty").load()
+      require("monokai-nightasty").load(opts)
     end,
   },
   --- Custom vertical width column/ruler
@@ -47,7 +42,6 @@ return {
   --- Delete buffers without messing up the current layout
   {
     "famiu/bufdelete.nvim",
-    event = "VeryLazy",
     keys = {
       {
         "<leader>db",
@@ -115,18 +109,15 @@ return {
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
-    keys = function()
-      local harpoon = require("harpoon")
-      -- stylua: ignore
-      return {
-        { "<leader>a", function() harpoon:list():add() end, desc = "Harpoon: Add current buffer to the tagged files list", silent = true },
-        { "<A-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon: Open tagged files list", silent = true },
-        { "<A-j>", function() harpoon:list():select(1) end, desc = "Harpoon: Open tagged file 1", silent = true },
-        { "<A-k>", function() harpoon:list():select(2) end, desc = "Harpoon: Open tagged file 2", silent = true },
-        { "<A-l>", function() harpoon:list():select(3) end, desc = "Harpoon: Open tagged file 3", silent = true },
-        { "<A-h>", function() harpoon:list():select(4) end, desc = "Harpoon: Open tagged file 4", silent = true },
-      }
-    end,
+    -- stylua: ignore
+    keys = {
+      { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon: Add current buffer to the tagged files list", silent = true },
+      { "<A-e>", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon: Open tagged files list", silent = true },
+      { "<A-j>", function() require("harpoon"):list():select(1) end, desc = "Harpoon: Open tagged file 1", silent = true },
+      { "<A-k>", function() require("harpoon"):list():select(2) end, desc = "Harpoon: Open tagged file 2", silent = true },
+      { "<A-l>", function() require("harpoon"):list():select(3) end, desc = "Harpoon: Open tagged file 3", silent = true },
+      { "<A-h>", function() require("harpoon"):list():select(4) end, desc = "Harpoon: Open tagged file 4", silent = true },
+    },
   },
   --- Indentation guide lines
   {
