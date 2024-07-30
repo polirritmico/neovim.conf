@@ -135,7 +135,7 @@ end
 function Autocmds.setup_term_opts(opts)
   api.nvim_create_autocmd("TermOpen", {
     group = Autocmds.group_id,
-    desc = "Open `terminal-mode` in `insert-mode`",
+    desc = "Open `terminal-mode` in `insert-mode` and apply options",
     callback = function(ev)
       -- Avoid begin a test debug in insert mode
       if ev.file:match("dap%-terminal") then
