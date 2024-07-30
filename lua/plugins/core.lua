@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
   --- Autocompletion
   {
@@ -236,9 +238,10 @@ return {
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
+        -- stylua: ignore
         callback = function(event)
           local buf_opts = { buffer = event.buf }
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts)
+          vim.keymap.set("n", "gd", utils.config.lsp_definition_centered(), buf_opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
           vim.keymap.set("n", "go", vim.lsp.buf.type_definition, buf_opts)
@@ -481,7 +484,7 @@ return {
         build = "make",
         enabled = vim.fn.executable("make") == 1,
         init = function()
-          require("utils").autocmd.on_load(
+          utils.autocmd.on_load(
             "telescope.nvim",
             function() require("telescope").load_extension("fzf") end
           )
@@ -491,9 +494,18 @@ return {
         "polirritmico/telescope-lazy-plugins.nvim",
         dev = false,
         init = function()
-          require("utils").autocmd.on_load(
+          utils.autocmd.on_load(
             "telescope.nvim",
             function() require("telescope").load_extension("lazy_plugins") end
+          )
+        end,
+      },
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        init = function()
+          utils.autocmd.on_load(
+            "telescope.nvim",
+            function() require("telescope").load_extension("frecency") end
           )
         end,
       },
@@ -525,7 +537,7 @@ return {
       { "<leader>cp", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Config plugins" },
 
       -- Custom
-      { "<leader>fn", require("utils").custom.scratchs, desc = "Telescope: Open or create a new scratch buffer" },
+      { "<leader>fn", utils.custom.scratchs, desc = "Telescope: Open or create a new scratch buffer" },
     },
     opts = function()
       local layout_strategy, layout_config
@@ -561,9 +573,9 @@ return {
           sorting_strategy = "ascending",
           mappings = {
             ["i"] = {
-              ["<CR>"] = require("utils").plugins.telescope_open_single_and_multi,
-              ["<C-q>"] = require("utils").plugins.telescope_open_and_fill_qflist,
-              ["<C-f>"] = require("utils").plugins.telescope_narrow_matches,
+              ["<CR>"] = utils.plugins.telescope_open_single_and_multi,
+              ["<C-q>"] = utils.plugins.telescope_open_and_fill_qflist,
+              ["<C-f>"] = utils.plugins.telescope_narrow_matches,
               ["<C-h>"] = "which_key", -- show/hide keymaps help
               ["<ESC>"] = "close",
               ["<LeftMouse>"] = function() end,

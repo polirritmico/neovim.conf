@@ -24,7 +24,7 @@ NeovimPath = vim.fn.stdpath("config") --[[@as string]]
 MyConfigPath = NeovimPath .. "/lua/config/"
 ---Path of my custom plugins sources `outside` Nvim's rtp. (`$USR_PROJECTS_DIR/Neovim/`)
 MyPluginsPath = vim.fn.expand("$USR_PROJECTS_DIR/" .. (Workstation and "Neovim/" or ""))
----Path to store scratch notes (`~/.local/share/nvim/scratchs`)
+---Path to store scratch notes (`~/.local/share/nvim/scratchs/`)
 ScratchNotesPath = vim.fn.stdpath("data") .. "/scratch/"
 
 -- Check paths

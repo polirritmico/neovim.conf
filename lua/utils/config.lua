@@ -45,6 +45,21 @@ function Config.detected_errors()
   return true
 end
 
+---Wrapper to center the screen after vim.lsp.buf.definition asyncronous
+---execution: `gd` -> `gdzz`.
+---@return function
+function Config.lsp_definition_centered()
+  local method = "textDocument/definition"
+  local definiton_handler = require("vim.lsp.handlers")[method]
+  local mk_position_params = require("vim.lsp.util").make_position_params
+  return function()
+    vim.lsp.buf_request(0, method, mk_position_params(), function(...)
+      definiton_handler(...)
+      vim.api.nvim_feedkeys("zz", "n", true)
+    end)
+  end
+end
+
 ---This function check if the current system time is between a time range
 ---@param start_time integer Start time of the range in HHMM format (inclusive)
 ---@param end_time integer End time of the range in HHMM format (exclusive)

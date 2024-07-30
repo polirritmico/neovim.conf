@@ -1,12 +1,12 @@
 diff --git a/queries/markdown/highlights.scm b/queries/markdown/highlights.scm
-index 5d77e721..e737b75b 100644
+index a12669ca..c2d41755 100644
 --- a/queries/markdown/highlights.scm
 +++ b/queries/markdown/highlights.scm
-@@ -51,16 +51,16 @@
+@@ -45,16 +45,16 @@
  (indented_code_block) @markup.raw.block
  
  ((fenced_code_block) @markup.raw.block
--  (#set! "priority" 90))
+-  (#set! priority 90))
 -
 -(fenced_code_block
 -  (fenced_code_block_delimiter) @markup.raw.block
@@ -16,7 +16,7 @@ index 5d77e721..e737b75b 100644
 -  (info_string
 -    (language) @label
 -    (#set! conceal "")))
-+  (#set! "priority" 15))
++  (#set! priority 15))
 +
 +; (fenced_code_block
 +;   (fenced_code_block_delimiter) @markup.raw.block

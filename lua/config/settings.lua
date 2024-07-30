@@ -66,7 +66,7 @@ opt.ignorecase = true -- Ignore capitalization when searching
 opt.smartcase = true -- Match capitalization only if there are capital letters
 opt.incsearch = true -- Show results while searching
 opt.inccommand = "split" -- Show the changes into a split window
-opt.magic = true -- Standard regext patterns
+opt.magic = true -- Standard regex patterns
 
 --- Mouse related
 vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]]) -- Remove menu entry

@@ -56,7 +56,7 @@ function Custom.scratchs()
       scratch = scratch .. ".md"
     end
     close(bufnr)
-    vim.cmd.edit(string.format("%s/%s", ScratchNotesPath, scratch))
+    vim.cmd.edit(ScratchNotesPath .. scratch)
   end
 
   local function open_or_new_scratch_note(bufnr)
@@ -67,7 +67,7 @@ function Custom.scratchs()
     end
 
     close(bufnr)
-    vim.cmd.edit(string.format("%s/%s", ScratchNotesPath, scratch))
+    vim.cmd.edit(ScratchNotesPath .. scratch)
   end
 
   local function open_scratch_directory(bufnr)
