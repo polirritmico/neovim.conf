@@ -525,10 +525,10 @@ return {
       { "<leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Telescope: Find in help tags" },
       { "<leader>fm", "<Cmd>Telescope marks<CR>", desc = "Telescope: Find buffer marks" },
       { "<leader>fT", "<Cmd>Telescope<CR>", desc = "Telescope: Find telescope builtins functions" },
-      { "zf", "<Cmd>Telescope spell_suggest<CR>", desc = "Telescope: Find spell word suggestion" },
       { "<leader>fs", "<Cmd>Telescope lsp_document_symbols<CR>", desc = "Telescope: Find symbols" },
       { "<leader>fS", "<Cmd>Telescope lsp_workspace_symbols<CR>", desc = "Telescope: Find workspace symbols" },
       { "<leader>fw", "<Cmd>Telescope current_buffer_fuzzy_find<CR>",desc = "Telescope: Find word (like `/`)" },
+      { "zf", utils.plugins.telescope_spell_suggest, desc = "Telescope: Find spell word suggestion" },
 
       -- Configs
       { "<leader>cs", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/lua/snippets/"<CR>]], desc = "Telescope: Snippets sources" },

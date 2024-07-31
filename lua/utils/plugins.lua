@@ -145,8 +145,8 @@ function Plugins.oil_confirmation_key(key)
 end
 
 ---Start or end the profiler recording (`stevearc/profile.nvim`).
----Generates  a profile.json file that could be opened in a browser
----For example, with Firefox use [https://profiler.firefox.com/](https://profiler.firefox.com/)
+---Generates a profile.json file that could be opened in a browser, e.g., with
+---Firefox use [https://profiler.firefox.com/](https://profiler.firefox.com/)
 ---
 ---Usage:
 ---```lua
@@ -233,6 +233,12 @@ function Plugins.telescope_open_single_and_multi(bufnr)
   else
     actions.select_default(bufnr)
   end
+end
+
+---@param bufnr integer Telescope prompt buffer number
+function Plugins.telescope_spell_suggest(bufnr)
+  local theme = require("telescope.themes").get_dropdown
+  require("telescope.builtin").spell_suggest(theme())
 end
 
 return Plugins
