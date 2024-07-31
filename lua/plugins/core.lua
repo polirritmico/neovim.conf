@@ -145,13 +145,10 @@ return {
     dependencies = { "mason.nvim" },
     event = { "BufWritePre" },
     cmd = { "ConformInfo", "FormatEnable", "FormatDisable" },
+    -- stylua: ignore
     keys = {
-      {
-        "<F3>",
-        function() require("conform").format({ async = false, lsp_fallback = true }) end,
-        mode = { "n", "v" },
-        desc = "Conform: Format buffer",
-      },
+      { "<F3>", function() require("conform").format({ async = false, lsp_fallback = true }) end, mode = { "n", "v" }, desc = "Conform: Format buffer" },
+      { "<leader>tf", utils.plugins.conform_toggle, desc = "Conform: Enable/Disable autoformat-on-save." },
     },
     opts = {
       formatters_by_ft = {
@@ -182,29 +179,6 @@ return {
     },
     init = function() vim.o.formatexpr = [[v:lua.require("conform").formatexpr()]] end,
     config = function(_, opts)
-      vim.api.nvim_create_user_command("FormatDisable", function(args)
-        if args.bang then
-          -- :FormatDisable!<CR>
-          vim.b[0].disable_autoformat = true
-          vim.notify("Disabled autoformat-on-save just for the current buffer.")
-        else
-          -- :FormatDisable<CR>
-          vim.g.disable_autoformat = true
-          vim.notify("Disabled autoformat-on-save.")
-        end
-      end, {
-        desc = "Disable autoformat-on-save. Append `!` to affect only the current buffer.",
-        bang = true,
-      })
-
-      vim.api.nvim_create_user_command("FormatEnable", function()
-        vim.b[0].disable_autoformat = false
-        vim.g.disable_autoformat = false
-        vim.notify("Enabled autoformat-on-save.")
-      end, {
-        desc = "Enable autoformat-on-save",
-      })
-
       require("conform").setup(opts)
 
       -- Add custom options for markdown prettier

@@ -2,6 +2,13 @@
 ---@class UtilsPlugins
 local Plugins = {}
 
+---Enable or disable _conform.nvim_ `autoformat-on-save` functionality (globally).
+function Plugins.conform_toggle()
+  vim.g.disable_autoformat = not (vim.g.disable_autoformat == true)
+  local msg = "Conform: %sabled autoformat-on-save."
+  vim.notify(string.format(msg, vim.g.disable_autoformat and "Dis" or "En"))
+end
+
 ---Return a custom lualine tabline section that integrates Harpoon marks.
 ---@return string
 function Plugins.lualine_harpoon()
