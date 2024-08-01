@@ -86,6 +86,9 @@ map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
 map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
 map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
+-- Copy the content of the `".` register into `"d`
+map("n", "<leader>.", u.custom.dot_to_register, "Pass the last edition in . to the `d` macro (Use with `Q`)")
+
 -- Open current fold and its inner folds by default
 map("", "zo", "zO")
 map("", "zO", "zo")

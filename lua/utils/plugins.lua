@@ -242,8 +242,7 @@ function Plugins.telescope_open_single_and_multi(bufnr)
   end
 end
 
----@param bufnr integer Telescope prompt buffer number
-function Plugins.telescope_spell_suggest(bufnr)
+function Plugins.telescope_spell_suggest()
   local theme = require("telescope.themes").get_dropdown
   require("telescope.builtin").spell_suggest(theme())
 end

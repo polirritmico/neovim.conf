@@ -22,7 +22,6 @@ opt.showmode = false -- Show status in command area
 opt.title = true -- Set the window name
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
 vim.opt.fillchars = {
-  -- diff = "╱",
   fold = " ",
   foldclose = "",
   foldopen = "",
@@ -46,7 +45,6 @@ opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap func
 
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Built-in
--- opt.foldexpr = "nvim_treesitter#foldexpr()" -- from nvim-treesitter
 opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text function (in globals.lua)
 
 --- Code indent

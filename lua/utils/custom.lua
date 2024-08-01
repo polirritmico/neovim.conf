@@ -4,6 +4,15 @@ local Custom = {}
 
 local api = vim.api
 
+---Copies the _last edited_ register (`".`) to the `"d` register and simulates
+---a macro recording for use with `Q`.
+function Custom.dot_to_register()
+  vim.cmd([[
+    let reg_val = getreg('.') | normal! qdq
+    call setreg('d', 'ciw' . reg_val . "\<Esc>")
+  ]])
+end
+
 ---Function used to set a custom text when called by a fold action like zc.
 ---To set it check `:h v:lua-call` and `:h foldtext`.
 function Custom.fold_text()

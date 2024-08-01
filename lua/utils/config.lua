@@ -104,18 +104,16 @@ function Config.win_resize(direction)
   local current_win = vim.fn.winnr()
   local resize_cmd = (direction == "h" or direction == "l") and "vertical resize "
     or "resize "
-  local opposite = direction == "j" and "k"
-    or direction == "k" and "j"
-    or direction == "h" and "l"
-    or direction == "l" and "h"
 
-  if direction == "j" or direction == "l" then
+  if direction == "j" or direction == "l" then -- ↓/→
     if current_win == vim.fn.winnr(direction) then
       vim.api.nvim_command(resize_cmd .. "-2")
     else
       vim.api.nvim_command(resize_cmd .. "+2")
     end
-  else
+  else -- ←/↑
+    local opposite = direction == "h" and "l" or "j"
+
     if current_win == vim.fn.winnr(opposite) then
       vim.api.nvim_command(resize_cmd .. "+2")
     else
