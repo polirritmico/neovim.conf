@@ -508,6 +508,7 @@ return {
       { "<leader>cs", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/lua/snippets/"<CR>]], desc = "Telescope: Snippets sources" },
       { "<leader>ct", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath."/after/ftplugin/"<CR>]], desc = "Telescope: Filetypes configurations" },
       { "<leader>cc", [[<Cmd>execute "Telescope find_files cwd=".NeovimPath<CR>]], desc = "Telescope: Plugins configurations" },
+      { "<leader>cu", [[<Cmd>execute "Telescope live_grep cwd=".NeovimPath."/lua/utils/ prompt_title=Find\\ Utils"<CR>]], desc = "Telescope: Utils" },
       { "<leader>cp", "<Cmd>Telescope lazy_plugins<CR>", desc = "Telescope: Config plugins" },
 
       -- Custom

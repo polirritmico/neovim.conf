@@ -11,7 +11,7 @@ vim.g.mapleader = " "
 --- Workarounds for the spanish keyboard layout
 
 -- Intercambiar {}[] ñ: Ñ;
-vim.o.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
+vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
 -- Fix `i{`/`i[` operations inverted by the above langmap
 for _, cmd in pairs({ "c", "d", "v", "y" }) do
@@ -144,6 +144,6 @@ map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")
 map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Config: Open the keys mappings settings")
 map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Nvim settings")
-map("n", "<leader>cu", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
+map("n", "<leader>cU", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
 
