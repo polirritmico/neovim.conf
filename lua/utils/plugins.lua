@@ -10,39 +10,56 @@ function Plugins.conform_toggle()
 end
 
 ---Return a custom lualine tabline section that integrates Harpoon marks.
----@return string
 function Plugins.lualine_harpoon()
-  local hp_list = require("harpoon"):list()
-  local total_marks = hp_list:length()
-  if total_marks == 0 then
-    return ""
-  end
-
   local hp_keys = { "j", "k", "l", "h" }
-  local nvim_mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-  local hl_normal = nvim_mode == "n" and "%#lualine_b_normal#"
-    or nvim_mode == "i" and "%#lualine_b_insert#"
-    or nvim_mode == "c" and "%#lualine_b_command#"
-    or "%#lualine_b_visual#"
-  local hl_selected = ("v" == nvim_mode or "V" == nvim_mode or "" == nvim_mode)
-      and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
-    or "%#lualine_b_diagnostics_warn_normal#"
+  local prev_file, prev_output, prev_mode, prev_count, hp
 
-  local full_name = vim.api.nvim_buf_get_name(0)
-  local buffer_name = vim.fn.expand("%")
-  local output = " " -- 󰀱
-
-  for index = 1, total_marks <= 4 and total_marks or 4 do
-    local mark = hp_list.items[index].value
-    -- BUG: Sometimes the buffname is the full path and others the symlink...
-    if mark == buffer_name or mark == full_name then
-      output = output .. hl_selected .. hp_keys[index] .. hl_normal
-    else
-      output = output .. hp_keys[index]
+  return function()
+    hp = hp or require("harpoon")
+    local hp_list = hp:list()
+    local total_marks = hp_list:length()
+    if total_marks == 0 then
+      return ""
     end
-  end
 
-  return output
+    local current_file = vim.api.nvim_buf_get_name(0)
+    local current_file_exp = vim.fn.expand("%")
+    local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+    -- PERF: Same state returns the previous output
+    if
+      mode == prev_mode
+      and (current_file == prev_file or current_file_exp == prev_file)
+      and prev_count == total_marks
+    then
+      return prev_output
+    end
+
+    local hl_normal = mode == "n" and "%#lualine_b_normal#"
+      or mode == "i" and "%#lualine_b_insert#"
+      or mode == "c" and "%#lualine_b_command#"
+      or "%#lualine_b_visual#"
+    local hl_selected = ("v" == mode or "V" == mode or "" == mode)
+        and "%#lualine_transitional_lualine_a_visual_to_lualine_b_visual#"
+      or "%#lualine_b_diagnostics_warn_normal#"
+
+    local output = " " -- 󰀱
+    for index = 1, total_marks <= 4 and total_marks or 4 do
+      local marked_file = hp_list.items[index].value
+      -- FIXME: Sometimes the buffname is the full path and others the symlink...
+      if marked_file == current_file_exp or marked_file == current_file then
+        output = output .. hl_selected .. hp_keys[index] .. hl_normal
+      else
+        output = output .. hp_keys[index]
+      end
+    end
+
+    prev_count = total_marks
+    prev_file = current_file
+    prev_mode = mode
+    prev_output = output
+
+    return output
+  end
 end
 
 ---A custom Telescope picker to use MiniSessions actions
