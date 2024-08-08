@@ -146,6 +146,33 @@ return {
       }
     end,
   },
+  --- Markdown pseudo-render
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons", -- alternative: "echasnovski/mini.icons",
+    },
+    ft = { "markdown", "norg", "rmd", "org" },
+    keys = {
+      -- stylua: ignore
+      { "<leader>tm", function() require("render-markdown").toggle() end, ft = "markdown", desc = "RenderMarkdown: Enable/Disable" },
+    },
+    opts = {
+      file_types = { "markdown", "norg", "rmd", "org" },
+      code = {
+        sign = false,
+        width = "block",
+        right_pad = 1,
+        min_width = 80,
+      },
+      heading = {
+        enabled = false,
+        sign = false,
+        icons = {},
+      },
+    },
+  },
   --- Treesitter full `ensure_installed` list
   {
     "nvim-treesitter",
