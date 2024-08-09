@@ -137,14 +137,13 @@ function Autocmds.setup_term_opts(opts)
     group = Autocmds.group_id,
     desc = "Open `terminal-mode` in `insert-mode` and apply options",
     callback = function(ev)
-      -- Avoid begin a test debug in insert mode
-      if ev.file:match("dap%-terminal") then
-        return
+      -- Only apply to user terminals (avoids internal plugins terms like dap)
+      if ev.file:match("term://.*/bin/bash") then
+        for option, value in pairs(opts) do
+          vim.opt_local[option] = value
+        end
+        vim.cmd.startinsert()
       end
-      for option, value in pairs(opts) do
-        vim.opt_local[option] = value
-      end
-      vim.cmd.startinsert()
     end,
   })
 end
