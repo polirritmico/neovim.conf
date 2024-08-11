@@ -474,15 +474,6 @@ return {
           )
         end,
       },
-      {
-        "nvim-telescope/telescope-frecency.nvim",
-        init = function()
-          utils.autocmd.on_load(
-            "telescope.nvim",
-            function() require("telescope").load_extension("frecency") end
-          )
-        end,
-      },
     },
     -- stylua: ignore
     keys = {
