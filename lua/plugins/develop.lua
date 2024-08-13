@@ -227,7 +227,8 @@ return {
   --- Function stats (like references)
   {
     "VidocqH/lsp-lens.nvim",
-    enabled = false,
+    cond = false,
+    event = "VeryLazy",
     opts = {
       sections = {
         git_authors = false,
@@ -252,20 +253,5 @@ return {
         { path = "busted/library", words = { "describe" } },
       },
     },
-  },
-  --- Show highlights applied to variables names and virtual text marks
-  {
-    "echasnovski/mini.hipatterns",
-    enabled = false,
-    event = "VeryLazy",
-    opts = {},
-  },
-  --- Profiler
-  {
-    "stevearc/profile.nvim",
-    enabled = false,
-    priority = 1500,
-    lazy = false,
-    -- Use utils.plugins.toggle_profile() to begin/end the profiler
   },
 }

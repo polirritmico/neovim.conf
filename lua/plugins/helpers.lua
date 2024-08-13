@@ -169,7 +169,7 @@ return {
   --- Toggle boolean values
   {
     "polirritmico/simple-boolean-toggle.nvim",
-    enabled = true,
+    cond = true,
     dev = false,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore

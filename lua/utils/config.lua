@@ -122,7 +122,7 @@ function Config.win_resize(direction)
   end
 end
 
----Set vim.opt\[`option`\] to `b` if its current value is `a` or to `a` otherwise
+---If vim.opt\[`option`\] is `a`, set it to `b`; otherwise, set it to `a`.
 ---@param name string Option name to toggle (`vim.o.<option name>`)
 ---@param opts? {a?:any, b?:any, global?:boolean, silent?:boolean} defaults: `a`: `true`, `b`: `false`, `global`: `false`, `silent`: `false`
 function Config.toggle_vim_opt(name, opts)

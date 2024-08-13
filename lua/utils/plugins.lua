@@ -123,7 +123,7 @@ function Plugins.mini_sessions_manager()
       mini_sessions.read(selected)
     else -- user must decide
       local msg = string.format(
-        "Choose 'r' to read '%s' or 'w' to write '%s': ",
+        "Type 'w' to write or press '<CR>' to open (selected '%s'): ",
         selected,
         input_text
       )
@@ -131,7 +131,7 @@ function Plugins.mini_sessions_manager()
 
       if user_input == "w" then
         write_session(bufnr, input_text)
-      elseif user_input == "r" then
+      else
         mini_sessions.read(selected)
       end
     end

@@ -4,7 +4,7 @@ return {
   --- Autocompletion
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -131,7 +131,23 @@ return {
       local cmp = require("cmp")
       cmp.setup(opts)
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        completion = { completeopt = "menu,menuone,noselect" },
+        mapping = cmp.mapping.preset.cmdline({
+          ["<C-j>"] = { c = function() cmp.confirm({ select = true }) end },
+          ["<Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                if #cmp.get_entries() == 1 then
+                  cmp.confirm({ select = true })
+                else
+                  cmp.select_next_item()
+                end
+              else
+                cmp.complete()
+              end
+            end,
+          },
+        }),
         sources = cmp.config.sources(
           { { name = "path" } },
           { { name = "cmdline", keyword_length = 6, max_item_count = 4 } }
@@ -210,24 +226,27 @@ return {
         vim.notify("LSP: Diagnostics " .. (state and "disabled" or "enabled"))
       end
 
+      local function lspkey(key, fn, d, ev)
+        vim.keymap.set("n", key, fn, { buffer = ev.buf, desc = "LSP: " .. d })
+      end
+
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP actions",
         -- stylua: ignore
         callback = function(event)
-          local buf_opts = { buffer = event.buf }
-          vim.keymap.set("n", "gd", utils.config.lsp_definition_centered(), buf_opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, buf_opts)
-          vim.keymap.set("n", "go", vim.lsp.buf.type_definition, buf_opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, buf_opts)
-          vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, buf_opts)
-          vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, buf_opts)
+          local buf = vim.lsp.buf
+          lspkey("gD", buf.declaration, "Go to declaration", event)
+          lspkey("gd", utils.config.lsp_definition_centered(), "Go to definition (centered)", event)
+          lspkey("gi", buf.implementation, "Go to implementation", event)
+          lspkey("go", buf.type_definition, "Go to type definition (origin)", event)
+          lspkey("gr", buf.references, "View references", event)
+          lspkey("gs", buf.signature_help, "Function/Signature hover info", event)
+          lspkey("<F1>", vim.diagnostic.open_float, "Open float info", event)
+          lspkey("<F2>", buf.rename, "Rename object", event)
           -- <F3> (format current buffer) is handled by Conform
-          vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, buf_opts)
-
-          vim.keymap.set("n", "<F1>", vim.diagnostic.open_float, buf_opts)
-          vim.keymap.set({ "n", "v" }, "<leader>td", toggle_lsp_diag, buf_opts)
-          vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, buf_opts)
+          lspkey("<F4>", buf.code_action, "Code action", event)
+          lspkey("<leader>gq", vim.diagnostic.setloclist, "Set loclist", event)
+          lspkey("<leader>td", toggle_lsp_diag, "Toggle diagnostics", event)
         end,
       })
 

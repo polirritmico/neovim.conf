@@ -12,12 +12,14 @@ return {
         desc = "Monokai-Nightasty: Toggle dark/light theme.",
       },
     },
+    ---@type monokai.UserConfig
     opts = {
-      dark_style_background = "default",
+      dark_style_background = "transparent",
       light_style_background = "default",
       color_headers = false,
       lualine_bold = true,
       markdown_header_marks = true,
+      cache = true,
       -- hl_styles = { comments = { italic = false } },
       terminal_colors = function(colors) return { fg = colors.fg_dark } end,
     },
