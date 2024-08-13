@@ -58,7 +58,7 @@ return {
             select = true,
           }),
           -- NOTE: cmp.mapping.scroll_docs does not work with lsp's hover window.
-          -- Use <C-w><C-w> to change the focus into the hover.
+          -- Use <S-K> again to change the focus into the hover.
           ["<C-e>"] = cmp.mapping.abort(),
           ["<Up>"] = cmp.mapping.select_prev_item({ select = true }),
           ["<Down>"] = cmp.mapping.select_next_item({ select = true }),
