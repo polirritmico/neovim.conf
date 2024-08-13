@@ -109,7 +109,7 @@ map("t", "<Esc><Esc>", [[<c-\><c-n>]], "Change to normal mode (in terminal mode)
 
 map("n", "<leader>tc", function() toggle("foldcolumn", { a = "auto:3", b = "0" }) end, "Show/Hide fold column")
 map("n", "<leader>tw", function() toggle("wrap", { global = true }) end, "On/Off line wrap")
-map("n", "<leader>tl", function() toggle("relativenumber") end, "Absolute/Relative line numbers")
+map("n", "<leader>tl", function() toggle("relativenumber", { global = true }) end, "Absolute/Relative line numbers")
 
 --- Toggle special windows:
 map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
