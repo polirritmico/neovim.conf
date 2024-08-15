@@ -41,7 +41,7 @@ return {
               key = "e",
             },
             {
-              action = require("utils").plugins.mini_sessions_manager,
+              action = require("utils.plugins").mini_sessions_manager,
               desc = " Restore Session",
               icon = " ",
               key = "<leader>ss",

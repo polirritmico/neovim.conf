@@ -110,7 +110,9 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
+    opts = {
+      settings = { save_on_toggle = true },
+    },
     -- stylua: ignore
     keys = {
       { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon: Add current buffer to the tagged files list", silent = true },
