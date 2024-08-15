@@ -90,7 +90,7 @@ map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to
 map("n", "<leader>.", u.custom.dot_to_register, "Pass the last edition in . to the `d` macro (Use with `Q`)")
 
 -- Open current fold and its inner folds by default
-map("", "zo", "zO")
+map("", "zo", "zczO")
 map("", "zO", "zo")
 
 -- Change directions of the arrow keys in the wildmenu to something with sense

@@ -173,21 +173,6 @@ return {
       },
     },
   },
-  --- Profiler
-  {
-    "stevearc/profile.nvim",
-    cond = false,
-    priority = 1500,
-    lazy = false,
-    -- Use utils.plugins.toggle_profile() to begin/end the profiler
-  },
-  --- Show highlights applied to variables names and virtual text marks
-  {
-    "echasnovski/mini.hipatterns",
-    cond = vim.uv.cwd():match("monokai%-nightasty") ~= nil,
-    event = "VeryLazy",
-    opts = {},
-  },
   --- Treesitter full `ensure_installed` list
   {
     "nvim-treesitter",

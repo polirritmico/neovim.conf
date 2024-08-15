@@ -254,4 +254,21 @@ return {
       },
     },
   },
+  --- Profiler
+  {
+    "stevearc/profile.nvim",
+    enabled = Workstation,
+    cond = false,
+    priority = 1500,
+    lazy = false,
+    -- Use utils.plugins.toggle_profile() to begin/end the profiler
+  },
+  --- Show highlights applied to variables names and virtual text marks
+  {
+    "echasnovski/mini.hipatterns",
+    enabled = Workstation,
+    cond = vim.uv.cwd():match("monokai%-nightasty") ~= nil,
+    event = "VeryLazy",
+    opts = {},
+  },
 }
