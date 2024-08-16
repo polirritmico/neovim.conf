@@ -165,6 +165,8 @@ return {
   --- Noice. A lot of ui messages
   {
     "folke/noice.nvim",
+    -- FIX: cmdline cursor flickr: https://github.com/folke/noice.nvim/issues/923
+    version = "4.4.7",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
