@@ -12,7 +12,13 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-calc",
       "saadparwaiz1/cmp_luasnip",
+      "LuaSnip",
     },
+    config = function(_, opts)
+      local cmp = require("cmp")
+      cmp.setup(opts)
+      cmp.setup.cmdline(":", opts.cmdline)
+    end,
     opts = function()
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
@@ -125,34 +131,32 @@ return {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-      }
-    end,
-    config = function(_, opts)
-      local cmp = require("cmp")
-      cmp.setup(opts)
-      cmp.setup.cmdline(":", {
-        completion = { completeopt = "menu,menuone,noselect" },
-        mapping = cmp.mapping.preset.cmdline({
-          ["<C-j>"] = { c = function() cmp.confirm({ select = true }) end },
-          ["<Tab>"] = {
-            c = function()
-              if cmp.visible() then
-                if #cmp.get_entries() == 1 then
-                  cmp.confirm({ select = true })
+
+        -- Custom extended cmdline opts
+        cmdline = {
+          completion = { completeopt = "menu,menuone,noselect" },
+          mapping = cmp.mapping.preset.cmdline({
+            ["<C-j>"] = { c = function() cmp.confirm({ select = true }) end },
+            ["<Tab>"] = {
+              c = function()
+                if cmp.visible() then
+                  if #cmp.get_entries() == 1 then
+                    cmp.confirm({ select = true })
+                  else
+                    cmp.select_next_item()
+                  end
                 else
-                  cmp.select_next_item()
+                  cmp.complete()
                 end
-              else
-                cmp.complete()
-              end
-            end,
-          },
-        }),
-        sources = cmp.config.sources(
-          { { name = "path" } },
-          { { name = "cmdline", keyword_length = 6, max_item_count = 4 } }
-        ),
-      })
+              end,
+            },
+          }),
+          sources = cmp.config.sources(
+            { { name = "path" } },
+            { { name = "cmdline", keyword_length = 6, max_item_count = 4 } }
+          ),
+        },
+      }
     end,
   },
   --- Formatter

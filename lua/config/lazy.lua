@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 ---@type LazyConfig
 local opts = {
   change_detection = { notify = false },
+  defaults = { lazy = true },
   dev = { path = MyPluginsPath, fallback = false },
   install = { colorscheme = { "monokai-nightasty" } },
   lockfile = vim.fn.stdpath("state") .. "/lazy/lazy-lock.json",

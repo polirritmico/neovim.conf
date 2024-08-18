@@ -183,7 +183,7 @@ return {
       { "<leader>rtS", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
       { "<leader>rto", function() require("neotest").output_panel.toggle() end, desc = "neotest: Toggle output panel" },
       { "<leader>rtO", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "neotest: Show test output" },
-      { "<leader>rts", function() require("neotest").summary.toggle() end, desc = "neotest: Toggle summary" },
+      { "<leader>rtp", function() require("neotest").summary.toggle() end, desc = "neotest: Toggle summary panel" },
     },
     opts = {
       status = { virtual_text = true },
