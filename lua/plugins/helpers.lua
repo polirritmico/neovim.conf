@@ -115,22 +115,6 @@ return {
       verbose = { read = true, write = true, delete = true },
     },
   },
-  --- Surround operations
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- latest stable
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = {
-      keymaps = {
-        -- Change the mappings, there is no reason to keep `s`
-        normal = "s",
-        normal_cur = "ss",
-        normal_cur_line = "sS",
-        visual = "s",
-        visual_line = "S",
-      },
-    },
-  },
   --- TODO, FIX, etc. comments highlights
   {
     "folke/todo-comments.nvim",

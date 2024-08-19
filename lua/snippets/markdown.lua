@@ -2,33 +2,6 @@
 return {
   s(
     {
-      trig = "cmd",
-      name = "Command section block",
-      dscr = "Command section block in the passed lang.command",
-    },
-    fmt(
-      [[
-        ```{}
-        {}
-        ```
-        {}]],
-      {
-        c(1, {
-          i(1),
-          t("bash"),
-          t("command"),
-          t("lua"),
-          t("python"),
-          t("html"),
-          t("json"),
-        }),
-        i(2),
-        i(0),
-      }
-    )
-  ),
-  s(
-    {
       trig = [[cmd(.+)]],
       trigEngine = "pattern",
       name = "Command section block",
@@ -47,6 +20,7 @@ return {
       }
     )
   ),
+
   s({
     trig = "---",
     name = "Horizontal separator line",
@@ -64,11 +38,14 @@ return {
     { trig = "imagelink", name = "Image with link", desc = "An image with link" },
     fmt(
       [=[
-        [![{fallback}]({image} "{hover}")]({url}) {}]=],
+        [![{fallback}]({image}{hover})]({url}) {}]=],
       {
         fallback = i(1, "fallback text"),
         image = i(2, "image.jpg"),
-        hover = i(3, "hover text"),
+        hover = c(3, {
+          sn(1, { t(' "'), i(1, "hover text"), t('"') }),
+          t(""),
+        }),
         url = i(4, "url"),
         i(0),
       }
@@ -77,10 +54,13 @@ return {
 
   s(
     "image",
-    fmt('![{}]({} "{}") {}', {
+    fmt("![{}]({}{}) {}", {
       i(1, "fallback text"),
       i(2, "image.jpg"),
-      i(3, "hover text"),
+      c(3, {
+        sn(1, { t(' "'), i(1, "hover text"), t('"') }),
+        t(""),
+      }),
       i(0),
     })
   ),
