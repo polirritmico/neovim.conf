@@ -153,7 +153,7 @@ return {
           }),
           sources = cmp.config.sources(
             { { name = "path" } },
-            { { name = "cmdline", keyword_length = 6, max_item_count = 4 } }
+            { { name = "cmdline", keyword_length = 4, max_item_count = 4 } }
           ),
         },
       }
@@ -577,7 +577,17 @@ return {
         },
         extensions = {
           lazy_plugins = {
-            show_disabled = true,
+            custom_entries = (function()
+              local path = NeovimPath .. "/lua/plugins/"
+              return {
+                { name = "Core", filepath = path .. "core.lua" },
+                { name = "Develop", filepath = path .. "develop.lua" },
+                { name = "Extras", filepath = path .. "extras/spec.lua" },
+                { name = "Helpers", filepath = path .. "helpers.lua" },
+                { name = "Misc", filepath = path .. "misc.lua" },
+                { name = "UI", filepath = path .. "ui.lua" },
+              }
+            end)(),
           },
         },
       }

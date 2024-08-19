@@ -87,7 +87,7 @@ vim.api.nvim_create_user_command("Spellend", u.writing.dict_off, {})
 
 --- Filetypes
 vim.filetype.add({
-  extension = { qml = "qmljs", tex = "tex" },
+  extension = { html = "html", qml = "qmljs", tex = "tex" },
   pattern = {
     [".*/playbooks/.+%.ya?ml"] = "yaml.ansible",
     [".*/tasks/.+%.ya?ml"] = "yaml.ansible",
