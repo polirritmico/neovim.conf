@@ -263,7 +263,7 @@ function Custom.generate_toc(lang, ts_query, text_process)
 end
 
 function Custom.markdown_toc()
-  local ts_query = [[(section) @toc (setext_heading) @toc]]
+  local ts_query = [[(section (atx_heading) @toc) (section (setext_heading) @toc)]]
   Custom.generate_toc("markdown", ts_query, function(raw)
     local text = raw:match("^[^\n]*") ---@type string
     -- handle markdown alternative headers:
