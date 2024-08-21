@@ -212,8 +212,8 @@ end
 ---@param ts_query string
 ---@param text_process fun(raw_text: string, node: TSNode): string
 function Custom.generate_toc(lang, ts_query, text_process)
-  local bufnr = vim.api.nvim_get_current_buf()
-  if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "qf" then
+  local bufnr = api.nvim_get_current_buf()
+  if api.nvim_get_option_value("filetype", { buf = bufnr }) == "qf" then
     return
   end
 
@@ -242,24 +242,24 @@ function Custom.generate_toc(lang, ts_query, text_process)
       lnum = linenr,
       text = text,
       -- for highlights:
-      hl = "@markup.heading." .. count .. ".markdown",
+      hl = "@markup.heading." .. count .. ".marker",
       coll = mark_col,
       colr = mark_col + count,
     })
   end
 
-  local winnr = vim.api.nvim_get_current_win()
+  local winnr = api.nvim_get_current_win()
   vim.fn.setloclist(winnr, doc_sections)
   vim.fn.setloclist(winnr, {}, "a", { title = lang:upper() .. " TOC" })
   vim.cmd("lopen")
 
-  bufnr = vim.api.nvim_win_get_buf(0)
-  vim.api.nvim_set_option_value("modifiable", true, { buf = bufnr })
+  bufnr = api.nvim_win_get_buf(0)
+  api.nvim_set_option_value("modifiable", true, { buf = bufnr })
   vim.treesitter.get_parser(bufnr, "markdown")
   for line, sec in pairs(doc_sections) do
-    vim.api.nvim_buf_add_highlight(bufnr, -1, sec.hl, line - 1, sec.coll, sec.colr)
+    api.nvim_buf_add_highlight(bufnr, -1, sec.hl, line - 1, sec.coll, sec.colr)
   end
-  vim.api.nvim_set_option_value("modifiable", false, { buf = bufnr })
+  api.nvim_set_option_value("modifiable", false, { buf = bufnr })
 end
 
 function Custom.markdown_toc()
