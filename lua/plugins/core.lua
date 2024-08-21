@@ -153,7 +153,7 @@ return {
           }),
           sources = cmp.config.sources(
             { { name = "path" } },
-            { { name = "cmdline", keyword_length = 4, max_item_count = 4 } }
+            { { name = "cmdline", keyword_length = 4, max_item_count = 10 } }
           ),
         },
       }
@@ -389,13 +389,13 @@ return {
     },
     config = function(_, opts)
       local ls = require("luasnip")
-      local types = require("luasnip.util.types")
 
       -- Add custom snippets
       local custom_snips = NeovimPath .. "/lua/snippets/"
       require("luasnip.loaders.from_lua").load({ paths = { custom_snips } })
 
       -- Add virtual marks on inputs
+      local types = require("luasnip.util.types")
       opts.ext_opts = {
         [types.choiceNode] = {
           active = { virt_text = { { "← Choice", "Conceal" } } },
@@ -597,6 +597,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    main = "nvim-treesitter.configs",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
     init = function(plugin)
@@ -630,6 +631,5 @@ return {
         "vimdoc",
       },
     },
-    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
   },
 }

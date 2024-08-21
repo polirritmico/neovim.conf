@@ -54,7 +54,7 @@ return {
 
   s(
     "image",
-    fmt("![{}]({}{}) {}", {
+    fmt("![{}]({}{}){}", {
       i(1, "fallback text"),
       i(2, "image.jpg"),
       c(3, {

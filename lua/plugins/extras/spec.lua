@@ -19,6 +19,7 @@ return {
   --- Greeter screen
   {
     "nvimdev/dashboard-nvim",
+    cmd = "Dashboard",
     opts = function()
       local opts = {
         theme = "doom",
@@ -26,6 +27,7 @@ return {
           statusline = false, -- handled by Lualine itself
         },
         config = {
+          vertical_center = true,
           header = {
             "",
             [[Neovim :: E B R Λ Y]],

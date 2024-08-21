@@ -143,7 +143,7 @@ function Custom.toggle_term()
     local window, bufnr
 
     local previous_term_detected = false
-    for _, _window in ipairs(vim.api.nvim_list_wins()) do
+    for _, _window in ipairs(api.nvim_list_wins()) do
       local _bufnr = api.nvim_win_get_buf(_window)
       local buftype = api.nvim_get_option_value("buftype", { buf = _bufnr })
       if buftype == "terminal" then
@@ -174,7 +174,7 @@ function Custom.toggle_term()
 
   local function close_terminal()
     assert(term_state, "Error: Closing terminal panel but term_state is nil")
-    if #vim.api.nvim_list_wins() == 1 then
+    if #api.nvim_list_wins() == 1 then
       vim.notify("Can't close last window")
       return
     end
@@ -205,6 +205,99 @@ function Custom.toggle_term()
     term_state = nil
     Custom.toggle_term()
   end
+end
+
+---Create a location-list TOC from the current file TS tree
+---@param lang string
+---@param ts_query string
+---@param text_process fun(raw_text: string, node: TSNode): string
+function Custom.generate_toc(lang, ts_query, text_process)
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "qf" then
+    return
+  end
+
+  local ts_parser = vim.treesitter.get_parser(bufnr)
+  local ts_tree = assert(ts_parser:parse()[1])
+  if lang ~= ts_parser:lang() then
+    vim.notify("Bad parser: " .. lang .. " " .. ts_parser:lang(), vim.log.levels.WARN)
+    return
+  end
+
+  ---@type vim.treesitter.Query
+  local parsed_query = vim.treesitter.query.parse(lang, ts_query)
+
+  local doc_sections = {}
+  local filename_len = #string.gsub(vim.fn.expand("%"), vim.fn.getcwd(), "")
+  for _, node in parsed_query:iter_captures(ts_tree:root(), bufnr) do
+    local linenr = node:range() + 1
+    local raw_text = vim.treesitter.get_node_text(node, bufnr)
+    local mark_col = filename_len + #tostring(linenr) + 3 -- 2 bars + 1 space
+
+    local text = text_process(raw_text, node)
+    local count = select(2, text:gsub("#", ""))
+    table.insert(doc_sections, {
+      -- for setloclist:
+      bufnr = bufnr,
+      lnum = linenr,
+      text = text,
+      -- for highlights:
+      hl = "@markup.heading." .. count .. ".markdown",
+      coll = mark_col,
+      colr = mark_col + count,
+    })
+  end
+
+  local winnr = vim.api.nvim_get_current_win()
+  vim.fn.setloclist(winnr, doc_sections)
+  vim.fn.setloclist(winnr, {}, "a", { title = lang:upper() .. " TOC" })
+  vim.cmd("lopen")
+
+  bufnr = vim.api.nvim_win_get_buf(0)
+  vim.api.nvim_set_option_value("modifiable", true, { buf = bufnr })
+  vim.treesitter.get_parser(bufnr, "markdown")
+  for line, sec in pairs(doc_sections) do
+    vim.api.nvim_buf_add_highlight(bufnr, -1, sec.hl, line - 1, sec.coll, sec.colr)
+  end
+  vim.api.nvim_set_option_value("modifiable", false, { buf = bufnr })
+end
+
+function Custom.markdown_toc()
+  local ts_query = [[(section) @toc (setext_heading) @toc]]
+  Custom.generate_toc("markdown", ts_query, function(raw)
+    local text = raw:match("^[^\n]*") ---@type string
+    -- handle markdown alternative headers:
+    if raw:sub(1, 1) ~= "#" then
+      text = ((vim.split(raw, "\n")[2]):sub(1, 1) == "=" and "# " or "## ") .. text
+    end
+    return text
+  end)
+end
+
+function Custom.latex_toc()
+  local ts_query = [[
+    (chapter (curly_group (text) @header))
+    (section (curly_group (text) @header))
+    (subsection (curly_group (text) @header))
+    (subsubsection (curly_group (text) @header))
+    (paragraph (curly_group (text) @header))
+  ]]
+
+  Custom.generate_toc("latex", ts_query, function(raw, node)
+    local type = node:parent():parent():type()
+    if type == "chapter" or type == "section" then
+      return "# " .. raw
+    elseif type == "subsection" then
+      return "## " .. raw
+    elseif type == "subsubsection" then
+      return "### " .. raw
+    elseif type == "paragraph" then
+      return "#### " .. raw
+    elseif type == "subparagraph" then
+      return "##### " .. raw
+    end
+    return raw
+  end)
 end
 
 return Custom
