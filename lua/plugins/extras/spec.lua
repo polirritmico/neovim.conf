@@ -20,6 +20,7 @@ return {
   {
     "nvimdev/dashboard-nvim",
     cmd = "Dashboard",
+    lazy = false,
     opts = function()
       local opts = {
         theme = "doom",
