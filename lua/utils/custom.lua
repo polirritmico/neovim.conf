@@ -262,7 +262,7 @@ function Custom.generate_toc(lang, ts_query, text_process)
   api.nvim_set_option_value("modifiable", false, { buf = bufnr })
 end
 
-function Custom.markdown_toc()
+function Custom.toc_md()
   local ts_query = [[(section (atx_heading) @toc) (section (setext_heading) @toc)]]
   Custom.generate_toc("markdown", ts_query, function(raw)
     local text = raw:match("^[^\n]*") ---@type string
@@ -274,7 +274,7 @@ function Custom.markdown_toc()
   end)
 end
 
-function Custom.latex_toc()
+function Custom.toc_latex()
   local ts_query = [[
     (chapter (curly_group (text) @header))
     (section (curly_group (text) @header))

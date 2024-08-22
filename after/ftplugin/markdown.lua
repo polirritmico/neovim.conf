@@ -5,3 +5,5 @@ vim.opt.cindent = false -- Avoid extra indentations with gq, gw
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
+
+vim.keymap.set("", "gO", require("utils").custom.toc_md, { desc = "Generate TOC" })
