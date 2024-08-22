@@ -43,8 +43,8 @@ return {
         fallback = i(1, "fallback text"),
         image = i(2, "image.jpg"),
         hover = c(3, {
-          sn(1, { t(' "'), i(1, "hover text"), t('"') }),
           t(""),
+          sn(1, { t(' "'), i(1, "hover text"), t('"') }),
         }),
         url = i(4, "url"),
         i(0),
@@ -58,8 +58,8 @@ return {
       i(1, "fallback text"),
       i(2, "image.jpg"),
       c(3, {
-        sn(1, { t(' "'), i(1, "hover text"), t('"') }),
         t(""),
+        sn(1, { t(' "'), i(1, "hover text"), t('"') }),
       }),
       i(0),
     })
