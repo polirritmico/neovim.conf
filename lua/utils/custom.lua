@@ -4,6 +4,26 @@ local Custom = {}
 
 local api = vim.api
 
+function Custom.close_nearest_tag()
+  -- TODO: Fail with open tags in other lines
+  local ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
+  assert(ok, "Can't access nvim-treesitter.ts_utils")
+  local node = assert(ts_utils.get_node_at_cursor(api.nvim_get_current_win()))
+  local text = vim.treesitter.get_node_text(node, api.nvim_get_current_buf())
+  local tag = text:match("^<(%w+)")
+  if tag then
+    local count_matches = select(2, string.gsub(text, "<" .. tag, 0))
+    local close_tag = string.format("</%s>", tag)
+    local count_clousures = select(2, string.gsub(text, close_tag, 0))
+
+    if count_clousures < count_matches then
+      -- Simulate the keystrokes
+      local keys = api.nvim_replace_termcodes(close_tag, true, true, true)
+      api.nvim_feedkeys(keys, "i", true)
+    end
+  end
+end
+
 ---Copies the _last edited_ register (`".`) to the `"d` register and simulates
 ---a macro recording for use with `Q`.
 function Custom.dot_to_register()

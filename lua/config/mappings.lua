@@ -117,6 +117,9 @@ map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a shell terminal at the
 
 -------------------------------------------------------------------------------
 
+-- Close open tags
+map("i", "<A-.>", u.custom.close_nearest_tag)
+
 -- Set buffer path as root
 map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
 
