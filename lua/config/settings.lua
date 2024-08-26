@@ -92,6 +92,7 @@ vim.filetype.add({
     [".*/playbooks/.+%.ya?ml"] = "yaml.ansible",
     [".*/tasks/.+%.ya?ml"] = "yaml.ansible",
     [".*/.*ansible.*%.ya?ml"] = "yaml.ansible",
+    [".*/.*[Dd][Jj][Aa][Nn][Gg][Oo].*%.html"] = "htmldjango",
   },
 })
 

@@ -41,7 +41,7 @@ return {
         [![{fallback}]({image}{hover})]({url}) {}]=],
       {
         fallback = i(1, "fallback text"),
-        image = i(2, "image.jpg"),
+        image = i(2, "image.png"),
         hover = c(3, {
           t(""),
           sn(1, { t(' "'), i(1, "hover text"), t('"') }),
@@ -56,7 +56,7 @@ return {
     "image",
     fmt("![{}]({}{}){}", {
       i(1, "fallback text"),
-      i(2, "image.jpg"),
+      i(2, "image.png"),
       c(3, {
         t(""),
         sn(1, { t(' "'), i(1, "hover text"), t('"') }),
