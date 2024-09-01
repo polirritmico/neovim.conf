@@ -4,7 +4,7 @@ local Custom = {}
 
 local api = vim.api
 
-function Custom.close_nearest_tag()
+function Custom.close_nearest_tag_old()
   -- TODO: Fail with open tags in other lines
   local ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
   assert(ok, "Can't access nvim-treesitter.ts_utils")
@@ -21,6 +21,38 @@ function Custom.close_nearest_tag()
       local keys = api.nvim_replace_termcodes(close_tag, true, true, true)
       api.nvim_feedkeys(keys, "i", true)
     end
+  end
+end
+
+function Custom.close_nearest_tag()
+  local function insert_text(text)
+    local keys = api.nvim_replace_termcodes(text, true, true, true)
+    api.nvim_feedkeys(keys, "i", true)
+  end
+  local lang = "html"
+  local ts = vim.treesitter
+  local ts_utils = assert(require("nvim-treesitter.ts_utils"))
+  local bufnr = api.nvim_get_current_buf()
+  local winnr = api.nvim_get_current_win()
+
+  -- local parser = ts.get_parser(bufnr, lang)
+  -- local tree = parser:parse()[1]
+  -- local root = tree:root()
+
+  local prev_tags = {}
+  local cursor_node = ts_utils.get_node_at_cursor(winnr, true)
+  local current = cursor_node
+  while current do
+    if current:child_count() > 0 then
+      for children in current:iter_children() do
+        local node_type = children:type()
+        if node_type == "tag_name" then
+          insert_text(string.format("</%s>", ts.get_node_text(children, bufnr)))
+          return
+        end
+      end
+    end
+    current = current:prev_sibling() or current:parent()
   end
 end
 
