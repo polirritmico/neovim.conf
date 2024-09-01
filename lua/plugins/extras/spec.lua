@@ -20,6 +20,7 @@ return {
   {
     "nvimdev/dashboard-nvim",
     cmd = "Dashboard",
+    dev = true,
     lazy = false,
     opts = function()
       local opts = {
@@ -64,7 +65,7 @@ return {
             {
               action = "lua require('osv').launch({ port = 8086 })",
               desc = " Debug session",
-              icon = "🔧",
+              icon = "󰖷 ",
               key = "<F10>",
             },
             {
