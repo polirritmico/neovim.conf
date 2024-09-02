@@ -175,7 +175,7 @@ return {
         ["*"] = { "trim_whitespace" },
         css = { "prettier" },
         html = { "prettier" },
-        htmldjango = { "prettier" },
+        htmldjango = { "djlint" },
         json = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier_markdown" },
