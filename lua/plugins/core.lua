@@ -493,6 +493,17 @@ return {
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       {
+        "nvim-telescope/telescope-smart-history.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        init = function()
+          utils.autocmd.on_load(
+            "telescope.nvim",
+            function() require("telescope").load_extension("smart_history") end
+          )
+        end,
+      },
+
+      {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
         enabled = vim.fn.executable("make") == 1,

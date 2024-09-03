@@ -1,4 +1,11 @@
 return {
+  {
+    "polirritmico/manual-tag-closer.nvim",
+    enabled = Workstation,
+    dev = true,
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    opts = {},
+  },
   --- DAP: Debugger connector
   {
     {
