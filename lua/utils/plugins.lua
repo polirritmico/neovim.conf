@@ -241,7 +241,7 @@ end
 
 ---Telescope action helper to open single or multiple files
 ---@param bufnr integer Telescope prompt buffer number
-function Plugins.telescope_open_single_and_multi(bufnr)
+function Plugins.telescope_open_single_or_multi(bufnr)
   local actions = require("telescope.actions")
   local actions_state = require("telescope.actions.state")
   local single_selection = actions_state.get_selected_entry()
@@ -250,10 +250,10 @@ function Plugins.telescope_open_single_and_multi(bufnr)
     actions.close(bufnr)
     for _, file in pairs(multi_selection) do
       if file.path ~= nil then
-        vim.cmd(string.format("%s %s", "edit", file.path))
+        vim.cmd(string.format("edit %s", file.path))
       end
     end
-    vim.cmd(string.format("%s %s", "edit", single_selection.path))
+    vim.cmd(string.format("edit %s", single_selection.path))
   else
     actions.select_default(bufnr)
   end

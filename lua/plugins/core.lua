@@ -589,7 +589,7 @@ return {
           sorting_strategy = "ascending",
           mappings = {
             ["i"] = {
-              ["<CR>"] = utils.plugins.telescope_open_single_and_multi,
+              ["<CR>"] = utils.plugins.telescope_open_single_or_multi,
               ["<C-q>"] = utils.plugins.telescope_open_and_fill_qflist,
               ["<C-f>"] = utils.plugins.telescope_narrow_matches,
               ["<C-h>"] = "which_key", -- show/hide keymaps help
