@@ -191,6 +191,7 @@ return {
       end,
       formatters = {
         black = { prepend_args = { "--line-length", "88" } },
+        djlint = { prepend_args = { "--indent", "2" } },
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
         stylua = {
