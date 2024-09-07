@@ -599,6 +599,7 @@ return {
           },
         },
         pickers = {
+          buffers = { mappings = { ["i"] = { ["<C-c>"] = "delete_buffer" } } },
           find_files = { follow = true },
           live_grep = { additional_args = { "--follow" } },
           grep_string = { additional_args = { "--follow" } },

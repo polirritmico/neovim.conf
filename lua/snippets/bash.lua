@@ -1,6 +1,7 @@
 --- Bash snippets
 return {
   s("layoutheader", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
+  s("shebang", fmt("#!/usr/bin/env bash\n\n{}", i(0))),
 
   s(
     "layoutsafe",
@@ -41,9 +42,10 @@ return {
         name = i(1, "Name"),
         desc = i(2, "description"),
         args = i(3, "argument (type)"),
-        alt_name = f(function(func_name)
-          return (string.gsub(func_name[1][1], " ", "_")):lower()
-        end, { 1 }),
+        alt_name = f(
+          function(func_name) return (string.gsub(func_name[1][1], " ", "_")):lower() end,
+          { 1 }
+        ),
         i(0),
       }
     )

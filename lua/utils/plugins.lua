@@ -69,6 +69,9 @@ function Plugins.mini_sessions_manager()
   local close = require("telescope.actions").close
   local theme = require("telescope.themes").get_dropdown
 
+  local opts = {}
+  local open_picker = function() require("telescope.builtin").find_files(theme(opts)) end
+
   ---@return string?, string?
   local function get_user_input()
     local selected = tlstate.get_selected_entry()
@@ -105,6 +108,7 @@ function Plugins.mini_sessions_manager()
     elseif vim.fn.input("Delete session? [y/n]: "):lower() == "y" then
       mini_sessions.delete(selected, { force = true })
       close(bufnr)
+      open_picker()
     else
       vim.notify("Aborted", vim.log.levels.INFO)
     end
@@ -138,23 +142,24 @@ function Plugins.mini_sessions_manager()
   end
 
   -- Build the picker
-  local opts = {
+  opts = {
     cwd = mini_sessions.config.directory,
     results_title = "Sessions Manager",
-    prompt_title = "<CR>:Open  <C-w>:Write  <C-d>:Delete",
+    prompt_title = "<CR>:Open  <C-s>:Save  <C-d>:Delete",
     previewer = false,
     layout_config = { height = { 0.6, max = 21 }, width = { 0.99, max = 65 } },
     attach_mappings = function(_, map)
       map("i", "<CR>", read_or_write_session)
-      map("i", "<C-w>", write_session)
+      map("i", "<C-s>", write_session)
       map("i", "<C-d>", delete_session)
       map("i", "<ESC>", close)
       map("i", "<C-n>", "move_selection_next")
       map("i", "<C-p>", "move_selection_previous")
+      map("i", "<C-w>", function() vim.api.nvim_input("<C-S-w>") end)
       return false -- false to only use attached mappings
     end,
   }
-  require("telescope.builtin").find_files(theme(opts))
+  open_picker()
 end
 
 ---Oil.nvim: Set a configuration key for the confirm changes prompt.

@@ -18,9 +18,8 @@ return {
   },
   --- Greeter screen
   {
-    "nvimdev/dashboard-nvim",
+    "polirritmico/dashboard-nvim", -- nvimdev
     cmd = "Dashboard",
-    dev = true,
     lazy = false,
     opts = function()
       local opts = {
