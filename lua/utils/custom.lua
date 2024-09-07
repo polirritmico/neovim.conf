@@ -203,13 +203,13 @@ end
 ---@param lang string
 ---@param ts_query string
 ---@param text_process fun(raw_text: string, node: TSNode): string
-function Custom.generate_toc(lang, ts_query, text_process)
+function Custom.generate_qf_toc(lang, ts_query, text_process)
   local bufnr = api.nvim_get_current_buf()
   if api.nvim_get_option_value("filetype", { buf = bufnr }) == "qf" then
     return
   end
 
-  local ts_parser = vim.treesitter.get_parser(bufnr)
+  local ts_parser = ts.get_parser(bufnr)
   local ts_tree = assert(ts_parser:parse()[1])
   if lang ~= ts_parser:lang() then
     vim.notify("Bad parser: " .. lang .. " " .. ts_parser:lang(), vim.log.levels.WARN)
@@ -217,13 +217,13 @@ function Custom.generate_toc(lang, ts_query, text_process)
   end
 
   ---@type vim.treesitter.Query
-  local parsed_query = vim.treesitter.query.parse(lang, ts_query)
+  local parsed_query = ts.query.parse(lang, ts_query)
 
   local doc_sections = {}
   local filename_len = #string.gsub(vim.fn.expand("%"), vim.fn.getcwd(), "")
   for _, node in parsed_query:iter_captures(ts_tree:root(), bufnr) do
     local linenr = node:range() + 1
-    local raw_text = vim.treesitter.get_node_text(node, bufnr)
+    local raw_text = ts.get_node_text(node, bufnr)
     local mark_col = filename_len + #tostring(linenr) + 3 -- 2 bars + 1 space
 
     local text = text_process(raw_text, node)
@@ -247,16 +247,16 @@ function Custom.generate_toc(lang, ts_query, text_process)
 
   bufnr = api.nvim_win_get_buf(0)
   api.nvim_set_option_value("modifiable", true, { buf = bufnr })
-  vim.treesitter.get_parser(bufnr, "markdown")
+  ts.get_parser(bufnr, "markdown")
   for line, sec in pairs(doc_sections) do
     api.nvim_buf_add_highlight(bufnr, -1, sec.hl, line - 1, sec.coll, sec.colr)
   end
   api.nvim_set_option_value("modifiable", false, { buf = bufnr })
 end
 
-function Custom.toc_md()
+function Custom.qf_toc_md()
   local ts_query = [[(section (atx_heading) @toc) (section (setext_heading) @toc)]]
-  Custom.generate_toc("markdown", ts_query, function(raw)
+  Custom.generate_qf_toc("markdown", ts_query, function(raw)
     local text = raw:match("^[^\n]*") ---@type string
     -- handle markdown alternative headers:
     if raw:sub(1, 1) ~= "#" then
@@ -266,7 +266,7 @@ function Custom.toc_md()
   end)
 end
 
-function Custom.toc_latex()
+function Custom.qf_toc_latex()
   local ts_query = [[
     (chapter (curly_group (text) @header))
     (section (curly_group (text) @header))
@@ -275,7 +275,7 @@ function Custom.toc_latex()
     (paragraph (curly_group (text) @header))
   ]]
 
-  Custom.generate_toc("latex", ts_query, function(raw, node)
+  Custom.generate_qf_toc("latex", ts_query, function(raw, node)
     local type = node:parent():parent():type()
     if type == "chapter" or type == "section" then
       return "# " .. raw
@@ -290,6 +290,54 @@ function Custom.toc_latex()
     end
     return raw
   end)
+end
+
+---Generate a table of contents section from the document markdown headers
+---@param ctx? table Command ctx
+function Custom.generate_toc_md(ctx)
+  local bufnr = ctx and ctx.bufnr or api.nvim_get_current_buf()
+  local max_depth = (ctx and ctx.args) and tonumber(ctx.args) or nil
+
+  local ts_query = [[(section (atx_heading) @toc) (section (setext_heading) @toc)]]
+  local ts_parser = ts.get_parser(bufnr)
+  local ts_tree = assert(ts_parser:parse()[1])
+  if ts_parser:lang() ~= "markdown" then
+    vim.notify("Not markdown", vim.log.levels.WARN)
+    return
+  end
+  ---@type vim.treesitter.Query
+  local parsed_query = ts.query.parse("markdown", ts_query)
+
+  local doc_sections = { "## TOC" }
+  for _, node in parsed_query:iter_captures(ts_tree:root(), bufnr) do
+    -- `- [Title text](#title-text)`
+    local raw = ts.get_node_text(node, bufnr)
+    local text = raw:match("^[^\n]*") ---@type string
+    if raw:sub(1, 1) ~= "#" then
+      text = ((vim.split(raw, "\n")[2]):sub(1, 1) == "=" and "# " or "## ") .. text
+    end
+    local level = select(2, text:gsub("#", ""))
+    if not max_depth or level <= max_depth then
+      local tag_level = string.rep("  ", level - 2)
+      local header = text:gsub("^#+%s*", "")
+      local anchor = header:gsub("%s+", "-"):gsub("[^%w%-]", ""):lower()
+
+      local entry = string.format("%s- [%s](#%s)", tag_level, header, anchor)
+      doc_sections[#doc_sections + 1] = entry
+    end
+  end
+  if #doc_sections < 2 then
+    return
+  end
+
+  -- Remove h1 header and add empty line at bottom
+  doc_sections[2] = ""
+  doc_sections[#doc_sections + 1] = ""
+
+  -- Write the TOC into the file
+  local cursor = api.nvim_win_get_cursor(api.nvim_get_current_win())
+  local row = cursor[1]
+  vim.api.nvim_buf_set_lines(bufnr, row, row, false, doc_sections)
 end
 
 return Custom
