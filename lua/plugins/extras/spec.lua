@@ -162,6 +162,7 @@ return {
       { "<leader>tm", function() require("render-markdown").toggle() end, ft = "markdown", desc = "RenderMarkdown: Enable/Disable" },
     },
     opts = {
+      latex = { enabled = false },
       file_types = { "markdown", "norg", "rmd", "org" },
       code = {
         sign = false,
