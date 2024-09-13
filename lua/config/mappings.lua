@@ -62,7 +62,7 @@ u.config.set_win_resize_keys()
 --- Adjust defaults behaviour
 
 -- Close all buffers with/without saving and exit
-map("n", "ZZ", "<Cmd>wqa<CR>", "Quit without saving")
+map("n", "ZZ", "<Cmd>wqa<CR>", "Quit and save all buffers")
 map("n", "ZQ", "<Cmd>qa!<CR>", "Quit without saving")
 
 -- Flip full buffer info
