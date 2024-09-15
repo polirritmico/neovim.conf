@@ -127,16 +127,7 @@ return {
       { "<leader>ft", "<Cmd>TodoTelescope<CR>", desc = "todo-comments: Open todo list in telescope" },
     },
     opts = {
-      -- Style test:
-      -- FIX: Some text
-      -- HACK: Some text
-      -- NOTE: Some text
-      -- PERF: Some text
-      -- TEST: Some text
-      -- TODO: Some text
-      -- WARNING: Some text
       keywords = {
-        -- Alternative icons:       󰈸  󱗗 
         FIX = { icon = "", alt = { "FIXME", "BUG", "ISSUE", "ERROR" } },
         HACK = { icon = "" },
         NOTE = { icon = "󰍨", alt = { "INFO", "NOTA" } },
