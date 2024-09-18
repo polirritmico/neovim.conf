@@ -37,7 +37,6 @@ u.load_utils({ debug = false })
 
 u.load("config.settings")
 u.load("config.mappings")
-if not u.detected_errors() then
-  u.load("config.lazy")
-  assert(not u.detected_errors())
-end
+assert(not u.detected_errors())
+u.load("config.lazy")
+assert(not u.detected_errors())
