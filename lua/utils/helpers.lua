@@ -67,8 +67,7 @@ function Helpers.set_redirection_cmd()
 end
 
 ---Set a debug session manually loading nvim-dap and osv
----@param now boolean?
-function Helpers.set_debug(now)
+function Helpers.set_debug()
   -- Add plugins paths
   local dappath = vim.fn.stdpath("data") .. "/lazy/nvim-dap"
   local osvpath = vim.fn.stdpath("data") .. "/lazy/one-small-step-for-vimkind"
@@ -77,11 +76,6 @@ function Helpers.set_debug(now)
 
   -- Config Dap
   local dap = require("dap")
-
-  if now == true then
-    require("osv").launch({ port = 8086, blocking = true })
-    return
-  end
 
   dap.adapters.nlua = function(callback, config)
     ---@diagnostic disable [undefined-field]
@@ -102,4 +96,8 @@ function Helpers.set_debug(now)
   vim.keymap.set("", "<F10>", function() require("osv").launch({ port = 8086 }) end)
   vim.notify("Press <F10> to start the debuggee session", vim.log.levels.INFO)
 end
+
+--- Set global function
+P = Helpers.print_wrapper
+
 return Helpers

@@ -1,6 +1,6 @@
 local api = vim.api
 
----Functions that create autocommands helpers into the `UserCustomAutocmds` group
+---Functions that create autocommands helpers into the `UserCustomAutocmds` group.
 ---@class UtilsAutoCmds
 ---@field group_id integer Group `UserCustomAutocmds` id
 local Autocmds = {
