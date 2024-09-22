@@ -4,7 +4,7 @@
 ---@field config UtilsConfig
 ---@field custom UtilsCustom
 ---@field helpers UtilsHelpers
----@field plugins UtilsHelpers
+---@field plugins UtilsPlugins
 ---@field writing UtilsWriting
 local Utils = {}
 
