@@ -497,6 +497,7 @@ return {
       {
         "nvim-telescope/telescope-smart-history.nvim",
         dependencies = { "kkharji/sqlite.lua" },
+        enabled = vim.fn.executable("sqlite3") == 1,
         init = function()
           utils.autocmd.on_load(
             "telescope.nvim",
