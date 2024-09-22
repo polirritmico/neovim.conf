@@ -2,7 +2,7 @@
 ---@class UtilsConfig
 local Config = {}
 
----Wrapper to center the screen after vim.lsp.buf.definition asyncronous
+---Wrapper to center the screen after vim.lsp.buf.definition (async)
 ---execution: `gd` -> `gdzz`.
 ---@return function
 function Config.lsp_definition_centered()

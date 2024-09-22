@@ -232,8 +232,8 @@ return {
         vim.notify("LSP: Diagnostics " .. (state and "disabled" or "enabled"))
       end
 
-      local function lspkey(key, fn, d, ev)
-        vim.keymap.set("n", key, fn, { buffer = ev.buf, desc = "LSP: " .. d })
+      local function lspkey(key, fn, desc, ev)
+        vim.keymap.set("n", key, fn, { buffer = ev.buf, desc = "LSP: " .. desc })
       end
 
       vim.api.nvim_create_autocmd("LspAttach", {
