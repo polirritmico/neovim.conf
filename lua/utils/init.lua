@@ -9,20 +9,20 @@
 local Utils = {}
 
 ---Load the loaders
-local ok_loaders, loaders = pcall(require, "utils.loaders")
-if not ok_loaders then
-  vim.notify(string.format("Can't load utils.loaders:\n\n%s\n", loaders), 4)
+local ok, loaders = pcall(require, "utils.loaders")
+if not ok then
   vim.cmd("edit " .. NeovimPath .. "/lua/utils/loaders.lua")
-  assert(false)
+  error(string.format("Can't load 'utils.loaders':\n\n%s\n", loaders))
 end
-local load = loaders.load_config
 
-Utils.load = load
+Utils.load = loaders.load_config
 Utils.detected_errors = loaders.detected_errors
 
 ---Helper function to require utils submodules with protected calls.
 ---@param opts? {debug?: boolean}
 function Utils.load_utils(opts)
+  local load = loaders.load_config
+
   local debug_mode = opts and opts.debug == true
   if debug_mode then
     load("utils.helpers").set_debug()
