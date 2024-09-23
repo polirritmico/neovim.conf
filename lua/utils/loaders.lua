@@ -7,13 +7,10 @@ Loaders.catched_errors = {}
 
 ---_Helper function to load the passed module._
 ---
----If the module returns an **error**, then print it and use the **fallback
----config module** instead (`config.fallback.<module>`). All errors are stored in
----the `_catched_errors` table.
----
----> This expect a fallback config `<module-name.lua>` in the `fallback` folder.
----@param module string Name of the module to load.
----@return any call_return Return of the require module call (if any).
+---If the module returns an **error**, then print it and store it in the
+---`catched_errors` table.
+---@param module string Name of the module to load. @return any call_return
+---Return of the require module call (if any).
 function Loaders.load_config(module)
   local ok, call_return = pcall(require, module)
   if not ok then
@@ -23,23 +20,19 @@ function Loaders.load_config(module)
   return call_return
 end
 
----Load config fallback modules
-function Loaders.load_fallbacks()
-  vim.notify("Error detected. Using fallback config", vim.log.levels.ERROR)
-  require("config.fallback.settings")
-  require("config.fallback.mappings")
-end
-
----Helper function to open config files when errors are detected by
----`load_config`.
----If an error is detected it will **ask the user** to open the offending file.
----If `y` is pressed, it would open each error file in its own buffer.
----@return boolean # `true` if errors are detected. `false` otherwise.
+---_Helper function to handle detected `load_config` errors_
+---
+---If an error is detected it will load the fallback settings and **ask the
+---user** to open or not the offending file.
+---@return boolean -- `true` if errors are detected. `false` otherwise.
 function Loaders.detected_errors()
   if #Loaders.catched_errors == 0 then
     return false
   end
-  Loaders.load_fallbacks()
+  vim.notify("Loading fallback configs.", vim.log.levels.ERROR)
+  require("config.fallback.settings")
+  require("config.fallback.mappings")
+
   local msg = string.format("Detected errors:\n%s", vim.inspect(Loaders.catched_errors))
   vim.notify(msg, vim.log.levels.ERROR)
   if vim.fn.input("Open offending files for editing? (y/n): ") == "y" then
