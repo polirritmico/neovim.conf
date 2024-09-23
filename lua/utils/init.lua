@@ -23,19 +23,18 @@ Utils.detected_errors = loaders.detected_errors
 function Utils.load_utils(opts)
   local load = loaders.load_config
 
-  local debug_mode = opts and opts.debug == true
-  if debug_mode then
-    load("utils.helpers").set_debug()
-  end
-
-  Utils.autocmd = load("utils.autocmd") ---@type UtilsAutoCmds
-  Utils.config = load("utils.config") ---@type UtilsConfig
-  Utils.custom = load("utils.custom") ---@type UtilsCustom
-  Utils.helpers = load("utils.helpers") ---@type UtilsHelpers
-  Utils.plugins = load("utils.plugins") ---@type UtilsPlugins
-  Utils.writing = load("utils.writing") ---@type UtilsWriting
+  Utils.autocmd = load("utils.autocmd")
+  Utils.config = load("utils.config")
+  Utils.custom = load("utils.custom")
+  Utils.helpers = load("utils.helpers")
+  Utils.plugins = load("utils.plugins")
+  Utils.writing = load("utils.writing")
 
   assert(not loaders.detected_errors())
+
+  if opts and opts.debug then
+    Utils.helpers.set_debug()
+  end
 end
 
 return Utils
