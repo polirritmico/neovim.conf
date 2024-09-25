@@ -163,12 +163,17 @@ function Plugins.mini_sessions_manager()
 end
 
 ---Oil.nvim: Set a configuration key for the confirm changes prompt.
----@param key string Confirmation key.
-function Plugins.oil_confirmation_key(key)
+---@param keys string|string[] Confirmation key.
+function Plugins.oil_confirmation_key(keys)
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "oil_preview",
-    callback = function(prms)
-      vim.keymap.set("n", key, "Y", { buffer = prms.buf, remap = true, nowait = true })
+    callback = function(ctx)
+      if type(keys) ~= "table" then
+        keys = { keys }
+      end
+      for _, key in pairs(keys) do
+        vim.keymap.set("n", key, "Y", { buffer = ctx.buf, remap = true, nowait = true })
+      end
     end,
   })
 end
