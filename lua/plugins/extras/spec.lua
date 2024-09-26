@@ -211,6 +211,7 @@ return {
   --- Trouble LSP and diagnostic panels
   {
     "folke/trouble.nvim",
+    cond = false,
     cmd = { "Trouble" },
     opts = { modes = { symbols = { win = { position = "left" } } } },
     -- stylua: ignore

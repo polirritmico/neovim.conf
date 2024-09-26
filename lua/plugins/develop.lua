@@ -1,7 +1,7 @@
 return {
   {
     "polirritmico/manual-tag-closer.nvim",
-    enabled = Workstation,
+    enabled = false,
     dev = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {},

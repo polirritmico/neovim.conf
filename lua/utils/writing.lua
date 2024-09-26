@@ -36,4 +36,28 @@ function Writing.set_two_columns_mode()
   ]])
 end
 
+---Generate Lorem ipsum text
+---@param paragraphs integer
+function Writing.lorem(paragraphs)
+  paragraphs = paragraphs or vim.v.count > 0 and vim.v.count or 2
+  local opts = "/medium/prude/plaintext"
+  local url = "https://loripsum.net/api/"
+  local curl_cmd = string.format("curl %s%s%s 2>/dev/null", url, paragraphs, opts)
+
+  vim.notify("Fetching text from the 'https://lorpsum.net' api...")
+
+  local content = vim.fn.systemlist(curl_cmd)
+  if vim.v.shell_error ~= 0 then
+    vim.notify("Curl failed with code " .. vim.v.shell_error, vim.log.levels.ERROR)
+  end
+  content[#content] = nil
+
+  local first_line = vim.api.nvim_buf_line_count(0)
+  vim.api.nvim_buf_set_lines(0, first_line - 1, first_line - 1, false, content)
+  local last_line = first_line + #content
+
+  vim.cmd(string.format("normal! %dGv%dGgw", first_line, last_line))
+  vim.cmd("stopinsert")
+end
+
 return Writing

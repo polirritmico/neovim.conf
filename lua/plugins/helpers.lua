@@ -102,6 +102,28 @@ return {
       end
     end,
   },
+  --- Surround operations
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- latest stable
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>mb", function() vim.cmd("normal siw*l.") end, mode = "n", ft = "markdown", desc = "Markdown: Bold text." },
+      { "<leader>mi", function() vim.cmd("normal siw_") end, mode = "n", ft = "markdown", desc = "Markdown: Italic text." },
+      { "<leader>mc", function() vim.cmd("normal siw`") end, mode = "n", ft = "markdown", desc = "Markdown: Code text." },
+    },
+    opts = {
+      keymaps = {
+        -- Change the mappings, there is no reason to keep `s`
+        normal = "s",
+        normal_cur = "ss",
+        normal_cur_line = "sS",
+        visual = "s",
+        visual_line = "S",
+      },
+    },
+  },
   --- Session manager
   {
     "echasnovski/mini.sessions",

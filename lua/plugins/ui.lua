@@ -165,6 +165,8 @@ return {
   --- Noice. A lot of ui messages
   {
     "folke/noice.nvim",
+    -- FIX: cmdline cursor flickr: https://github.com/folke/noice.nvim/issues/953
+    version = "4.4.7",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
@@ -197,6 +199,7 @@ return {
   --- Shows code context on the top (func, classes, etc.)
   {
     "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       min_window_height = 10, -- in lines
