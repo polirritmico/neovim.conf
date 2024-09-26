@@ -39,7 +39,7 @@ function Writing.set_two_columns_mode()
   ]])
 end
 
----Generate Lorem ipsum text through
+---Generate Lorem ipsum text through the loripsum.net API
 ---@param paragraphs integer
 function Writing.lorem(paragraphs)
   paragraphs = paragraphs or vim.v.count > 0 and vim.v.count or 2
