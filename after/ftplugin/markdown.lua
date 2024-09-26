@@ -10,9 +10,8 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
 map("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
-map("", "gO", u.custom.qf_toc_md, "Generate TOC")
+map("", "gO", u.writing.loclist_toc_markdown, "Generate TOC")
 
-vim.api.nvim_create_user_command("TOC", u.custom.generate_toc_md, {
-  nargs = "?",
-  desc = "Write TOC at current position. args: `depth_level` integer",
-})
+u.writing.set_md_toc_generator()
+map("", "<C-n>", function() u.writing.toc_move("next") end, "Markdown: Next TOC entry")
+map("", "<C-p>", function() u.writing.toc_move("prev") end, "Markdown: Prev TOC entry")
