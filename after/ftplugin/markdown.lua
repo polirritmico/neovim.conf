@@ -12,6 +12,6 @@ vim.opt.tabstop = 2
 map("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
 map("", "gO", u.writing.loclist_toc_markdown, "Generate TOC")
 
-u.writing.set_md_toc_generator()
+u.writing.set_cmd_markdown_toc_generator("TOC")
 map("", "<C-n>", function() u.writing.toc_move("next") end, "Markdown: Next TOC entry")
 map("", "<C-p>", function() u.writing.toc_move("prev") end, "Markdown: Prev TOC entry")

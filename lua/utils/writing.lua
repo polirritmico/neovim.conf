@@ -179,7 +179,7 @@ end
 ---The inner-level could be passed, e.g. `:TOC 2` would add only h1 and h2.
 ---@param cmd? string Name of the command to execute from the command-line.
 ---@param desc? string Description to pass into the command generator
-function Writing.set_md_toc_generator(cmd, desc)
+function Writing.set_cmd_markdown_toc_generator(cmd, desc)
   cmd = cmd or "TOC"
   desc = desc or "Write TOC at the current cursor position. args: `depth_level` integer"
 
