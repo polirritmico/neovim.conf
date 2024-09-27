@@ -171,6 +171,7 @@ return {
       { "<leader>tf", utils.plugins.conform_toggle, desc = "Conform: Enable/Disable autoformat-on-save." },
     },
     opts = {
+      log_level = nil, -- default: vim.log.levels.ERROR
       formatters_by_ft = {
         ["*"] = { "trim_whitespace" },
         css = { "prettier" },
