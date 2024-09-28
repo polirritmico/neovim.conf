@@ -275,6 +275,7 @@ return {
             },
           },
         },
+        marksman = {},
         pylsp = {
           settings = {
             pylsp = {
@@ -361,11 +362,14 @@ return {
     opts = {
       ensure_installed = {
         "bash-language-server", -- Bash language server
-        "clangd", -- LSP for C/C++
         "lua-language-server", -- Lua language server
-        "stylua", -- Lua code formatter
-        "prettier", -- Formater for css, html, json, javascript, yaml and more.
-        "python-lsp-server", -- fork of python-language-server
+        "marksman", -- Markdown language server
+        "markdown-toc", -- Markdown TOC generator (under tag: `<!-- toc -->`)
+        "prettier", -- Formatter for css, html, json, javascript, yaml and more.
+        "python-lsp-server", -- Fork of python-language-server
+        "shfmt", -- Bash/sh formatter
+        "stylua", -- Lua formatter
+        "texlab", -- LaTeX language server
       },
       ui = { border = "rounded" },
     },
