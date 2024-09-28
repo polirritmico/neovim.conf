@@ -200,6 +200,11 @@ return {
       require("neotest").setup(opts)
     end,
   },
+  --- Git integration
+  {
+    "tpope/vim-fugitive",
+    cmd = { "G", "Git", "Gdiffsplit", "Gedit", "Ggrep" },
+  },
   --- Function stats (like references)
   {
     "VidocqH/lsp-lens.nvim",
