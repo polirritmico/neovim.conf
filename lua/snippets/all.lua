@@ -66,4 +66,26 @@ return {
       }
     )
   ),
+
+  s(
+    {
+      trig = "box",
+      name = "Text box",
+      dscr = "A box margin.",
+    },
+    fmt(
+      [[
+        ╭─{}─╮
+        │ {} │
+        ╰─{}─╯
+
+        {}]],
+      {
+        f(function(args) return string.rep("─", string.len(args[1][1])) end, { 1 }),
+        i(1),
+        f(function(args) return string.rep("─", string.len(args[1][1])) end, { 1 }),
+        i(0),
+      }
+    )
+  ),
 }

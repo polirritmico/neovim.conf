@@ -142,7 +142,7 @@ return {
   }),
 
   s(
-    { trig = "lazyenterevent", dscr = "Add common lazy enter buffer event" },
+    { trig = "lazyevent", dscr = "Add common lazy enter buffer event" },
     t([[event = { "BufReadPost", "BufWritePost", "BufNewFile" },]])
   ),
 
