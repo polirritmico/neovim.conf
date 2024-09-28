@@ -179,7 +179,7 @@ return {
         htmldjango = { "djlint" },
         json = { "prettier" },
         lua = { "stylua" },
-        markdown = { "prettier_markdown" },
+        markdown = { "prettier_markdown", "markdown-toc" },
         python = { "isort", "black" },
         sh = { "shfmt" },
         yaml = { "prettier" },

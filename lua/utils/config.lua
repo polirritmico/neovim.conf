@@ -43,6 +43,16 @@ function Config.set_keymap(mode, key, command, description, verbose)
   end
 end
 
+---A wrapper of `vim.keymap.set` function for the current buffer.
+---@param mode string|table Mode short-name
+---@param key string Left-hand side of the mapping, the keys to be pressed.
+---@param command string|function Right-hand side of the mapping, could be a Lua function.
+---@param desc? string Optional human-readable description of the mapping, default to nil.
+function Config.set_ft_keymap(mode, key, command, desc)
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.keymap.set(mode, key, command, { silent = true, desc = desc, buffer = bufnr })
+end
+
 ---Set <C-arrow> keys to resize the current window according to its position on
 ---the screen.
 function Config.set_win_resize_keys()
