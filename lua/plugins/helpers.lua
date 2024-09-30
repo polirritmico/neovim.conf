@@ -37,7 +37,6 @@ return {
   --- Pairs of (), [], {}, etc.
   {
     "windwp/nvim-autopairs",
-    cond = false,
     event = "InsertEnter",
     dependencies = { "nvim-cmp" },
     opts = {

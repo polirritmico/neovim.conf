@@ -1,4 +1,5 @@
 local u = require("utils")
+local map = u.config.set_ft_keymap
 
 vim.opt.colorcolumn = { 81 } -- Guide columns position
 vim.opt.textwidth = 80 -- Try to adjust lines to this max width size
@@ -8,4 +9,5 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
-u.config.set_ft_keymap("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
+map("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
+map("n", "gO", u.writing.loclist_toc_markdown, "TOC in the quickfix list")
