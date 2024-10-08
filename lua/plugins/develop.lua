@@ -196,14 +196,20 @@ return {
       output = { open_on_run = true },
     },
     config = function(_, opts)
-      opts.adapters = { require("neotest-python") }
+      opts.adapters = {
+        require("neotest-python")({
+          dap = { justMyCode = true },
+          runner = "pytest",
+        }),
+      }
       require("neotest").setup(opts)
     end,
   },
   --- Git integration
   {
-    "tpope/vim-fugitive",
-    cmd = { "G", "Git", "Gdiffsplit", "Gedit", "Ggrep" },
+    "echasnovski/mini.diff",
+    event = "VeryLazy",
+    opts = { style = "number" },
   },
   --- Function stats (like references)
   {
