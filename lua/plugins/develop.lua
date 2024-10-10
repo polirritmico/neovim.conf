@@ -209,6 +209,10 @@ return {
   {
     "echasnovski/mini.diff",
     event = "VeryLazy",
+    -- stylua: ignore
+    keys = {
+      { "<leader>to", function() require("mini.diff").toggle_overlay() end, desc = "Mini.diff: Toggle overlay" },
+    },
     opts = { style = "number" },
   },
   --- Function stats (like references)
