@@ -17,6 +17,7 @@ opt.cmdheight = 1 -- 0 to remove the command line below the statusbar
 opt.colorcolumn = { 80, 100 } -- Guide columns positions
 opt.laststatus = 3 -- Global status bar (not one for each window)
 opt.number = true -- Shows the current line number instead of 0
+opt.pumheight = 12 -- Max height size of menus (like cmp)
 opt.relativenumber = true -- Show relative line numbers
 opt.showmode = false -- Show status in command area
 opt.title = true -- Set the window name

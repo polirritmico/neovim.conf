@@ -9,8 +9,8 @@ Loaders.catched_errors = {}
 ---
 ---If the module returns an **error**, then print it and store it in the
 ---`catched_errors` table.
----@param module string Name of the module to load. @return any call_return
----Return of the require module call (if any).
+---@param module string Name of the module to load.
+---@return any call_return Return of the require module call (if any).
 function Loaders.load_config(module)
   local ok, call_return = pcall(require, module)
   if not ok then

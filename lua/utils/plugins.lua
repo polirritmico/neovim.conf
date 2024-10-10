@@ -2,6 +2,69 @@
 ---@class UtilsPlugins
 local Plugins = {}
 
+---Returns a custom nvim-cmp completion menu with the source name in square
+---brackets and truncated labels for consistent width
+---@param max_entry_width integer Item names longer than this value would be cut
+---@return fun(entry: cmp.Entry, item: vim.CompletedItem): vim.CompletedItem
+function Plugins.cmp_custom_menu(max_entry_width)
+  -- Add source inside square brackets and use custom names
+  return function(entry, item)
+    local custom = {
+      nvim_lsp = "LSP",
+      nvim_lua = "nvim",
+    }
+    item.menu = string.format("[%s]", custom[entry.source.name] or entry.source.name)
+
+    -- Truncate long names and add padding to the short ones
+    local name = item.abbr or ""
+    local abbr = vim.fn.strcharpart(name, 0, max_entry_width)
+    if abbr ~= name then
+      item.abbr = (abbr:sub(-1) == " " and abbr:sub(1, -2) or abbr) .. "…"
+    elseif string.len(name) < max_entry_width then
+      local padding = string.rep(" ", max_entry_width - string.len(name))
+      item.abbr = name .. padding
+    end
+
+    return item
+  end
+end
+
+---Sort python dunder and private methods to the bottom.
+---> Source: https://github.com/lukas-reineke/cmp-under-comparator
+---@param entry1 cmp.Entry
+---@param entry2 cmp.Entry
+---@return boolean|nil
+function Plugins.cmp_custom_sort(entry1, entry2)
+  local _, entry1_under = entry1.completion_item.label:find("^_+")
+  local _, entry2_under = entry2.completion_item.label:find("^_+")
+  entry1_under = entry1_under or 0
+  entry2_under = entry2_under or 0
+  if entry1_under > entry2_under then
+    return false
+  elseif entry1_under < entry2_under then
+    return true
+  end
+end
+
+---Custom nvim-cmp function to disable the completion on telescope prompts and
+---comments.
+---@return boolean
+function Plugins.cmp_enabled()
+  -- Disable on telescope prompt
+  if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
+    return false
+  end
+
+  -- Disable on comments
+  local context = require("cmp.config.context")
+  if vim.api.nvim_get_mode().mode == "c" then
+    return true
+  end
+
+  return not context.in_treesitter_capture("comment")
+    and not context.in_syntax_group("Comment")
+end
+
 ---Enable or disable _conform.nvim_ `autoformat-on-save` functionality (globally).
 function Plugins.conform_toggle()
   vim.g.disable_autoformat = not (vim.g.disable_autoformat == true)
@@ -269,6 +332,7 @@ function Plugins.telescope_open_single_or_multi(bufnr)
   end
 end
 
+---Simple Telescope picker to select spell suggestions
 function Plugins.telescope_spell_suggest()
   local theme = require("telescope.themes").get_dropdown
   require("telescope.builtin").spell_suggest(theme())

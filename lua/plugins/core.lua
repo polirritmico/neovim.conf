@@ -27,37 +27,12 @@ return {
       return {
         completion = { completeopt = "menu,menuone,noinsert" },
         -- experimental = { ghost_text = true },
-
-        enabled = function()
-          -- Disable on telescope prompt
-          if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
-            return false
-          end
-
-          -- Disable on comments
-          local context = require("cmp.config.context")
-          if vim.api.nvim_get_mode().mode == "c" then
-            return true
-          else
-            return not context.in_treesitter_capture("comment")
-              and not context.in_syntax_group("Comment")
-          end
-        end,
-
+        enabled = utils.plugins.cmp_enabled,
         formatting = {
-          expandable_indicator = true, -- shows the ~ symbol when expandable
+          expandable_indicator = false, -- shows the ~ symbol when expandable
           fields = { "abbr", "menu", "kind" }, -- suggestions order :h formatting.fields
-          format = function(entry, item)
-            local short_name = {
-              nvim_lsp = "LSP",
-              nvim_lua = "nvim",
-            }
-            local menu_name = short_name[entry.source.name] or entry.source.name
-            item.menu = string.format("[%s]", menu_name)
-            return item
-          end,
+          format = utils.plugins.cmp_custom_menu(25),
         },
-
         mapping = {
           ["<C-j>"] = cmp.mapping.confirm({
             behaviour = cmp.ConfirmBehavior.Insert,
@@ -79,59 +54,42 @@ return {
           end, { "i", "s" }),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
         },
-
-        performance = { max_view_entries = 12 },
-
         snippet = {
           expand = function(args) luasnip.lsp_expand(args.body) end,
         },
-
-        -- Sort python dunder and private methods to the btm
-        -- Source: https://github.com/lukas-reineke/cmp-under-comparator
         sorting = vim.tbl_extend("force", defaults.sorting, {
           comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
-            function(entry1, entry2)
-              local _, entry1_under = entry1.completion_item.label:find("^_+")
-              local _, entry2_under = entry2.completion_item.label:find("^_+")
-              entry1_under = entry1_under or 0
-              entry2_under = entry2_under or 0
-              if entry1_under > entry2_under then
-                return false
-              elseif entry1_under < entry2_under then
-                return true
-              end
-            end,
+            utils.plugins.cmp_custom_sort,
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
             cmp.config.compare.order,
           },
         }),
-
+        -- Order of menu entries
         sources = cmp.config.sources({
-          -- Order of cmp menu entries
           { name = "path", keyword_length = 2 },
           { name = "nvim_lsp", keyword_length = 2 },
           {
             name = "luasnip",
             keyword_length = 2,
-            option = { use_show_condition = false }, -- disable filtering completion candidates by snippet's show_condition
+            -- Disable filtering completion candidates by snippet's show_condition:
+            option = { use_show_condition = false },
           },
         }, {
           { name = "buffer", keyword_length = 3 },
         }, {
           { name = "calc", keyword_length = 3 },
         }),
-
         -- Add border to popup window
         window = {
+          -- NOTE: Max menu height size is controlled by nvim pumheight option
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-
         -- Custom extended cmdline opts
         cmdline = {
           completion = { completeopt = "menu,menuone,noselect" },
