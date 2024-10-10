@@ -62,7 +62,7 @@ return {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
-            utils.plugins.cmp_custom_sort,
+            utils.plugins.cmp_custom_sorter,
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,

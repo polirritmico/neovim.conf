@@ -34,7 +34,7 @@ end
 ---@param entry1 cmp.Entry
 ---@param entry2 cmp.Entry
 ---@return boolean|nil
-function Plugins.cmp_custom_sort(entry1, entry2)
+function Plugins.cmp_custom_sorter(entry1, entry2)
   local _, entry1_under = entry1.completion_item.label:find("^_+")
   local _, entry2_under = entry2.completion_item.label:find("^_+")
   entry1_under = entry1_under or 0
