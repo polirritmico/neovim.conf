@@ -30,9 +30,9 @@ map({ "n", "v" }, "&", "^")
 -- Registros a +
 map({ "n", "v" }, "+", '"')
 
--- Agregar signo de diálogo (<A-d>)
-map({ "i", "c" }, "ſ", "—")
-map({ "i", "c" }, "ð", "—")
+-- Agregar signo de diálogo
+map({ "i", "c" }, "ſ", "—") -- <A-w>
+map({ "i", "c" }, "ð", "—") -- <A-d>
 
 -------------------------------------------------------------------------------
 --- Navigation and windows
