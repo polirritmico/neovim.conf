@@ -1,7 +1,7 @@
 return {
   {
     "polirritmico/manual-tag-closer.nvim",
-    enabled = false,
+    enabled = true,
     dev = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {},
@@ -207,6 +207,7 @@ return {
     },
     config = function(_, opts)
       opts.adapters = {
+        -- BUG: https://github.com/nvim-neotest/neotest/issues/428 busted fail
         require("neotest-python")(opts.python),
         require("neotest-busted")(opts.busted),
       }
