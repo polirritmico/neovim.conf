@@ -191,10 +191,12 @@ return {
       { "<leader>rto", function() require("neotest").output_panel.toggle() end, desc = "neotest: Toggle output panel" },
       { "<leader>rtO", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "neotest: Show test output" },
       { "<leader>rtp", function() require("neotest").summary.toggle() end, desc = "neotest: Toggle summary panel" },
+      { "<leader>rtc", function() require("neotest").output_panel.clear() end, desc = "neotest: Clean the output panel" },
     },
     opts = {
-      status = { virtual_text = true },
       output = { open_on_run = true },
+      summary = { open = "topleft vsplit | vertical resize 45" }, -- right: botright
+      status = { virtual_text = true },
       busted = {
         busted_command = ".tests/data/nvim/lazy/busted/bin/busted",
         minimal_init = "tests/busted.lua",
