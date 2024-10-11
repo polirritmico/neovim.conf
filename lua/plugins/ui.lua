@@ -62,9 +62,7 @@ return {
     opts = function()
       local opts = {
         theme = "doom",
-        hide = {
-          statusline = false, -- handled by Lualine itself
-        },
+        hide = { statusline = true },
         config = {
           vertical_center = true,
           header = {
