@@ -10,7 +10,15 @@ return {
     init = function()
       local disable = function(args) vim.b[args.buf].miniindentscope_disable = true end
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "dashboard", "lazy", "mason", "notify", "trouble" },
+        pattern = {
+          "help",
+          "dashboard",
+          "lazy",
+          "mason",
+          "notify",
+          "trouble",
+          "neotest-summary",
+        },
         callback = disable,
       })
       vim.api.nvim_create_autocmd("TermOpen", { callback = disable })

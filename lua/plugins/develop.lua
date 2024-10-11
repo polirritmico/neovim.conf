@@ -180,6 +180,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
       -- Adapters
       "nvim-neotest/neotest-python",
+      "MisanthropicBit/neotest-busted",
     },
     -- stylua: ignore
     keys = {
@@ -194,13 +195,20 @@ return {
     opts = {
       status = { virtual_text = true },
       output = { open_on_run = true },
+      busted = {
+        busted_command = ".tests/data/nvim/lazy/busted/bin/busted",
+        minimal_init = "tests/busted.lua",
+        local_luarocks_only = true,
+      },
+      python = {
+        dap = { justMyCode = true },
+        runner = "pytest",
+      },
     },
     config = function(_, opts)
       opts.adapters = {
-        require("neotest-python")({
-          dap = { justMyCode = true },
-          runner = "pytest",
-        }),
+        require("neotest-python")(opts.python),
+        require("neotest-busted")(opts.busted),
       }
       require("neotest").setup(opts)
     end,
