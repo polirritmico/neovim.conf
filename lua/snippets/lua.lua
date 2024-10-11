@@ -138,7 +138,7 @@ return {
       local width = vim.api.nvim_get_option_value("textwidth", {}) - col - 1
       return string.rep("-", width)
     end),
-    t({ "", "" }),
+    t({ "" }),
   }),
 
   s(
