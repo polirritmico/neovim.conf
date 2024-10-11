@@ -2,6 +2,8 @@
 ---@class UtilsPlugins
 local Plugins = {}
 
+local fmt = string.format
+
 ---Returns a custom nvim-cmp completion menu with the source name in square
 ---brackets and truncated labels for consistent width
 ---@param max_entry_width integer Item names longer than this value would be cut
@@ -13,7 +15,7 @@ function Plugins.cmp_custom_menu(max_entry_width)
       nvim_lsp = "LSP",
       nvim_lua = "nvim",
     }
-    item.menu = string.format("[%s]", custom[entry.source.name] or entry.source.name)
+    item.menu = fmt("[%s]", custom[entry.source.name] or entry.source.name)
 
     -- Truncate long names and add padding to the short ones
     local name = item.abbr or ""
@@ -69,7 +71,7 @@ end
 function Plugins.conform_toggle()
   vim.g.disable_autoformat = not (vim.g.disable_autoformat == true)
   local msg = "Conform: %sabled autoformat-on-save."
-  vim.notify(string.format(msg, vim.g.disable_autoformat and "Dis" or "En"))
+  vim.notify(fmt(msg, vim.g.disable_autoformat and "Dis" or "En"))
 end
 
 ---Return a custom lualine tabline section that integrates Harpoon marks.
@@ -156,7 +158,9 @@ function Plugins.mini_sessions_manager()
     elseif vim.fn.findfile(vim.fn.expand(filename)) == "" then
       close(bufnr)
       mini_sessions.write(filename)
-    elseif vim.fn.input("Overwrite session? [y/n]: "):lower() == "y" then
+    elseif
+      vim.fn.input(fmt("Overwrite session %s? [y/n]: ", filename)):lower() == "y"
+    then
       close(bufnr)
       mini_sessions.write(filename)
     else
@@ -168,7 +172,7 @@ function Plugins.mini_sessions_manager()
     local selected, _ = get_user_input()
     if not selected then
       vim.notify("delete_session: Empty selection", vim.log.levels.WARN)
-    elseif vim.fn.input("Delete session? [y/n]: "):lower() == "y" then
+    elseif vim.fn.input(fmt("Delete session %s? [y/n]: ", selected)):lower() == "y" then
       mini_sessions.delete(selected, { force = true })
       close(bufnr)
       open_picker()
@@ -189,7 +193,7 @@ function Plugins.mini_sessions_manager()
     elseif selected == input_text then
       mini_sessions.read(selected)
     else -- user must decide
-      local msg = string.format(
+      local msg = fmt(
         "Type 'w' to write or press '<CR>' to open (selected '%s'): ",
         selected,
         input_text
@@ -275,7 +279,7 @@ function Plugins.toggle_profiler(env)
     }, function(filename)
       if filename then
         prof.export(filename)
-        vim.notify(string.format("Wrote %s", filename))
+        vim.notify(fmt("Wrote %s", filename))
       end
     end)
   else
@@ -323,10 +327,10 @@ function Plugins.telescope_open_single_or_multi(bufnr)
     actions.close(bufnr)
     for _, file in pairs(multi_selection) do
       if file.path ~= nil then
-        vim.cmd(string.format("edit %s", file.path))
+        vim.cmd(fmt("edit %s", file.path))
       end
     end
-    vim.cmd(string.format("edit %s", single_selection.path))
+    vim.cmd(fmt("edit %s", single_selection.path))
   else
     actions.select_default(bufnr)
   end
