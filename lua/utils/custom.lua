@@ -5,6 +5,7 @@ local Custom = {}
 local api = vim.api
 
 ---Get the treesitter highlights of the passed line (no syntactic tokens)
+---@param line string
 ---@param linenr integer 0-idx line number
 ---@return table<string, string>[] line_highlights
 local function get_ts_line_highlights(line, linenr)
