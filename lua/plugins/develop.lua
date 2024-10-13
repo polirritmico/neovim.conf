@@ -219,10 +219,10 @@ return {
   --- Git integration
   {
     "echasnovski/mini.diff",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keys = {
-      { "<leader>to", function() require("mini.diff").toggle_overlay() end, desc = "Mini.diff: Toggle overlay" },
+      { "<leader>td", function() require("mini.diff").toggle_overlay() end, desc = "Mini.diff: Toggle diff overlay", },
     },
     opts = { style = "number" },
   },

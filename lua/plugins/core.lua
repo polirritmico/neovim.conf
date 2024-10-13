@@ -212,7 +212,7 @@ return {
           -- <F3> (format current buffer) is handled by Conform
           lspkey("<F4>", buf.code_action, "Code action", event)
           lspkey("<leader>gq", vim.diagnostic.setloclist, "Set loclist", event)
-          lspkey("<leader>td", toggle_lsp_diag, "Toggle diagnostics", event)
+          lspkey("<leader>tD", toggle_lsp_diag, "Toggle diagnostics", event)
         end,
       })
 
