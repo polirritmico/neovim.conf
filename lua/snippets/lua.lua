@@ -95,8 +95,8 @@ return {
 
   s(
     {
-      trig = "layoutmaplazy",
-      name = "Lazy keymap",
+      trig = "lazymap",
+      name = "Lazy layout keymap",
       dscr = "Layout for adding custom keymaps using the Lazy key spec.",
     },
     fmta([[{ "<lhs>", <rhs><mode><ft>, desc = "<desc>" },]], {
