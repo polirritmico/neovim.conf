@@ -226,6 +226,17 @@ return {
     },
     opts = { style = "number" },
   },
+  --- Git interactive interface
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Neogit",
+    opts = {},
+  },
   --- Function stats (like references)
   {
     "VidocqH/lsp-lens.nvim",
