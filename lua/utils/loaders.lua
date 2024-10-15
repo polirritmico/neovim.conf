@@ -64,9 +64,9 @@ end
 ---user** to open or not the offending file.
 ---@param opts? table Set to true to don't load the fallback settings
 ---@return boolean -- `true` if errors are detected. `false` otherwise.
-function Loaders.detected_errors(opts)
+function Loaders.check_errors(opts)
   if #Loaders.catched_errors == 0 then
-    return false
+    return true
   end
 
   local function get_path_from_error(str)
@@ -97,7 +97,7 @@ function Loaders.detected_errors(opts)
       end
     end
   end
-  return true
+  return false
 end
 
 return Loaders

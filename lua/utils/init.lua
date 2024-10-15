@@ -16,7 +16,7 @@ if not ok then
 end
 
 Utils.load = loaders.load_config
-Utils.detected_errors = loaders.detected_errors
+Utils.check_errors = loaders.check_errors
 
 ---Helper function to require utils submodules with protected calls.
 ---@param opts? {debug?: boolean}
@@ -30,7 +30,7 @@ function Utils.load_utils(opts)
   Utils.plugins = load("utils.plugins")
   Utils.writing = load("utils.writing")
 
-  assert(not loaders.detected_errors())
+  assert(loaders.check_errors())
 
   if opts and opts.debug then
     Utils.helpers.set_debug()
