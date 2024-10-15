@@ -38,8 +38,8 @@ function Loaders.load_config(module)
     return call_return
   end
 
-  -- Temporal patch for the vim.notify used internally by lazy to notify about
-  -- errors in each plugin config module that it loads
+  -- Set a temporal wrapper for vim.notify, used internally by lazy.nvim to
+  -- notify about errors in each plugin config spec that it loads.
   local original_notify = vim.notify
   local notify_wrapper = function(msg, level, opts)
     local pattern = "unexpected symbol near"
@@ -53,9 +53,8 @@ function Loaders.load_config(module)
   end
   vim.notify = notify_wrapper
 
+  -- Load the lazy config module and then restore vim.notify
   require(module)
-  -- table.insert(Loaders.catched_errors, module)
-
   vim.notify = original_notify
 end
 
