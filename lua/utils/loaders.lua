@@ -1,8 +1,8 @@
----Functions helpers used to load Neovim configs.
+---Helper functions used to load Neovim configs.
 ---@class UtilsLoader
 local Loaders = {}
 
----Wrapper function to pretty print variables instead of getting memory addresses.
+---Global helper function to pretty print variables
 ---@param ... any Variable or variables to pretty print
 ---@return any -- Return the variables unpacked
 function P(...)

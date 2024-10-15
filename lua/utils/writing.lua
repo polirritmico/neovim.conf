@@ -1,4 +1,4 @@
----Functions for text-based writing tasks beyond code.
+---Helper functions for text-based writing tasks beyond code.
 ---@class UtilsWriting
 local Writing = {}
 

@@ -1,4 +1,4 @@
----Functions helpers used to configure plugins.
+---Helper functions used to configure or customize plugins settings.
 ---@class UtilsPlugins
 local Plugins = {}
 
