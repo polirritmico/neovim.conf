@@ -1,8 +1,9 @@
 ---Helper functions used to load Neovim configs.
+---_(Also sets the global print wrapper `P`)_
 ---@class UtilsLoader
 local Loaders = {}
 
----Global helper function to pretty print variables
+---Global helper function to pretty print variables.
 ---@param ... any Variable or variables to pretty print
 ---@return any -- Return the variables unpacked
 function P(...)
