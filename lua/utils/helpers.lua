@@ -26,20 +26,6 @@ function Helpers.chmod_exe(valid_filetypes)
   )
 end
 
----Wrapper function to pretty print variables instead of getting memory addresses.
----@param ... any Variable or variables to pretty print
----@return any -- Return the variables unpacked
-function Helpers.print_wrapper(...)
-  local args = { ... }
-  local mapped = {}
-  for _, variable in pairs(args) do
-    table.insert(mapped, vim.inspect(variable))
-  end
-  print(unpack(mapped))
-
-  return unpack(args)
-end
-
 ---Redirects the output of the passed command-line into a buffer.
 ---**Usage:** `:Redir <command>` or `:Redir! <command>`.
 ---Similar to `:r` but with support for lua functions `:Redir lua foo()`.

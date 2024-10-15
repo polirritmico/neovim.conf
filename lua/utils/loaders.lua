@@ -2,6 +2,20 @@
 ---@class UtilsLoader
 local Loaders = {}
 
+---Wrapper function to pretty print variables instead of getting memory addresses.
+---@param ... any Variable or variables to pretty print
+---@return any -- Return the variables unpacked
+function P(...)
+  local args = { ... }
+  local mapped = {}
+  for _, variable in pairs(args) do
+    table.insert(mapped, vim.inspect(variable))
+  end
+  print(unpack(mapped))
+
+  return unpack(args)
+end
+
 ---@type table Collection of errors detected by `load_config` (if any).
 Loaders.catched_errors = {}
 
