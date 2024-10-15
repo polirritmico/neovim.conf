@@ -78,7 +78,7 @@ end
 ---@param app string
 function Custom.open_at_buffpath(app)
   app = app or "dolphin"
-  vim.fn.jobstart({ app, vim.fn.expand("%:p:h") }, { detach = true })
+  vim.system({ app, vim.fn.expand("%:p:h") }, { detach = true })
 end
 
 ---Check if `ScratchNotesPath` exists. If not ask for the user to create it.
