@@ -27,9 +27,7 @@ Loaders.catched_errors = {}
 ---@param module string Name of the module to load.
 ---@return any call_return Return of the require module call (if any).
 function Loaders.load_config(module)
-  local is_lazy_nvim = string.find(module, "lazy")
-
-  if not is_lazy_nvim then
+  if not string.find(module, "lazy") then
     local ok, call_return = pcall(require, module)
     if not ok then
       print("- Error loading the module '" .. module .. "':\n " .. call_return)
@@ -38,8 +36,8 @@ function Loaders.load_config(module)
     return call_return
   end
 
-  -- Set a temporal wrapper for vim.notify, used internally by lazy.nvim to
-  -- notify about errors in each plugin config spec that it loads.
+  -- Set a temporal wrapper for vim.notify, used internally by lazy.nvim, to
+  -- capture errors notifications raised by plugin config specs with problems.
   local original_notify = vim.notify
   local notify_wrapper = function(msg, level, opts)
     local pattern = "unexpected symbol near"
@@ -62,9 +60,9 @@ end
 ---
 ---If an error is detected it will load the fallback settings and **ask the
 ---user** to open or not the offending file.
----@param opts? table Set to true to don't load the fallback settings
----@return boolean -- `true` if errors are detected. `false` otherwise.
-function Loaders.check_errors(opts)
+---@param fallbacks? boolean `true` to load fallback settings if errors are found.
+---@return boolean -- Returns `false` if errors are detected. `false` otherwise.
+function Loaders.check_errors(fallbacks)
   if #Loaders.catched_errors == 0 then
     return true
   end
@@ -77,7 +75,7 @@ function Loaders.check_errors(opts)
     return string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
   end
 
-  if not opts or not opts.no_fallback then
+  if fallbacks then
     vim.notify("Loading fallback configs.", vim.log.levels.ERROR)
     require("config.fallback.settings")
     require("config.fallback.mappings")

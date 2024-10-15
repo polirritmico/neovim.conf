@@ -30,13 +30,13 @@ vim.api.nvim_set_var("MyConfigPath", MyConfigPath)
 
 --- Helper functions
 
-local u = require("utils") ---@type Utils
+local u = require("utils") --[[@as Utils]]
 u.load_utils({ debug = false })
 
 --- Load configs
 
 u.load("config.settings")
 u.load("config.mappings")
-assert(u.check_errors())
+assert(u.check_errors(true))
 u.load("config.lazy")
-u.check_errors({ no_fallback = true })
+u.check_errors()
