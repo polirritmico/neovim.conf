@@ -100,23 +100,23 @@ function Custom.scratchs()
   local close = require("telescope.actions").close
 
   local function new_scratch_note(bufnr)
-    local scratch = state.get_current_line()
-    if not scratch:match("%.") then
-      scratch = scratch .. ".md"
+    local name = state.get_current_line()
+    if not name:match("%.") then
+      name = name .. ".md"
     end
     close(bufnr)
-    vim.cmd.edit(ScratchNotesPath .. scratch)
+    vim.cmd.edit(ScratchNotesPath .. name)
   end
 
   local function open_or_new_scratch_note(bufnr)
     local selection = state.get_selected_entry()
-    local scratch = selection and selection[1] or state.get_current_line()
-    if not scratch:match("%.") then
-      scratch = scratch .. ".md"
+    local name = selection and selection[1] or state.get_current_line()
+    if not name:match("%.") then
+      name = name .. ".md"
     end
 
     close(bufnr)
-    vim.cmd.edit(ScratchNotesPath .. scratch)
+    vim.cmd.edit(ScratchNotesPath .. name)
   end
 
   local function open_scratch_directory(bufnr)
@@ -125,13 +125,13 @@ function Custom.scratchs()
   end
 
   require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({
-    prompt_title = "Scratch notes (<S-CR> new | <C-d> dir)",
+    prompt_title = "Scratch notes (<S-CR> new | <C-a> admin)",
     no_ignore = true, -- show files ignored by .gitignore
     cwd = ScratchNotesPath,
     attach_mappings = function(_, map)
       map("i", "<Cr>", open_or_new_scratch_note)
       map("i", "<S-CR>", new_scratch_note)
-      map("i", "<C-d>", open_scratch_directory)
+      map("i", "<C-a>", open_scratch_directory)
       return true
     end,
   }))
