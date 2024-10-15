@@ -26,34 +26,72 @@ Loaders.catched_errors = {}
 ---@param module string Name of the module to load.
 ---@return any call_return Return of the require module call (if any).
 function Loaders.load_config(module)
-  local ok, call_return = pcall(require, module)
-  if not ok then
-    print("- Error loading the module '" .. module .. "':\n " .. call_return)
-    table.insert(Loaders.catched_errors, module)
+  local is_lazy_nvim = string.find(module, "lazy")
+
+  if not is_lazy_nvim then
+    local ok, call_return = pcall(require, module)
+    if not ok then
+      print("- Error loading the module '" .. module .. "':\n " .. call_return)
+      table.insert(Loaders.catched_errors, module)
+    end
+    return call_return
   end
-  return call_return
+
+  -- Temporal patch for the vim.notify used internally by lazy to notify about
+  -- errors in each plugin config module that it loads
+  local original_notify = vim.notify
+  local notify_wrapper = function(msg, level, opts)
+    local pattern = "unexpected symbol near"
+    if string.find(msg, pattern) then
+      local path = msg:match("^.*\n(.-):%d+:")
+      if path ~= "" then
+        table.insert(Loaders.catched_errors, path)
+      end
+    end
+    return original_notify("Lazy: " .. msg, level, opts)
+  end
+  vim.notify = notify_wrapper
+
+  require(module)
+  -- table.insert(Loaders.catched_errors, module)
+
+  vim.notify = original_notify
 end
 
 ---_Helper function to handle detected `load_config` errors_
 ---
 ---If an error is detected it will load the fallback settings and **ask the
 ---user** to open or not the offending file.
+---@param opts? table Set to true to don't load the fallback settings
 ---@return boolean -- `true` if errors are detected. `false` otherwise.
-function Loaders.detected_errors()
+function Loaders.detected_errors(opts)
   if #Loaders.catched_errors == 0 then
     return false
   end
-  vim.notify("Loading fallback configs.", vim.log.levels.ERROR)
-  require("config.fallback.settings")
-  require("config.fallback.mappings")
 
-  local msg = string.format("Detected errors:\n%s", vim.inspect(Loaders.catched_errors))
-  vim.notify(msg, vim.log.levels.ERROR)
-  if vim.fn.input("Open offending files for editing? (y/n): ") == "y" then
+  local function get_path_from_error(str)
+    if str:sub(1, 1) == "/" then
+      return str
+    end
+
+    return string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
+  end
+
+  if not opts or not opts.no_fallback then
+    vim.notify("Loading fallback configs.", vim.log.levels.ERROR)
+    require("config.fallback.settings")
+    require("config.fallback.mappings")
+  end
+
+  local msg = string.format("%s\nDetected errors:\n", string.rep("-", 80))
+  vim.notify(msg .. vim.inspect(Loaders.catched_errors), vim.log.levels.ERROR)
+
+  if vim.fn.input("Attempt to open offending files for editing? (y/n): ") == "y" then
     print(" ")
     print("Opening files...")
-    for _, module in pairs(Loaders.catched_errors) do
-      local path = string.format("%s/lua/%s.lua", NeovimPath, module:gsub("%.", "/"))
+    for _, error in pairs(Loaders.catched_errors) do
+      local path = get_path_from_error(error)
+
       if vim.fn.findfile(path) ~= "" then
         vim.cmd("edit " .. path)
       end
