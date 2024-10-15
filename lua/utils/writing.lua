@@ -3,7 +3,6 @@
 local Writing = {}
 
 local api = vim.api
-local ts = vim.treesitter
 
 -- NOTE: To create the compiled dict from dic and aff files use:
 -- `:mkspell output input`. e.g. For `es_CL.aff` and `es_CL.dic` files, the
@@ -71,6 +70,7 @@ end
 ---@param text_process fun(raw_text: string, node: TSNode): string
 ---@param hide_locl? boolean Hide or not the loclist
 function Writing.toc_to_loclist(lang, ts_query, text_process, hide_locl)
+  local ts = vim.treesitter
   local bufnr = api.nvim_get_current_buf()
   if api.nvim_get_option_value("filetype", { buf = bufnr }) == "qf" then
     return
