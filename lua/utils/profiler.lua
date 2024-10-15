@@ -1,6 +1,6 @@
 ---Utils profiler wrapper for [https://github.com/stevearc/profile.nvim](https://github.com/stevearc/profile.nvim)
 ---@class UtilsProfiler
----@field setup fun(manual_start: boolean):UtilsProfiler|nil
+---@field setup fun(manual_start?: boolean):UtilsProfiler
 ---@field start? function
 ---@field stop? function
 local UtilsProfiler = {}
@@ -50,7 +50,7 @@ function UtilsProfiler.setup(manual_start)
     vim.opt.rtp:append(mod_profiler_path)
     profiler_mod = require("profile")
     -- Only run the setup once
-    UtilsProfiler.setup = function() end
+    UtilsProfiler.setup = function() return UtilsProfiler end
   end
 
   local function start()
