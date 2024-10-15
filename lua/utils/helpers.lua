@@ -83,7 +83,4 @@ function Helpers.set_debug()
   vim.notify("Press <F10> to start the debuggee session", vim.log.levels.INFO)
 end
 
---- Set global function
-P = Helpers.print_wrapper
-
 return Helpers
