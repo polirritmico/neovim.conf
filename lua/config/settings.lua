@@ -86,15 +86,15 @@ vim.api.nvim_create_user_command("Spellen", function() u.writing.dict_on("en") e
 vim.api.nvim_create_user_command("Spellend", u.writing.dict_off, {})
 
 --- Filetypes
-vim.filetype.add({
-  extension = { html = "html", qml = "qmljs", tex = "tex" },
-  pattern = {
-    [".*/playbooks/.+%.ya?ml"] = "yaml.ansible",
-    [".*/tasks/.+%.ya?ml"] = "yaml.ansible",
-    [".*/.*ansible.*%.ya?ml"] = "yaml.ansible",
-    [".*/.*[Dd][Jj][Aa][Nn][Gg][Oo].*%.html"] = "htmldjango",
-  },
-})
+-- vim.filetype.add({
+--   extension = { html = "html", qml = "qmljs", tex = "tex" },
+--   pattern = {
+--     [".*/playbooks/.+%.ya?ml"] = "yaml.ansible",
+--     [".*/tasks/.+%.ya?ml"] = "yaml.ansible",
+--     [".*/.*ansible.*%.ya?ml"] = "yaml.ansible",
+--     [".*/.*[Dd][Jj][Aa][Nn][Gg][Oo].*%.html"] = "htmldjango",
+--   },
+-- })
 
 --- Misc
 
