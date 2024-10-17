@@ -47,4 +47,4 @@ local plugins = {
 
 require("lazy").setup(plugins, opts)
 
-vim.keymap.set({ "n" }, "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Lazy: Open panel" })
+vim.keymap.set("n", "<leader>cl", "<Cmd>Lazy<CR>", { desc = "Lazy: Open panel" })
