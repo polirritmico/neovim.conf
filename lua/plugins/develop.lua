@@ -1,7 +1,7 @@
 return {
   {
     "polirritmico/manual-tag-closer.nvim",
-    enabled = true,
+    cond = false,
     dev = true,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {},
@@ -225,28 +225,6 @@ return {
       { "<leader>td", function() require("mini.diff").toggle_overlay() end, desc = "Mini.diff: Toggle diff overlay", },
     },
     opts = { style = "number" },
-  },
-  --- Git interactive interface
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    cmd = "Neogit",
-    opts = {},
-  },
-  --- Function stats (like references)
-  {
-    "VidocqH/lsp-lens.nvim",
-    cond = false,
-    event = "VeryLazy",
-    opts = {
-      sections = {
-        git_authors = false,
-      },
-    },
   },
   --- Neovim Development
   --- Lsp helpers like types for lua and neovim plugin development

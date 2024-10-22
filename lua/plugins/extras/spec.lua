@@ -69,6 +69,13 @@ return {
       }
     end,
   },
+  --- Local patches to plugins installed through lazy.nvim
+  {
+    "polirritmico/lazy-local-patcher.nvim",
+    config = true,
+    dev = false,
+    ft = "lazy",
+  },
   --- Markdown pseudo-render
   {
     "MeanderingProgrammer/render-markdown.nvim",
@@ -125,43 +132,6 @@ return {
         "vim",
         "vimdoc",
         "yaml",
-      },
-    },
-  },
-  --- Trouble LSP and diagnostic panels
-  {
-    "folke/trouble.nvim",
-    cond = true,
-    cmd = { "Trouble" },
-    opts = { modes = { symbols = { win = { position = "left" } } } },
-    -- stylua: ignore
-    keys = {
-      { "<leader>to", "<cmd>Trouble symbols toggle<cr>", desc = "Trouble: Symbols overview" },
-      { "<leader>tO", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble: Filter only current buffer", },
-      { "<leader><F1>", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble: Toggle diagnostic panel" },
-      { "[q", function()
-          if require("trouble").is_open() then
-            ---@diagnostic disable: missing-parameter, missing-fields
-            require("trouble").prev({ skip_groups = true, jump = true })
-          else
-            local ok, err = pcall(vim.cmd.cprev)
-            if not ok then
-              vim.notify(err, vim.log.levels.ERROR)
-            end
-          end
-        end, desc = "Previous Trouble/Quickfix Item",
-      },
-      { "]q", function()
-          if require("trouble").is_open() then
-            ---@diagnostic disable: missing-parameter, missing-fields
-            require("trouble").next({ skip_groups = true, jump = true })
-          else
-            local ok, err = pcall(vim.cmd.cnext)
-            if not ok then
-              vim.notify(err, vim.log.levels.ERROR)
-            end
-          end
-        end, desc = "Next Trouble/Quickfix Item",
       },
     },
   },

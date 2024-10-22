@@ -580,7 +580,6 @@ return {
                 { name = "Develop", filepath = path .. "develop.lua" },
                 { name = "Extras", filepath = path .. "extras/spec.lua" },
                 { name = "Helpers", filepath = path .. "helpers.lua" },
-                { name = "Misc", filepath = path .. "misc.lua" },
                 { name = "UI", filepath = path .. "ui.lua" },
               }
             end)(),

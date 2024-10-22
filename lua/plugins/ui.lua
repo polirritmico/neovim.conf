@@ -191,6 +191,11 @@ return {
       end,
     },
   },
+  --- Git: Improved commits screen
+  {
+    "rhysd/committia.vim",
+    ft = { "gitcommit" },
+  },
   --- Harpoon: Navigation through pinned files
   {
     "ThePrimeagen/harpoon",
