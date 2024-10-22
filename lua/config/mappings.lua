@@ -126,12 +126,11 @@ local valid_filetypes = { "bash", "sh", "python" }
 map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
 -- Setup runners per filetype
-local runner_keymap = "<leader>rr"
-u.autocmd.set_runner("python", runner_keymap, "!python %")
-u.autocmd.set_runner("c", runner_keymap, "!gcc % -o %:t:r -g; ./%:t:r")
-u.autocmd.set_runner("bash", runner_keymap, "!./%")
-u.autocmd.set_runner("tex", runner_keymap, "!xelatex -synctex=1 -interaction=batchmode -halt-on-error %")
-u.autocmd.set_runner("lua", runner_keymap, "PlenaryBustedFile %:p")
+u.autocmd.set_runner("python", "!python %")
+u.autocmd.set_runner("c", "!gcc % -o %:t:r -g; ./%:t:r")
+u.autocmd.set_runner("bash", "!./%")
+u.autocmd.set_runner("tex", "!xelatex -synctex=1 -interaction=batchmode -halt-on-error %")
+u.autocmd.set_runner("lua", "PlenaryBustedFile %:p")
 
 -- Setup custom spell commands
 map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Enable english spell check")

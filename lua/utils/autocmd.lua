@@ -118,9 +118,10 @@ end
 ---`keymap` when the specified `filetype` is detected. When pressed the mapping,
 ---it run the passed external command (`ext_cmd`).
 ---@param filetype string Filetype extension where the mapping is created
----@param keymap string Mapping that is going to trigger the command
 ---@param ext_cmd string Command to run the file. It will probably start with "`!`".
-function Autocmds.set_runner(filetype, keymap, ext_cmd)
+---@param keymap? string Mapping that is going to trigger the command (defaults to `<leader>rr`)
+function Autocmds.set_runner(filetype, ext_cmd, keymap)
+  keymap = keymap or "<leader>rr"
   local cmd = "noremap " .. keymap .. " <Cmd>" .. ext_cmd .. "<CR>"
   api.nvim_create_autocmd({ "FileType" }, {
     group = Autocmds.group_id,
