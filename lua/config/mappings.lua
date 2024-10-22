@@ -125,7 +125,7 @@ map("n", "<leader>CD", u.custom.open_at_buffpath, "Open desktop file browser at 
 local valid_filetypes = { "bash", "sh", "python" }
 map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")
 
--- Setup runners per filetype
+-- Setup runners per filetype (<leader>rr by default)
 u.autocmd.set_runner("python", "!python %")
 u.autocmd.set_runner("c", "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmd.set_runner("bash", "!./%")
@@ -137,11 +137,10 @@ map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Enable english spell check"
 map({ "n", "v" }, "<leader>Se", "<Cmd>Spelles<CR>", "Enable spanish spell check")
 map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")
 
--- Shortcuts to configuration files
+-- Shortcuts to configuration files (some of this maps are overwritten by Telescope)
 map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Config: Open the keys mappings settings")
-map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Nvim settings")
-map("n", "<leader>cf", "<Cmd>e " .. NeovimPath .. "/after/ftplugin<CR>", "Config: Open `init.lua` (configuration entry point).")
+map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Neovim settings")
+map("n", "<leader>cf", "<Cmd>e " .. NeovimPath .. "/after/ftplugin<CR>", "Config: Open filetypes settings")
 map("n", "<leader>cU", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Config: Open the `utils/init.lua` file")
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
-
