@@ -74,6 +74,13 @@ function Plugins.conform_toggle()
   vim.notify(fmt(msg, vim.g.disable_autoformat and "Dis" or "En"))
 end
 
+---Enable or disable _conform.nvim_ `autoformat-on-save` functionality (locally).
+function Plugins.conform_toggle_local()
+  vim.b.disable_autoformat = not (vim.b.disable_autoformat == true)
+  local msg = "Conform: %sabled autoformat-on-save on the current buffer."
+  vim.notify(fmt(msg, vim.b.disable_autoformat and "Dis" or "En"))
+end
+
 ---Return a custom lualine tabline section that integrates Harpoon marks.
 function Plugins.lualine_harpoon()
   local hp_keys = { "j", "k", "l", "h" }

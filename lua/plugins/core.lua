@@ -127,6 +127,7 @@ return {
     keys = {
       { "<F3>", function() require("conform").format({ async = false, lsp_fallback = true }) end, mode = { "n", "v" }, desc = "Conform: Format buffer" },
       { "<leader>tf", utils.plugins.conform_toggle, desc = "Conform: Enable/Disable autoformat-on-save." },
+      { "<leader>tF", utils.plugins.conform_toggle_local, desc = "Conform: Enable/Disable autoformat-on-save for the current buffer." },
     },
     opts = {
       log_level = nil, -- default: vim.log.levels.ERROR
