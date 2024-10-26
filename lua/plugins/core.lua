@@ -538,9 +538,10 @@ return {
 
       -- stylua: ignore
       local file_ignore_patterns = {
-        "venv", "__pycache__", "%.xlsx", "%.jpg", "%.png", "%.webp", "%.mp3",
-        "%.pdf", "%.odt", "%.doc", "%.docx", "%.epub", "%.ico", "%.ttf", "%.zip",
-        "%.webm", "%.mp4", "%.mkv",
+        "venv", "__pycache__", "%.doc", "%.docx", "%.epub", "%.exe", "%.ico",
+        "%.jar", "%.jpg", "%.m4a", "%.mkv", "%.mp3", "%.mp4", "%.mus", "%.o",
+        "%.odt", "%.ogg", "%.out", "%.pdb", "%.pdf", "%.png", "%.so", "%.suo",
+        "%.ttf", "%.webm", "%.webp", "%.xlsx", "%.zip",
       }
       for i = 1, #file_ignore_patterns do
         table.insert(file_ignore_patterns, file_ignore_patterns[i]:upper())
