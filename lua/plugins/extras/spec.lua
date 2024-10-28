@@ -104,6 +104,20 @@ return {
       },
     },
   },
+  --- Markdown view auto-uptdated rendered document
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreview", "MarkdownPreviewToggle", "MarkdownPreviewStop" },
+    build = function()
+      require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+      vim.fn["mkdp#util#install"]()
+    end,
+    -- stylua: ignore
+    keys = {
+      { "<leader>rm", "<Cmd>MarkdownPreviewToggle<CR>", ft = "markdown", desc = "MarkdownPreview: Toggle" },
+    },
+    config = function() vim.cmd([[do FileType]]) end,
+  },
   --- Treesitter full `ensure_installed` list
   {
     "nvim-treesitter",
