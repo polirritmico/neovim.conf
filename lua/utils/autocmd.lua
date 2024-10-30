@@ -40,6 +40,33 @@ function Autocmds.attach_file_browser(plugin_name, plugin_open)
   })
 end
 
+---Set formatoptions only if the current buffer is inside one of the passed
+---directories
+---@param ft string|string[] Filetype.
+---@param opts { add?:string, del?:string } formatoptions (check `:h fo-table` for valid values).
+---@param dirs string[] list of directories in the filepath to apply the passed format opts.
+function Autocmds.set_formatoptions_in_dirs(ft, opts, dirs)
+  local dir_pattern = table.concat(dirs, "|")
+
+  api.nvim_create_autocmd("FileType", {
+    group = Autocmds.group_id,
+    pattern = ft,
+    desc = "Apply custom user formatoptions for the current buffer",
+    callback = function(_)
+      local filepath = vim.fn.expand("%:p")
+      if string.match(filepath, dir_pattern) then
+        for opt in (opts.add or ""):gmatch(".") do
+          vim.opt_local.formatoptions:append(opt)
+        end
+        for opt in (opts.del or ""):gmatch(".") do
+          vim.opt_local.formatoptions:remove(opt)
+        end
+        return
+      end
+    end,
+  })
+end
+
 ---Resize splits and distributions when the neovim's terminal got resized
 function Autocmds.autoresize_splits_at_window_resize()
   vim.api.nvim_create_autocmd("VimResized", {
