@@ -26,7 +26,6 @@ return {
 
       return {
         completion = { completeopt = "menu,menuone,noinsert" },
-        -- experimental = { ghost_text = true },
         enabled = utils.plugins.cmp_enabled,
         formatting = {
           expandable_indicator = false, -- shows the ~ symbol when expandable
@@ -38,11 +37,9 @@ return {
             behaviour = cmp.ConfirmBehavior.Insert,
             select = true,
           }),
-          -- NOTE: cmp.mapping.scroll_docs does not work with lsp's hover window.
-          -- Use <S-K> again to change the focus into the hover.
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<Up>"] = cmp.mapping.select_prev_item({ select = true }),
-          ["<Down>"] = cmp.mapping.select_next_item({ select = true }),
+          -- NOTE: cmp.mapping.scroll_docs does not work with the lsp's hover
+          -- window, so use <S-K> again to change the focus into it.
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item({ select = true })
@@ -52,7 +49,14 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<C-e>"] = function()
+            vim.b.disable_cmp = not vim.b.disable_cmp
+            if vim.b.disable_cmp then
+              cmp.abort()
+            else
+              cmp.complete()
+            end
+          end,
         },
         snippet = {
           expand = function(args) luasnip.lsp_expand(args.body) end,

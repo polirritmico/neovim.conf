@@ -48,23 +48,20 @@ function Plugins.cmp_custom_sorter(entry1, entry2)
   end
 end
 
----Custom nvim-cmp function to disable the completion on telescope prompts and
----comments.
+---Custom nvim-cmp function to disable/enable the completion on certain
+---contexts like telescope prompts, command-line, comments, etc.
 ---@return boolean
 function Plugins.cmp_enabled()
+  -- Manually disabled
+  if vim.b.disable_cmp == true then
+    return false
   -- Disable on telescope prompt
-  if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
+  elseif vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
     return false
   end
 
-  -- Disable on comments
-  local context = require("cmp.config.context")
-  if vim.api.nvim_get_mode().mode == "c" then
-    return true
-  end
-
-  return not context.in_treesitter_capture("comment")
-    and not context.in_syntax_group("Comment")
+  local ctx = require("cmp.config.context")
+  return not (ctx.in_treesitter_capture("comment") or ctx.in_syntax_group("Comment"))
 end
 
 ---Enable or disable _conform.nvim_ `autoformat-on-save` functionality (globally).
