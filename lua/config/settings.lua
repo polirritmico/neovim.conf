@@ -71,6 +71,8 @@ vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]]) -- Remove 
 vim.cmd([[vnoremenu PopUp.Copy "+y]]) -- Copy to system clipboard
 
 --- Custom
+u.config.enable_bash_aliases()
+
 u.autocmd.autoresize_splits_at_window_resize()
 u.autocmd.highlight_yanked_text({ timeout = 100 })
 u.autocmd.save_cursor_position_in_file()

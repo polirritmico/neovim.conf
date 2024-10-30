@@ -2,6 +2,15 @@
 ---@class UtilsConfig
 local Config = {}
 
+---Enable system `bash_aliases` for command-line usage.
+---
+---Also sets the `NVIM` environment variable used by bash scripts to detect
+---calls from within a Neovim instance.
+function Config.enable_bash_aliases()
+  vim.uv.os_setenv("NVIM", "1")
+  vim.env.BASH_ENV = NeovimPath .. "/patches/bash_aliases"
+end
+
 ---Wrapper to center the screen after vim.lsp.buf.definition (async)
 ---execution: `gd` -> `gdzz`.
 ---@return function
