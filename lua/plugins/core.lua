@@ -579,16 +579,14 @@ return {
         },
         extensions = {
           lazy_plugins = {
-            custom_entries = (function()
-              local path = NeovimPath .. "/lua/plugins/"
-              return {
-                { name = "Core", filepath = path .. "core.lua" },
-                { name = "Develop", filepath = path .. "develop.lua" },
-                { name = "Extras", filepath = path .. "extras/spec.lua" },
-                { name = "Helpers", filepath = path .. "helpers.lua" },
-                { name = "UI", filepath = path .. "ui.lua" },
-              }
-            end)(),
+            -- stylua: ignore
+            custom_entries = {
+                { name = "Core", filepath = NeovimPath .. "/lua/plugins/core.lua" },
+                { name = "Develop", filepath = NeovimPath .. "/lua/plugins/develop.lua" },
+                { name = "Extras", filepath = NeovimPath .. "/lua/plugins/extras/spec.lua" },
+                { name = "Helpers", filepath = NeovimPath .. "/lua/plugins/helpers.lua" },
+                { name = "UI", filepath = NeovimPath .. "/lua/plugins/ui.lua" },
+            },
           },
         },
       }
