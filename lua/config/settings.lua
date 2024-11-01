@@ -22,6 +22,7 @@ opt.relativenumber = true -- Show relative line numbers
 opt.showmode = false -- Show status in command area
 opt.title = true -- Set the window name
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
+opt.sidescroll = 5 -- size of horizontal scroll steps when typing beyond the current area
 opt.fillchars = {
   fold = " ",
   foldclose = "",
