@@ -77,7 +77,6 @@ u.config.enable_bash_aliases()
 u.autocmd.autoresize_splits_at_window_resize()
 u.autocmd.highlight_yanked_text({ timeout = 100 })
 u.autocmd.save_cursor_position_in_file()
-u.autocmd.set_bash_ft_from_shebang()
 u.autocmd.setup_term_opts({ number = false, relativenumber = false, spell = false })
 
 u.helpers.set_redirection_cmd()

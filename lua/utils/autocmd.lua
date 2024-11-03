@@ -97,23 +97,6 @@ function Autocmds.save_cursor_position_in_file()
   ]])
 end
 
----Sets an autocmd that evaluate the shebang of `sh` files and set the filetype
----to `bash` if matches.
-function Autocmds.set_bash_ft_from_shebang()
-  api.nvim_create_autocmd({ "Filetype" }, {
-    group = Autocmds.group_id,
-    desc = "Set the filetype based on the shebang header (for .sh files).",
-    pattern = { "sh" },
-    callback = function()
-      local line = vim.fn.getline(1)
-      local pattern1, pattern2 = "^#!.*/bin/env%s+bash", "^#!.*/bin/bash"
-      if string.match(line, pattern1) or string.match(line, pattern2) then
-        api.nvim_set_option_value("filetype", "bash", { buf = 0 })
-      end
-    end,
-  })
-end
-
 ---This function automatically creates a custom mapping defined by the provided
 ---`keymap` when the specified `filetype` is detected. When pressed the mapping,
 ---it run the passed external command (`ext_cmd`).
