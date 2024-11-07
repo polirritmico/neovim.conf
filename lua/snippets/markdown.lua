@@ -76,4 +76,21 @@ return {
     { trig = [[(.*)%.%.%.]], trigEngine = "pattern", name = "Puntos suspensivos" },
     f(function(_, snip) return snip.captures[1] .. "…" end, {})
   ),
+
+  s(
+    {
+      trig = "prettierignore",
+      desc = "Prettier format ignore region",
+    },
+    fmt(
+      [[
+      <!-- prettier-ignore-start -->
+      {}
+      <!-- prettier-ignore-end -->
+      ]],
+      {
+        i(1),
+      }
+    )
+  ),
 }
