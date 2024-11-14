@@ -68,11 +68,12 @@ end
 ---Set <C-arrow> keys to resize the current window according to its position on
 ---the screen.
 function Config.set_win_resize_keys()
+  local modes = { "n", "v", "i" }
   -- stylua: ignore start
-  Config.set_keymap("n", "<C-Up>", function() Config.win_resize("k") end, "Resize window")
-  Config.set_keymap("n", "<C-Down>", function() Config.win_resize("j") end, "Resize window")
-  Config.set_keymap("n", "<C-Left>", function() Config.win_resize("h") end, "Resize window")
-  Config.set_keymap("n", "<C-Right>", function() Config.win_resize("l") end, "Resize window")
+  Config.set_keymap(modes, "<C-Up>", function() Config.win_resize("k") end, "Resize window")
+  Config.set_keymap(modes, "<C-Down>", function() Config.win_resize("j") end, "Resize window")
+  Config.set_keymap(modes, "<C-Left>", function() Config.win_resize("h") end, "Resize window")
+  Config.set_keymap(modes, "<C-Right>", function() Config.win_resize("l") end, "Resize window")
   -- stylua: ignore end
 end
 
