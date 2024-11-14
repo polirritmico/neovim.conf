@@ -62,6 +62,46 @@ function Writing.lorem(paragraphs)
   vim.cmd("stopinsert")
 end
 
+---Move the cursor to the next link in the line
+---Loops over multiple links in the same line.
+function Writing.next_link()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local winnr = vim.api.nvim_get_current_win()
+  local curline, curcol = unpack(vim.api.nvim_win_get_cursor(winnr)) -- line 1-idx, col 0-idx
+
+  local function set_cursor_pos(node)
+    if node then
+      local _, node_col = node:range()
+      vim.api.nvim_win_set_cursor(winnr, { curline, node_col })
+    end
+  end
+
+  local lang = "markdown_inline"
+  local capture = "markup.link"
+  local node_type = "link_destination"
+
+  local ts_parser = vim.treesitter.get_parser(bufnr, lang)
+  local query = assert(vim.treesitter.query.get(lang, "highlights"))
+  local root = ts_parser:parse()[1]:root()
+
+  local left_node
+  for id, node, _ in query:iter_captures(root, bufnr, 0, -1) do
+    if query.captures[id] == capture and node:type() == node_type then
+      local node_line, node_col = node:range()
+      if node_line + 1 == curline then -- node_line 0-idx
+        if not left_node then
+          left_node = node
+        end
+        if node_col > curcol then
+          set_cursor_pos(node)
+          return
+        end
+      end
+    end
+  end
+  set_cursor_pos(left_node)
+end
+
 -------------------------------------------------------------------------------
 
 ---Create a location-list TOC from the current file TS tree

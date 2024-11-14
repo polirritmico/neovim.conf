@@ -11,3 +11,4 @@ vim.opt.tabstop = 2
 
 map("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
 map("n", "gO", u.writing.loclist_toc_markdown, "TOC in the quickfix list")
+map("n", "gl", u.writing.next_link, "Move to the next link in the line")
