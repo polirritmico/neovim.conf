@@ -194,6 +194,7 @@ return {
       { "<leader>rtc", function() require("neotest").output_panel.clear() end, desc = "neotest: Clean the output panel" },
     },
     opts = {
+      log_level = vim.log.levels.OFF, -- default: WARN
       output = { open_on_run = true },
       summary = { open = "topleft vsplit | vertical resize 45" }, -- right: botright
       status = { virtual_text = true },

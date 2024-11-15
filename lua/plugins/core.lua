@@ -134,7 +134,7 @@ return {
       { "<leader>tF", utils.plugins.conform_toggle_local, desc = "Conform: Enable/Disable autoformat-on-save for the current buffer." },
     },
     opts = {
-      log_level = nil, -- default: vim.log.levels.ERROR
+      log_level = vim.log.levels.OFF, -- default: ERROR
       formatters_by_ft = {
         ["*"] = { "trim_whitespace" },
         css = { "prettier" },
@@ -331,6 +331,7 @@ return {
         "stylua", -- Lua formatter
         "texlab", -- LaTeX language server
       },
+      log_level = vim.log.levels.OFF, -- default: INFO
       ui = { border = "rounded" },
     },
     config = function(_, opts)
@@ -392,6 +393,7 @@ return {
         },
       }
       ls.setup(opts)
+      ls.log.set_loglevel("error") -- :h luasnip-logging
     end,
     keys = {
       {

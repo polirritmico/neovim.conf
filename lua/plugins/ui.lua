@@ -279,6 +279,7 @@ return {
       views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
     },
     config = function(_, opts)
+      require("noice.util.call").log = function() end -- disable logs?
       require("noice").setup(opts)
 
       local n_docs = require("noice.lsp.docs")
