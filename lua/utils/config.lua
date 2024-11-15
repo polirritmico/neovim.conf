@@ -17,7 +17,7 @@ end
 ---Wrapper to center the screen after vim.lsp.buf.definition (async)
 ---execution: `gd` -> `gdzz`.
 ---@return function
-function Config.lsp_definition_centered()
+function Config.lsp_centered_definition()
   local method = "textDocument/definition"
   local definiton_handler = require("vim.lsp.handlers")[method]
   local mk_position_params = require("vim.lsp.util").make_position_params
@@ -26,6 +26,15 @@ function Config.lsp_definition_centered()
       definiton_handler(...)
       vim.api.nvim_feedkeys("zz", "n", true)
     end)
+  end
+end
+
+---Toggle LSP diagnostic (mainly hide virtual-text messages)
+function Config.lsp_toggle_diagnostics()
+  return function()
+    local state = vim.diagnostic.is_enabled()
+    vim.diagnostic.enable(not state)
+    vim.notify("LSP: Diagnostics " .. (state and "disabled" or "enabled"))
   end
 end
 

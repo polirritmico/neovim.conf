@@ -187,97 +187,86 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    config = function()
-      --- Keys
-
-      local function toggle_lsp_diag()
-        local state = vim.diagnostic.is_enabled()
-        vim.diagnostic.enable(not state)
-        vim.notify("LSP: Diagnostics " .. (state and "disabled" or "enabled"))
-      end
-
-      local function lspkey(key, fn, desc, ev)
-        vim.keymap.set("n", key, fn, { buffer = ev.buf, desc = "LSP: " .. desc })
-      end
-
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-        desc = "LSP actions",
-        -- stylua: ignore
-        callback = function(event)
-          local buf = vim.lsp.buf
-          lspkey("gD", buf.declaration, "Go to declaration", event)
-          lspkey("gd", utils.config.lsp_definition_centered(), "Go to definition (centered)", event)
-          lspkey("gi", buf.implementation, "Go to implementation", event)
-          lspkey("go", buf.type_definition, "Go to type definition (origin)", event)
-          lspkey("gr", buf.references, "View references", event)
-          lspkey("gs", buf.signature_help, "Function/Signature hover info", event)
-          lspkey("<F1>", vim.diagnostic.open_float, "Open float info", event)
-          lspkey("<F2>", buf.rename, "Rename object", event)
-          -- <F3> (format current buffer) is handled by Conform
-          lspkey("<F4>", buf.code_action, "Code action", event)
-          lspkey("<leader>gq", vim.diagnostic.setloclist, "Set loclist", event)
-          lspkey("<leader>tD", toggle_lsp_diag, "Toggle diagnostics", event)
-        end,
-      })
-
-      -------------------------------------------------------------------------
-
-      --- Servers configurations (`:h lspconfig-configurations`)
-      local servers_configs = {
-        ansiblels = {},
-        clangd = {
-          cmd = { "clangd", "--fallback-style=WebKit" },
-        },
-        cssls = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = { checkThirdParty = false },
-              completion = { callSnippet = "Replace" },
-            },
+    --- Servers configurations (`:h lspconfig-configurations`)
+    opts = {
+      ansiblels = {},
+      clangd = {
+        cmd = { "clangd", "--fallback-style=WebKit" },
+      },
+      cssls = {},
+      lua_ls = {
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            completion = { callSnippet = "Replace" },
           },
         },
-        marksman = {},
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                black = { enabled = true },
-                pylsp_mypy = { enabled = true },
-                pycodestyle = {
-                  maxLineLength = 88,
-                  ignore = { "E203", "E265", "E501", "W391", "W503" },
-                },
+      },
+      marksman = {},
+      pylsp = {
+        settings = {
+          pylsp = {
+            plugins = {
+              black = { enabled = true },
+              pylsp_mypy = { enabled = true },
+              pycodestyle = {
+                maxLineLength = 88,
+                ignore = { "E203", "E265", "E501", "W391", "W503" },
               },
             },
           },
         },
-        texlab = {
-          settings = {
-            texlab = {
-              rootDirectory = ".",
-              latexFormatter = "texlab",
-            },
+      },
+      texlab = {
+        settings = {
+          texlab = {
+            rootDirectory = ".",
+            latexFormatter = "texlab",
           },
         },
-        tsserver = { enabled = false },
-        vtsls = {
-          settings = {
-            complete_function_calls = true,
-          },
-          typescript = {
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
+      },
+      tsserver = { enabled = false },
+      vtsls = {
+        settings = {
+          complete_function_calls = true,
+        },
+        typescript = {
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
           },
         },
-      }
+      },
+      set_keys = function(ev)
+        for _, k in pairs({
+          { "gD", vim.lsp.buf.declaration, "Go to declaration" },
+          { "gd", utils.config.lsp_centered_definition(), "Go to definition" },
+          { "gi", vim.lsp.buf.implementation, "Go to implementation" },
+          { "go", vim.lsp.buf.type_definition, "Go to type definition (origin)" },
+          { "gr", vim.lsp.buf.references, "View references" },
+          { "gs", vim.lsp.buf.signature_help, "Function/Signature hover info" },
+          { "<F1>", vim.diagnostic.open_float, "Open float info" },
+          { "<F2>", vim.lsp.buf.rename, "Rename object" },
+          -- <F3> (format current buffer) is handled by Conform
+          { "<F4>", vim.lsp.buf.code_action, "Code action" },
+          { "<leader>gq", vim.diagnostic.setloclist, "Set loclist" },
+          { "<leader>tD", utils.config.lsp_toggle_diagnostics(), "Toggle diagnostics" },
+        }) do
+          vim.keymap.set("n", k[1], k[2], { buffer = ev.buf, desc = "LSP: " .. k[3] })
+        end
+      end,
+    },
+    config = function(_, servers_configs)
+      -- Only attach keys if there is a working server
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = utils.autocmd.group_id,
+        desc = "LSP: Attach actions to the current buffer",
+        callback = servers_configs.set_keys,
+      })
 
       -- Add cmp capabilities to nvim defaults
       local capabilities = vim.tbl_deep_extend(
@@ -286,7 +275,7 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
-      -- Apply servers configurations
+      -- Apply server configurations
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
@@ -299,15 +288,13 @@ return {
         },
       })
 
-      -------------------------------------------------------------------------
-
-      -- Add borders to Hover when Noice is not in the Lazy plugins spec.
+      -- Add borders to Hover when Noice is not in the Lazy plugins spec
       if not require("lazy.core.config").spec.plugins["noice.nvim"] then
         vim.lsp.handlers["textDocument/hover"] =
           vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
       end
 
-      -- Disable log
+      -- Disable logs
       vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
     end,
   },
