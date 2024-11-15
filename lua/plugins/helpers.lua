@@ -21,6 +21,7 @@ return {
     },
     opts = {
       buf_options = { buflisted = true },
+      cleanup_delay_ms = 500,
       keymaps = {
         ["_"] = "actions.select",
         ["<C-h>"] = "actions.toggle_hidden",
