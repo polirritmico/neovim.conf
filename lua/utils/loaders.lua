@@ -4,8 +4,8 @@
 local Loaders = {}
 
 ---Global helper function to pretty print variables.
----@param ... any Variable or variables to pretty print
----@return any -- Return the variables unpacked
+---@param ... any Item(s) to pretty print
+---@return any -- Return the item(s) unpacked
 function P(...)
   local args = { ... }
   local mapped = {}
@@ -61,7 +61,7 @@ end
 ---If an error is detected it will load the fallback settings and **ask the
 ---user** to open or not the offending file.
 ---@param fallbacks? boolean `true` to load fallback settings if errors are found.
----@return boolean -- Returns `false` if errors are detected. `false` otherwise.
+---@return boolean -- Returns `true` if no errors are detected.
 function Loaders.check_errors(fallbacks)
   if #Loaders.catched_errors == 0 then
     return true
