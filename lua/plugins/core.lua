@@ -187,61 +187,62 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    --- Servers configurations (`:h lspconfig-configurations`)
     opts = {
-      ansiblels = {},
-      clangd = {
-        cmd = { "clangd", "--fallback-style=WebKit" },
-      },
-      cssls = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            completion = { callSnippet = "Replace" },
+      servers_configs = { -- :h lspconfig-configurations
+        ansiblels = {},
+        clangd = {
+          cmd = { "clangd", "--fallback-style=WebKit" },
+        },
+        cssls = {},
+        lua_ls = {
+          settings = {
+            Lua = {
+              workspace = { checkThirdParty = false },
+              completion = { callSnippet = "Replace" },
+            },
           },
         },
-      },
-      marksman = {},
-      pylsp = {
-        settings = {
-          pylsp = {
-            plugins = {
-              black = { enabled = true },
-              pylsp_mypy = { enabled = true },
-              pycodestyle = {
-                maxLineLength = 88,
-                ignore = { "E203", "E265", "E501", "W391", "W503" },
+        marksman = {},
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                black = { enabled = true },
+                pylsp_mypy = { enabled = true },
+                pycodestyle = {
+                  maxLineLength = 88,
+                  ignore = { "E203", "E265", "E501", "W391", "W503" },
+                },
               },
             },
           },
         },
-      },
-      texlab = {
-        settings = {
-          texlab = {
-            rootDirectory = ".",
-            latexFormatter = "texlab",
+        texlab = {
+          settings = {
+            texlab = {
+              rootDirectory = ".",
+              latexFormatter = "texlab",
+            },
+          },
+        },
+        tsserver = { enabled = false },
+        vtsls = {
+          settings = {
+            complete_function_calls = true,
+          },
+          typescript = {
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
           },
         },
       },
-      tsserver = { enabled = false },
-      vtsls = {
-        settings = {
-          complete_function_calls = true,
-        },
-        typescript = {
-          inlayHints = {
-            enumMemberValues = { enabled = true },
-            functionLikeReturnTypes = { enabled = true },
-            parameterNames = { enabled = "literals" },
-            parameterTypes = { enabled = true },
-            propertyDeclarationTypes = { enabled = true },
-            variableTypes = { enabled = false },
-          },
-        },
-      },
-      set_keys = function(ev)
+      keys = function(ev)
         for _, k in pairs({
           { "gD", vim.lsp.buf.declaration, "Go to declaration" },
           { "gd", utils.config.lsp_centered_definition(), "Go to definition" },
@@ -260,12 +261,12 @@ return {
         end
       end,
     },
-    config = function(_, servers_configs)
+    config = function(_, opts)
       -- Only attach keys if there is a working server
       vim.api.nvim_create_autocmd("LspAttach", {
         group = utils.autocmd.group_id,
         desc = "LSP: Attach actions to the current buffer",
-        callback = servers_configs.set_keys,
+        callback = opts.keys,
       })
 
       -- Add cmp capabilities to nvim defaults
@@ -280,7 +281,7 @@ return {
         handlers = {
           function(server_name)
             server_name = server_name == "tsserver" and "ts_ls" or server_name
-            local server = servers_configs[server_name] or {}
+            local server = opts.servers_configs[server_name] or {}
             server.capabilities =
               vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
             require("lspconfig")[server_name].setup(server)
