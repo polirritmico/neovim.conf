@@ -98,4 +98,44 @@ function Loaders.check_errors(fallbacks)
   return false
 end
 
+---Configures a debug session using nvim-dap and osv.
+---Supports manual (<F10>) or auto initialization debug.
+---@param auto_start? boolean Enables Nvim initialization debug mode.
+function Loaders.set_debugger(auto_start)
+  -- Add the DAP client and the Lua adapter plugins
+  local dappath = vim.fn.stdpath("data") .. "/lazy/nvim-dap"
+  local osvpath = vim.fn.stdpath("data") .. "/lazy/one-small-step-for-vimkind"
+  vim.opt.rtp:prepend(dappath)
+  vim.opt.rtp:prepend(osvpath)
+
+  -- Config Dap
+  local port = 8086
+  local dap = require("dap")
+
+  dap.adapters.nlua = function(callback, config)
+    ---@diagnostic disable [undefined-field]
+    callback({
+      type = "server",
+      host = config.host or "127.0.0.1",
+      port = config.port or port,
+    })
+  end
+  dap.configurations.lua = {
+    {
+      type = "nlua",
+      request = "attach",
+      name = "Attach to running Neovim instance",
+    },
+  }
+  vim.notify("DAP and Lua adapter enabled")
+
+  if auto_start then
+    vim.notify("Waiting for a client connection", vim.log.levels.INFO)
+    require("osv").launch({ port = port, blocking = true })
+  else
+    vim.keymap.set("", "<F10>", function() require("osv").launch({ port = port }) end)
+    vim.notify("Press <F10> to start the debuggee session", vim.log.levels.INFO)
+  end
+end
+
 return Loaders

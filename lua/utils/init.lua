@@ -19,10 +19,15 @@ Utils.load = loaders.load_config
 Utils.check_errors = loaders.check_errors
 
 ---Helper function to require utils submodules with protected calls.
----@param opts? {debug?: boolean}
+---
+---Could set a DAP debug session through `opts.debug` and `opts.auto_init`.
+---@param opts? {debug?: boolean, auto_start?: boolean}
 function Utils.load_utils(opts)
-  local load = loaders.load_config
+  if opts and opts.debug then
+    loaders.set_debugger(opts.auto_start)
+  end
 
+  local load = loaders.load_config
   Utils.autocmd = load("utils.autocmd")
   Utils.config = load("utils.config")
   Utils.custom = load("utils.custom")
@@ -31,10 +36,6 @@ function Utils.load_utils(opts)
   Utils.writing = load("utils.writing")
 
   assert(loaders.check_errors())
-
-  if opts and opts.debug then
-    Utils.helpers.set_debug()
-  end
 end
 
 return Utils
