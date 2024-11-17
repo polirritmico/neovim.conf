@@ -9,7 +9,7 @@ local UtilsProfiler = {}
 ---
 ---> ***WARNING:*** This uses **a lot** of memory so keep it short (like >5MB/s).
 ---
----**Usage:**
+---**Usage (two possible modes):**
 ---
 ---- **Automatic profile:**
 ---  1. Set the start point with `require("utils.profiler").setup()`
