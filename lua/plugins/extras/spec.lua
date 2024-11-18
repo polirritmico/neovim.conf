@@ -69,6 +69,12 @@ return {
       }
     end,
   },
+  --- Some UI improvements
+  {
+    "stevearc/dressing.nvim",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    config = true,
+  },
   --- Local patches to plugins installed through lazy.nvim
   {
     "polirritmico/lazy-local-patcher.nvim",
