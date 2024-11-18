@@ -59,6 +59,12 @@ map("n", "<C-S-I>", "`^", "Go to the last cursor position in Insert mode")
 -- Resize window using <ctrl> arrow keys
 u.config.set_win_resize_keys()
 
+-- Tabs
+map("n", "<C-t>s", "<Cmd>tabnew<CR>")
+map("n", "<C-t>c", "<Cmd>tabclose<CR>")
+map("n", "<C-t>l", "<Cmd>tabnext<CR>")
+map("n", "<C-t>h", "<Cmd>tabprevious<CR>")
+
 -------------------------------------------------------------------------------
 --- Adjust defaults behaviour
 
