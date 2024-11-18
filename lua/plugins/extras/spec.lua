@@ -97,7 +97,7 @@ return {
     opts = {
       file_types = { "markdown", "norg", "rmd", "org" },
       latex = { enabled = false },
-      log_level = "error",
+      log_level = "off",
       code = {
         sign = false,
         width = "block",
