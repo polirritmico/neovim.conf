@@ -104,7 +104,7 @@ end
 
 -------------------------------------------------------------------------------
 
----Create a location-list TOC from the current file TS tree
+---Create a vertical location-list TOC from the current file TS tree
 ---@param lang string
 ---@param ts_query string
 ---@param text_process fun(raw_text: string, node: TSNode): string
@@ -150,7 +150,8 @@ function Writing.toc_to_loclist(lang, ts_query, text_process, hide_locl)
   local winnr = api.nvim_get_current_win()
   vim.fn.setloclist(winnr, doc_sections)
   vim.fn.setloclist(winnr, {}, "a", { title = lang:upper() .. " TOC" })
-  vim.cmd("lopen")
+  vim.cmd("vert lopen")
+  vim.cmd("vertical resize 33 | setlocal winfixwidth")
 
   bufnr = api.nvim_win_get_buf(0)
   api.nvim_set_option_value("modifiable", true, { buf = bufnr })

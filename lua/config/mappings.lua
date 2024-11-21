@@ -117,6 +117,7 @@ map("n", "<leader>tl", function() toggle("relativenumber", { global = true }) en
 
 --- Toggle special windows:
 map("n", "<leader>tq", u.custom.toggle_quickfix, "Show/Hide quickfix list")
+map("n", "<leader>tQ", u.custom.toggle_loclist, "Show/Hide the loclist")
 map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a shell terminal at the bottom")
 
 -------------------------------------------------------------------------------

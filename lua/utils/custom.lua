@@ -148,6 +148,17 @@ function Custom.toggle_quickfix()
   vim.cmd.copen()
 end
 
+---Show/Hide the loclist.
+function Custom.toggle_loclist()
+  for _, win in ipairs(vim.fn.getwininfo()) do
+    if win.loclist == 1 then
+      vim.cmd.lclose()
+      return
+    end
+  end
+  vim.cmd("vertical lopen | vertical resize 33 | setlocal winfixwidth")
+end
+
 ---@class UtilsCustomTermState:nil
 ---@field win integer
 ---@field buf integer
