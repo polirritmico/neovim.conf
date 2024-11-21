@@ -139,9 +139,9 @@ u.autocmd.set_runner("tex", "!xelatex -synctex=1 -interaction=batchmode -halt-on
 u.autocmd.set_runner("lua", "PlenaryBustedFile %:p")
 
 -- Setup custom spell commands
-map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Enable english spell check")
-map({ "n", "v" }, "<leader>Se", "<Cmd>Spelles<CR>", "Enable spanish spell check")
-map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Disable spell check")
+map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Spell: Enable english check")
+map({ "n", "v" }, "<leader>Se", "<Cmd>Spelles<CR>", "Spell: Enable spanish check")
+map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Spell: Disable checks")
 
 -- Shortcuts to configuration files (some of this maps are overwritten by Telescope)
 map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
