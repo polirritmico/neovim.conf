@@ -8,6 +8,9 @@ vim.bo.textwidth = 80
 
 local fmtopts = "clrqj" -- tcqj
 vim.bo.formatoptions = fmtopts
+---Toggle `at` formatoptions settings:
+---- `a`: Automatic formatting of paragraphs when text is inserted or deleted
+---- `t`: Auto-wrap
 local function toggle_fmtopts()
   vim.bo.formatoptions = vim.bo.formatoptions == fmtopts and fmtopts .. "ta" or fmtopts
   vim.notify(string.format("Updated formatoptions: %s", vim.bo.formatoptions))
