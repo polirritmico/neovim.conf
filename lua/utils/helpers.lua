@@ -26,6 +26,13 @@ function Helpers.chmod_exe(valid_filetypes)
   )
 end
 
+---Open the application at the path of the current buffer. (Defaults to KDE Dolphin)
+---@param app string
+function Helpers.open_at_buffpath(app)
+  app = app or "dolphin"
+  vim.system({ app, vim.fn.expand("%:p:h") }, { detach = true })
+end
+
 ---Redirects the output of the passed command-line into a buffer.
 ---**Usage:** `:Redir <command>` or `:Redir! <command>`.
 ---Similar to `:r` but with support for lua functions `:Redir lua foo()`.

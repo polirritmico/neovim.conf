@@ -74,13 +74,6 @@ function Custom.fold_text()
   return res
 end
 
----Open the application at the path of the current buffer. (Defaults to KDE Dolphin)
----@param app string
-function Custom.open_at_buffpath(app)
-  app = app or "dolphin"
-  vim.system({ app, vim.fn.expand("%:p:h") }, { detach = true })
-end
-
 ---Check if `ScratchNotesPath` exists. If not ask for the user to create it.
 local function check_ScratchNotesPath()
   if vim.fn.finddir(ScratchNotesPath) == "" then

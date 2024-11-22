@@ -126,7 +126,7 @@ map("n", "<leader>ts", u.custom.toggle_term, "Open/Close a shell terminal at the
 map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
 
 -- Open Dolphin at buffer path
-map("n", "<leader>CD", u.custom.open_at_buffpath, "Open desktop file browser at buffer path")
+map("n", "<leader>CD", u.helpers.open_at_buffpath, "Open desktop file browser at buffer path")
 
 -- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
