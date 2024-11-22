@@ -87,12 +87,12 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons", -- alternative: "echasnovski/mini.icons",
+      "nvim-tree/nvim-web-devicons",
     },
     ft = { "markdown", "norg", "rmd", "org" },
+    -- stylua: ignore
     keys = {
-      -- stylua: ignore
-      { "<leader>tm", function() require("render-markdown").toggle() end, ft = "markdown", desc = "RenderMarkdown: Enable/Disable" },
+      { "<leader>mt", function() require("render-markdown").toggle() end, ft = "markdown", desc = "RenderMarkdown: Enable/Disable" },
     },
     opts = {
       file_types = { "markdown", "norg", "rmd", "org" },
@@ -121,7 +121,7 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader>rm", "<Cmd>MarkdownPreviewToggle<CR>", ft = "markdown", desc = "MarkdownPreview: Toggle" },
+      { "<leader>mr", "<Cmd>MarkdownPreviewToggle<CR>", ft = "markdown", desc = "MarkdownPreview: Toggle" },
     },
     config = function() vim.cmd([[do FileType]]) end,
   },
