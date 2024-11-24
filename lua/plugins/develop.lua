@@ -210,7 +210,6 @@ return {
     },
     config = function(_, opts)
       opts.adapters = {
-        -- BUG: https://github.com/nvim-neotest/neotest/issues/428 busted fail
         require("neotest-python")(opts.python),
         require("neotest-busted")(opts.busted),
       }
@@ -246,14 +245,13 @@ return {
       },
     },
   },
-  --- Profiler
+  --- Profiler. Check the utils.profiler module for helper functions
   {
     "stevearc/profile.nvim",
     enabled = Workstation,
     cond = false,
     priority = 1500,
     lazy = false,
-    -- Use utils.plugins.toggle_profile() to begin/end the profiler
   },
   --- Show highlights applied to variables names and virtual text marks
   {
