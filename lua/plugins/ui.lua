@@ -62,65 +62,21 @@ return {
     opts = function()
       local opts = {
         theme = "doom",
-        hide = { statusline = true },
+        -- BUG: if set to true, changes laststatus to 2 when changing vim.o.background
+        hide = { statusline = false },
         config = {
           vertical_center = true,
-          header = {
-            "",
-            [[Neovim :: E B R Λ Y]],
-            [[🄯 2024]],
-            "",
-            "",
-          },
+          header = { "", [[Neovim :: E B R Λ Y]], [[🄯 2024]], "", "" },
+          -- stylua: ignore
           center = {
-            {
-              action = "ene | startinsert",
-              desc = " New file",
-              icon = " ",
-              key = "e",
-            },
-            {
-              action = require("utils.plugins").mini_sessions_manager,
-              desc = " Restore Session",
-              icon = " ",
-              key = "<leader>ss",
-            },
-            {
-              action = "Telescope find_files",
-              desc = " Find file",
-              icon = " ",
-              key = "<leader>ff",
-            },
-            {
-              action = "Telescope oldfiles",
-              desc = " Recent files",
-              icon = " ",
-              key = "<leader>fr",
-            },
-            {
-              action = "lua require('osv').launch({ port = 8086 })",
-              desc = " Debug session",
-              icon = "󰖷 ",
-              key = "<F10>",
-            },
-            {
-              action = "Telescope find_files cwd=~/.config/nvim",
-              desc = " Config files",
-              icon = " ",
-              key = "<leader>cc",
-            },
-            {
-              action = "Telescope lazy_plugins",
-              desc = " Config plugins",
-              icon = " ",
-              key = "<leader>cp",
-            },
-            {
-              action = "Lazy",
-              desc = " Lazy",
-              icon = "󰒲 ",
-              key = "<leader>cl",
-            },
+            { action = "ene | startinsert", desc = " New file", icon = " ", key = "e" },
+            { action = require("utils.plugins").mini_sessions_manager, desc = " Restore Session", icon = " ", key = "<leader>ss" },
+            { action = "Telescope find_files", desc = " Find file", icon = " ", key = "<leader>ff" },
+            { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "<leader>fr" },
+            { action = "lua require('osv').launch({ port = 8086 })", desc = " Debug session", icon = "󰖷 ", key = "<F10>" },
+            { action = "Telescope find_files cwd=~/.config/nvim", desc = " Config files", icon = " ", key = "<leader>cc" },
+            { action = "Telescope lazy_plugins", desc = " Config plugins", icon = " ", key = "<leader>cp" },
+            { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "<leader>cl" },
             { action = "qa", desc = " Quit", icon = " ", key = "q" },
           },
           footer = function()
@@ -256,8 +212,6 @@ return {
   --- Noice. A lot of ui messages
   {
     "folke/noice.nvim",
-    -- FIX: cmdline cursor flickr: https://github.com/folke/noice.nvim/issues/953
-    version = "4.4.7",
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
