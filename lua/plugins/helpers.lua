@@ -35,6 +35,12 @@ return {
       },
     },
   },
+  --- Syntax highlight for log files
+  {
+    "fei6409/log-highlight.nvim",
+    ft = { "log" },
+    opts = {},
+  },
   --- Surround operations
   {
     "kylechui/nvim-surround",
