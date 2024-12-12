@@ -109,6 +109,9 @@ return {
         sign = false,
         icons = {},
       },
+      html = {
+        comment = { conceal = false },
+      },
     },
   },
   --- Markdown view auto-uptdated rendered document

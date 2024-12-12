@@ -211,7 +211,7 @@ return {
                 pylsp_mypy = { enabled = true },
                 pycodestyle = {
                   maxLineLength = 88,
-                  ignore = { "E203", "E265", "E501", "W391", "W503" },
+                  ignore = { "E203", "E265", "E501", "E704", "W391", "W503" },
                 },
               },
             },
@@ -596,7 +596,10 @@ return {
     opts = {
       auto_install = true,
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = {
+        enable = true,
+        disable = { "python" }, -- Awfull experience
+      },
       incremental_selection = {
         enable = true,
         keymaps = {
