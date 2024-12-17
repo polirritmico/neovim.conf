@@ -24,6 +24,10 @@ return {
       local defaults = require("cmp.config.default")()
       local luasnip = require("luasnip")
 
+      local win_opts = {
+        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+      }
+
       return {
         completion = { completeopt = "menu,menuone,noinsert" },
         enabled = utils.plugins.cmp_enabled,
@@ -91,8 +95,8 @@ return {
         -- Add border to popup window
         window = {
           -- NOTE: Max menu height size is controlled by nvim pumheight option
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered(win_opts),
+          documentation = cmp.config.window.bordered(win_opts),
         },
         -- Custom extended cmdline opts
         cmdline = {
