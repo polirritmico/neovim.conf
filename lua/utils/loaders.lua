@@ -5,7 +5,7 @@ local Loaders = {}
 
 ---Global helper function to pretty print variables.
 ---@param ... any Item(s) to pretty print
----@return any -- Return the item(s) unpacked
+---@return ... -- Return the item(s) unpacked
 function P(...)
   local args = { ... }
   local mapped = {}
