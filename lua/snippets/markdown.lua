@@ -79,7 +79,7 @@ return {
 
   s(
     {
-      trig = "prettierignore",
+      trig = "ignoreprettier",
       desc = "Prettier format ignore region",
     },
     fmt(

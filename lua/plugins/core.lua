@@ -229,7 +229,7 @@ return {
             },
           },
         },
-        tsserver = { enabled = false },
+        -- tsserver = { enabled = false },
         vtsls = {
           settings = {
             complete_function_calls = true,
@@ -281,6 +281,8 @@ return {
       )
 
       -- Apply server configurations
+      -- BUG: https://github.com/williamboman/mason-lspconfig.nvim/issues/500
+      ---@diagnostic disable [missing-fields]
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
@@ -322,6 +324,7 @@ return {
         "shfmt", -- Bash/sh formatter
         "stylua", -- Lua formatter
         "texlab", -- LaTeX language server
+        "vtsls", -- TypeScript language server
       },
       log_level = vim.log.levels.OFF, -- default: INFO
       ui = { border = "rounded" },
