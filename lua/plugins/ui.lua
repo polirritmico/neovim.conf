@@ -20,7 +20,7 @@ return {
       lualine_bold = true,
       markdown_header_marks = true,
       cache = true,
-      -- hl_styles = { comments = { italic = false } },
+      -- hl_styles = { comments = { italic = false }, floats = "transparent", },
       terminal_colors = function(colors) return { fg = colors.fg_dark } end,
     },
     config = function(_, opts)

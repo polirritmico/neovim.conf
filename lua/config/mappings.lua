@@ -138,6 +138,7 @@ u.autocmd.set_runner("c", "!gcc % -o %:t:r -g; ./%:t:r")
 u.autocmd.set_runner("bash", "!./%")
 u.autocmd.set_runner("tex", "!xelatex -synctex=1 -interaction=batchmode -halt-on-error %")
 u.autocmd.set_runner("lua", "PlenaryBustedFile %:p")
+u.autocmd.set_runner("typescript", "!tsc")
 
 -- Setup custom spell commands
 map({ "n", "v" }, "<leader>Si", "<Cmd>Spellen<CR>", "Spell: Enable english check")
