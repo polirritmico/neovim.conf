@@ -25,6 +25,9 @@ return {
         { "<Leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Add a conditional breakpoint" },
         { "<Leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "DAP: Add a logpoint into the current line" },
       },
+      config = function()
+        vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticInfo" })
+      end,
       dependencies = {
         {
           "mfussenegger/nvim-dap-python",
