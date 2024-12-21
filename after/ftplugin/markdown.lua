@@ -10,5 +10,4 @@ vim.bo.softtabstop = 2
 vim.bo.tabstop = 2
 
 map("n", "<leader>mg", u.writing.lorem, "Markdown: Generate lorem ipsum text")
-map("n", "gO", u.writing.loclist_toc_markdown, "Markdown: TOC in the loclist")
 map("n", "gl", u.writing.next_link, "Markdown: Move to the next link in the line")
