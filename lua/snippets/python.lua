@@ -29,7 +29,7 @@ return {
   ),
 
   s(
-    { trig = "skiptest", name = "Pytest skip", dscr = "Pytest skip test decorator" },
+    { trig = "testskip", name = "Pytest skip", dscr = "Pytest skip test decorator" },
     fmt(
       [[
         #@pytest.mark.skip(reason="{}")
@@ -63,16 +63,14 @@ return {
     { trig = "deftest", name = "Define pytest", dscr = "Layout for pytest test" },
     fmt(
       [[
-        #@pytest.mark.skip(reason="{}")
         def test_{}({}) -> None:
             {}
 
         ]],
       {
-        i(1, "Not implemented"),
-        i(2, "name"),
-        c(3, { i(1, "arg: type"), t("monkeypatch: MonkeyPatch") }),
-        i(4, "pass"),
+        i(1, "name"),
+        c(2, { i(1, "arg: type"), t(""), t("monkeypatch: MonkeyPatch") }),
+        i(3, "pass"),
       }
     )
   ),
