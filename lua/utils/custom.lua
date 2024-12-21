@@ -214,6 +214,7 @@ function Custom.toggle_term()
     assert(term_state, "Error: Creating terminal panel but term_state is nil")
     vim.cmd.term()
     set_buffterm_opts()
+    vim.wo.winfixbuf = true
   end
 
   local function close_terminal()
@@ -231,6 +232,7 @@ function Custom.toggle_term()
     term_state.win = set_panel_window()
     api.nvim_win_set_buf(term_state.win, term_state.buf)
     term_state.open = true
+    vim.wo.winfixbuf = true
     vim.cmd.startinsert()
   end
 
