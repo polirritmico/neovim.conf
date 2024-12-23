@@ -12,15 +12,19 @@ return {
         desc = "Monokai-Nightasty: Toggle dark/light theme.",
       },
     },
+    ---@module "monokai-nightasty"
     ---@type monokai.UserConfig
     opts = {
-      dark_style_background = "transparent",
+      dark_style_background = "default",
       light_style_background = "default",
       color_headers = false,
       lualine_bold = true,
       markdown_header_marks = true,
       cache = true,
-      -- hl_styles = { comments = { italic = false }, floats = "transparent", },
+      -- hl_styles = {
+      --   comments = { italic = true },
+      --   floats = "default",
+      -- },
       terminal_colors = function(colors) return { fg = colors.fg_dark } end,
     },
     config = function(_, opts)
@@ -28,9 +32,9 @@ return {
       vim.o.background = "dark" -- Default to dark theme
 
       -- Open new Nvim instance with light theme between the range time
-      -- if require("utils").config.in_hours_range(1400, 1630) then
-      --   vim.o.background = "light"
-      -- end
+      if require("utils").config.in_hours_range(1400, 1630) then
+        vim.o.background = "light"
+      end
 
       require("monokai-nightasty").load(opts)
     end,

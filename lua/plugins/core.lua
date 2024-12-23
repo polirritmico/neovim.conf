@@ -54,10 +54,11 @@ return {
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
-        min_keyword_length = 0,
+        min_keyword_length = 2,
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
-          buffer = { name = "buff" },
+          buffer = { name = "buff", min_keyword_length = 3 },
+          cmdline = { name = "cmd" },
           lazydev = {
             name = "nvim",
             module = "lazydev.integrations.blink",

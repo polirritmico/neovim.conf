@@ -173,5 +173,5 @@ return {
     )
   ),
 
-  s("fg =", t('fg = "#ff00ff", bg = "#00ff00"')),
+  s("fg=", t('fg = "#ff00ff", bg = "#00ff00"')),
 }
