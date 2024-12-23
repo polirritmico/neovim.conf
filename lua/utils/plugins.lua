@@ -4,6 +4,21 @@ local Plugins = {}
 
 local fmt = string.format
 
+---@module "blink.cmp"
+---@return blink.cmp.SnippetsConfig
+function Plugins.blink_luasnip_cfg()
+  return {
+    expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+    jump = function(direction) require("luasnip").jump(direction) end,
+    active = function(filter)
+      if filter and filter.direction then
+        return require("luasnip").jumpable(filter.direction)
+      end
+      return require("luasnip").in_snippet()
+    end,
+  }
+end
+
 ---Returns a custom nvim-cmp completion menu with the source name in square
 ---brackets and truncated labels for consistent width
 ---@param max_entry_width integer Item names longer than this value would be cut

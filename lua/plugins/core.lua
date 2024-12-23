@@ -3,7 +3,74 @@ local utils = require("utils") ---@type Utils
 return {
   --- Autocompletion
   {
+    "Saghen/blink.cmp",
+    cond = true,
+    version = "*",
+    event = { "InsertEnter", "CmdlineEnter" },
+    init = function()
+      CmpLspPlugin = "blink.cmp" ---@type string Lsp source plugin for autocompletion
+    end,
+    dependencies = { "LuaSnip" },
+    ---@module "blink.cmp"
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        ["<C-j>"] = { "select_and_accept" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-e>"] = { "hide", "show" },
+        ["<C-b>"] = { "scroll_documentation_up" },
+        ["<C-f>"] = { "scroll_documentation_down" },
+      },
+      appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = "normal" },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+          window = { border = "rounded" },
+        },
+        menu = {
+          draw = {
+            columns = {
+              { "kind_icon" },
+              { "label", "label_description", gap = 1 },
+              { "source_name" },
+            },
+            treesitter = { "lsp" },
+            components = {
+              kind_icon = {
+                highlight = function(ctx) return "BlinkCmpKind" .. ctx.kind end,
+              },
+              source_name = {
+                width = { max = 8 },
+                text = function(ctx) return "[" .. ctx.source_name .. "]" end,
+                highlight = "BlinkCmpSource",
+              },
+            },
+          },
+          border = "rounded",
+        },
+      },
+      signature = { enabled = true, window = { border = "rounded" } },
+      snippets = utils.plugins.blink_luasnip_cfg(),
+      sources = {
+        min_keyword_length = 0,
+        default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
+        providers = {
+          buffer = { name = "buff" },
+          lazydev = {
+            name = "nvim",
+            module = "lazydev.integrations.blink",
+            score_offset = 100,
+          },
+          luasnip = { name = "snip" },
+        },
+      },
+    },
+  },
+  {
     "hrsh7th/nvim-cmp",
+    cond = false,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -15,6 +82,7 @@ return {
       "LuaSnip",
     },
     config = function(_, opts)
+      CmpLspPlugin = "cmp-nvim-lsp" ---@type string Lsp source plugin for autocompletion
       local cmp = require("cmp")
       cmp.setup(opts)
       cmp.setup.cmdline(":", opts.cmdline)
@@ -273,12 +341,18 @@ return {
         callback = opts.keys,
       })
 
-      -- Add cmp capabilities to nvim defaults
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities()
-      )
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      -- Add autocompletion capabilities to nvim defaults
+      if CmpLspPlugin == "cmp_nvim_lsp" then
+        capabilities = vim.tbl_deep_extend(
+          "force",
+          capabilities,
+          require("cmp_nvim_lsp").default_capabilities()
+        )
+      elseif CmpLspPlugin == "blink.cmp" then
+        capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+      end
 
       -- Apply server configurations
       -- BUG: https://github.com/williamboman/mason-lspconfig.nvim/issues/500
