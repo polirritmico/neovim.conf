@@ -15,12 +15,25 @@ return {
     ---@type blink.cmp.Config
     opts = {
       keymap = {
+        preset = "enter",
         ["<C-j>"] = { "select_and_accept" },
-        ["<C-p>"] = { "select_prev", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
-        ["<C-e>"] = { "hide", "show" },
-        ["<C-b>"] = { "scroll_documentation_up" },
-        ["<C-f>"] = { "scroll_documentation_down" },
+        cmdline = {
+          preset = "super-tab",
+          ["<Tab>"] = { "show", "select_next", "accept" },
+          -- ["<Tab>"] = {
+          --   c = function()
+          --     if cmp.visible() then
+          --       if #cmp.get_entries() == 1 then
+          --         cmp.confirm({ select = true })
+          --       else
+          --         cmp.select_next_item()
+          --       end
+          --     else
+          --       cmp.complete()
+          --     end
+          --   end,
+          -- },
+        },
       },
       appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = "normal" },
       completion = {
@@ -29,7 +42,9 @@ return {
           auto_show_delay_ms = 200,
           window = { border = "rounded" },
         },
+        list = { selection = "auto_insert" },
         menu = {
+          border = "rounded",
           draw = {
             columns = {
               { "kind_icon" },
@@ -48,17 +63,22 @@ return {
               },
             },
           },
-          border = "rounded",
+        },
+        trigger = {
+          show_on_trigger_character = true,
         },
       },
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
-        min_keyword_length = 2,
+        min_keyword_length = function(ct) return ct.update_type == "manual" and 0 or 2 end,
+        cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
-          cmdline = { name = "cmd" },
+          cmdline = {
+            name = "cmd",
+          },
           lazydev = {
             name = "nvim",
             module = "lazydev.integrations.blink",
