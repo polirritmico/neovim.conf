@@ -1,5 +1,5 @@
 return {
-  --- Best colorscheme for nvim
+  --- The best colorscheme for nvim
   {
     "polirritmico/monokai-nightasty.nvim",
     dev = false,
@@ -30,12 +30,6 @@ return {
     config = function(_, opts)
       vim.opt.cursorline = true -- Highlight line at the cursor position
       vim.o.background = "dark" -- Default to dark theme
-
-      -- Open new Nvim instance with light theme between the range time
-      if require("utils").config.in_hours_range(1400, 1630) then
-        vim.o.background = "light"
-      end
-
       require("monokai-nightasty").load(opts)
     end,
   },
@@ -216,7 +210,7 @@ return {
   --- Noice. A lot of ui messages
   {
     "folke/noice.nvim",
-    cond = false,
+    cond = true,
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {

@@ -17,9 +17,14 @@ return {
       keymap = {
         preset = "enter",
         ["<C-j>"] = { "select_and_accept" },
+        -- TODO: Not working as expected: if not menu then open it. If visible
+        -- and multiple options, select the next one. If there is only one item
+        -- select it and confirm the selection.
         cmdline = {
           preset = "super-tab",
-          ["<Tab>"] = { "show", "select_next", "accept" },
+          ["<Tab>"] = { "show", "select_next", "select_and_accept" },
+          -- ["<Tab>"] = { function(c) return c.select_next() end },
+          ["<C-j>"] = { "select_and_accept" },
           -- ["<Tab>"] = {
           --   c = function()
           --     if cmp.visible() then
@@ -71,14 +76,13 @@ return {
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
-        min_keyword_length = function(ct) return ct.update_type == "manual" and 0 or 2 end,
+        min_keyword_length = function(c) return c.mode == "cmdline" and 0 or 2 end,
         cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
-          cmdline = {
-            name = "cmd",
-          },
+          cmdline = { name = "cmd", min_keyword_length = 0 },
+          path = { min_keyword_length = 0 },
           lazydev = {
             name = "nvim",
             module = "lazydev.integrations.blink",
