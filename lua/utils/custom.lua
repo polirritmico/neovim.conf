@@ -42,7 +42,7 @@ local fold_cache = {}
 ---
 ---This function is **heavily** used, so we store the formatted folds in the
 ---`fold_cache` table to improve the performance a little.
-function Custom.fold_text()
+function Custom.foldtext()
   local first_linenr, last_linenr = vim.v.foldstart, vim.v.foldend -- both 1-idx
   local first_line = vim.fn.getline(first_linenr)
 
@@ -50,26 +50,17 @@ function Custom.fold_text()
     return fold_cache[first_line].content
   end
 
-  local last_line = vim.fn.getline(last_linenr):gsub("^%s*", "")
+  local fold_hl = get_ts_line_highlights(first_line, first_linenr - 1)
   local lines_count = tostring(last_linenr - first_linenr)
   local filler = string.rep(
     "┈",
-    api.nvim_get_option_value("textwidth", {})
-      - #first_line
-      - #last_line
-      - #lines_count
-      - 10
+    api.nvim_get_option_value("textwidth", {}) - #first_line - #lines_count - 10
   )
 
-  local fold_header_hl = get_ts_line_highlights(first_line, first_linenr - 1)
-  local fold_footer_hl = get_ts_line_highlights(last_line, last_linenr - 1)
-
   local res = {}
-  vim.list_extend(res, fold_header_hl)
+  vim.list_extend(res, fold_hl)
   res[#res + 1] = { "  ", "Fold" }
-  vim.list_extend(res, fold_footer_hl)
   res[#res + 1] = { string.format(" %s (%d L)", filler, lines_count), "Fold" }
-
   fold_cache[first_line] = { line = last_linenr, content = res }
   return res
 end

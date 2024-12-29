@@ -132,4 +132,17 @@ function Autocmds.setup_term_opts(opts)
   })
 end
 
+---Autocmd to set the foldtext function bassed on the current filetype
+---@param filetypes string[] The filetype pattern of the autocmd (appends `*.`)
+function Autocmds.set_foldtext_delimited_blocks(filetypes)
+  api.nvim_create_autocmd("BufWinEnter", {
+    group = Autocmds.group_id,
+    desc = "Set foldtext to use the custom indented blocks function",
+    pattern = "*." .. table.concat(filetypes, ",*."),
+    callback = function()
+      vim.wo.foldtext = "v:lua.require'utils.custom'.foldtext_indented_blocks()"
+    end,
+  })
+end
+
 return Autocmds

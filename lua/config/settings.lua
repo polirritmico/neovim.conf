@@ -48,7 +48,7 @@ opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap func
 
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Built-in
-opt.foldtext = "v:lua.require'utils.custom'.fold_text()" -- Wrap fold text custom style
+opt.foldtext = "v:lua.require'utils.custom'.foldtext()" -- Wrap fold text custom style
 
 --- Code indent
 opt.autoindent = true -- Indent based on the previous line
