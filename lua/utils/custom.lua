@@ -1,6 +1,6 @@
 ---Utilities to customize Nvim behaviour and functionality.
----@class UtilsCustom
-local Custom = {}
+---@class MyUtilsCustom
+local MyCustom = {}
 
 local api = vim.api
 
@@ -42,7 +42,7 @@ local fold_cache = {}
 ---
 ---This function is **heavily** used, so we store the formatted folds in the
 ---`fold_cache` table to improve the performance a little.
-function Custom.foldtext()
+function MyCustom.foldtext()
   local first_linenr, last_linenr = vim.v.foldstart, vim.v.foldend -- both 1-idx
   local first_line = vim.fn.getline(first_linenr)
 
@@ -77,7 +77,7 @@ end
 
 ---Create or open scratch notes through a Telescope picker.
 ---Defaults to `.md` if no filetype is specified.
-function Custom.scratchs()
+function MyCustom.scratchs()
   check_ScratchNotesPath()
 
   local state = require("telescope.actions.state")
@@ -122,7 +122,7 @@ function Custom.scratchs()
 end
 
 ---Show/Hide the quickfix list.
-function Custom.toggle_quickfix()
+function MyCustom.toggle_quickfix()
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win.quickfix == 1 then
       vim.cmd.cclose()
@@ -133,7 +133,7 @@ function Custom.toggle_quickfix()
 end
 
 ---Show/Hide the loclist.
-function Custom.toggle_loclist()
+function MyCustom.toggle_loclist()
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win.loclist == 1 then
       vim.cmd.lclose()
@@ -143,7 +143,7 @@ function Custom.toggle_loclist()
   vim.cmd("vertical lopen | vertical resize 33 | setlocal winfixwidth")
 end
 
----@class UtilsCustomTermState:nil
+---@class MyUtilsCustomTermState:nil
 ---@field win integer
 ---@field buf integer
 ---@field height integer
@@ -152,7 +152,7 @@ local term_state
 
 ---Open/Close a persistent terminal at the bottom with a fixed height or with
 ---the `v.count` height passed before the shortcut, e.g., `20<toggle_term-map>`.
-function Custom.toggle_term()
+function MyCustom.toggle_term()
   local height = vim.v.count > 0 and vim.v.count
     or term_state and term_state.height
     or 12
@@ -240,8 +240,8 @@ function Custom.toggle_term()
     close_terminal()
   else
     term_state = nil
-    Custom.toggle_term()
+    MyCustom.toggle_term()
   end
 end
 
-return Custom
+return MyCustom

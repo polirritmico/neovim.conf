@@ -30,7 +30,7 @@ vim.api.nvim_set_var("MyConfigPath", MyConfigPath)
 
 --- Helper functions
 
-local u = require("utils") --[[@as Utils]]
+local u = require("utils") --[[@as MyUtils]]
 u.load_utils({ debug = false })
 
 --- Load configs

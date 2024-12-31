@@ -1,7 +1,7 @@
 local api = vim.api
 
 ---Functions that create autocommands helpers into the `UserCustomAutocmds` group.
----@class UtilsAutoCmds
+---@class MyUtilsAutoCmds
 ---@field group_id integer Group `UserCustomAutocmds` id
 local Autocmds = {
   group_id = api.nvim_create_augroup("UserUtilsCustomAutocmds", { clear = true }),

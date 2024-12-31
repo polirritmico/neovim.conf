@@ -1,5 +1,5 @@
 ---Helper functions used to configure or customize plugins settings.
----@class UtilsPlugins
+---@class MyUtilsPlugins
 local Plugins = {}
 
 local fmt = string.format

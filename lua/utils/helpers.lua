@@ -1,5 +1,5 @@
 ---Helper functions used to facilitate commonly used Nvim operations
----@class UtilsHelpers
+---@class MyUtilsHelpers
 local Helpers = {}
 
 ---Set the current working directory to the location of the current buffer

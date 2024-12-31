@@ -1,6 +1,6 @@
 --- General Settings
 
-local u = require("utils") --[[@as Utils]]
+local u = require("utils") --[[@as MyUtils]]
 local opt = vim.opt
 
 --- Nvim language

@@ -1,9 +1,9 @@
 ---Utils profiler wrapper for [https://github.com/stevearc/profile.nvim](https://github.com/stevearc/profile.nvim)
----@class UtilsProfiler
----@field setup fun(manual_start?: boolean):UtilsProfiler
+---@class MyUtilsProfiler
+---@field setup fun(manual_start?: boolean):MyUtilsProfiler
 ---@field start? function
 ---@field stop? function
-local UtilsProfiler = {}
+local MyUtilsProfiler = {}
 
 ---Setup the profiler
 ---
@@ -40,8 +40,8 @@ local UtilsProfiler = {}
 ---    lazy.nvim intervention is required.
 ---> - `Noice` must be disable or the plugin would raise errors
 ---@param manual_start? boolean Set to `true` to enable the manual mode.
----@return UtilsProfiler
-function UtilsProfiler.setup(manual_start)
+---@return MyUtilsProfiler
+function MyUtilsProfiler.setup(manual_start)
   local key = "<F11>"
   local mod_profiler_path = vim.fn.stdpath("data") .. "/lazy/profile.nvim"
   local profiler_mod
@@ -50,7 +50,7 @@ function UtilsProfiler.setup(manual_start)
     vim.opt.rtp:append(mod_profiler_path)
     profiler_mod = require("profile")
     -- Only run the setup once
-    UtilsProfiler.setup = function() return UtilsProfiler end
+    MyUtilsProfiler.setup = function() return MyUtilsProfiler end
   end
 
   local function start()
@@ -112,16 +112,16 @@ function UtilsProfiler.setup(manual_start)
     -- start: key or start()
     -- stop: key or stop()
     load_profiler()
-    UtilsProfiler.start = start
-    UtilsProfiler.stop = stop
+    MyUtilsProfiler.start = start
+    MyUtilsProfiler.stop = stop
     vim.keymap.set("", key, toggler)
   elseif os.getenv("NVIM_PROFILE") then
     -- start: Auto
     -- stop: key or stop()
     load_profiler()
-    UtilsProfiler.start = function() end
-    UtilsProfiler.stop = stop
-    vim.keymap.set("", key, UtilsProfiler.stop)
+    MyUtilsProfiler.start = function() end
+    MyUtilsProfiler.stop = stop
+    vim.keymap.set("", key, MyUtilsProfiler.stop)
 
     vim.notify("Profiling...")
     profiler_mod.instrument_autocmds()
@@ -129,15 +129,15 @@ function UtilsProfiler.setup(manual_start)
   else
     -- start: None. Error msg.
     -- stop: None
-    UtilsProfiler.stop = function() end
-    UtilsProfiler.start = function()
+    MyUtilsProfiler.stop = function() end
+    MyUtilsProfiler.start = function()
       local msg = "Use `NVIM_PROFILE=1` or `set_profiler(true)` to enable the profiler"
       vim.notify(msg, vim.log.levels.ERROR)
     end
-    vim.keymap.set("", key, UtilsProfiler.start)
+    vim.keymap.set("", key, MyUtilsProfiler.start)
   end
 
-  return UtilsProfiler
+  return MyUtilsProfiler
 end
 
-return UtilsProfiler
+return MyUtilsProfiler

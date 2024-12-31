@@ -1,4 +1,4 @@
-local utils = require("utils") ---@type Utils
+local utils = require("utils") ---@type MyUtils
 
 return {
   --- Autocompletion
