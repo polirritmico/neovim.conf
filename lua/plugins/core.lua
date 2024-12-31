@@ -14,34 +14,9 @@ return {
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
-      keymap = {
-        preset = "enter",
-        ["<C-j>"] = { "select_and_accept" },
-        -- TODO: Not working as expected: if not menu then open it. If visible
-        -- and multiple options, select the next one. If there is only one item
-        -- select it and confirm the selection.
-        cmdline = {
-          preset = "super-tab",
-          ["<Tab>"] = { "show", "select_next", "select_and_accept" },
-          -- ["<Tab>"] = { function(c) return c.select_next() end },
-          ["<C-j>"] = { "select_and_accept" },
-          -- ["<Tab>"] = {
-          --   c = function()
-          --     if cmp.visible() then
-          --       if #cmp.get_entries() == 1 then
-          --         cmp.confirm({ select = true })
-          --       else
-          --         cmp.select_next_item()
-          --       end
-          --     else
-          --       cmp.complete()
-          --     end
-          --   end,
-          -- },
-        },
-      },
       appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = "normal" },
       completion = {
+        accept = { auto_brackets = { enabled = false } },
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
@@ -73,10 +48,24 @@ return {
           show_on_trigger_character = true,
         },
       },
+      keymap = {
+        preset = "enter",
+        ["<C-j>"] = { "select_and_accept" },
+        cmdline = {
+          preset = "super-tab",
+          -- TODO: Get this behaviour for TAB:
+          -- 1. If no menu then open it.
+          -- 2. If menu:
+          --   1. If there are multiple options: select the next one.
+          --   2. If there is only one entry: select it and confirm the selection
+          ["<Tab>"] = { "show", "select_next", "select_and_accept" },
+          ["<C-j>"] = { "select_and_accept" },
+        },
+      },
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
-        min_keyword_length = function(c) return c.mode == "cmdline" and 0 or 2 end,
+        min_keyword_length = 2,
         cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
@@ -92,131 +81,6 @@ return {
         },
       },
     },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    cond = false,
-    event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-calc",
-      "saadparwaiz1/cmp_luasnip",
-      "LuaSnip",
-    },
-    config = function(_, opts)
-      CmpLspPlugin = "cmp-nvim-lsp" ---@type string Lsp source plugin for autocompletion
-      local cmp = require("cmp")
-      cmp.setup(opts)
-      cmp.setup.cmdline(":", opts.cmdline)
-    end,
-    opts = function()
-      local cmp = require("cmp")
-      local defaults = require("cmp.config.default")()
-      local luasnip = require("luasnip")
-
-      local win_opts = {
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-      }
-
-      return {
-        completion = { completeopt = "menu,menuone,noinsert" },
-        enabled = utils.plugins.cmp_enabled,
-        formatting = {
-          expandable_indicator = false, -- shows the ~ symbol when expandable
-          fields = { "abbr", "menu", "kind" }, -- suggestions order :h formatting.fields
-          format = utils.plugins.cmp_custom_menu(25),
-        },
-        mapping = {
-          ["<C-j>"] = cmp.mapping.confirm({
-            behaviour = cmp.ConfirmBehavior.Insert,
-            select = true,
-          }),
-          -- NOTE: cmp.mapping.scroll_docs does not work with the lsp's hover
-          -- window, so use <S-K> again to change the focus into it.
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ["<C-n>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item({ select = true })
-            elseif luasnip.choice_active() then
-              luasnip.change_choice(1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<C-e>"] = function()
-            vim.b.disable_cmp = not vim.b.disable_cmp
-            if vim.b.disable_cmp then
-              cmp.abort()
-            else
-              cmp.complete()
-            end
-          end,
-        },
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
-        },
-        sorting = vim.tbl_extend("force", defaults.sorting, {
-          comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            utils.plugins.cmp_custom_sorter,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-          },
-        }),
-        -- Order of menu entries
-        sources = cmp.config.sources({
-          { name = "path", keyword_length = 2 },
-          { name = "nvim_lsp", keyword_length = 2 },
-          {
-            name = "luasnip",
-            keyword_length = 2,
-            -- Disable filtering completion candidates by snippet's show_condition:
-            option = { use_show_condition = false },
-          },
-        }, {
-          { name = "buffer", keyword_length = 3 },
-        }, {
-          { name = "calc", keyword_length = 3 },
-        }),
-        -- Add border to popup window
-        window = {
-          -- NOTE: Max menu height size is controlled by nvim pumheight option
-          completion = cmp.config.window.bordered(win_opts),
-          documentation = cmp.config.window.bordered(win_opts),
-        },
-        -- Custom extended cmdline opts
-        cmdline = {
-          completion = { completeopt = "menu,menuone,noselect" },
-          mapping = cmp.mapping.preset.cmdline({
-            ["<C-j>"] = { c = function() cmp.confirm({ select = true }) end },
-            ["<Tab>"] = {
-              c = function()
-                if cmp.visible() then
-                  if #cmp.get_entries() == 1 then
-                    cmp.confirm({ select = true })
-                  else
-                    cmp.select_next_item()
-                  end
-                else
-                  cmp.complete()
-                end
-              end,
-            },
-          }),
-          sources = cmp.config.sources(
-            { { name = "path" } },
-            { { name = "cmdline", keyword_length = 4 } }
-          ),
-        },
-      }
-    end,
   },
   --- Formatter
   {
