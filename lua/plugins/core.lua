@@ -256,7 +256,14 @@ return {
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
         stylua = {
-          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+          prepend_args = {
+            -- FIX: https://github.com/stevearc/conform.nvim/issues/615
+            "--respect-ignores",
+            "--indent-type",
+            "Spaces",
+            "--indent-width",
+            "2",
+          },
         }, -- overwrites stylua.toml
       },
     },
