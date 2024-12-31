@@ -107,6 +107,7 @@ return {
         changedelete = { text = "~" }, -- ~
         untracked = { text = "┆" }, -- ┆
       },
+      attach_to_untracked = false,
       current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         delay = 500,
@@ -115,7 +116,6 @@ return {
       preview_config = { border = "rounded" },
       show_deleted = false,
       word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
-      attach_to_untracked = false,
       -- stylua: ignore
       on_attach = function(buffer)
         local gs = require("gitsigns")
