@@ -44,9 +44,6 @@ return {
             },
           },
         },
-        trigger = {
-          show_on_trigger_character = true,
-        },
       },
       keymap = {
         preset = "enter",
@@ -65,13 +62,26 @@ return {
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
-        min_keyword_length = 2,
+        min_keyword_length = function(ctx)
+          local kind = ctx.trigger.kind
+          if kind == "trigger_character" or kind == "manual" then
+            return 0
+          -- elseif kind == "buffer" then return 3
+          else
+            return 2
+          end
+        end,
         cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
-          cmdline = { name = "cmd", min_keyword_length = 0 },
-          path = { min_keyword_length = 0 },
+          cmdline = { name = "cmdline", min_keyword_length = 0 },
+          path = {
+            name = "Path",
+            module = "blink.cmp.sources.path",
+            fallbacks = { "buffer" },
+            min_keyword_length = 0,
+          },
           lazydev = {
             name = "nvim",
             module = "lazydev.integrations.blink",
