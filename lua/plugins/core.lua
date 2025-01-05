@@ -130,14 +130,7 @@ return {
         prettier = { prepend_args = { "--tab-width", "2" } },
         shfmt = { prepend_args = { "-i", "4" } },
         stylua = {
-          prepend_args = {
-            -- FIX: https://github.com/stevearc/conform.nvim/issues/615
-            "--respect-ignores",
-            "--indent-type",
-            "Spaces",
-            "--indent-width",
-            "2",
-          },
+          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
         }, -- overwrites stylua.toml
       },
     },
@@ -190,6 +183,10 @@ return {
                 pycodestyle = {
                   maxLineLength = 88,
                   ignore = { "E203", "E265", "E501", "E704", "W391", "W503" },
+                },
+                rope_completion = {
+                  enabled = true,
+                  eager = false, -- Resolve documentation and detail eagerly.
                 },
               },
             },
@@ -311,6 +308,7 @@ return {
     },
     config = function(_, opts)
       require("mason").setup(opts)
+      utils.plugins.mason_install_pylsp_rope()
       -- trigger FileType event to try loading newly installed servers
       local mr = require("mason-registry")
       mr:on("package:install:success", function()

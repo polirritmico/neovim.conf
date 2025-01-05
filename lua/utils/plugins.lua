@@ -313,6 +313,23 @@ function Plugins.mini_sessions_manager()
   open_picker()
 end
 
+---Install pylsp-rope inside the pylsp venv so it can enable rope capabilities
+function Plugins.mason_install_pylsp_rope()
+  local mr = require("mason-registry")
+
+  local pylsp = mr.get_package("python-lsp-server")
+  local pylsp_path = pylsp:get_install_path()
+  mr:on(
+    "package:install:success",
+    function(_)
+      vim.system(
+        { "bash", "-c", "source venv/bin/activate && pip install pylsp-rope" },
+        { cwd = pylsp_path }
+      )
+    end
+  )
+end
+
 ---Oil.nvim: Set a configuration key for the confirm changes prompt.
 ---@param keys string|string[] Confirmation key.
 function Plugins.oil_confirmation_key(keys)
