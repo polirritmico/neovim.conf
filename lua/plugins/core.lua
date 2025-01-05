@@ -71,7 +71,7 @@ return {
         default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
-          cmdline = { name = "cmdline", min_keyword_length = 0 },
+          cmdline = { name = "cmd", min_keyword_length = 0 },
           path = {
             name = "Path",
             module = "blink.cmp.sources.path",
