@@ -4,12 +4,8 @@ return {
   --- Autocompletion
   {
     "Saghen/blink.cmp",
-    cond = true,
     version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
-    init = function()
-      CmpLspPlugin = "blink.cmp" ---@type string Lsp source plugin for autocompletion
-    end,
     dependencies = { "LuaSnip" },
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
@@ -244,16 +240,9 @@ return {
         callback = opts.keys,
       })
 
+      -- Add cmp capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      -- Add autocompletion capabilities to nvim defaults
-      if CmpLspPlugin == "cmp_nvim_lsp" then
-        capabilities = vim.tbl_deep_extend(
-          "force",
-          capabilities,
-          require("cmp_nvim_lsp").default_capabilities()
-        )
-      elseif CmpLspPlugin == "blink.cmp" then
+      if package.loaded["blink.cmp"] then
         capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
       end
 
