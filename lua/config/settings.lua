@@ -43,7 +43,7 @@ opt.foldenable = false -- Disable folding when opening file
 opt.foldlevelstart = 99 -- When opening a file, start with all folds open (up to level 99)
 opt.foldlevel = 1 -- Fold only the top level (1) during the session
 opt.foldminlines = 1 -- Minimum number of lines for a fold to be created
-opt.foldnestmax = 3 -- Max number of nested folds
+opt.foldnestmax = 8 -- Max number of nested folds
 opt.foldcolumn = "0" -- Default disabled. Change to auto:3 by toggle keymap function
 
 opt.foldmethod = "expr" -- Folding type (expr, indent, manual)

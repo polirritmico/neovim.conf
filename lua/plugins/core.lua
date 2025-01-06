@@ -43,7 +43,7 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-j>"] = { "select_and_accept" },
+        ["<C-j>"] = { "select_and_accept", utils.plugins.blink_luasnip_expand() },
         cmdline = {
           preset = "super-tab",
           -- TODO: Get this behaviour for TAB:
@@ -196,7 +196,6 @@ return {
             },
           },
         },
-        -- tsserver = { enabled = false },
         vtsls = {
           settings = {
             complete_function_calls = true,
@@ -252,7 +251,6 @@ return {
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
-            server_name = server_name == "tsserver" and "ts_ls" or server_name
             local server = opts.servers_configs[server_name] or {}
             server.capabilities =
               vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
@@ -540,6 +538,7 @@ return {
         },
         extensions = {
           lazy_plugins = {
+            -- actions = { open_config_target = "float" },
             -- stylua: ignore
             custom_entries = {
                 { name = "Core", filepath = NeovimPath .. "/lua/plugins/core.lua" },
