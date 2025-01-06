@@ -214,8 +214,8 @@ return {
     dependencies = {
       "neovim/nvim-lspconfig",
       "Bilal2453/luvit-meta",
-      { "LuaCATS/luassert" },
-      { "LuaCATS/busted" },
+      "LuaCATS/luassert",
+      "LuaCATS/busted",
     },
     ft = "lua",
     opts = {
