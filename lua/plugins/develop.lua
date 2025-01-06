@@ -31,6 +31,11 @@ return {
         vim.fn.sign_define("DapBreakpoint", { text = "", texthl = bp, numhl = bp })
         vim.fn.sign_define("DapBreakpointCondition", { text = "󰗦", texthl = bp, numhl = bp })
         vim.fn.sign_define("DapStopped", { text = "→", texthl = st, numhl = st })
+
+        local dap = require("dap")
+        local dapui = require("dapui")
+        require("utils")--[[@as MyUtils]].plugins.typescript_dap()
+        dap.listeners.before.attach.dapui_config = function() dapui.open() end
       end,
       dependencies = {
         {
@@ -68,8 +73,8 @@ return {
               },
             }
           end,
+          -- stylua: ignore
           keys = {
-            -- stylua: ignore
             { "<F10>", function() require("osv").launch({port = 8086}) end, mode = { "n", "v" }, desc = "DAP: (Lua) Launch Server." },
           },
         },
@@ -84,13 +89,6 @@ return {
         { "<Leader>dg", function() require("dapui").toggle() end, desc = "DAP: Toggle DAP GUI" },
         { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
       },
-      config = function(_, opts)
-        local dap = require("dap")
-        local dapui = require("dapui")
-        require("utils").plugins.typescript_dap()
-        dapui.setup(opts)
-        dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
-      end,
       opts = {
         controls = {
           element = "repl",
