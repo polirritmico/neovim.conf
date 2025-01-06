@@ -59,10 +59,12 @@ return {
       snippets = utils.plugins.blink_luasnip_cfg(),
       sources = {
         min_keyword_length = function(ctx)
-          local kind = ctx.trigger.kind
-          if kind == "trigger_character" or kind == "manual" then
+          if ctx.trigger.kind == "trigger_character" then
             return 0
-          -- elseif kind == "buffer" then return 3
+          elseif ctx.trigger.kind == "manual" then
+            return 0
+          elseif ctx.mode == "cmdline" then
+            return 0
           else
             return 2
           end
