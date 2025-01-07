@@ -47,9 +47,27 @@ function Plugins.conform_toggle_local()
   vim.notify(fmt(msg, vim.b.disable_autoformat and "Dis" or "En"))
 end
 
+function Plugins.dap_set_custom_marks()
+  local breakpoint_hl = "DiagnosticInfo"
+  local normal_hl = "Normal"
+
+  vim.fn.sign_define(
+    "DapBreakpoint",
+    { text = "", texthl = breakpoint_hl, numhl = breakpoint_hl }
+  )
+  vim.fn.sign_define(
+    "DapBreakpointCondition",
+    { text = "󰗦", texthl = breakpoint_hl, numhl = breakpoint_hl }
+  )
+  vim.fn.sign_define(
+    "DapStopped",
+    { text = "→", texthl = normal_hl, numhl = normal_hl }
+  )
+end
+
 ---Config TypeScript dap adapter
-function Plugins.typescript_dap()
-  local dap = require("dap")
+---@param dap dap.Session
+function Plugins.dap_config_typescript(dap)
   local js_dap_path = require("mason-registry")
     .get_package("js-debug-adapter")
     :get_install_path() .. "/js-debug/src/dapDebugServer.js"

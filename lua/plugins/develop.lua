@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
   {
     "polirritmico/manual-tag-closer.nvim",
@@ -27,14 +29,10 @@ return {
       },
       -- stylua: ignore
       config = function()
-        local bp, st = "DiagnosticInfo", "Normal"
-        vim.fn.sign_define("DapBreakpoint", { text = "", texthl = bp, numhl = bp })
-        vim.fn.sign_define("DapBreakpointCondition", { text = "󰗦", texthl = bp, numhl = bp })
-        vim.fn.sign_define("DapStopped", { text = "→", texthl = st, numhl = st })
-
         local dap = require("dap")
+        utils.plugins.dap_config_typescript(dap)
+
         local dapui = require("dapui")
-        require("utils")--[[@as MyUtils]].plugins.typescript_dap()
         dap.listeners.before.attach.dapui_config = function() dapui.open() end
       end,
       dependencies = {
@@ -89,6 +87,10 @@ return {
         { "<Leader>dg", function() require("dapui").toggle() end, desc = "DAP: Toggle DAP GUI" },
         { "<Leader>dG", function() require("dapui").open({ reset = true }) end, desc = "DAP: Reset DAP GUI layout size" },
       },
+      config = function(_, opts)
+        require("dapui").setup(opts)
+        utils.plugins.dap_set_custom_marks()
+      end,
       opts = {
         controls = {
           element = "repl",
