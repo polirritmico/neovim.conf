@@ -213,18 +213,12 @@ return {
   --- Lsp helpers like types for lua and neovim plugin development
   {
     "folke/lazydev.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "Bilal2453/luvit-meta",
-      "LuaCATS/luassert",
-      "LuaCATS/busted",
-    },
     ft = "lua",
     opts = {
       library = {
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
-        { path = "luassert/library", words = { "assert" } },
-        { path = "busted/library", words = { "describe" } },
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        { path = "${3rd}/luassert/library", words = { "assert" } },
+        { path = "${3rd}/busted/library", words = { "describe" } },
       },
     },
   },
