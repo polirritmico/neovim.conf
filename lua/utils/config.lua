@@ -1,5 +1,5 @@
 ---Helper functions used to configure Neovim.
----@class MyUtilsConfig
+---@class UtilsConfig
 local Config = {}
 
 ---Enable system `bash_aliases` in the nvim command-line.

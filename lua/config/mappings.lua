@@ -1,6 +1,6 @@
 --- Mappings
 
-local u = require("utils") --[[@as MyUtils]]
+local u = require("utils")
 local map = u.config.set_keymap
 local toggle = u.config.toggle_vim_opt
 

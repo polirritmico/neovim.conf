@@ -1,5 +1,5 @@
 ---Helper functions for text-based writing tasks beyond code.
----@class MyUtilsWriting
+---@class UtilsWriting
 local Writing = {}
 
 local api = vim.api

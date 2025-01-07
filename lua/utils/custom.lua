@@ -1,5 +1,5 @@
 ---Utilities to customize Nvim behaviour and functionality.
----@class MyUtilsCustom
+---@class UtilsCustom
 local MyCustom = {}
 
 local api = vim.api
@@ -143,7 +143,7 @@ function MyCustom.toggle_loclist()
   vim.cmd("vertical lopen | vertical resize 33 | setlocal winfixwidth")
 end
 
----@class MyUtilsCustomTermState:nil
+---@class UtilsCustomTermState:nil
 ---@field win integer
 ---@field buf integer
 ---@field height integer

@@ -16,7 +16,7 @@ local function toggle_fmtopts()
   vim.notify(string.format("Updated formatoptions: %s", vim.bo.formatoptions))
 end
 
-local u = require("utils") ---@type MyUtils
+local u = require("utils")
 
 u.config.set_ft_keymap("n", "<leader>mL", u.writing.lorem, "Generate lorem ipsum text")
 u.config.set_ft_keymap("n", "<leader>ta", toggle_fmtopts, "Toggle autoformat")
