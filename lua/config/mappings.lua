@@ -84,6 +84,7 @@ map("v", ">", ">gv", "inner indent")
 -- Flip paste mappings in visual-mode to avoid buffer replacement
 map("v", "p", "P", "Paste without changing the `0` register")
 map("v", "P", "p", "Paste replacing the `0` register")
+map("v", "<M-p>", "P", "Paste without changing the `0` register")
 
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")

@@ -18,7 +18,7 @@ return {
           auto_show_delay_ms = 200,
           window = { border = "rounded" },
         },
-        list = { selection = "auto_insert" },
+        list = { selection = { preselect = false, auto_insert = true } },
         menu = {
           border = "rounded",
           draw = {
@@ -56,7 +56,7 @@ return {
         },
       },
       signature = { enabled = true, window = { border = "rounded" } },
-      snippets = utils.plugins.blink_luasnip_cfg(),
+      snippets = { preset = "luasnip" },
       sources = {
         min_keyword_length = function(ctx)
           if ctx.trigger.kind == "trigger_character" then
@@ -70,7 +70,7 @@ return {
           end
         end,
         cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
-        default = { "buffer", "lsp", "luasnip", "path", "lazydev" },
+        default = { "buffer", "lsp", "snippets", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
           cmdline = { name = "cmd", min_keyword_length = 0 },
@@ -85,7 +85,6 @@ return {
             module = "lazydev.integrations.blink",
             score_offset = 100,
           },
-          luasnip = { name = "snip" },
         },
       },
     },
@@ -539,15 +538,16 @@ return {
           grep_string = { additional_args = { "--follow" } },
         },
         extensions = {
+          ---@module "telescope._extensions.lazy_plugins"
+          ---@type TelescopeLazyPluginsConfig
           lazy_plugins = {
-            -- actions = { open_config_target = "float" },
             -- stylua: ignore
             custom_entries = {
-                { name = "Core", filepath = NeovimPath .. "/lua/plugins/core.lua" },
-                { name = "Develop", filepath = NeovimPath .. "/lua/plugins/develop.lua" },
-                { name = "Extras", filepath = NeovimPath .. "/lua/plugins/extras/spec.lua" },
-                { name = "Helpers", filepath = NeovimPath .. "/lua/plugins/helpers.lua" },
-                { name = "UI", filepath = NeovimPath .. "/lua/plugins/ui.lua" },
+              { name = "Core", filepath = NeovimPath .. "/lua/plugins/core.lua" },
+              { name = "Develop", filepath = NeovimPath .. "/lua/plugins/develop.lua" },
+              { name = "Extras", filepath = NeovimPath .. "/lua/plugins/extras/spec.lua" },
+              { name = "Helpers", filepath = NeovimPath .. "/lua/plugins/helpers.lua" },
+              { name = "UI", filepath = NeovimPath .. "/lua/plugins/ui.lua" },
             },
           },
         },

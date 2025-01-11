@@ -11,6 +11,7 @@ return {
       p(os.date, "%d-%m-%Y"),
       p(os.date, "%H:%M"),
       p(os.date, "%Y-%m-%d %H:%M"),
+      p(os.date, "%Y-%m-%d %H:%M -0300"),
       p(os.date, "%d-%m-%Y %H:%M"),
     })
   ),
