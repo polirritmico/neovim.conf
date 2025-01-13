@@ -2,10 +2,10 @@
 return {
   s(
     {
-      trig = [[cmd(.+)]],
+      trig = [[blk%-(.+)]],
       trigEngine = "pattern",
       name = "Command section block",
-      desc = "Usage: cmd`<the language>`",
+      desc = "Usage: blk-`<the language>`",
     },
     fmt(
       [[
