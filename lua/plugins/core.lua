@@ -44,6 +44,7 @@ return {
       keymap = {
         preset = "enter",
         ["<C-j>"] = { "select_and_accept", utils.plugins.blink_luasnip_expand() },
+        ["<C-h>"] = { "show", "show_documentation", "hide_documentation" },
         cmdline = {
           preset = "super-tab",
           -- TODO: Get this behaviour for TAB:
