@@ -155,4 +155,4 @@ map("n", "<leader>cU", "<Cmd>e " .. NeovimPath .. "/lua/utils/init.lua<CR>", "Co
 map("n", "<leader>cs", "<Cmd>e " .. MyConfigPath .. "snippets<CR>", "Config: Open the snippets folder")
 
 -- Avoid char replacements from not completing a test execution keymap
-map("n", "<leader>rt", function() end, "Dummy function to prevent char replacments from cancelling test executions")
+map("n", "<leader>rt", function() end, "Dummy function to prevent char replacements by cancelling test executions")
