@@ -289,7 +289,10 @@ end
 function Plugins.mason_install_pylsp_rope()
   local mr = require("mason-registry")
 
-  local pylsp = mr.get_package("python-lsp-server")
+  local ok, pylsp = pcall(mr.get_package, "python-lsp-server")
+  if not ok then
+    return
+  end
   local pylsp_path = pylsp:get_install_path()
   mr:on(
     "package:install:success",
