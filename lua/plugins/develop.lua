@@ -27,10 +27,10 @@ return {
         { "<Leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "DAP: Add a conditional breakpoint" },
         { "<Leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "DAP: Add a logpoint into the current line" },
       },
-      -- stylua: ignore
       config = function()
         local dap = require("dap")
         utils.plugins.dap_config_typescript(dap)
+        utils.plugins.dap_config_local_lua_debugger(dap)
 
         local dapui = require("dapui")
         dap.listeners.before.attach.dapui_config = function() dapui.open() end
@@ -55,21 +55,7 @@ return {
           "jbyuki/one-small-step-for-vimkind",
           config = function()
             local dap = require("dap")
-            dap.adapters.nlua = function(callback, config)
-              ---@diagnostic disable [undefined-field]
-              callback({
-                type = "server",
-                host = config.host or "127.0.0.1",
-                port = config.port or 8086,
-              })
-            end
-            dap.configurations.lua = {
-              {
-                type = "nlua",
-                request = "attach",
-                name = "Attach to running Neovim instance",
-              },
-            }
+            utils.plugins.dap_config_lua_osv_debugger(dap)
           end,
           -- stylua: ignore
           keys = {

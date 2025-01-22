@@ -19,7 +19,7 @@ function Plugins.blink_luasnip_cfg()
   }
 end
 
----Returns a function to expand the current luasnip snippet
+---Returns a function to expand the current luasnip snippet.
 function Plugins.blink_luasnip_expand()
   return function(cmp)
     vim.schedule(function()
@@ -47,6 +47,7 @@ function Plugins.conform_toggle_local()
   vim.notify(fmt(msg, vim.b.disable_autoformat and "Dis" or "En"))
 end
 
+---Set custom line marks on the line number area.
 function Plugins.dap_set_custom_marks()
   local breakpoint_hl = "DiagnosticInfo"
   local normal_hl = "Normal"
@@ -65,8 +66,7 @@ function Plugins.dap_set_custom_marks()
   )
 end
 
----Config TypeScript dap adapter
----@param dap dap.Session
+---Config TypeScript dap adapter.
 function Plugins.dap_config_typescript(dap)
   local js_dap_path = require("mason-registry")
     .get_package("js-debug-adapter")
@@ -118,16 +118,66 @@ function Plugins.dap_config_typescript(dap)
           program = "${file}",
           cwd = "${workspaceFolder}",
         },
-        -- {
-        --   type = "pwa-node",
-        --   request = "attach",
-        --   name = "Attach",
-        --   processId = require("dap.utils").pick_process,
-        --   cwd = "${workspaceFolder}",
-        -- },
       }
     end
   end
+end
+
+---Config local dap debugger.
+function Plugins.dap_config_local_lua_debugger(dap)
+  local base_path = vim.fn.expand("$USR_PROJECTS_DIR/Neovim/local-lua-debugger-vscode/")
+  if vim.loop.fs_stat(base_path) == nil then
+    return
+  end
+
+  dap.adapters["local-lua"] = {
+    type = "executable",
+    command = "node",
+    args = { base_path .. "extension/debugAdapter.js" },
+    enrich_config = function(config, on_config)
+      if not config["extensionPath"] then
+        local _config = vim.deepcopy(config)
+        _config.extensionPath = base_path
+        on_config(_config)
+      else
+        on_config(config)
+      end
+    end,
+  }
+
+  dap.configurations.lua = vim.tbl_get(dap, "configurations", "lua") or {}
+  table.insert(dap.configurations.lua, {
+    name = "[local-lua] Launch file",
+    type = "local-lua",
+    request = "launch",
+    cwd = "${workspaceFolder}",
+    console = "integratedTerminal",
+    program = {
+      lua = "lua5.1",
+      file = "${file}",
+    },
+    args = {},
+  })
+end
+
+---Config One Small Step for Vimkind debugger.
+function Plugins.dap_config_lua_osv_debugger(dap)
+  dap.adapters.nlua = function(callback, config)
+    ---@diagnostic disable [undefined-field]
+    callback({
+      type = "server",
+      host = config.host or "127.0.0.1",
+      port = config.port or 8086,
+    })
+  end
+  dap.configurations.lua = vim.tbl_get(dap, "configurations", "lua") or {}
+  table.insert(dap.configurations.lua, {
+    {
+      type = "nlua",
+      request = "attach",
+      name = "[osv] Attach to running Neovim instance",
+    },
+  })
 end
 
 ---Return a custom lualine tabline section that integrates Harpoon marks.
@@ -183,7 +233,7 @@ function Plugins.lualine_harpoon()
   end
 end
 
----A custom Telescope picker to use MiniSessions actions
+---A custom Telescope picker to use MiniSessions actions.
 function Plugins.mini_sessions_manager()
   local mini_sessions = require("mini.sessions")
   local tlstate = require("telescope.actions.state")
@@ -285,7 +335,7 @@ function Plugins.mini_sessions_manager()
   open_picker()
 end
 
----Install pylsp-rope inside the pylsp venv so it can enable rope capabilities
+---Install pylsp-rope inside the pylsp venv so it can enable rope capabilities.
 function Plugins.mason_install_pylsp_rope()
   local mr = require("mason-registry")
 
@@ -324,7 +374,7 @@ end
 ---Telescope action helper to pass the current matches into another telescope
 ---instance. `live_grep` by default. If is a `live_grep`, then pass the matches
 ---into a `find_files` picker.
----@param bufnr integer Telescope prompt buffer number
+---@param bufnr integer Telescope prompt buffer number.
 function Plugins.telescope_narrow_matches(bufnr)
   local builtin = require("telescope.builtin")
   local actions_state = require("telescope.actions.state")
@@ -342,7 +392,7 @@ end
 
 ---Telescope action helper to open a qflist with all current matches and open
 ---the first entry.
----@param bufnr integer Telescope prompt buffer number
+---@param bufnr integer Telescope prompt buffer number.
 function Plugins.telescope_open_and_fill_qflist(bufnr)
   local actions = require("telescope.actions")
   actions.send_to_qflist(bufnr)
@@ -350,8 +400,8 @@ function Plugins.telescope_open_and_fill_qflist(bufnr)
   vim.api.nvim_input("<CR>")
 end
 
----Telescope action helper to open single or multiple files
----@param bufnr integer Telescope prompt buffer number
+---Telescope action helper to open single or multiple files.
+---@param bufnr integer Telescope prompt buffer number.
 function Plugins.telescope_open_single_or_multi(bufnr)
   local actions = require("telescope.actions")
   local actions_state = require("telescope.actions.state")
@@ -370,7 +420,7 @@ function Plugins.telescope_open_single_or_multi(bufnr)
   end
 end
 
----Simple Telescope picker to select spell suggestions
+---Simple Telescope picker to select spell suggestions.
 function Plugins.telescope_spell_suggest()
   local theme = require("telescope.themes").get_dropdown
   require("telescope.builtin").spell_suggest(theme())
