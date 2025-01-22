@@ -114,7 +114,6 @@ return {
         ignore_whitespace = true,
       },
       preview_config = { border = "rounded" },
-      show_deleted = false,
       word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
       -- stylua: ignore
       on_attach = function(buffer)
@@ -126,7 +125,7 @@ return {
         local function toggle_gitsigns()
           -- WARN: toggle_current_line_blame should go first or it won't turn off.
           gs.toggle_current_line_blame()
-          gs.toggle_deleted()
+          gs.stage_hunk()
           gs.toggle_word_diff()
         end
         cmap("n", "<leader>gt", toggle_gitsigns, "GitSigns: Toggle show deleted lines")
@@ -135,7 +134,7 @@ return {
         cmap("n", "<leader>gsb", gs.stage_buffer, "GitSigns: Stage buffer")
         cmap({ "n", "v" }, "<leader>gsh", ":Gitsigns stage_hunk<CR>", "GitSigns: Stage hunk")
         cmap({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<CR>", "GitSigns: Reset hunk")
-        cmap("n", "<leader>gu", gs.undo_stage_hunk, "GitSigns: Undo stage hunk")
+        cmap("n", "<leader>gu", gs.stage_hunk, "GitSigns: Undo stage hunk")
         cmap("n", "<leader>grb", gs.reset_buffer, "GitSigns: Reset buffer")
         cmap("n", "<leader>gP", gs.preview_hunk, "GitSigns: Preview hunk")
         -- cmap("n", "<leader>gK", function() gs.blame_line({ full = true }) end, "GitSigns: Blame line")
