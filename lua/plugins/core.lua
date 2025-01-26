@@ -163,6 +163,7 @@ return {
           cmd = { "clangd", "--fallback-style=WebKit" },
         },
         cssls = {},
+        jdtls = {},
         lua_ls = {
           settings = {
             Lua = {
