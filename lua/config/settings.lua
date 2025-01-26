@@ -69,6 +69,7 @@ opt.incsearch = true -- Show results while searching
 opt.inccommand = "split" -- Show the changes into a split window
 
 --- Mouse related
+opt.mousescroll = "ver:1,hor:3"
 vim.cmd([[aunmenu PopUp.How-to\ disable\ mouse | aunmenu PopUp.-1-]]) -- Remove menu entry
 vim.cmd([[vnoremenu PopUp.Copy "+y]]) -- Copy to system clipboard
 
