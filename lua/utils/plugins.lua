@@ -130,6 +130,7 @@ function Plugins.dap_config_local_lua_debugger(dap)
     return
   end
 
+  dap = dap or require("dap")
   dap.adapters["local-lua"] = {
     type = "executable",
     command = "node",
@@ -162,6 +163,7 @@ end
 
 ---Config One Small Step for Vimkind debugger.
 function Plugins.dap_config_lua_osv_debugger(dap)
+  dap = dap or require("dap")
   dap.adapters.nlua = function(callback, config)
     ---@diagnostic disable [undefined-field]
     callback({
@@ -172,11 +174,9 @@ function Plugins.dap_config_lua_osv_debugger(dap)
   end
   dap.configurations.lua = vim.tbl_get(dap, "configurations", "lua") or {}
   table.insert(dap.configurations.lua, {
-    {
-      type = "nlua",
-      request = "attach",
-      name = "[osv] Attach to running Neovim instance",
-    },
+    type = "nlua",
+    request = "attach",
+    name = "[osv] Attach to running Neovim instance",
   })
 end
 

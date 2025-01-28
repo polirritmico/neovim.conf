@@ -53,10 +53,7 @@ return {
         },
         {
           "jbyuki/one-small-step-for-vimkind",
-          config = function()
-            local dap = require("dap")
-            utils.plugins.dap_config_lua_osv_debugger(dap)
-          end,
+          config = function() utils.plugins.dap_config_lua_osv_debugger() end,
           -- stylua: ignore
           keys = {
             { "<F10>", function() require("osv").launch({port = 8086}) end, mode = { "n", "v" }, desc = "DAP: (Lua) Launch Server." },
