@@ -22,6 +22,8 @@ ScratchNotesPath = vim.fn.stdpath("data") .. "/scratch/"
 assert(vim.fn.finddir(MyConfigPath) ~= "", "Unexpected: Missing configuration path?!")
 if vim.fn.finddir(MyPluginsPath) == "" then
   vim.notify("Missing personal plugins path.", vim.log.levels.WARN)
+  ---@type boolean Disabled if MyPluginsPath doesn't exists
+  DisableMyPlugins = true
 end
 
 -- Set global variables for vimscript env

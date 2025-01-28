@@ -275,6 +275,7 @@ return {
   --- Mason package manager for non-nvim tools
   {
     "williamboman/mason.nvim",
+    -- dev = true and not DisableMyPlugins,
     build = { ":MasonUpdate" },
     cmd = "Mason",
     keys = {
@@ -450,7 +451,7 @@ return {
       },
       {
         "polirritmico/telescope-lazy-plugins.nvim",
-        dev = false,
+        dev = false and not DisableMyPlugins,
         init = function()
           utils.autocmd.on_load(
             "telescope.nvim",
@@ -541,7 +542,7 @@ return {
         },
         extensions = {
           ---@module "telescope._extensions.lazy_plugins"
-          ---@type TelescopeLazyPluginsConfig
+          ---@type TelescopeLazyPluginsUserConfig
           lazy_plugins = {
             -- stylua: ignore
             custom_entries = {

@@ -4,7 +4,7 @@ return {
   {
     "polirritmico/manual-tag-closer.nvim",
     cond = false,
-    dev = true,
+    dev = true and not DisableMyPlugins,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {},
   },

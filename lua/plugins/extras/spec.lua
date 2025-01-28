@@ -79,7 +79,7 @@ return {
   {
     "polirritmico/lazy-local-patcher.nvim",
     config = true,
-    dev = false,
+    dev = false and not DisableMyPlugins,
     ft = "lazy",
   },
   --- Markdown pseudo-render
