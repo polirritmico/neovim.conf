@@ -54,13 +54,12 @@ end
 ---@param key string Left-hand side of the mapping, the keys to be pressed.
 ---@param command string|function Right-hand side of the mapping, could be a Lua function.
 ---@param description? string Optional human-readable description of the mapping, default to nil.
----@param verbose? boolean Optional set to true to disable the silent-mode. Default to false.
+---@param verbose? boolean Optionally set to `true` to disable the silent-mode.
 function Config.set_keymap(mode, key, command, description, verbose)
-  local silent = verbose == nil or not verbose
   if description == nil or description == "" then
-    vim.keymap.set(mode, key, command, { silent = silent })
+    vim.keymap.set(mode, key, command, { silent = not verbose })
   else
-    vim.keymap.set(mode, key, command, { silent = silent, desc = description })
+    vim.keymap.set(mode, key, command, { silent = not verbose, desc = description })
   end
 end
 
