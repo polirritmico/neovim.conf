@@ -1,6 +1,6 @@
 ---Utilities to customize Nvim behaviour and functionality.
 ---@class UtilsCustom
-local MyCustom = {}
+local Custom = {}
 
 local api = vim.api
 
@@ -42,7 +42,7 @@ local fold_cache = {}
 ---
 ---This function is **heavily** used, so we store the formatted folds in the
 ---`fold_cache` table to improve the performance a little.
-function MyCustom.foldtext()
+function Custom.foldtext()
   local first_linenr, last_linenr = vim.v.foldstart, vim.v.foldend -- both 1-idx
   local first_line = vim.fn.getline(first_linenr)
 
@@ -77,7 +77,7 @@ end
 
 ---Create or open scratch notes through a Telescope picker.
 ---Defaults to `.md` if no filetype is specified.
-function MyCustom.scratchs()
+function Custom.scratchs()
   check_ScratchNotesPath()
 
   local state = require("telescope.actions.state")
@@ -122,7 +122,7 @@ function MyCustom.scratchs()
 end
 
 ---Show/Hide the quickfix list.
-function MyCustom.toggle_quickfix()
+function Custom.toggle_quickfix()
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win.quickfix == 1 then
       vim.cmd.cclose()
@@ -133,7 +133,7 @@ function MyCustom.toggle_quickfix()
 end
 
 ---Show/Hide the loclist.
-function MyCustom.toggle_loclist()
+function Custom.toggle_loclist()
   for _, win in ipairs(vim.fn.getwininfo()) do
     if win.loclist == 1 then
       vim.cmd.lclose()
@@ -152,7 +152,7 @@ local term_state
 
 ---Open/Close a persistent terminal at the bottom with a fixed height or with
 ---the `v.count` height passed before the shortcut, e.g., `20<toggle_term-map>`.
-function MyCustom.toggle_term()
+function Custom.toggle_term()
   local height = vim.v.count > 0 and vim.v.count
     or term_state and term_state.height
     or 12
@@ -240,8 +240,8 @@ function MyCustom.toggle_term()
     close_terminal()
   else
     term_state = nil
-    MyCustom.toggle_term()
+    Custom.toggle_term()
   end
 end
 
-return MyCustom
+return Custom
