@@ -102,4 +102,25 @@ function Writing.next_link()
   set_cursor_pos(left_node)
 end
 
+function Writing.table_in_clipboard_to_markdown()
+  local clipboard_content = vim.fn.getreg("+")
+
+  local markdown_tbl = {}
+  local split_by_newline_pattern = "[^\n]+"
+  local match_text_between_bars = "[^|]+"
+
+  local is_header = true
+  for line in clipboard_content:gmatch(split_by_newline_pattern) do
+    line = string.format("| %s |", line:gsub("\t", " | "))
+    markdown_tbl[#markdown_tbl + 1] = line
+    if is_header then
+      local separator = line:gsub(match_text_between_bars, "---")
+      markdown_tbl[#markdown_tbl + 1] = separator
+      is_header = false
+    end
+  end
+
+  api.nvim_put(markdown_tbl, "l", true, true)
+end
+
 return Writing

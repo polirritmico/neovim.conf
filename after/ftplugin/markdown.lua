@@ -10,4 +10,6 @@ vim.bo.softtabstop = 2
 vim.bo.tabstop = 2
 
 map("n", "<leader>mg", u.writing.lorem, "Markdown: Generate lorem ipsum text")
+map("n", "<leader>ml", u.writing.lorem, "Markdown: Generate lorem ipsum text")
+map("n", "<leader>mt", u.writing.table_in_clipboard_to_markdown, "Paste md table")
 map("n", "gl", u.writing.next_link, "Markdown: Move to the next link in the line")
