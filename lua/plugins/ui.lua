@@ -197,6 +197,8 @@ return {
 
       return {
         options = {
+          section_separators = { left = "", right = "" },
+          component_separators = "⏽",
           disabled_filetypes = { statusline = { "dashboard", "man" } },
         },
         extensions = { "lazy" },
