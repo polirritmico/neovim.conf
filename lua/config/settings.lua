@@ -91,7 +91,7 @@ vim.api.nvim_create_user_command("Spellend", u.writing.dict_off, {})
 
 --- Misc
 
--- Disable health checks
+-- Disable providers
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
