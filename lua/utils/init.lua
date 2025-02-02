@@ -20,7 +20,7 @@ Utils.check_errors = loaders.check_errors
 
 ---Helper function to require utils submodules with protected calls.
 ---
----Could set a DAP debug session through `opts.debug` and `opts.auto_init`.
+---Could set a DAP debug session through `opts.debug` and `opts.auto_start`.
 ---@param opts? {debug?: boolean, auto_start?: boolean}
 function Utils.load_utils(opts)
   if opts and opts.debug then
