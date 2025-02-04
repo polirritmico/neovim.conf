@@ -188,7 +188,7 @@ return {
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keys = {
-      { "<leader>td", function() require("mini.diff").toggle_overlay() end, desc = "Mini.diff: Toggle diff overlay", },
+      { "<leader>td", function() require("mini.diff").toggle_overlay(0) end, desc = "Mini.diff: Toggle diff overlay", },
     },
     opts = { style = "number" },
   },
