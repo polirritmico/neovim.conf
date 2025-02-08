@@ -126,7 +126,7 @@ end
 ---Config local dap debugger.
 function Plugins.dap_config_local_lua_debugger(dap)
   local base_path = vim.fn.expand("$USR_PROJECTS_DIR/Neovim/local-lua-debugger-vscode/")
-  if vim.loop.fs_stat(base_path) == nil then
+  if vim.uv.fs_stat(base_path) == nil then
     return
   end
 
