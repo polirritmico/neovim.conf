@@ -45,7 +45,10 @@ return {
         preset = "enter",
         ["<C-j>"] = { "select_and_accept", utils.plugins.blink_luasnip_expand() },
         ["<C-h>"] = { "show", "show_documentation", "hide_documentation" },
-        cmdline = {
+      },
+      cmdline = {
+        sources = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
+        keymap = {
           preset = "super-tab",
           -- TODO: Get this behaviour for TAB:
           -- 1. If no menu then open it.
@@ -70,7 +73,6 @@ return {
             return 2
           end
         end,
-        cmdline = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
         default = { "buffer", "lsp", "snippets", "path", "lazydev" },
         providers = {
           buffer = { name = "buff", min_keyword_length = 3 },
