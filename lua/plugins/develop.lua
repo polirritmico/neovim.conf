@@ -149,9 +149,9 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>rtf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "neotest: Run all test in the current file" },
-      { "<leader>rtd", function() require("neotest").run.run({strategy = "dap"}) end, desc = "neotest: Debug nearest test" },
+      { "<leader>rtd", function() require("neotest").run.run({ strategy = "dap", suite = false }) end, desc = "neotest: Debug nearest test" },
       { "<leader>rtl", function() require("neotest").run.run_last() end, desc = "neotest: Re-run last test" },
-      { "<leader>rtL", function() require("neotest").run.run_last({ strategy = "dap" }) end, desc = "neotest: Debug last test" },
+      { "<leader>rtL", function() require("neotest").run.run_last({ strategy = "dap", suite = false }) end, desc = "neotest: Debug last test" },
       { "<leader>rtt", function() require("neotest").run.run() end, desc = "neotest: Run nearest test" },
       { "<leader>rtS", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
       { "<leader>rto", function() require("neotest").output_panel.toggle() end, desc = "neotest: Toggle output panel" },
