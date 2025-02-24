@@ -10,9 +10,8 @@ return {
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
-      appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = "normal" },
       completion = {
-        accept = { auto_brackets = { enabled = false } },
+        -- accept = { auto_brackets = { enabled = false } },
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
@@ -43,46 +42,24 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-j>"] = { "select_and_accept", utils.plugins.blink_luasnip_expand() },
+        ["<C-j>"] = { "select_and_accept", "fallback" },
         ["<C-h>"] = { "show", "show_documentation", "hide_documentation" },
-      },
-      cmdline = {
-        sources = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
-        keymap = {
-          preset = "super-tab",
-          -- TODO: Get this behaviour for TAB:
-          -- 1. If no menu then open it.
-          -- 2. If menu:
-          --   1. If there are multiple options: select the next one.
-          --   2. If there is only one entry: select it and confirm the selection
-          ["<Tab>"] = { "show", "select_next", "select_and_accept" },
-          ["<C-j>"] = { "select_and_accept" },
-        },
+        -- ["<C-j>"] = { "select_and_accept", utils.plugins.blink_luasnip_expand() },
       },
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = { preset = "luasnip" },
       sources = {
+        default = { "buffer", "lsp", "snippets", "path", "lazydev" },
         min_keyword_length = function(ctx)
           if ctx.trigger.kind == "trigger_character" then
             return 0
           elseif ctx.trigger.kind == "manual" then
             return 0
-          elseif ctx.mode == "cmdline" then
-            return 0
           else
-            return 2
+            return 3
           end
         end,
-        default = { "buffer", "lsp", "snippets", "path", "lazydev" },
         providers = {
-          buffer = { name = "buff", min_keyword_length = 3 },
-          cmdline = { name = "cmd", min_keyword_length = 0 },
-          path = {
-            name = "Path",
-            module = "blink.cmp.sources.path",
-            fallbacks = { "buffer" },
-            min_keyword_length = 0,
-          },
           lazydev = {
             name = "nvim",
             module = "lazydev.integrations.blink",
@@ -90,6 +67,19 @@ return {
           },
         },
       },
+      -- cmdline = {
+      --   sources = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
+      --   keymap = {
+      --     preset = "super-tab",
+      --     -- TODO: Get this behaviour for TAB:
+      --     -- 1. If no menu then open it.
+      --     -- 2. If menu:
+      --     --   1. If there are multiple options: select the next one.
+      --     --   2. If there is only one entry: select it and confirm the selection
+      --     ["<Tab>"] = { "show", "select_next", "select_and_accept" },
+      --     ["<C-j>"] = { "select_and_accept" },
+      --   },
+      -- },
     },
   },
   --- Formatter
