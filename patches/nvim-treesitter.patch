@@ -1,8 +1,8 @@
 diff --git a/queries/markdown/highlights.scm b/queries/markdown/highlights.scm
-index a12669ca..c2d41755 100644
+index 2a6ad196..b591748a 100644
 --- a/queries/markdown/highlights.scm
 +++ b/queries/markdown/highlights.scm
-@@ -45,16 +45,16 @@
+@@ -45,18 +45,18 @@
  (indented_code_block) @markup.raw.block
  
  ((fenced_code_block) @markup.raw.block
@@ -10,22 +10,26 @@ index a12669ca..c2d41755 100644
 -
 -(fenced_code_block
 -  (fenced_code_block_delimiter) @markup.raw.block
--  (#set! conceal ""))
+-  (#set! conceal "")
+-  (#set! conceal_lines ""))
 -
 -(fenced_code_block
 -  (info_string
 -    (language) @label
--    (#set! conceal "")))
+-    (#set! conceal "")
+-    (#set! conceal_lines "")))
 +  (#set! priority 15))
 +
-+; (fenced_code_block
-+;   (fenced_code_block_delimiter) @markup.raw.block
-+;   (#set! conceal ""))
++;(fenced_code_block
++;  (fenced_code_block_delimiter) @markup.raw.block
++;  (#set! conceal "")
++;  (#set! conceal_lines ""))
 +;
-+; (fenced_code_block
-+;   (info_string
-+;     (language) @label
-+;     (#set! conceal "")))
++;(fenced_code_block
++;  (info_string
++;    (language) @label
++;    (#set! conceal "")
++;    (#set! conceal_lines "")))
  
  (link_destination) @markup.link.url
  
