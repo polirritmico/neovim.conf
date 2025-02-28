@@ -67,19 +67,22 @@ return {
           },
         },
       },
-      -- cmdline = {
-      --   sources = function() return vim.fn.getcmdtype() == ":" and { "cmdline" } or {} end,
-      --   keymap = {
-      --     preset = "super-tab",
-      --     -- TODO: Get this behaviour for TAB:
-      --     -- 1. If no menu then open it.
-      --     -- 2. If menu:
-      --     --   1. If there are multiple options: select the next one.
-      --     --   2. If there is only one entry: select it and confirm the selection
-      --     ["<Tab>"] = { "show", "select_next", "select_and_accept" },
-      --     ["<C-j>"] = { "select_and_accept" },
-      --   },
-      -- },
+      cmdline = {
+        keymap = {
+          ["<Tab>"] = {
+            "show_and_insert",
+            function(cmp)
+              if #cmp.get_items() == 1 then
+                cmp.select_and_accept()
+              else
+                cmp.select_next()
+              end
+            end,
+          },
+          ["<C-j>"] = { "select_and_accept" },
+          ["<CR>"] = { "accept_and_enter", "fallback" },
+        },
+      },
     },
   },
   --- Formatter
