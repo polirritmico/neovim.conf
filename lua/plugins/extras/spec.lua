@@ -71,7 +71,7 @@ return {
   },
   --- Some UI improvements
   {
-    "stevearc/dressing.nvim",
+    "stevearc/dressing.nvim", -- Archived
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     config = true,
   },
@@ -86,7 +86,7 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     ft = { "markdown", "norg", "rmd", "org" },

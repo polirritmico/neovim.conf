@@ -246,7 +246,7 @@ return {
   --- Shows code context on the top (func, classes, etc.)
   {
     "nvim-treesitter/nvim-treesitter-context",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "nvim-treesitter" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       min_window_height = 10, -- in lines
