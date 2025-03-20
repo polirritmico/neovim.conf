@@ -1,3 +1,4 @@
+--- LaTeX snippets
 return {
   s({
     trig = "---",
