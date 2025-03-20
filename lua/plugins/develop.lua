@@ -192,6 +192,20 @@ return {
     },
     opts = { style = "number" },
   },
+  --- Auto update edited markdown, html and svg files in the web browser
+  {
+    "brianhuster/live-preview.nvim",
+    dependencies = { "telescope.nvim" },
+    cmd = "LivePreview",
+    keys = {
+      {
+        "<leader>tp",
+        utils.plugins.live_preview_toggle,
+        ft = { "html", "markdown", "svg" },
+        desc = "LivePreview: Start/Close LivePreview",
+      },
+    },
+  },
   --- Neovim Development
   --- Lsp helpers like types for lua and neovim plugin development
   {
