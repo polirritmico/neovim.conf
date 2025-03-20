@@ -168,6 +168,7 @@ return {
           },
         },
         marksman = {},
+        phpactor = {},
         pylsp = {
           settings = {
             pylsp = {

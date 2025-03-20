@@ -94,9 +94,21 @@ return {
       return opts
     end,
   },
+  --- Git: actions
+  {
+    "tpope/vim-fugitive",
+    -- stylua: ignore
+    keymap = {
+      { "<leader>gg", vim.cmd.Git, desc = "Fugitive: Git command." },
+      { "<leader>gd", "<Cmd>diffget //2<CR>", desc = "Fugitive: Diff get." },
+      { "<leader>gp", function() vim.cmd.Git("push") end, ft = "fugitive", desc = "Fugitive: Push." },
+      { "<leader>gP", function() vim.cmd.Git("pull", "--rebase") end, ft = "fugitive", desc = "Fugitive: Pull rebase." },
+    },
+  },
   --- Git: Highlight code changes from last commit
   {
     "lewis6991/gitsigns.nvim",
+    enabled = false,
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       signs = {
