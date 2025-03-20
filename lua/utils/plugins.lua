@@ -180,6 +180,15 @@ function Plugins.dap_config_lua_osv_debugger(dap)
   })
 end
 
+---Toggle LivePreview
+function Plugins.live_preview_toggle()
+  if require("livepreview").is_running() then
+    vim.cmd("LivePreview start")
+  else
+    vim.cmd("LivePreview stop")
+  end
+end
+
 ---Return a custom lualine tabline section that integrates Harpoon marks.
 function Plugins.lualine_harpoon()
   local hp_keys = { "j", "k", "l", "h" }
