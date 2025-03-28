@@ -85,6 +85,8 @@ return {
       },
     },
   },
+  --- Dependencies (used by other plugins)
+  { "nvim-lua/plenary.nvim" }, -- Required by: telescope, neotest, harpoon
   --- Formatter
   {
     "stevearc/conform.nvim",
@@ -421,7 +423,6 @@ return {
     cmd = "Telescope",
     branch = "0.1.x",
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
