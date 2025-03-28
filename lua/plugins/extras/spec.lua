@@ -69,6 +69,8 @@ return {
       }
     end,
   },
+  --- Gentoo syntax
+  { "gentoo/gentoo-syntax", enabled = Workstation },
   --- Some UI improvements
   {
     "stevearc/dressing.nvim", -- Archived

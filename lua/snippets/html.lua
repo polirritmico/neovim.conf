@@ -69,9 +69,24 @@ return {
 
   s(
     { trig = ".span", name = "Span label", dscr = "Add a span tag." },
-    fmt([[{}{}</div>]], {
-      c(1, { fmt([[<div class="{}">]], i(1, "name")), t("<div>") }),
+    fmt([[{}{}</span>]], {
+      c(1, { fmt([[<span class="{}">]], i(1, "name")), t("<span>") }),
       i(2),
+    })
+  ),
+
+  s(
+    { trig = ".nav", name = "Navbar", dscr = "Add a nav tag." },
+    fmt([[{}{}</nav>]], {
+      c(1, { fmt([[<nav class="{}">]], i(1, "name")), t("<nav>") }),
+      i(2),
+    })
+  ),
+
+  s(
+    { trig = ".script", name = "Script", dscr = "Add a script tag." },
+    fmt([[<script src="{}"></script>]], {
+      i(1, "script.js"),
     })
   ),
 
