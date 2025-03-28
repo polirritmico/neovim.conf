@@ -196,13 +196,9 @@ return {
     "brianhuster/live-preview.nvim",
     dependencies = { "telescope.nvim" },
     cmd = "LivePreview",
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>tp",
-        utils.plugins.live_preview_toggle,
-        ft = { "html", "markdown", "svg" },
-        desc = "LivePreview: Start/Close LivePreview",
-      },
+      { "<leader>LP", utils.plugins.livepreview_toggle, ft = "html", desc = "LivePreview: Toggle." },
     },
   },
   --- Neovim Development

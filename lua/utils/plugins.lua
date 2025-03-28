@@ -180,12 +180,12 @@ function Plugins.dap_config_lua_osv_debugger(dap)
   })
 end
 
----Toggle LivePreview
-function Plugins.live_preview_toggle()
+---Toggle LivePreview server instance
+function Plugins.livepreview_toggle()
   if require("livepreview").is_running() then
-    vim.cmd("LivePreview start")
+    vim.cmd("LivePreview close")
   else
-    vim.cmd("LivePreview stop")
+    vim.cmd("LivePreview start")
   end
 end
 
