@@ -24,9 +24,6 @@ return {
       cleanup_delay_ms = 500,
       keymaps = {
         ["_"] = "actions.select",
-        ["<C-h>"] = "actions.toggle_hidden",
-        ["<C-s>"] = { "actions.select", opts = { vertical = true } },
-        ["<C-S>"] = { "actions.select", opts = { horizontal = true } },
         ["<leader>cd"] = "actions.cd",
       },
       skip_confirm_for_simple_edits = true,
