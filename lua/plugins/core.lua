@@ -220,7 +220,6 @@ return {
           { "gi", vim.lsp.buf.implementation, "Go to implementation" },
           { "go", vim.lsp.buf.type_definition, "Go to type definition (origin)" },
           { "gr", vim.lsp.buf.references, "View references" },
-          { "gs", vim.lsp.buf.signature_help, "Function/Signature hover info" },
           { "<F1>", vim.diagnostic.open_float, "Open float diagnostic info" },
           { "<F2>", vim.lsp.buf.rename, "Rename object" },
           -- <F3> (format current buffer) is handled by Conform
