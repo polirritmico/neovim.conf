@@ -19,11 +19,10 @@ end
 ---@return function
 function Config.lsp_centered_definition()
   local method = "textDocument/definition"
-  local definiton_handler = require("vim.lsp.handlers")[method]
   local mk_position_params = require("vim.lsp.util").make_position_params
-  return function()
-    vim.lsp.buf_request(0, method, mk_position_params(), function(...)
-      definiton_handler(...)
+  return function(bufnr)
+    vim.lsp.buf_request(bufnr, method, mk_position_params(0, "utf-8"), function()
+      vim.lsp.buf.definition()
       vim.api.nvim_feedkeys("zz", "n", true)
     end)
   end
