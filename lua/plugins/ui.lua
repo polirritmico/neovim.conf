@@ -197,6 +197,8 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- FIX: After this commit the status bar is visible in the dashboard
+    commit = "1517caa",
     event = "VeryLazy",
     opts = function()
       -- PERF: Replace lualine_require (wtf?!) with nvim require
