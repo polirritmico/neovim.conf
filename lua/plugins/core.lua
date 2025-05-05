@@ -160,6 +160,8 @@ return {
           cmd = { "clangd", "--fallback-style=WebKit" },
         },
         cssls = {},
+        dockerls = {},
+        docker_compose_language_service = {},
         jdtls = {},
         lua_ls = {
           settings = {
