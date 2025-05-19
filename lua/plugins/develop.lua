@@ -41,8 +41,7 @@ return {
           ft = "python",
           dependencies = "mason.nvim",
           config = function()
-            local python_path = vim.fn.exepath("debugpy") .. "/venv/bin/"
-            require("dap-python").setup(python_path .. "python")
+            require("dap-python").setup("debugpy-adapter")
             require("dap-python").test_runner = "pytest"
           end,
           -- stylua: ignore
