@@ -59,6 +59,9 @@ map("n", "<C-S-I>", "`^", "Go to the last cursor position in Insert mode")
 -- Resize window using <ctrl> arrow keys
 u.config.set_win_resize_keys()
 
+-- Scroll view with <alt> arrow keys
+u.config.set_scroll_view_keys()
+
 -- Tabs
 map("n", "<C-t>s", "<Cmd>tabnew<CR>")
 map("n", "<C-t>c", "<Cmd>tabclose<CR>")

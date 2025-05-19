@@ -77,10 +77,10 @@ end
 function Config.set_win_resize_keys()
   local modes = { "n", "v", "i", "t" }
   -- stylua: ignore start
-  Config.set_keymap(modes, "<C-Up>", function() Config.win_resize("k") end, "Resize window")
-  Config.set_keymap(modes, "<C-Down>", function() Config.win_resize("j") end, "Resize window")
-  Config.set_keymap(modes, "<C-Left>", function() Config.win_resize("h") end, "Resize window")
-  Config.set_keymap(modes, "<C-Right>", function() Config.win_resize("l") end, "Resize window")
+  Config.set_keymap(modes, "<C-Up>", function() Config.win_resize("k") end, "Resize window up")
+  Config.set_keymap(modes, "<C-Down>", function() Config.win_resize("j") end, "Resize window down")
+  Config.set_keymap(modes, "<C-Left>", function() Config.win_resize("h") end, "Resize window left")
+  Config.set_keymap(modes, "<C-Right>", function() Config.win_resize("l") end, "Resize window right")
   -- stylua: ignore end
 end
 
@@ -107,6 +107,20 @@ function Config.win_resize(direction)
       vim.api.nvim_command(resize_cmd .. "-2")
     end
   end
+end
+
+---Set <A-arrow> keys to scroll the current window view without moving cursor
+function Config.set_scroll_view_keys()
+  local modes = { "n", "v", "i" }
+  -- stylua: ignore start
+  Config.set_keymap(modes, "<A-Up>", "2<C-y>", "Scroll view up")
+  Config.set_keymap(modes, "<A-Down>", "2<C-e>", "Scroll view down")
+  Config.set_keymap(modes, "<A-Left>", "4zh", "Scroll view left")
+  Config.set_keymap(modes, "<A-Right>", "4zl", "Scroll view right")
+
+  Config.set_keymap(modes, "zh", "4zh", "Scroll view left")
+  Config.set_keymap(modes, "zl", "4zl", "Scroll view right")
+  -- stylua: ignore end
 end
 
 ---If vim.opt\[`option`\] is `a`, set it to `b`; otherwise, set it to `a`.

@@ -116,7 +116,7 @@ return {
       format_on_save = function(bufnr)
         -- Only apply format if `disable_autoformat` is not true
         if not (vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat) then
-          return { timeout_ms = 500, lsp_fallback = true }
+          return { timeout_ms = 1000, lsp_fallback = true }
         end
       end,
       formatters = {
@@ -150,7 +150,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
@@ -162,6 +162,11 @@ return {
         cssls = {},
         dockerls = {},
         docker_compose_language_service = {},
+        intelephense = {
+          init_options = {
+            globalStoragePath = vim.fn.stdpath("cache") .. "/intelephense",
+          },
+        },
         jdtls = {},
         lua_ls = {
           settings = {
@@ -211,6 +216,16 @@ return {
               parameterTypes = { enabled = true },
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
+            },
+          },
+        },
+        yamlls = {
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
             },
           },
         },
@@ -273,8 +288,9 @@ return {
   },
   --- Mason package manager for non-nvim tools
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     -- dev = true and not DisableMyPlugins,
+    version = "^1.0.0",
     build = { ":MasonUpdate" },
     cmd = "Mason",
     keys = {
