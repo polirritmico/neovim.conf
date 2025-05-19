@@ -150,86 +150,10 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "mason.nvim",
-      { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+      "mason-org/mason-lspconfig.nvim",
     },
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
-      servers_configs = { -- :h lspconfig-configurations
-        ansiblels = {},
-        clangd = {
-          cmd = { "clangd", "--fallback-style=WebKit" },
-        },
-        cssls = {},
-        dockerls = {},
-        docker_compose_language_service = {},
-        intelephense = {
-          init_options = {
-            globalStoragePath = vim.fn.stdpath("cache") .. "/intelephense",
-          },
-        },
-        jdtls = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = { checkThirdParty = false },
-              completion = { callSnippet = "Replace" },
-            },
-          },
-        },
-        marksman = {},
-        phpactor = {},
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                black = { enabled = true },
-                pylsp_mypy = { enabled = true },
-                pycodestyle = {
-                  maxLineLength = 88,
-                  ignore = { "E203", "E265", "E501", "E704", "W391", "W503" },
-                },
-                rope_completion = {
-                  enabled = true,
-                  eager = false, -- Resolve documentation and detail eagerly.
-                },
-              },
-            },
-          },
-        },
-        texlab = {
-          settings = {
-            texlab = {
-              rootDirectory = ".",
-              latexFormatter = "texlab",
-            },
-          },
-        },
-        vtsls = {
-          settings = {
-            complete_function_calls = true,
-          },
-          typescript = {
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
-          },
-        },
-        yamlls = {
-          capabilities = {
-            textDocument = {
-              foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-              },
-            },
-          },
-        },
-      },
       keys = function(ev)
         for _, k in pairs({
           { "gD", vim.lsp.buf.declaration, "Go to declaration" },
@@ -262,35 +186,16 @@ return {
         capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
       end
 
-      -- Apply server configurations
-      -- BUG: https://github.com/williamboman/mason-lspconfig.nvim/issues/500
-      ---@diagnostic disable [missing-fields]
-      require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            local server = opts.servers_configs[server_name] or {}
-            server.capabilities =
-              vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
-      })
-
-      -- Add borders to Hover when Noice is not in the Lazy plugins spec
-      if not require("lazy.core.config").spec.plugins["noice.nvim"] then
-        vim.lsp.handlers["textDocument/hover"] =
-          vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-      end
-
       -- Disable logs
       vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
+
+      -- Apply server configurations
+      require("mason-lspconfig").setup()
     end,
   },
   --- Mason package manager for non-nvim tools
   {
     "mason-org/mason.nvim",
-    -- dev = true and not DisableMyPlugins,
-    version = "^1.0.0",
     build = { ":MasonUpdate" },
     cmd = "Mason",
     keys = {

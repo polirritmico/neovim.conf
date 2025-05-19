@@ -41,8 +41,7 @@ return {
           ft = "python",
           dependencies = "mason.nvim",
           config = function()
-            local debugpy = require("mason-registry").get_package("debugpy")
-            local python_path = debugpy:get_install_path() .. "/venv/bin/"
+            local python_path = vim.fn.exepath("debugpy") .. "/venv/bin/"
             require("dap-python").setup(python_path .. "python")
             require("dap-python").test_runner = "pytest"
           end,

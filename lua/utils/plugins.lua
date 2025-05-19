@@ -66,11 +66,33 @@ function Plugins.dap_set_custom_marks()
   )
 end
 
+---Config PHP dap adapter.
+function Plugins.dap_config_php(dap)
+  local php_dap_path = vim.fn.exepath("php-debug-adapter")
+    .. "/php-debug-adapter/extensions/out/phpDebug.js"
+
+  if not dap.adapters["php"] then
+    dap.adapters["php"] = {
+      type = "executable",
+      command = "node",
+      args = { php_dap_path },
+    }
+  end
+
+  if not dap.configurations.php then
+    dap.configurations.php = {
+      type = "php",
+      request = "launch",
+      name = "Listen to Xdebug",
+      port = 9003,
+    }
+  end
+end
+
 ---Config TypeScript dap adapter.
 function Plugins.dap_config_typescript(dap)
-  local js_dap_path = require("mason-registry")
-    .get_package("js-debug-adapter")
-    :get_install_path() .. "/js-debug/src/dapDebugServer.js"
+  local js_dap_path = vim.fn.exepath("js-debug-adapter")
+    .. "/js-debug/src/dapDebugServer.js"
 
   if not dap.adapters["pwa-node"] then
     dap.adapters["pwa-node"] = {
@@ -352,7 +374,7 @@ function Plugins.mason_install_pylsp_rope()
   if not ok then
     return
   end
-  local pylsp_path = pylsp:get_install_path()
+  local pylsp_path = vim.fn.exepath("pylsp")
   mr:on(
     "package:install:success",
     function(_)
