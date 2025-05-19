@@ -105,6 +105,7 @@ return {
         width = "block",
         right_pad = 1,
         min_width = 80,
+        border = "thick",
       },
       heading = {
         enabled = false,

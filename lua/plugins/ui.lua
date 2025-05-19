@@ -97,6 +97,7 @@ return {
   --- Git: actions
   {
     "tpope/vim-fugitive",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keymap = {
       { "<leader>gg", vim.cmd.Git, desc = "Fugitive: Git command." },
