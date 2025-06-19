@@ -154,7 +154,7 @@ return {
       "mason.nvim",
       "mason-org/mason-lspconfig.nvim",
     },
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    event = { "BufReadPre", "BufWritePost", "BufNewFile" },
     opts = {
       keys = function(ev)
         for _, k in pairs({
