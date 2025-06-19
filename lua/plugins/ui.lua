@@ -177,7 +177,7 @@ return {
       { "<A-k>", function() require("harpoon"):list():select(2) end, desc = "Harpoon: Open tagged file 2", silent = true },
       { "<A-l>", function() require("harpoon"):list():select(3) end, desc = "Harpoon: Open tagged file 3", silent = true },
       { "<A-ñ>", function() require("harpoon"):list():select(4) end, desc = "Harpoon: Open tagged file 4", silent = true },
-      { "<A-h>", function() require("harpoon"):list():select(5) end, desc = "Harpoon: Open tagged file 5", silent = true },
+      { "<A-h>", function() require("harpoon"):list():select(4) end, desc = "Harpoon: Open tagged file 4", silent = true },
     },
   },
   --- Indentation guide lines

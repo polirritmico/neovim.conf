@@ -111,6 +111,8 @@ return {
         markdown = { "prettier_markdown", "markdown-toc" },
         python = { "isort", "black" },
         sh = { "shfmt" },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettier" },
       },
       format_on_save = function(bufnr)
@@ -152,7 +154,6 @@ return {
       "mason.nvim",
       "mason-org/mason-lspconfig.nvim",
     },
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       keys = function(ev)
         for _, k in pairs({
