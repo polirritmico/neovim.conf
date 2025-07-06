@@ -96,10 +96,9 @@ return {
     keys = {
       { "<leader>mt", function() require("render-markdown").toggle() end, ft = "markdown", desc = "RenderMarkdown: Enable/Disable" },
     },
+    ---@module "render-markdown"
+    ---@type render.md.UserConfig
     opts = {
-      file_types = { "markdown", "norg", "rmd", "org" },
-      latex = { enabled = false },
-      log_level = "off",
       code = {
         sign = false,
         width = "block",
@@ -107,6 +106,8 @@ return {
         min_width = 80,
         border = "thick",
       },
+      completions = { blink = { enabled = true } },
+      file_types = { "markdown", "norg", "rmd", "org" },
       heading = {
         enabled = false,
         sign = false,
@@ -115,6 +116,8 @@ return {
       html = {
         comment = { conceal = false },
       },
+      latex = { enabled = false },
+      log_level = "off",
     },
   },
   --- Treesitter full `ensure_installed` list
