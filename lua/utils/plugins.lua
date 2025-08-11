@@ -68,23 +68,22 @@ end
 
 ---Config PHP dap adapter.
 function Plugins.dap_config_php(dap)
-  local php_dap_path = vim.fn.exepath("php-debug-adapter")
-    .. "/php-debug-adapter/extensions/out/phpDebug.js"
-
   if not dap.adapters["php"] then
     dap.adapters["php"] = {
       type = "executable",
-      command = "node",
-      args = { php_dap_path },
+      command = vim.fn.exepath("php-debug-adapter"),
     }
   end
 
   if not dap.configurations.php then
     dap.configurations.php = {
-      type = "php",
-      request = "launch",
-      name = "Listen to Xdebug",
-      port = 9003,
+      {
+        name = "Listen for Xdebug on Docker",
+        type = "php",
+        request = "launch",
+        port = 9003,
+        pathMappings = { ["/var/www/html"] = "${workspaceFolder}" },
+      },
     }
   end
 end

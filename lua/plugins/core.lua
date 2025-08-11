@@ -103,12 +103,14 @@ return {
       log_level = vim.log.levels.OFF, -- default: ERROR
       formatters_by_ft = {
         ["*"] = { "trim_whitespace" },
+        bash = { "shfmt" },
         css = { "prettier" },
         html = { "prettier" },
         htmldjango = { "djlint" },
         json = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier_markdown", "markdown-toc" },
+        php = { "php_cs_fixer" },
         python = { "isort", "black" },
         sh = { "shfmt" },
         typescript = { "prettierd", "prettier", stop_after_first = true },

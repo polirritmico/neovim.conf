@@ -29,6 +29,7 @@ return {
       },
       config = function()
         local dap = require("dap")
+        utils.plugins.dap_config_php(dap)
         utils.plugins.dap_config_typescript(dap)
         utils.plugins.dap_config_local_lua_debugger(dap)
 
