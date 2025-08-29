@@ -182,7 +182,7 @@ return {
   },
   --- Git integration
   {
-    "echasnovski/mini.diff",
+    "nvim-mini/mini.diff",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     -- stylua: ignore
     keys = {
@@ -223,7 +223,7 @@ return {
   },
   --- Show highlights applied to variables names and virtual text marks
   {
-    "echasnovski/mini.hipatterns",
+    "nvim-mini/mini.hipatterns",
     enabled = Workstation,
     cond = vim.uv.cwd():match("monokai%-nightasty") ~= nil,
     event = "VeryLazy",

@@ -1,7 +1,7 @@
 return {
   --- Active indent guide. Animates the highlight
   {
-    "echasnovski/mini.indentscope",
+    "nvim-mini/mini.indentscope",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       options = { try_as_border = true },

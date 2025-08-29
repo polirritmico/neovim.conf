@@ -64,7 +64,7 @@ return {
   },
   --- Session manager
   {
-    "echasnovski/mini.sessions",
+    "nvim-mini/mini.sessions",
     -- stylua: ignore
     keys = {
       { "<leader>ss", require("utils").plugins.mini_sessions_manager, desc = "mini.sessions: Select a session." },
