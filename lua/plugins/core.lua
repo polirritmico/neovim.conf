@@ -342,6 +342,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    -- branch = "0.1.x",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
