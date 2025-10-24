@@ -19,6 +19,8 @@ return {
       { "<leader>fe", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
       { "<leader>fE", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
     },
+    ---@module "oil"
+    ---@oil.config
     opts = {
       buf_options = { buflisted = true },
       cleanup_delay_ms = 500,

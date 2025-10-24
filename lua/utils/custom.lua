@@ -244,4 +244,19 @@ function Custom.toggle_term()
   end
 end
 
+---Workaround to go to the Vue component definition
+function Custom.vue_go_component_def()
+  local component = vim.fn.expand("<cword>")
+  if component == "" then
+    vim.notify("Could not find component '" .. component .. "'", vim.log.levels.WARN)
+    return
+  end
+
+  local filepath = vim.fn.findfile(component .. ".vue", "**")
+  if filepath == nil or filepath == "" then
+    vim.notify("Could not find component '" .. component .. "'", vim.log.levels.WARN)
+  end
+  vim.cmd("edit " .. vim.fn.fnameescape(filepath))
+end
+
 return Custom

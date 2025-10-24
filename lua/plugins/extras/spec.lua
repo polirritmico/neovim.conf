@@ -106,7 +106,10 @@ return {
         min_width = 80,
         border = "thick",
       },
-      completions = { blink = { enabled = true } },
+      completions = {
+        blink = { enabled = true },
+        lsp = { enabled = true },
+      },
       file_types = { "markdown", "norg", "rmd", "org" },
       heading = {
         enabled = false,

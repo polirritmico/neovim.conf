@@ -68,20 +68,15 @@ return {
         },
       },
       cmdline = {
-        keymap = {
-          ["<Tab>"] = {
-            "show_and_insert",
-            function(cmp)
-              if #cmp.get_items() == 1 then
-                cmp.select_and_accept()
-              else
-                cmp.select_next()
-              end
-            end,
+        completion = {
+          list = { selection = { preselect = false } },
+          menu = {
+            auto_show = function(ctx) return vim.fn.getcmdtype() == ":" end,
           },
-          ["<C-j>"] = { "select_and_accept" },
-          ["<CR>"] = { "accept_and_enter", "fallback" },
+          ghost_text = { enabled = true },
         },
+        enabled = true,
+        keymap = { preset = "cmdline" },
       },
     },
   },
@@ -347,7 +342,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    branch = "0.1.x",
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",

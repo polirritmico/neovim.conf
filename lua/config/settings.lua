@@ -23,6 +23,7 @@ opt.showbreak = "↪" -- Character at the left of wrapped lines
 opt.showmode = false -- Show status in command area
 opt.list = true -- Show listchars whitespace characters
 opt.title = true -- Set the window name
+opt.winborder = "rounded" -- Enabe the hover windows border
 opt.scrolloff = Workstation and 6 or 3 -- To leave N lines before/after on scrolling
 opt.sidescroll = 25 -- Size of horizontal scroll steps when typing beyond the current area
 opt.listchars = { tab = "⇥ ", trail = "⸱", nbsp = "␣" }

@@ -11,6 +11,21 @@ return {
           enableServerSideFuzzyMatch = true,
         },
       },
+      tsserver = {
+        globalPlugins = {
+          {
+            name = "@vue/typescript-plugin",
+            location = vim.fn.expand(
+              "$MASON/packages"
+                .. "/vue-language-server"
+                .. "/node_modules/@vue/language-server"
+            ),
+            languages = { "javascript", "typescript", "vue" },
+            configNamespace = "typescript",
+            enableForWorkspaceTypeScriptVersions = true,
+          },
+        },
+      },
     },
     typescript = {
       updateImportsOnFileMove = { enabled = "always" },
@@ -26,5 +41,12 @@ return {
         variableTypes = { enabled = false },
       },
     },
+  },
+  filetypes = {
+    "typescript",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
   },
 }

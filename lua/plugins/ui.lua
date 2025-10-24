@@ -226,7 +226,6 @@ return {
   --- Noice. A lot of ui messages
   {
     "folke/noice.nvim",
-    cond = true,
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
@@ -234,27 +233,13 @@ return {
       messages = { enabled = false },
       popupmenu = { enabled = false },
       notify = { enabled = false },
-      lsp = {
-        -- Override markdown rendering so that cmp and other plugins use Treesitter
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-        hover = { enabled = true, silent = false },
-        signature = { enabled = true },
-      },
-      presets = { lsp_doc_border = true }, -- signature and hover docs border
+      lsp = { hover = { enabled = false, silent = false } },
+      presets = { lsp_doc_border = false }, -- signature and hover docs border
       views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
     },
     config = function(_, opts)
       require("noice.util.call").log = function() end -- disable logs?
       require("noice").setup(opts)
-
-      local n_docs = require("noice.lsp.docs")
-      local hide_signature = function() n_docs.hide(n_docs.get("signature")) end
-      -- stylua: ignore
-      vim.keymap.set("i", "<C-e>", hide_signature, { desc = "Noice: Hide signature info" } )
     end,
   },
   --- Shows code context on the top (func, classes, etc.)

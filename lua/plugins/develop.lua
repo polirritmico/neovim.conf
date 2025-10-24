@@ -229,4 +229,9 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+  --- Automatically adjust shiftwidth and expandtab
+  {
+    "tpope/vim-sleuth",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
 }
