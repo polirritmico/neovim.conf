@@ -64,7 +64,7 @@ return {
         hide = { statusline = false },
         config = {
           vertical_center = true,
-          header = { "", [[Neovim :: E B R Λ Y]], [[🄯 2024]], "", "" },
+          header = { "", [[Neovim :: E B R Λ Y]], [[🄯 2025]], "", "" },
           -- stylua: ignore
           center = {
             { action = "ene | startinsert", desc = " New file", icon = " ", key = "e" },

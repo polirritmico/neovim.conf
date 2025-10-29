@@ -32,7 +32,7 @@ return {
       view_options = {
         is_always_hidden = function(name, _) return name == ".." or name == ".git" end,
         natural_order = true,
-        show_hidden = true,
+        show_hidden = false,
       },
     },
   },
