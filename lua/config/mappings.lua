@@ -132,6 +132,9 @@ map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
 -- Open Dolphin at buffer path
 map("n", "<leader>CD", u.helpers.open_at_buffpath, "Open desktop file browser at buffer path")
 
+-- Open repository on the browser
+map("n", "<leader>ggx", u.custom.open_repo_web, "Open the repository on the browser")
+
 -- Give execution permissions to the current buffer if matches a valid filetype
 local valid_filetypes = { "bash", "sh", "python" }
 map("n", "<leader>gx", function() u.helpers.chmod_exe(valid_filetypes) end, "Give execution permissions to the current buffer")

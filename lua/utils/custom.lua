@@ -4,6 +4,51 @@ local Custom = {}
 
 local api = vim.api
 
+---Open repository on a web browser.
+function Custom.open_repo_web()
+  local cwd = vim.fn.getcwd()
+  while cwd ~= "/" do
+    if vim.fn.isdirectory(cwd .. "/.git") == 1 then
+      break
+    else
+      cwd = vim.fn.fnamemodify(cwd, ":h")
+    end
+  end
+
+  if cwd == "/" then
+    vim.notify("Not git repository found on the current dir", vim.log.levels.INFO)
+    return
+  end
+
+  local git_config = io.open(cwd .. "/.git/config", "r")
+  if not git_config then
+    vim.notify("Can't open .git/config", vim.log.levels.ERROR)
+    return
+  end
+
+  local url = ""
+  if git_config then
+    local content = git_config:read("*a")
+    git_config:close()
+    url = content:match('%[remote "origin"%][^%[]-url%s*=%s*(.-)%s*\n')
+  end
+
+  if not url then
+    vim.notify("Can't get repository url", vim.log.levels.ERROR)
+    return
+  end
+
+  if url:sub(1, 4) == "git@" then
+    url = url:gsub("^git@github%.com:", "https://github.com/")
+  end
+  url = url:gsub("%.git$", "")
+
+  local cmd_output = vim.fn.jobstart({ "xdg-open", url }, { detach = true })
+  if cmd_output <= 0 then
+    vim.notify("Error opening the system default browser", vim.log.levels.ERROR)
+  end
+end
+
 ---Get the treesitter highlights of the passed line (no syntactic tokens)
 ---@param line string
 ---@param linenr integer 0-idx line number
