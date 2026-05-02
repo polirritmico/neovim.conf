@@ -28,6 +28,7 @@ return {
       },
       config = function()
         local dap = require("dap")
+        utils.plugins.dap_config_java(dap)
         utils.plugins.dap_config_php(dap)
         utils.plugins.dap_config_typescript(dap)
         utils.plugins.dap_config_local_lua_debugger(dap)
@@ -236,5 +237,208 @@ return {
   {
     "tpope/vim-sleuth",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
+  --- Java
+  {
+    "mfussenegger/nvim-jdtls",
+    dependencies = { "blink.cmp" },
+    ft = { "java" },
+    opts = function()
+      local map = require("utils").config.set_ft_keymap
+
+      if vim.env.MASON == nil then
+        vim.notify("$MASON is not set", vim.log.levels.ERROR)
+        return
+      end
+
+      if vim.env.JAVA_HOME == nil then
+        vim.notify("$JAVA_HOME is not set", vim.log.levels.ERROR)
+        return
+      end
+
+      local function get_workspace()
+        local workspace_metadata_path = vim.fn.stdpath("cache") .. "/jdtls/"
+        local cwd = vim.fn.getcwd()
+        local hash = vim.fn.sha256(cwd)
+        return workspace_metadata_path .. hash
+      end
+
+      local lombok = vim.fn.expand("$MASON/share/jdtls/lombok.jar")
+
+      local jdtls_cmd = {
+        vim.fn.exepath("jdtls"),
+        "--jvm-arg=-javaagent:" .. lombok,
+        "-data",
+        get_workspace(),
+      }
+
+      local jdtls = require("jdtls")
+
+      local extendedClientCapabilities = vim.deepcopy(jdtls.extendedClientCapabilities)
+      extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
+      local settings = {
+        java = {
+          -- format = {
+          --   enabled = true,
+          --   -- source = "absolute/path/to/formatter.xml"
+          --   settings = {
+          --     url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+          --   },
+          -- },
+          eclipse = {
+            downloadSource = true,
+          },
+          maven = {
+            downloadSources = true,
+          },
+          signatureHelp = {
+            enabled = true,
+          },
+          -- fernflower decompiler when using the javap command to decompile byte
+          -- code back to java code
+          contentProvider = {
+            preferred = "fernflower",
+          },
+          -- Setup automatical package import oranization on file save
+          saveActions = {
+            organizeImports = true,
+          },
+          completion = {
+            -- When using an unimported static method, how should the LSP rank
+            -- possible places to import the static method from
+            favoriteStaticMembers = {
+              "org.junit.jupiter.api.Assertions.*",
+              "org.mockito.Mockito.*",
+            },
+            -- Try not to suggest imports from these packages in the code action window
+            filteredTypes = {
+              "com.sun.*",
+              "io.micrometer.shaded.*",
+              "java.awt.*",
+              "jdk.*",
+              "sun.*",
+            },
+            -- Set the order in which the language server should organize imports
+            -- "" is all others, "#" is static imports
+            importOrder = {
+              "com",
+              "lombok",
+              "org",
+              "jakarta",
+              "javax",
+              "java",
+              "",
+              "#",
+            },
+          },
+          sources = {
+            -- How many classes from a specific package should be imported before
+            -- automatic imports combine them all into a single import
+            organizeImports = {
+              starThreshold = 9999,
+              staticThreshold = 9999,
+            },
+          },
+          codeGeneration = {
+            -- When generating toString use a json format
+            toString = {
+              template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+            },
+            -- When generating hashCode and equals methods use the java 7 objects method
+            hashCodeEquals = {
+              useJava7Objects = true,
+            },
+            -- When generating code use code blocks
+            useBlocks = true,
+          },
+          -- JAVA_HOME should be set in the environment. Also check the name matches
+          -- the current Java version on the system
+          configuration = {
+            runtimes = {
+              {
+                name = "JavaSE-25",
+                path = os.getenv("JAVA_HOME"),
+              },
+            },
+            updateBuildConfiguration = "automatic",
+          },
+          referencesCodeLens = {
+            enabled = true,
+          },
+          inlayHints = {
+            parameterNames = {
+              enabled = "all",
+            },
+          },
+        },
+      }
+
+      local on_attach = function(_, bufnr)
+        vim.bo[bufnr].indentexpr = ""
+        vim.bo[bufnr].cindent = true
+        vim.bo[bufnr].expandtab = true
+        vim.bo[bufnr].shiftwidth = 4
+        vim.bo[bufnr].softtabstop = 4
+        vim.bo[bufnr].tabstop = 4
+
+        -- vim.lsp.codelens.enable(true, { bufnr = bufnr })
+
+        -- Keymaps
+        -- stylua: ignore start
+        map("n", "<leader>ji", "<Cmd>split | terminal ./mvnw clean install -U -X -DskipTests<CR>", "Java: Clean Install (no tests)")
+        map("n", "<leader>jt", "<Cmd>split | terminal ./mvnw clean install -U -X<CR>", "Java: Clean Install")
+        map("n", "<leader>jo", function() require("jdtls").organize_imports() end, "Java: Organize Imports")
+        map("n", "<leader>rr", "<Cmd>split | terminal ./mvnw spring-boot:run -Pdev<CR>", "Java: Run Dev Profile")
+        map("n", "<leader>jtc", function() require("jdtls").test_class() end, "Java: Test Class")
+        map("n", "<leader>jtm", function() require("jdtls").test_nearest_method() end, "Java: Test Nearest Method")
+        -- stylua: ignore end
+      end
+
+      return {
+        cmd = jdtls_cmd,
+        settings = settings,
+        on_attach = on_attach,
+        init_options = {
+          extendedClientCapabilities = extendedClientCapabilities,
+        },
+      }
+    end,
+    config = function(_, opts)
+      local function get_bundles()
+        local java_debug = vim.fn.expand("$MASON/share/java-debug-adapter")
+        local java_test = vim.fn.expand("$MASON/share/java-test")
+        local bundles = {
+          vim.fn.glob(java_debug .. "/com.microsoft.java.debug.plugin-*.jar", true),
+        }
+        vim.list_extend(
+          bundles,
+          vim.split(
+            vim.fn.glob(java_test .. "/*.jar", true),
+            "\n",
+            { trimempty = true }
+          )
+        )
+        return bundles
+      end
+
+      local function attach_jdtls()
+        local tbl_bundles = { bundles = get_bundles() }
+        local config = {
+          cmd = opts.cmd,
+          init_options = vim.tbl_extend("error", opts.init_options, tbl_bundles),
+          settings = opts.settings,
+          on_attach = opts.on_attach,
+          capabilities = require("blink.cmp").get_lsp_capabilities(),
+        }
+
+        require("jdtls").start_or_attach(config)
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "java" },
+        callback = attach_jdtls,
+      })
+    end,
   },
 }

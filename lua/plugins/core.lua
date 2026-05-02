@@ -189,7 +189,9 @@ return {
       vim.lsp.log.set_level(vim.lsp.log_levels.OFF)
 
       -- Apply server configurations
-      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup({
+        automatic_enable = { exclude = { "jdtls" } },
+      })
     end,
   },
   --- Mason package manager for non-nvim tools

@@ -66,6 +66,17 @@ function Plugins.dap_set_custom_marks()
   )
 end
 
+---Config Java dap adapter.
+function Plugins.dap_config_java(dap)
+  dap.configurations["java"] = {
+    type = "java",
+    request = "attach",
+    name = "Debug (Attach) - Remote",
+    hostName = "127.0.0.1",
+    port = 5005,
+  }
+end
+
 ---Config PHP dap adapter.
 function Plugins.dap_config_php(dap)
   if not dap.adapters["php"] then
