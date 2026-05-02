@@ -1,3 +1,5 @@
+local utils = require("utils").plugins
+
 return {
   --- The best colorscheme for nvim
   {
@@ -64,12 +66,12 @@ return {
         hide = { statusline = false },
         config = {
           vertical_center = true,
-          header = { "", [[Neovim :: E B R Λ Y]], [[🄯 2025]], "", "" },
+          header = { "", [[Neovim :: E B R Λ Y]], [[🄯 2026]], "", "" },
           -- stylua: ignore
           center = {
             { action = "ene | startinsert", desc = " New file", icon = " ", key = "e" },
-            { action = require("utils.plugins").mini_sessions_manager, desc = " Restore Session", icon = " ", key = "<leader>ss" },
-            { action = "Telescope find_files", desc = " Find file", icon = " ", key = "<leader>ff" },
+            { action = utils.mini_sessions_manager, desc = " Restore Session", icon = " ", key = "<leader>ss" },
+            { action = utils.oil_explore, desc = " Explore dir", icon = " ", key = "<leader>fe" },
             { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "<leader>fr" },
             { action = "lua require('osv').launch({ port = 8086 })", desc = " Debug session", icon = "󰖷 ", key = "<F10>" },
             { action = "Telescope find_files cwd=~/.config/nvim", desc = " Config files", icon = " ", key = "<leader>cc" },
@@ -207,7 +209,7 @@ return {
       lualine_require.require = require
 
       local custom_section_y = not Workstation and { "progress" }
-        or { "progress", require("utils").plugins.lualine_harpoon() }
+        or { "progress", utils.lualine_harpoon() }
 
       return {
         options = {

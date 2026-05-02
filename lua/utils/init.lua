@@ -29,9 +29,9 @@ function Utils.load_utils(opts)
 
   local load = loaders.load_config
   Utils.autocmd = load("utils.autocmd")
+  Utils.helpers = load("utils.helpers")
   Utils.config = load("utils.config")
   Utils.custom = load("utils.custom")
-  Utils.helpers = load("utils.helpers")
   Utils.plugins = load("utils.plugins")
   Utils.writing = load("utils.writing")
 

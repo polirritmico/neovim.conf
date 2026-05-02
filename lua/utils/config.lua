@@ -14,6 +14,27 @@ function Config.enable_bash_aliases()
   vim.env.BASH_ENV = NeovimPath .. "/patches/bash_aliases"
 end
 
+---Add an autocmd to disable Jedi LSP completion if Rope is available in venv.
+function Config.lsp_disable_jedi_completion_if_rope_is_enabled()
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client == nil or client.name ~= "pylsp" then
+        return
+      end
+
+      local h = require("utils.helpers")
+      local python = h.local_or_global("python", "/.venv/bin/")
+      vim.fn.system({ python, "-c", "import rope" })
+      local has_rope = vim.v.shell_error == 0
+
+      local pylsp_plugins = client.config.settings.pylsp["plugins"]
+      pylsp_plugins.rope_completion = { enabled = has_rope }
+      pylsp_plugins.jedi_completion = { enabled = not has_rope }
+    end,
+  })
+end
+
 ---Wrapper to center the screen after vim.lsp.buf.definition (async)
 ---execution: `gd` -> `gdzz`.
 ---@return function
@@ -28,7 +49,7 @@ function Config.lsp_centered_definition()
   end
 end
 
----Toggle LSP diagnostic (mainly hide virtual-text messages)
+---Toggle LSP diagnostic (mainly hide virtual-text messages).
 function Config.lsp_toggle_diagnostics()
   return function()
     local state = vim.diagnostic.is_enabled()
@@ -37,7 +58,7 @@ function Config.lsp_toggle_diagnostics()
   end
 end
 
----This function check if the current system time is between a time range
+---This function check if the current system time is between a time range.
 ---@param start_time integer Start time of the range in HHMM format (inclusive)
 ---@param end_time integer End time of the range in HHMM format (exclusive)
 ---@return boolean
@@ -109,7 +130,7 @@ function Config.win_resize(direction)
   end
 end
 
----Set <A-arrow> keys to scroll the current window view without moving cursor
+---Set <A-arrow> keys to scroll the current window view without moving cursor.
 function Config.set_scroll_view_keys()
   local modes = { "n", "v", "i" }
   -- stylua: ignore start

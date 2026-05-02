@@ -1,4 +1,6 @@
 -- vtsls
+---@type vim.lsp.ClientConfig
+---@diagnostic disable: missing-fields
 return {
   settings = {
     complete_function_calls = true,

@@ -32,13 +32,19 @@ return {
     { trig = "testskip", name = "Pytest skip", dscr = "Pytest skip test decorator" },
     fmt(
       [[
-        #@pytest.mark.skip(reason="{}")
+        @pytest.mark.skip(reason="{}")
         ]],
       {
         i(1, "Not implemented"),
       }
     )
   ),
+
+  s({
+    trig = "testasync",
+    name = "Pytest asyncio",
+    dscr = "Pytest async test decorator",
+  }, t("@pytest.mark.asyncio")),
 
   s(
     { trig = "def", name = "New function", dscr = "Snippet for a function definition." },

@@ -4,6 +4,37 @@ local Custom = {}
 
 local api = vim.api
 
+---Copy the module path into a register for imports
+---@param register string? Register where copy the current module path (defaults to 'm')
+function Custom.copy_module_path_in_register(register)
+  -- Check :h filename-modifiers
+  local regname = register or "m"
+  local current_mod_path = vim.fn.expand("%:r")
+  local char_wise_opt = "c"
+
+  vim.fn.setreg(regname, current_mod_path, char_wise_opt)
+  vim.notify(
+    "Module path into register: " .. regname .. " (" .. current_mod_path .. ")",
+    vim.log.levels.INFO
+  )
+end
+
+---Paste the module path into the current buffer at cursor position for imports
+---@param register string? Register where the path is stored (defaults to 'm')
+function Custom.paste_module_path_import(register)
+  local mod_path = vim.fn.getreg(register or "m")
+
+  if vim.bo.filetype == "python" then
+    mod_path = mod_path:gsub("/", ".")
+    mod_path = "from " .. mod_path .. " import "
+  end
+
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row, row, false, { mod_path })
+  vim.api.nvim_win_set_cursor(0, { row + 1, #mod_path })
+  vim.cmd("startinsert")
+end
+
 ---Open repository on a web browser.
 function Custom.open_repo_web()
   local cwd = vim.fn.getcwd()

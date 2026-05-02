@@ -93,4 +93,33 @@ return {
       }
     )
   ),
+  s(
+    {
+      trig = "layoutmarkdown",
+      name = "YAML front matter",
+      desc = "Insert YAML front matter block",
+    },
+    fmt(
+      [[
+        ---
+        title: "{}"
+        date: {}
+        author: "{}"
+        tags: {}
+        ---
+
+        {}]],
+      {
+        i(1, "Title"),
+        f(function() return os.date("!%Y-%m-%dT%H:%M:%SZ") end),
+        i(2, "Eduardo Bray"),
+        c(3, {
+          sn(1, fmt('["classes", "{}"]', { i(1, "tag") })),
+          sn(2, fmt('["{}"]', { i(1, "tag") })),
+        }),
+        i(0),
+      },
+      { dedent = true }
+    )
+  ),
 }

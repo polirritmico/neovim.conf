@@ -12,7 +12,6 @@ return {
   {
     {
       "mfussenegger/nvim-dap",
-      version = "*",
       -- stylua: ignore
       keys = {
         { "<F5>", function() require("dap").continue() end, desc = "DAP: Continue execution" },
@@ -146,21 +145,25 @@ return {
     },
     -- stylua: ignore
     keys = {
+      { "<leader>rta", function() require("neotest").run.run({ suite = true }) end, desc = "neotest: Run all test in the current project" },
       { "<leader>rtf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "neotest: Run all test in the current file" },
+      { "<leader>rtt", function() require("neotest").run.run() end, desc = "neotest: Run nearest test" },
       { "<leader>rtd", function() require("neotest").run.run({ strategy = "dap", suite = false }) end, desc = "neotest: Debug nearest test" },
       { "<leader>rtl", function() require("neotest").run.run_last() end, desc = "neotest: Re-run last test" },
       { "<leader>rtL", function() require("neotest").run.run_last({ strategy = "dap", suite = false }) end, desc = "neotest: Debug last test" },
-      { "<leader>rtt", function() require("neotest").run.run() end, desc = "neotest: Run nearest test" },
       { "<leader>rtS", function() require("neotest").run.stop() end, desc = "neotest: Stop the nearest test" },
       { "<leader>rto", function() require("neotest").output_panel.toggle() end, desc = "neotest: Toggle output panel" },
       { "<leader>rtO", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "neotest: Show test output" },
       { "<leader>rtp", function() require("neotest").summary.toggle() end, desc = "neotest: Toggle summary panel" },
       { "<leader>rtc", function() require("neotest").output_panel.clear() end, desc = "neotest: Clean the output panel" },
     },
+    ---@module "neotest.config"
+    ---@type neotest.Config
+    ---@diagnostic disable: missing-fields
     opts = {
       log_level = vim.log.levels.OFF, -- default: WARN
       output = { open_on_run = true },
-      summary = { open = "topleft vsplit | vertical resize 45" }, -- right: botright
+      summary = { open = "topleft vsplit | vertical resize 45" }, -- botright | topleft
       status = { virtual_text = true },
       busted = {
         busted_command = ".tests/data/nvim/lazy/busted/bin/busted",

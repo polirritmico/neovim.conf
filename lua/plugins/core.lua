@@ -49,7 +49,7 @@ return {
       signature = { enabled = true, window = { border = "rounded" } },
       snippets = { preset = "luasnip" },
       sources = {
-        default = { "buffer", "lsp", "snippets", "path", "lazydev" },
+        default = { "snippets", "buffer", "lsp", "path", "lazydev" },
         min_keyword_length = function(ctx)
           if ctx.trigger.kind == "trigger_character" then
             return 0
@@ -106,7 +106,7 @@ return {
         lua = { "stylua" },
         markdown = { "prettier_markdown", "markdown-toc" },
         php = { "php_cs_fixer" },
-        python = { "isort", "black" },
+        python = { "isort", "docformatter", "black" },
         sh = { "shfmt" },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
@@ -186,7 +186,7 @@ return {
       end
 
       -- Disable logs
-      vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
+      vim.lsp.log.set_level(vim.lsp.log_levels.OFF)
 
       -- Apply server configurations
       require("mason-lspconfig").setup()
@@ -382,6 +382,7 @@ return {
       { "<leader>fm", "<Cmd>Telescope marks<CR>", desc = "Telescope: Find buffer marks" },
       { "<leader>fT", "<Cmd>Telescope<CR>", desc = "Telescope: Find telescope builtins functions" },
       { "<leader>fs", "<Cmd>Telescope lsp_document_symbols<CR>", desc = "Telescope: Find symbols" },
+      { "<leader>fs", utils.plugins.telescope_lsp_search_symbols_fallback, desc = "Telescope: Find symbols" },
       { "<leader>fS", "<Cmd>Telescope lsp_workspace_symbols<CR>", desc = "Telescope: Find workspace symbols" },
       { "<leader>fw", "<Cmd>Telescope current_buffer_fuzzy_find<CR>",desc = "Telescope: Find word (like `/`)" },
       { "zf", utils.plugins.telescope_spell_suggest, desc = "Telescope: Find spell word suggestion" },
@@ -467,19 +468,15 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    main = "nvim-treesitter.configs",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    cmd = { "TSUpdate", "TSLog", "TSInstall", "TSUninstall" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
-    init = function(plugin)
-      -- PERF: (From LazyVim): Add TS queries to the rtp early for plugins
-      -- which don't trigger **nvim-treesitter** module to be loaded in time.
-      -- This make available the custom queries needed by those plugins.
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require("nvim-treesitter.query_predicates")
-    end,
     opts = {
       auto_install = true,
-      highlight = { enable = true },
+      highlight = {
+        enable = true,
+        disable = { "csv" },
+      },
       indent = {
         enable = true,
         disable = { "python" }, -- Awfull experience
@@ -504,5 +501,26 @@ return {
         "vimdoc",
       },
     },
+    config = function(_, opts)
+      local ts = require("nvim-treesitter")
+      ts.setup(opts)
+      utils.plugins.treesitter_ensure_installed(opts.ensure_installed, ts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = utils.autocmd.group_id,
+        desc = "Autoenable Tree-sitter functionality",
+        callback = function(ev)
+          local lang = vim.treesitter.language.get_lang(ev.match)
+          if lang == nil then
+            return
+          end
+          -- Highlight & Indent. (Folds are set in lua/config/settings.lua)
+          pcall(vim.treesitter.start, ev.buf)
+          if lang ~= "python" then
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
 }

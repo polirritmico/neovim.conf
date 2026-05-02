@@ -401,6 +401,58 @@ function Plugins.oil_confirmation_key(keys)
   })
 end
 
+--Oil.nvim: Open oil explorer with preview
+function Plugins.oil_explore()
+  require("oil").open(".", { preview = { split = "botright" } })
+end
+
+---Surround: Revert open brackets with space to close brackets
+---@param keys table current opts
+function Plugins.nvim_surround_revert_spaces(opts, surround)
+  opts.surrounds = {
+    ["("] = {
+      add = { "(", ")" },
+      find = function() return surround.get_selection({ motion = "a)" }) end,
+      delete = "^(.)().-(.)()$",
+    },
+    [")"] = {
+      add = { "( ", " )" },
+      find = function() return surround.get_selection({ motion = "a(" }) end,
+      delete = "^(. ?)().-( ?.)()$",
+    },
+    ["{"] = {
+      add = { "{", "}" },
+      find = function() return surround.get_selection({ motion = "a}" }) end,
+      delete = "^(.)().-(.)()$",
+    },
+    ["}"] = {
+      add = { "{ ", " }" },
+      find = function() return surround.get_selection({ motion = "a{" }) end,
+      delete = "^(. ?)().-( ?.)()$",
+    },
+    ["<"] = {
+      add = { "<", ">" },
+      find = function() return surround.get_selection({ motion = "a>" }) end,
+      delete = "^(.)().-(.)()$",
+    },
+    [">"] = {
+      add = { "< ", " >" },
+      find = function() return surround.get_selection({ motion = "a<" }) end,
+      delete = "^(. ?)().-( ?.)()$",
+    },
+    ["["] = {
+      add = { "[", "]" },
+      find = function() return surround.get_selection({ motion = "a[" }) end,
+      delete = "^(.)().-(.)()$",
+    },
+    ["]"] = {
+      add = { "[ ", " ]" },
+      find = function() return surround.get_selection({ motion = "a]" }) end,
+      delete = "^(. ?)().-( ?.)()$",
+    },
+  }
+end
+
 ---Telescope action helper to pass the current matches into another telescope
 ---instance. `live_grep` by default. If is a `live_grep`, then pass the matches
 ---into a `find_files` picker.
@@ -450,10 +502,33 @@ function Plugins.telescope_open_single_or_multi(bufnr)
   end
 end
 
+---LSP document symbols via Telescope; falls back to Treesitter on failure.
+function Plugins.telescope_lsp_search_symbols_fallback()
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    if client.name == "pylsp" then
+      return require("telescope.builtin").treesitter()
+    end
+  end
+  require("telescope.builtin").lsp_document_symbols()
+end
+
 ---Simple Telescope picker to select spell suggestions.
 function Plugins.telescope_spell_suggest()
   local theme = require("telescope.themes").get_dropdown
   require("telescope.builtin").spell_suggest(theme())
+end
+
+---Treesitter ensure installed languages syntaxes
+---@param languages string[] A list of languages to install
+---@param ts ... An instantiated nvim-treesiter object
+function Plugins.treesitter_ensure_installed(languages, ts)
+  local installed = require("nvim-treesitter.config").get_installed()
+  ts.install(
+    vim
+      .iter(languages)
+      :filter(function(lang) return not vim.tbl_contains(installed, lang) end)
+      :totable()
+  )
 end
 
 return Plugins

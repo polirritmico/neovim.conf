@@ -27,6 +27,7 @@ return {
       keymaps = {
         ["_"] = "actions.select",
         ["<leader>cd"] = "actions.cd",
+        ["<C-p>"] = { "actions.preview", opts = { split = "botright" } },
       },
       skip_confirm_for_simple_edits = true,
       view_options = {
@@ -47,22 +48,30 @@ return {
     "kylechui/nvim-surround",
     version = "*", -- latest stable
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    init = function() vim.g.nvim_surround_no_mappings = 1 end,
     -- stylua: ignore
     keys = {
       { "<leader>mb", function() vim.cmd("normal siw*l.") end, mode = "n", ft = "markdown", desc = "Markdown: Bold text." },
       { "<leader>mi", function() vim.cmd("normal siw_") end, mode = "n", ft = "markdown", desc = "Markdown: Italic text." },
       { "<leader>mc", function() vim.cmd("normal siw`") end, mode = "n", ft = "markdown", desc = "Markdown: Code text." },
+      { "s", "<Plug>(nvim-surround-normal)", desc = "Add a surrounding pair around a motion (normal mode)" },
+      { "ss", "<Plug>(nvim-surround-normal-cur)", desc = "Add a surrounding pair around the current line (normal mode)" },
+      { "sS", "<Plug>(nvim-surround-normal-line)", desc = "Add a surrounding pair around a motion, on new lines (normal mode)" },
+      { "sSS", "<Plug>(nvim-surround-normal-cur-line)", desc = "Add a surrounding pair around the current line, on new lines (normal mode)" },
+      { "s", "<Plug>(nvim-surround-visual)", mode = "x", desc = "Add a surrounding pair around a visual selection" },
+      { "S", "<Plug>(nvim-surround-visual-line)", mode = "x", desc = "Add a surrounding pair around a visual selection, on new lines" },
+      { "ds", "<Plug>(nvim-surround-delete)", desc = "Delete a surrounding pair" },
+      { "cs", "<Plug>(nvim-surround-change)", desc = "Change a surrounding pair" },
+      { "cS", "<Plug>(nvim-surround-change-line)", desc = "Change a surrounding pair, putting replacements on new lines" },
+      { "<C-g>s", "<Plug>(nvim-surround-insert)", mode = "i", desc = "Add a surrounding pair around the cursor (insert mode)" },
+      { "<C-g>S", "<Plug>(nvim-surround-insert-line)", mode = "i", desc = "Add a surrounding pair around the cursor, on new lines (insert mode)" },
     },
-    opts = {
-      keymaps = {
-        -- Change the mappings, there is no reason to keep `s`
-        normal = "s",
-        normal_cur = "ss",
-        normal_cur_line = "sS",
-        visual = "s",
-        visual_line = "S",
-      },
-    },
+    config = function(_, opts)
+      local surround = require("nvim-surround")
+      local surround_cfg = require("nvim-surround.config")
+      require("utils").plugins.nvim_surround_revert_spaces(opts, surround_cfg)
+      surround.setup(opts)
+    end,
   },
   --- Session manager
   {

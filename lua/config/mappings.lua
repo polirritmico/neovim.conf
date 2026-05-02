@@ -13,7 +13,7 @@ vim.g.mapleader = " "
 -- Intercambiar {}[] ñ: Ñ;
 vim.opt.langmap = "{[,}],[{,]},ñ:,Ñ\\;"
 
--- Fix `i{`/`i[` operations inverted by the above langmap
+-- Fix `i{`/`i[` like operations inverted by the above langmap
 for _, cmd in pairs({ "c", "d", "v", "y" }) do
   map("n", cmd .. "i{", cmd .. "i[")
   map("n", cmd .. "i[", cmd .. "i{")
@@ -26,9 +26,6 @@ map({ "n", "v" }, "<bar>", "`", "`^` goto mark", true)
 
 -- Fix <S-6> de `&` a `^`
 map({ "n", "v" }, "&", "^")
-
--- Registros a +
-map({ "n", "v" }, "+", '"')
 
 -- Agregar signo de diálogo
 map({ "i", "c" }, "ſ", "—") -- <A-w>
@@ -62,12 +59,6 @@ u.config.set_win_resize_keys()
 -- Scroll view with <alt> arrow keys
 u.config.set_scroll_view_keys()
 
--- Tabs
-map("n", "<C-t>s", "<Cmd>tabnew<CR>")
-map("n", "<C-t>c", "<Cmd>tabclose<CR>")
-map("n", "<C-t>l", "<Cmd>tabnext<CR>")
-map("n", "<C-t>h", "<Cmd>tabprevious<CR>")
-
 -------------------------------------------------------------------------------
 --- Adjust defaults behaviour
 
@@ -83,19 +74,21 @@ map("n", "<C-g>", "1<C-g>")
 map("v", "<", "<gv", "outer indent")
 map("v", ">", ">gv", "inner indent")
 
---- Registers and clipboard
+--- Registers and system clipboard
+map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
+map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
+map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
+
 -- Flip paste mappings in visual-mode to avoid buffer replacement
 map("v", "p", "P", "Paste without changing the `0` register")
 map("v", "P", "p", "Paste replacing the `0` register")
 map("v", "<M-p>", "P", "Paste without changing the `0` register")
 
+-- Paste on new line
+map({"n", "v"}, "<A-p>", "<Cmd>pu<CR>")
+
 -- Select pasted text
 map({ "n", "v" }, "gp", "`[v`]", "Select pasted text")
-
--- Registers and system clipboard
-map({ "n", "v" }, "<leader>y", '"+y', "Copy to system clipboard")
-map({ "n", "v" }, "<leader>p", '<ESC>o<ESC>"+p', 'Paste from the `"` register to new line below')
-map({ "n", "v" }, "<leader>P", '<ESC>o<ESC>"+P', 'Paste from the `"` register to new line above')
 
 -- Open current fold and its inner folds by default
 map("", "zo", "zczO")
@@ -132,6 +125,10 @@ map("n", "<leader>cd", u.helpers.buffer_path_to_cwd, "Set buffer path to cwd")
 -- Open Dolphin at buffer path
 map("n", "<leader>CD", u.helpers.open_at_buffpath, "Open desktop file browser at buffer path")
 
+-- Copy the current module into the m register
+map("n", "<leader>gmc", u.custom.copy_module_path_in_register, "Copy module path into the register")
+map("n", "<leader>gmp", u.custom.paste_module_path_import, "Paste module import into the buffer")
+
 -- Open repository on the browser
 map("n", "<leader>ggx", u.custom.open_repo_web, "Open the repository on the browser")
 
@@ -156,6 +153,7 @@ map({ "n", "v" }, "<leader>SS", "<Cmd>Spellend<CR>", "Spell: Disable checks")
 
 -- Shortcuts to configuration files (some of this maps are overwritten by Telescope)
 map("n", "<leader>ci", "<Cmd>e " .. NeovimPath .. "/init.lua<CR>", "Config: Open `init.lua` (configuration entry point).")
+map("n", "<leader>cL", "<Cmd>e " .. NeovimPath .. "/after/lsp<CR>", "Config: Open `lsp` configurations).")
 map("n", "<leader>cm", "<Cmd>e " .. MyConfigPath .. "mappings.lua<CR>", "Config: Open the keys mappings settings")
 map("n", "<leader>cg", "<Cmd>e " .. MyConfigPath .. "settings.lua<CR>", "Config: Open the general Neovim settings")
 map("n", "<leader>cf", "<Cmd>e " .. NeovimPath .. "/after/ftplugin<CR>", "Config: Open filetypes settings")

@@ -82,6 +82,7 @@ function Writing.next_link()
 
   local ts_parser = vim.treesitter.get_parser(bufnr, lang)
   local query = assert(vim.treesitter.query.get(lang, "highlights"))
+  assert(ts_parser, "Missing treesitter buffer parser")
   local root = ts_parser:parse()[1]:root()
 
   local left_node

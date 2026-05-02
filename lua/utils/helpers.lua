@@ -26,6 +26,17 @@ function Helpers.chmod_exe(valid_filetypes)
   )
 end
 
+---Helper function to check if a file exists and return its path or a global.
+---@param file string Filename or cmd to check in the passed path
+---@param path string? Relative path, **must begin and end with "/"**.
+---@param cwd boolean? Prepend the current working dir to the path (default true).
+---@return string -- The path/file if file found or the file
+function Helpers.local_or_global(file, path, cwd)
+  local localpath = (cwd == false and "" or vim.fn.getcwd()) .. (path or "/") .. file
+  local file_status = vim.uv.fs_stat(localpath)
+  return (file_status and file_status.type == "file") and localpath or file
+end
+
 ---Open the application at the path of the current buffer. (Defaults to KDE Dolphin)
 ---@param app string
 function Helpers.open_at_buffpath(app)
