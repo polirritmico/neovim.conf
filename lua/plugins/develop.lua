@@ -241,7 +241,7 @@ return {
   --- Java
   {
     "mfussenegger/nvim-jdtls",
-    dependencies = { "blink.cmp" },
+    dependencies = { "blink.cmp", "mason.nvim" },
     ft = { "java" },
     opts = function()
       local map = require("utils").config.set_ft_keymap
@@ -376,7 +376,8 @@ return {
 
       local on_attach = function(_, bufnr)
         vim.bo[bufnr].indentexpr = ""
-        vim.bo[bufnr].cindent = true
+        vim.bo[bufnr].cindent = false
+        vim.bo[bufnr].smartindent = true
         vim.bo[bufnr].expandtab = true
         vim.bo[bufnr].shiftwidth = 4
         vim.bo[bufnr].softtabstop = 4
@@ -386,12 +387,14 @@ return {
 
         -- Keymaps
         -- stylua: ignore start
-        map("n", "<leader>ji", "<Cmd>split | terminal ./mvnw clean install -U -X -DskipTests<CR>", "Java: Clean Install (no tests)")
-        map("n", "<leader>jt", "<Cmd>split | terminal ./mvnw clean install -U -X<CR>", "Java: Clean Install")
+        map("n", "<leader>ji", "<Cmd>terminal ./mvnw clean install -U -X -DskipTests<CR>", "Java: Clean Install (no tests)")
+        map("n", "<leader>jt", "<Cmd>terminal ./mvnw clean install -U -X<CR>", "Java: Clean Install")
         map("n", "<leader>jo", function() require("jdtls").organize_imports() end, "Java: Organize Imports")
-        map("n", "<leader>rr", "<Cmd>split | terminal ./mvnw spring-boot:run -Pdev<CR>", "Java: Run Dev Profile")
+        map("n", "<leader>rr", "<Cmd>terminal ./mvnw spring-boot:run<CR>", "Java: Run Dev Profile")
         map("n", "<leader>jtc", function() require("jdtls").test_class() end, "Java: Test Class")
         map("n", "<leader>jtm", function() require("jdtls").test_nearest_method() end, "Java: Test Nearest Method")
+        map("n", "<F1>", vim.diagnostic.open_float, "Java: Open float diagnostic info")
+        map("n", "<F2>", vim.lsp.buf.rename, "Java: Rename object")
         -- stylua: ignore end
       end
 
@@ -422,6 +425,33 @@ return {
         return bundles
       end
 
+      local ignored = {}
+      local ignore_msg = {
+        ["Validate documents"] = true,
+        ["Publish Diagnostics"] = true,
+      }
+
+      local lsp_message_handler = function(err, result, ctx, config)
+        local token = result.token
+        local v = result.value
+
+        if type(v) == "table" and token then
+          if v.kind == "begin" and ignore_msg[v.title] then
+            ignored[token] = true
+            return
+          end
+
+          if ignored[token] then
+            if v.kind == "end" then
+              ignored[token] = nil
+            end
+            return
+          end
+        end
+
+        return vim.lsp.handlers["$/progress"](err, result, ctx, config)
+      end
+
       local function attach_jdtls()
         local tbl_bundles = { bundles = get_bundles() }
         local config = {
@@ -430,6 +460,7 @@ return {
           settings = opts.settings,
           on_attach = opts.on_attach,
           capabilities = require("blink.cmp").get_lsp_capabilities(),
+          handlers = { ["$/progress"] = lsp_message_handler },
         }
 
         require("jdtls").start_or_attach(config)

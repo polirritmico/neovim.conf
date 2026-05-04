@@ -16,8 +16,8 @@ return {
     cmd = { "Oil" },
     -- stylua: ignore
     keys = {
-      { "<leader>fe", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
-      { "<leader>fE", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
+      { "<leader>fe", "<Cmd>Oil %:p:h<CR>", desc = "Oil: File explorer mode from buffer path." },
+      { "<leader>fE", "<Cmd>Oil .<CR>", desc = "Oil: File explorer from nvim path" },
     },
     ---@module "oil"
     ---@oil.config
