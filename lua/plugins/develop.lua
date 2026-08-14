@@ -204,6 +204,30 @@ return {
       { "<leader>LP", utils.plugins.livepreview_toggle, ft = "html", desc = "LivePreview: Toggle." },
     },
   },
+  --- PlantUML diagrams preview
+  {
+    "https://gitlab.com/itaranto/preview.nvim",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      { "aklt/plantuml-syntax", lazy = false },
+    },
+    opts = {
+      render_on_write = true,
+      previewers = {
+        plantuml_png = { command = "plantuml", args = { "-pipe", "-tpng" } },
+        plantuml_svg = { command = "plantuml", args = { "-pipe", "-tsvg" } },
+      },
+      previewers_by_ft = {
+        plantuml = {
+          -- name = "plantuml_png",
+          -- renderer = { type = "command", opts = { cmd = { "qimgv" }, ext = "png" } },
+          name = "plantuml_svg",
+          renderer = { type = "command", opts = { cmd = { "qimgv" }, ext = "svg" } },
+        },
+      },
+    },
+  },
   --- Neovim Development
   --- Lsp helpers like types for lua and neovim plugin development
   {
@@ -237,6 +261,11 @@ return {
   {
     "tpope/vim-sleuth",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  },
+  --- Improve Ansible support
+  {
+    "mfussenegger/nvim-ansible",
+    ft = { "yaml" },
   },
   --- Java
   {
@@ -279,13 +308,6 @@ return {
 
       local settings = {
         java = {
-          -- format = {
-          --   enabled = true,
-          --   -- source = "absolute/path/to/formatter.xml"
-          --   settings = {
-          --     url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
-          --   },
-          -- },
           eclipse = {
             downloadSource = true,
           },
@@ -372,12 +394,12 @@ return {
             },
           },
         },
+        ["org.eclipse.jdt.core.compiler.problem.task"] = "ignore",
       }
 
       local on_attach = function(_, bufnr)
         vim.bo[bufnr].indentexpr = ""
-        vim.bo[bufnr].cindent = false
-        vim.bo[bufnr].smartindent = true
+        vim.bo[bufnr].cindent = true
         vim.bo[bufnr].expandtab = true
         vim.bo[bufnr].shiftwidth = 4
         vim.bo[bufnr].softtabstop = 4
@@ -465,6 +487,13 @@ return {
 
         require("jdtls").start_or_attach(config)
       end
+
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = "*.java",
+        callback = function()
+          vim.defer_fn(function() vim.cmd("checktime") end, 1500)
+        end,
+      })
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "java" },

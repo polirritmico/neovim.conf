@@ -7,7 +7,7 @@ vim.loader.enable()
 Workstation = vim.fn.hostname() == "hal-9002"
 
 ---Path of the neovim config folder (`~/.config/nvim`).
-NeovimPath = vim.fn.stdpath("config") --[[@as string]]
+NeovimPath = vim.fn.stdpath("config")
 
 ---Path of the lua config (`nvim/lua/config/`).
 MyConfigPath = NeovimPath .. "/lua/config/"

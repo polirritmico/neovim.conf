@@ -225,24 +225,25 @@ return {
       }
     end,
   },
-  --- Noice. A lot of ui messages
+  --- Notifications
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = { "MunifTanjim/nui.nvim" },
+    "nvim-mini/mini.notify",
+    version = "*",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
-      cmdline = { enabled = false },
-      messages = { enabled = false },
-      popupmenu = { enabled = false },
-      notify = { enabled = false },
-      lsp = { hover = { enabled = false, silent = false } },
-      presets = { lsp_doc_border = false }, -- signature and hover docs border
-      views = { mini = { position = { row = -2 } } }, -- diagnostic workspace msgs
+      lsp_progress = {
+        duration_last = 2000,
+      },
+      window = {
+        config = function()
+          local has_statusline = vim.o.laststatus > 0
+          local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
+          return { anchor = "SE", col = vim.o.columns, row = vim.o.lines - pad }
+        end,
+        max_width_share = 0.6,
+        winblend = 0,
+      },
     },
-    config = function(_, opts)
-      require("noice.util.call").log = function() end -- disable logs?
-      require("noice").setup(opts)
-    end,
   },
   --- Shows code context on the top (func, classes, etc.)
   {

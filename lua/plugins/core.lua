@@ -102,6 +102,7 @@ return {
         css = { "prettier" },
         html = { "prettier" },
         htmldjango = { "djlint" },
+        javascript = { "prettier" },
         json = { "prettier" },
         lua = { "stylua" },
         markdown = { "prettier_markdown", "markdown-toc" },
@@ -110,6 +111,7 @@ return {
         sh = { "shfmt" },
         typescript = { "prettierd", "prettier", stop_after_first = true },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+        vue = { "prettier" },
         yaml = { "prettier" },
       },
       format_on_save = function(bufnr)
@@ -470,7 +472,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     cmd = { "TSUpdate", "TSLog", "TSInstall", "TSUninstall" },
     event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
     opts = {

@@ -135,6 +135,7 @@ return {
         "diff",
         "gitcommit",
         "html",
+        "java",
         "json",
         "lua",
         "luadoc",
